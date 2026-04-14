@@ -27,8 +27,8 @@ Integrar, em um único projeto prático, os principais conteúdos do semestre:
 |Nome|Função|GitHub|
 |---|---|---|
 |Douglas Silva|Desenvolvedor||
-|Gabriel Gomes|Desenvolvedor|[gabrielgomesfernandes] (https://github.com/gabrielgomesfernandes)|
-|Henrique Martins|Desenvolvedor|[Henri-Bueno] (https://github.com/Henri-Bueno)|
+|Gabriel Gomes|Desenvolvedor|[gabrielgomesfernandes](https://github.com/gabrielgomesfernandes)|
+|Henrique Martins|Desenvolvedor|[Henri-Bueno](https://github.com/Henri-Bueno)|
 |Jaqueline Medeiros|Desenvolvedor||
-|Paulo Olivetti|Desenvolvedor|[pauloolivetti] (https://github.com/pauloolivetti)|
-|Vítor Otavio|Desenvolvedor|[VirtusXD] (https://github.com/VirtusXD)|
+|Paulo Olivetti|Desenvolvedor|[pauloolivetti](https://github.com/pauloolivetti)|
+|Vítor Otavio|Desenvolvedor|[VirtusXD](https://github.com/VirtusXD)|
