@@ -36,6 +36,7 @@ Integrar, em um único projeto prático, os principais conteúdos do semestre:
 ##🔄 Divisão da Primeira Sprint
 
 |Atividade|Responsável|Tarefa iniciada|Tarefa concluída|Pontos|
+|---|---|---|---|---|
 |Construir a primeira parte do servidor - videoaula do Arley|Todos|||8|
 |Diagrama de Caso de uso|Henrique|||3|
 |Desenho do layout do site|Douglas e Jaqueline|||5|
