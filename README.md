@@ -33,7 +33,7 @@ Integrar, em um único projeto prático, os principais conteúdos do semestre:
 |Paulo Olivetti|Desenvolvedor|[pauloolivetti](https://github.com/pauloolivetti)|
 |Vítor Otavio|Desenvolvedor|[VirtusXD](https://github.com/VirtusXD)|
 
-##🔄 Divisão da Primeira Sprint
+## 🔄 Divisão da Primeira Sprint
 
 |Atividade|Responsável|Tarefa iniciada|Tarefa concluída|Pontos|
 |---|---|---|---|---|
