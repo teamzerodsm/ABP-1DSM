@@ -32,3 +32,17 @@ Integrar, em um único projeto prático, os principais conteúdos do semestre:
 |Jaqueline Medeiros|Desenvolvedor||
 |Paulo Olivetti|Desenvolvedor|[pauloolivetti](https://github.com/pauloolivetti)|
 |Vítor Otavio|Desenvolvedor|[VirtusXD](https://github.com/VirtusXD)|
+
+##🔄 Divisão da Primeira Sprint
+
+|Atividade|Responsável|Tarefa iniciada|Tarefa concluída|Pontos|
+|Construir a primeira parte do servidor - videoaula do Arley|Todos|||8|
+|Diagrama de Caso de uso|Henrique|||3|
+|Desenho do layout do site|Douglas e Jaqueline|||5|
+|Desenho do layout das telas|Thiago e Jaqueline|||3|
+|Definição da identidade visual do site|Vitor e Paulo|||5|
+|Definição da fonte|Vitor e Paulo|||3|
+|Definição da paleta de cores|Vitor e Paulo|||3|
+|Descrever a sequencia das funções|Thiago e Jaqueline|||3|
+|Estruturação e alimentação do GitHub|Gabriel|||1|
+|Definição da modelagem do BD|Gabriel|||3|
