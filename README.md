@@ -35,6 +35,37 @@ Integrar, em um único projeto prático, os principais conteúdos do semestre:
 |Tiago Ferreira|Desenvolvedor|[tiagof6](https://github.com/tiagof6)|
 |Vítor Otavio|Desenvolvedor|[VirtusXD](https://github.com/VirtusXD)|
 
+## 🛠️ Ferramentas utilizadas
+
+<a href="https://www.w3.org/html/" target="_blank" rel="noreferrer">
+<img height="30" width="40" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg" />
+<a/> <br>
+<a href="https://www.w3schools.com/css/" target="_blank" rel="noreferrer">
+<img height="30" width="40" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg" />
+<a/> <br>
+<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank" rel="noreferrer">
+<img height="30" width="40" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg" />
+<a/> <br>
+<a href="https://nodejs.org/pt" target="_blank" rel="noreferrer">
+<img height="30" width="40" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original.svg" />
+<a/> <br>
+<a href="https://www.figma.com/pt-br/" target="_blank" rel="noreferrer">
+<img height="30" width="40" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/figma/figma-original.svg" />
+<a/> <br>
+<a href="https://www.postgresql.org/" target="_blank" rel="noreferrer">
+<img height="30" width="40" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg" />
+<a/> <br>
+<a href="https://git-scm.com/" target="_blank" rel="noreferrer">
+<img height="30" width="40" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg" />
+<a/> <br>
+<a href="https://github.com/" target="_blank" rel="noreferrer">
+<img height="30" width="40" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg" />
+<a/> <br>
+
+---
+
+## 📝 Product Backlog
+
 ## 🔄 Divisão da Primeira Sprint
 
 |Atividade|Responsável|Tarefa iniciada|Tarefa concluída|Pontos|
