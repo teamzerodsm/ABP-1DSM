@@ -19,13 +19,13 @@ Integrar, em um único projeto prático, os principais conteúdos do semestre:
 * Documentação do projeto com **UML**
 * Organização e execução de projeto em equipe
 
-# Sprints
+## Sprints
 
 |Sprint|Link|Início|Entrega|Status|
 |---|---|---|---|---|
-|01| <a href="#sprint1">Sprint 1</a>|09/04/2026||🔄|
-|02| <a href="#sprint2">Sprint 2</a>|||❌|
-|03| <a href="#sprint3">Sprint 3</a>|||❌|
+|01| <a href="#sprint1">Sprint 1</a>|13/04/2026|30/04/2026|🔄|
+|02| <a href="#sprint2">Sprint 2</a>|04/06/2026|21/05/2026|❌|
+|03| <a href="#sprint3">Sprint 3</a>|25/05/2026|11/06/2026|❌|
 
 ---
 
@@ -33,9 +33,9 @@ Integrar, em um único projeto prático, os principais conteúdos do semestre:
 
 |Nome|Função|GitHub|
 |---|---|---|
-|Douglas Silva|Desenvolvedor|[Moraisdouglas](https://github.com/moraisdouglas)|
+|Douglas Silva|Scrum Master|[Moraisdouglas](https://github.com/moraisdouglas)|
+|Henrique Martins|Product Owner|[Henri-Bueno](https://github.com/Henri-Bueno)|
 |Gabriel Gomes|Desenvolvedor|[gabrielgomesfernandes](https://github.com/gabrielgomesfernandes)|
-|Henrique Martins|Desenvolvedor|[Henri-Bueno](https://github.com/Henri-Bueno)|
 |Jaqueline Medeiros|Desenvolvedor|[Jaqueline Medeiros](https://github.com/alves-medeiros)|
 |Paulo Olivetti|Desenvolvedor|[pauloolivetti](https://github.com/pauloolivetti)|
 |Tiago Ferreira|Desenvolvedor|[tiagof6](https://github.com/tiagof6)|
@@ -105,17 +105,25 @@ Integrar, em um único projeto prático, os principais conteúdos do semestre:
 
 # <div id="sprint1">Sprint 1</div>
 
-## 🔄 Divisão da Primeira Sprint
+## 🔄 SprintBacklog 1
 
 |Atividade|Responsável|Tarefa iniciada|Tarefa concluída|Pontos|
 |---|---|---|---|---|
 |Construir a primeira parte do servidor - videoaula do Arley|Todos|✅||8|
 |Diagrama de Caso de uso|Henrique|✅||3|
 |Desenho do layout do site|Douglas e Jaqueline|||5|
-|Desenho do layout das telas|Thiago e Jaqueline|||3|
+|Desenho do layout das telas|Tiago e Jaqueline|||3|
 |Definição da identidade visual do site|Vitor e Paulo|✅||5|
 |Definição da fonte|Vitor e Paulo|✅||3|
 |Definição da paleta de cores|Vitor e Paulo|||3|
-|Descrever a sequencia das funções|Thiago e Jaqueline|||3|
+|Descrever a sequencia das funções|Tiago e Jaqueline|||3|
 |Estruturação e alimentação do GitHub|Gabriel|✅||1|
 |Definição da modelagem do BD|Gabriel|||3|
+
+# <div id="sprint2">Sprint 2</div>
+
+**Sprint não iniciada**
+
+# <div id="sprint3">Sprint 3</div>
+
+**Sprint não iniciada**
