@@ -66,6 +66,37 @@ Integrar, em um único projeto prático, os principais conteúdos do semestre:
 
 ## 📝 Product Backlog
 
+|Requisitos Funcionais|Requisitos|Sprint|
+|---|---|---|
+|RF-01|Criação do protótipo completo do sistema (login, avaliação, progresso e resultado).|#01|
+|RF-02|Criação de um modelo visual do sistema (UI), aplicando o protótipo desenvolvido.|#01 <br> #02|
+|RF-03|Implementação do sistema de autenticação de usuários (cadastro e login com CPF e senha).|#01|
+|RF-04|Integração do front-end com o back-end para comunicação com o banco de dados (usuários e questões).|#01 <br> #02|
+|RF-05|Implementação do sistema de avaliação por níveis, permitindo ao usuário responder questões e enviar respostas.|#01 <br> #02|
+|RF-06|Implementação da seleção de questões por nível, respeitando a distribuição de dificuldade e aleatoriedade.|#02|
+|RF-07|Implementação do controle de tentativas por nível, incluindo limite de tentativas e registro de histórico.|#02|
+|RF-08|Implementação do sistema de cálculo de notas, considerando a melhor tentativa por nível.|#02|
+|RF-09|Criação de um sistema de progressão visual ao usuário entre níveis com base no desempenho.|#02|
+|RF-10|Implementação da visualização de progresso do usuário (níveis concluídos, notas e tentativas).|#02|
+|RF-11|Implementação do cálculo da média final do usuário ao término dos níveis.|#03|
+|RF-12|Implementação da geração e disponibilização do certificado de conclusão com dados do usuário.|#03|
+|RF-13|Implementação de feedback visual ao usuário ao final das avaliações e durante o progresso.|#03|
+
+<br>
+
+|Requisitos Não Funcionais|Requisitos|Sprint|
+|---|---|---|
+|RNF-01|Utilização de HTML5, CSS3 e JavaScript para desenvolvimento da interface e integração com o sistema.|#01 <br> #02 <br> #03|
+|RNF-02|O sistema deve ser responsivo e adaptável a diferentes dispositivos.|#02 <br> #03|
+|RNF-03|O sistema deve garantir desempenho adequado nas operações de carregamento e envio de dados.|#02 <br> #03|
+|RNF-04|O sistema deve garantir a segurança dos dados dos usuários (armazenamento seguro de credenciais).|#02|
+|RNF-05|O sistema deve validar as regras de negócio no back-end, evitando manipulação indevida no front-end.|#02|
+|RNF-06|O sistema deve garantir integridade e consistência dos dados de tentativas e resultados.|#02|
+|RNF-07|O sistema deve apresentar interface simples, clara e de fácil navegação.|#01 <br> #02 <br> #03|
+|RNF-08|O sistema deve possuir documentação básica para execução e entendimento do projeto.|#03|
+
+---
+
 ## 🔄 Divisão da Primeira Sprint
 
 |Atividade|Responsável|Tarefa iniciada|Tarefa concluída|Pontos|
