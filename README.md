@@ -1,15 +1,13 @@
 # ABP-1DSM
 This repository has been created for publish our first project (Scrum learning website).
   
-<h1 align="center">📘 Portal de Certificação Ágil – ABP</h1>
+<h1 align="center">📘 Portal de Certificação em Métodologia Ágil – ABP</h1>
 
 ## 📌 Descrição do Projeto
 
 Este projeto consiste no desenvolvimento de um **portal web para certificação interna em metodologias ágeis**, com foco em **Scrum**, como parte da Atividade Baseada em Projeto (ABP).
 
 A aplicação permite que usuários se cadastrem, realizem avaliações organizadas por níveis de dificuldade e acompanhem sua evolução, culminando na emissão de um certificado com base no desempenho.
-
----
 
 ## 🎯 Objetivo Educacional
 
@@ -20,6 +18,14 @@ Integrar, em um único projeto prático, os principais conteúdos do semestre:
 * Aplicação de **metodologias ágeis (Scrum)**
 * Documentação do projeto com **UML**
 * Organização e execução de projeto em equipe
+
+# Sprints
+
+|Sprint|Link|Início|Entrega|Status|
+|---|---|---|---|---|
+|01| <a href="#sprint1">Sprint 1</a>|09/04/2026||🔄|
+|02| <a href="#sprint2">Sprint 2</a>|||❌|
+|03| <a href="#sprint3">Sprint 3</a>|||❌|
 
 ---
 
@@ -96,6 +102,8 @@ Integrar, em um único projeto prático, os principais conteúdos do semestre:
 |RNF-08|O sistema deve possuir documentação básica para execução e entendimento do projeto.|#03|
 
 ---
+
+# <div id="sprint1">Sprint 1</div>
 
 ## 🔄 Divisão da Primeira Sprint
 
