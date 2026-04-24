@@ -1,15 +1,20 @@
 # ABP-1DSM
-This repository has been created for publish our first project (Scrum learning website).
+
+## O Projeto
+
+### 📝 Sobre o projeto
+
+<h4>Este projeto proposto pela FATEC Jacareí tem como objetivo o desenvolvimento de uma aplicação web utilizando metodologias ágeis pelos alunos do primeiro semestre do curso de Desenvolvimento de Software Multipltaforma(1DSM). <br> A aplicação se trata de um curso online sobre a metodologia SCRUM, uma metodologia focada em trabalho de equipe ágil.</h4>
   
 <h1 align="center">📘 Portal de Certificação em Métodologia Ágil – ABP</h1>
 
-## 📌 Descrição do Projeto
+### 📌 Descrição do Projeto
 
 Este projeto consiste no desenvolvimento de um **portal web para certificação interna em metodologias ágeis**, com foco em **Scrum**, como parte da Atividade Baseada em Projeto (ABP).
 
 A aplicação permite que usuários se cadastrem, realizem avaliações organizadas por níveis de dificuldade e acompanhem sua evolução, culminando na emissão de um certificado com base no desempenho.
 
-## 🎯 Objetivo Educacional
+### 🎯 Objetivo Educacional
 
 Integrar, em um único projeto prático, os principais conteúdos do semestre:
 
@@ -19,7 +24,7 @@ Integrar, em um único projeto prático, os principais conteúdos do semestre:
 * Documentação do projeto com **UML**
 * Organização e execução de projeto em equipe
 
-## Sprints
+### 🔄 Sprints
 
 |Sprint|Link|Início|Entrega|Status|
 |---|---|---|---|---|
@@ -27,50 +32,8 @@ Integrar, em um único projeto prático, os principais conteúdos do semestre:
 |02| <a href="#sprint2">Sprint 2</a>|04/06/2026|21/05/2026|❌|
 |03| <a href="#sprint3">Sprint 3</a>|25/05/2026|11/06/2026|❌|
 
----
 
-## 👥 Equipe
-
-|Nome|Função|GitHub|
-|---|---|---|
-|Douglas Silva|Scrum Master|[Moraisdouglas](https://github.com/moraisdouglas)|
-|Henrique Martins|Product Owner|[Henri-Bueno](https://github.com/Henri-Bueno)|
-|Gabriel Gomes|Desenvolvedor|[gabrielgomesfernandes](https://github.com/gabrielgomesfernandes)|
-|Jaqueline Medeiros|Desenvolvedor|[Jaqueline Medeiros](https://github.com/alves-medeiros)|
-|Paulo Olivetti|Desenvolvedor|[pauloolivetti](https://github.com/pauloolivetti)|
-|Tiago Ferreira|Desenvolvedor|[tiagof6](https://github.com/tiagof6)|
-|Vítor Otavio|Desenvolvedor|[VirtusXD](https://github.com/VirtusXD)|
-
-## 🛠️ Ferramentas utilizadas
-
-<a href="https://www.w3.org/html/" target="_blank" rel="noreferrer">
-<img height="30" width="40" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg" />
-<a/> <br>
-<a href="https://www.w3schools.com/css/" target="_blank" rel="noreferrer">
-<img height="30" width="40" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg" />
-<a/> <br>
-<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank" rel="noreferrer">
-<img height="30" width="40" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg" />
-<a/> <br>
-<a href="https://nodejs.org/pt" target="_blank" rel="noreferrer">
-<img height="30" width="40" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original.svg" />
-<a/> <br>
-<a href="https://www.figma.com/pt-br/" target="_blank" rel="noreferrer">
-<img height="30" width="40" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/figma/figma-original.svg" />
-<a/> <br>
-<a href="https://www.postgresql.org/" target="_blank" rel="noreferrer">
-<img height="30" width="40" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg" />
-<a/> <br>
-<a href="https://git-scm.com/" target="_blank" rel="noreferrer">
-<img height="30" width="40" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg" />
-<a/> <br>
-<a href="https://github.com/" target="_blank" rel="noreferrer">
-<img height="30" width="40" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg" />
-<a/> <br>
-
----
-
-## 📝 Product Backlog
+### 📝 Product Backlog
 
 |Requisitos Funcionais|Requisitos|Sprint|
 |---|---|---|
@@ -101,11 +64,57 @@ Integrar, em um único projeto prático, os principais conteúdos do semestre:
 |RNF-07|O sistema deve apresentar interface simples, clara e de fácil navegação.|#01 <br> #02 <br> #03|
 |RNF-08|O sistema deve possuir documentação básica para execução e entendimento do projeto.|#03|
 
+### 📝 Modelo Conceitual
+
+<img src="Documentos/Modelos/Modelo_Conceitual-ABP-1DSM.png">
+
+
 ---
 
-# <div id="sprint1">Sprint 1</div>
+### 👥 Equipe
 
-## 🔄 SprintBacklog 1
+|Nome|Função|GitHub|
+|---|---|---|
+|Douglas Silva|Scrum Master|[Moraisdouglas](https://github.com/moraisdouglas)|
+|Henrique Martins|Product Owner|[Henri-Bueno](https://github.com/Henri-Bueno)|
+|Gabriel Gomes|Desenvolvedor|[gabrielgomesfernandes](https://github.com/gabrielgomesfernandes)|
+|Jaqueline Medeiros|Desenvolvedor|[Jaqueline Medeiros](https://github.com/alves-medeiros)|
+|Paulo Olivetti|Desenvolvedor|[pauloolivetti](https://github.com/pauloolivetti)|
+|Tiago Ferreira|Desenvolvedor|[tiagof6](https://github.com/tiagof6)|
+|Vítor Otavio|Desenvolvedor|[VirtusXD](https://github.com/VirtusXD)|
+
+### 🛠️ Ferramentas utilizadas
+
+<a href="https://www.w3.org/html/" target="_blank" rel="noreferrer">
+<img height="30" width="40" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg" />
+<a/> <br>
+<a href="https://www.w3schools.com/css/" target="_blank" rel="noreferrer">
+<img height="30" width="40" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg" />
+<a/> <br>
+<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank" rel="noreferrer">
+<img height="30" width="40" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg" />
+<a/> <br>
+<a href="https://nodejs.org/pt" target="_blank" rel="noreferrer">
+<img height="30" width="40" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original.svg" />
+<a/> <br>
+<a href="https://www.figma.com/pt-br/" target="_blank" rel="noreferrer">
+<img height="30" width="40" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/figma/figma-original.svg" />
+<a/> <br>
+<a href="https://www.postgresql.org/" target="_blank" rel="noreferrer">
+<img height="30" width="40" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg" />
+<a/> <br>
+<a href="https://git-scm.com/" target="_blank" rel="noreferrer">
+<img height="30" width="40" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg" />
+<a/> <br>
+<a href="https://github.com/" target="_blank" rel="noreferrer">
+<img height="30" width="40" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg" />
+<a/> <br>
+
+---
+
+## <div id="sprint1">Sprint 1</div>
+
+### 🔄 SprintBacklog 1
 
 |Atividade|Responsável|Tarefa iniciada|Tarefa concluída|Pontos|
 |---|---|---|---|---|
@@ -120,10 +129,10 @@ Integrar, em um único projeto prático, os principais conteúdos do semestre:
 |Estruturação e alimentação do GitHub|Gabriel|✅||1|
 |Definição da modelagem do BD|Gabriel|||3|
 
-# <div id="sprint2">Sprint 2</div>
+## <div id="sprint2">Sprint 2</div>
 
 **Sprint não iniciada**
 
-# <div id="sprint3">Sprint 3</div>
+## <div id="sprint3">Sprint 3</div>
 
 **Sprint não iniciada**
