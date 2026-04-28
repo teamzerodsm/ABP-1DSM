@@ -73,6 +73,8 @@ Integrar, em um único projeto prático, os principais conteúdos do semestre:
 
 ## 📝 Product Backlog
 
+### Requisitos Funcionais
+
 | Requisitos Funcionais | Requisitos                                                          | Sprint       |
 | --------------------- | ------------------------------------------------------------------- | ------------ |
 | RF-01                 | Autenticação de usuários (cadastro e login)                         | #01          |
@@ -86,6 +88,8 @@ Integrar, em um único projeto prático, os principais conteúdos do semestre:
 
 <br>
 
+### Requisitos Não Funcionais
+
 | Requisitos Não Funcionais | Requisitos                                                 | Sprint                |
 | ------------------------- | ---------------------------------------------------------- | --------------------- |
 | RNF-01                    | Responsividade e adaptabilidade entre dispositivos.        | #02 <br> #03          |
@@ -94,6 +98,17 @@ Integrar, em um único projeto prático, os principais conteúdos do semestre:
 | RNF-04                    | Validação e integridade das regras de negócio no back-end. | #02                   |
 | RNF-05                    | Interface clara, navegável e de fácil utilização.          | #01 <br> #02 <br> #03 |
 | RNF-06                    | Documentação técnica do projeto.                           | #03                   |
+
+### User Stories
+
+| Id_Referência                                  | Remetente | Instrução                                                                          | Finalidade                                                           |
+| ---------------------------------------------- | --------- | ---------------------------------------------------------------------------------- | -------------------------------------------------------------------- |
+| RF-01, RF-02                                   | Cliente   | Como cliente, quero poder visualizar um protótipo do site                          | Para entender sua estrutura e funcionalidades                        |
+| RF-03, RF-04                                   | Cliente   | Como cliente, eu quero que os usuários consigam se cadastrar no site e fazer login | Para terem acesso ao conteúdo do curso                               |
+| RF-05, RF-06, RF-07, RF-08, RF-09, RF-10       | Usuário   | Como usuário, quero realizar o conteúdo do curso de maneira organizada             | Para adquirir conhecimento com o conteúdo do curso                   |
+| RF-11, RF-12, RF-13                            | Usuário   | Como usuário, quero emitir meu certificado                                         | Para concluir o curso                                                |
+| RNF-02, RNF-03, RNF-04, RNF-06, RNF-07, RNF-08 | Cliente   | Como cliente quero um site intuitivo, responsivo e seguro                          | Para que usuários se sintam seguros e confortáveis utilizando o site |
+| RNF-08                                         | Cliente   | Como cliente, quero que o site tenha uma documentação básica                       | Para o entendimento da execução técnica do site                      |
 
 ---
 
