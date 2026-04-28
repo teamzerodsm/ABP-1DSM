@@ -110,6 +110,10 @@ Integrar, em um único projeto prático, os principais conteúdos do semestre:
 | RNF-02, RNF-03, RNF-04, RNF-06, RNF-07, RNF-08 | Cliente   | Como cliente quero um site intuitivo, responsivo e seguro                          | Para que usuários se sintam seguros e confortáveis utilizando o site |
 | RNF-08                                         | Cliente   | Como cliente, quero que o site tenha uma documentação básica                       | Para o entendimento da execução técnica do site                      |
 
+## Modelo Conceitual
+
+<img src="Documentos/Modelagem/Modelo_Conceitual.png" />
+
 ---
 
 # <div id="sprint1">Sprint 1</div>
