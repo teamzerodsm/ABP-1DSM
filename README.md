@@ -120,22 +120,26 @@ Integrar, em um único projeto prático, os principais conteúdos do semestre:
 
 ## 🔄 SprintBacklog 1
 
-| Atividade                                                                  | Responsável                | Tarefa concluída | Pontos |
-| -------------------------------------------------------------------------- | -------------------------- | ---------------- | ------ |
-| Base do servidor backend com automação de banco (DB init e rotas iniciais) | Equipe                     | ✅               | 8      |
-| Diagrama de Casos de Uso (UML)                                             | Henrique                   | ✅               | 5      |
-| Documentação de funcionalidades e elementos das telas                      | Henrique, Tiago, Jaqueline | ✅               | 5      |
-| Diagrama de fluxo de navegação entre telas                                 | Tiago, Jaqueline           | ✅               | 3      |
-| Wireframe do layout do site (protótipo inicial)                            | Vitor, Paulo               | ✅               | 5      |
-| Definição de responsividade (layouts para mobile e tablet)                 | Vitor, Paulo               | ✅               | 3      |
-| Identidade visual (logo e estilo visual)                                   | Vitor, Paulo               | ✅               | 5      |
-| Definição de tipografia (com estudo e variações documentadas)              | Paulo                      | ✅               | 3      |
-| Definição de paleta de cores (com estudo comparativo documentado)          | Paulo                      | ✅               | 5      |
-| Protótipo final (alta fidelidade com interações)                           | Vitor                      | ✅               | 8      |
-| Modelagem conceitual do banco de dados                                     | Gabriel                    | ✅               | 3      |
-| Modelagem lógica do banco de dados                                         | Gabriel                    | ✅               | 5      |
-| Estruturação do repositório GitHub                                         | Gabriel                    | ✅               | 2      |
-| Configuração do GitHub Projects ( Scrum)                                   | Gabriel                    | ✅               | 2      |
+| Atividade                                                                  | Responsável                | Tarefa concluída | Pontos | Requisito               |
+| -------------------------------------------------------------------------- | -------------------------- | ---------------- | ------ | ----------------------- |
+| Base do servidor backend com automação de banco (DB init e rotas iniciais) | Equipe                     | ✅               | 8      | RF-03 RF-04 RNF-04      |
+| Diagrama de Casos de Uso (UML)                                             | Henrique                   | ✅               | 5      | RF-01 RF-04 RF-05 RF-06 |
+| Documentação de funcionalidades e elementos das telas                      | Henrique, Tiago, Jaqueline | ✅               | 5      | RF-02 RF-05 RNF-05      |
+| Diagrama de fluxo de navegação entre telas                                 | Tiago, Jaqueline           | ✅               | 3      | RF-05 RF-07 RNF-05      |
+| Wireframe do layout do site (protótipo inicial)                            | Vitor, Paulo               | ✅               | 5      | RF-02 RNF-05            |
+| Definição de responsividade (layouts para mobile e tablet)                 | Vitor, Paulo               | ✅               | 3      | RNF-01 RNF-05           |
+| Identidade visual (logo e estilo visual)                                   | Vitor, Paulo               | ✅               | 5      | RF-02 RF-07 RNF-05      |
+| Definição de tipografia (com estudo e variações documentadas)              | Paulo                      | ✅               | 3      | RF-07 RNF-05            |
+| Definição de paleta de cores (com estudo comparativo documentado)          | Paulo                      | ✅               | 5      | RF-07 RNF-05            |
+| Protótipo final (alta fidelidade com interações)                           | Vitor                      | ✅               | 8      | RF-02 RF-07 RNF-05      |
+| Modelagem conceitual do banco de dados                                     | Gabriel                    | ✅               | 3      | RF-03 RF-04             |
+| Modelagem lógica do banco de dados                                         | Gabriel                    | ✅               | 5      | RF-03 RF-04 RNF-04      |
+| Estruturação do repositório GitHub                                         | Gabriel                    | ✅               | 2      | RNF-06                  |
+| Configuração do GitHub Projects ( Scrum)                                   | Gabriel                    | ✅               | 2      | RNF-06                  |
+
+## 🔥 Burndown Sprint 1
+
+<img src="Scrum/Burndown-Sprint01.jpeg" />
 
 # <div id="sprint2">Sprint 2</div>
 
