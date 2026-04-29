@@ -1,6 +1,7 @@
 # ABP-1DSM
+
 This repository has been created for publish our first project (Scrum learning website).
-  
+
 <h1 align="center">📘 Portal de Certificação em Métodologia Ágil – ABP</h1>
 
 ## 📌 Descrição do Projeto
@@ -13,33 +14,33 @@ A aplicação permite que usuários se cadastrem, realizem avaliações organiza
 
 Integrar, em um único projeto prático, os principais conteúdos do semestre:
 
-* Desenvolvimento de interfaces com **HTML, CSS e JavaScript (sem uso de frameworks)**
-* Persistência de dados utilizando **PostgreSQL**
-* Aplicação de **metodologias ágeis (Scrum)**
-* Documentação do projeto com **UML**
-* Organização e execução de projeto em equipe
+- Desenvolvimento de interfaces com **HTML, CSS e JavaScript (sem uso de frameworks)**
+- Persistência de dados utilizando **PostgreSQL**
+- Aplicação de **metodologias ágeis (Scrum)**
+- Documentação do projeto com **UML**
+- Organização e execução de projeto em equipe
 
 ## Sprints
 
-|Sprint|Link|Início|Entrega|Status|
-|---|---|---|---|---|
-|01| <a href="#sprint1">Sprint 1</a>|13/04/2026|30/04/2026|🔄|
-|02| <a href="#sprint2">Sprint 2</a>|04/06/2026|21/05/2026|❌|
-|03| <a href="#sprint3">Sprint 3</a>|25/05/2026|11/06/2026|❌|
+| Sprint | Link                            | Início     | Entrega    | Status |
+| ------ | ------------------------------- | ---------- | ---------- | ------ |
+| 01     | <a href="#sprint1">Sprint 1</a> | 13/04/2026 | 30/04/2026 | 🔄     |
+| 02     | <a href="#sprint2">Sprint 2</a> | 04/06/2026 | 21/05/2026 | ❌     |
+| 03     | <a href="#sprint3">Sprint 3</a> | 25/05/2026 | 11/06/2026 | ❌     |
 
 ---
 
 ## 👥 Equipe
 
-|Nome|Função|GitHub|
-|---|---|---|
-|Douglas Silva|Scrum Master|[Moraisdouglas](https://github.com/moraisdouglas)|
-|Henrique Martins|Product Owner|[Henri-Bueno](https://github.com/Henri-Bueno)|
-|Gabriel Gomes|Desenvolvedor|[gabrielgomesfernandes](https://github.com/gabrielgomesfernandes)|
-|Jaqueline Medeiros|Desenvolvedor|[Jaqueline Medeiros](https://github.com/alves-medeiros)|
-|Paulo Olivetti|Desenvolvedor|[pauloolivetti](https://github.com/pauloolivetti)|
-|Tiago Ferreira|Desenvolvedor|[tiagof6](https://github.com/tiagof6)|
-|Vítor Otavio|Desenvolvedor|[VirtusXD](https://github.com/VirtusXD)|
+| Nome               | Função        | GitHub                                                            |
+| ------------------ | ------------- | ----------------------------------------------------------------- |
+| Douglas Silva      | Scrum Master  | [Moraisdouglas](https://github.com/moraisdouglas)                 |
+| Henrique Martins   | Product Owner | [Henri-Bueno](https://github.com/Henri-Bueno)                     |
+| Gabriel Gomes      | Desenvolvedor | [gabrielgomesfernandes](https://github.com/gabrielgomesfernandes) |
+| Jaqueline Medeiros | Desenvolvedor | [Jaqueline Medeiros](https://github.com/alves-medeiros)           |
+| Paulo Olivetti     | Desenvolvedor | [pauloolivetti](https://github.com/pauloolivetti)                 |
+| Tiago Ferreira     | Desenvolvedor | [tiagof6](https://github.com/tiagof6)                             |
+| Vítor Otavio       | Desenvolvedor | [VirtusXD](https://github.com/VirtusXD)                           |
 
 ## 🛠️ Ferramentas utilizadas
 
@@ -72,34 +73,46 @@ Integrar, em um único projeto prático, os principais conteúdos do semestre:
 
 ## 📝 Product Backlog
 
-|Requisitos Funcionais|Requisitos|Sprint|
-|---|---|---|
-|RF-01|Criação do protótipo completo do sistema (login, avaliação, progresso e resultado).|#01|
-|RF-02|Criação de um modelo visual do sistema (UI), aplicando o protótipo desenvolvido.|#01 <br> #02|
-|RF-03|Implementação do sistema de autenticação de usuários (cadastro e login com CPF e senha).|#01|
-|RF-04|Integração do front-end com o back-end para comunicação com o banco de dados (usuários e questões).|#01 <br> #02|
-|RF-05|Implementação do sistema de avaliação por níveis, permitindo ao usuário responder questões e enviar respostas.|#01 <br> #02|
-|RF-06|Implementação da seleção de questões por nível, respeitando a distribuição de dificuldade e aleatoriedade.|#02|
-|RF-07|Implementação do controle de tentativas por nível, incluindo limite de tentativas e registro de histórico.|#02|
-|RF-08|Implementação do sistema de cálculo de notas, considerando a melhor tentativa por nível.|#02|
-|RF-09|Criação de um sistema de progressão visual ao usuário entre níveis com base no desempenho.|#02|
-|RF-10|Implementação da visualização de progresso do usuário (níveis concluídos, notas e tentativas).|#02|
-|RF-11|Implementação do cálculo da média final do usuário ao término dos níveis.|#03|
-|RF-12|Implementação da geração e disponibilização do certificado de conclusão com dados do usuário.|#03|
-|RF-13|Implementação de feedback visual ao usuário ao final das avaliações e durante o progresso.|#03|
+### Requisitos Funcionais
+
+| Requisitos Funcionais | Requisitos                                                          | Sprint       |
+| --------------------- | ------------------------------------------------------------------- | ------------ |
+| RF-01                 | Autenticação de usuários (cadastro e login)                         | #01          |
+| RF-02                 | Interface visual e prototipação do sistema.                         | #01          |
+| RF-03                 | Integração entre interface, backend e banco de dados.               | #01 <br> #02 |
+| RF-04                 | Sistema de avaliação por níveis (questões, tentativas e pontuação). | #01 <br> #02 |
+| RF-05                 | Sistema de progressão e acompanhamento do usuário.                  | #02          |
+| RF-06                 | Cálculo de desempenho final e emissão de certificado.               | #03          |
+| RF-07                 | Responsabilidade visual e experiência de navegação do usuário.      | #03          |
+| RF-08                 | Área administrativa para gerenciamento do sistema.                  | #03          |
 
 <br>
 
-|Requisitos Não Funcionais|Requisitos|Sprint|
-|---|---|---|
-|RNF-01|Utilização de HTML5, CSS3 e JavaScript para desenvolvimento da interface e integração com o sistema.|#01 <br> #02 <br> #03|
-|RNF-02|O sistema deve ser responsivo e adaptável a diferentes dispositivos.|#02 <br> #03|
-|RNF-03|O sistema deve garantir desempenho adequado nas operações de carregamento e envio de dados.|#02 <br> #03|
-|RNF-04|O sistema deve garantir a segurança dos dados dos usuários (armazenamento seguro de credenciais).|#02|
-|RNF-05|O sistema deve validar as regras de negócio no back-end, evitando manipulação indevida no front-end.|#02|
-|RNF-06|O sistema deve garantir integridade e consistência dos dados de tentativas e resultados.|#02|
-|RNF-07|O sistema deve apresentar interface simples, clara e de fácil navegação.|#01 <br> #02 <br> #03|
-|RNF-08|O sistema deve possuir documentação básica para execução e entendimento do projeto.|#03|
+### Requisitos Não Funcionais
+
+| Requisitos Não Funcionais | Requisitos                                                 | Sprint                |
+| ------------------------- | ---------------------------------------------------------- | --------------------- |
+| RNF-01                    | Responsividade e adaptabilidade entre dispositivos.        | #02 <br> #03          |
+| RNF-02                    | Desempenho e eficiência de carregamento.                   | #02 <br> #03          |
+| RNF-03                    | Segurança e proteção de dados dos usuários.                | #02                   |
+| RNF-04                    | Validação e integridade das regras de negócio no back-end. | #02                   |
+| RNF-05                    | Interface clara, navegável e de fácil utilização.          | #01 <br> #02 <br> #03 |
+| RNF-06                    | Documentação técnica do projeto.                           | #03                   |
+
+### User Stories
+
+| Id_Referência                                  | Remetente | Instrução                                                                          | Finalidade                                                           |
+| ---------------------------------------------- | --------- | ---------------------------------------------------------------------------------- | -------------------------------------------------------------------- |
+| RF-01, RF-02                                   | Cliente   | Como cliente, quero poder visualizar um protótipo do site                          | Para entender sua estrutura e funcionalidades                        |
+| RF-03, RF-04                                   | Cliente   | Como cliente, eu quero que os usuários consigam se cadastrar no site e fazer login | Para terem acesso ao conteúdo do curso                               |
+| RF-05, RF-06, RF-07, RF-08, RF-09, RF-10       | Usuário   | Como usuário, quero realizar o conteúdo do curso de maneira organizada             | Para adquirir conhecimento com o conteúdo do curso                   |
+| RF-11, RF-12, RF-13                            | Usuário   | Como usuário, quero emitir meu certificado                                         | Para concluir o curso                                                |
+| RNF-02, RNF-03, RNF-04, RNF-06, RNF-07, RNF-08 | Cliente   | Como cliente quero um site intuitivo, responsivo e seguro                          | Para que usuários se sintam seguros e confortáveis utilizando o site |
+| RNF-08                                         | Cliente   | Como cliente, quero que o site tenha uma documentação básica                       | Para o entendimento da execução técnica do site                      |
+
+## Modelo Conceitual
+
+<img src="Documentos/Modelagem/Modelo_Conceitual.png" />
 
 ---
 
@@ -107,18 +120,22 @@ Integrar, em um único projeto prático, os principais conteúdos do semestre:
 
 ## 🔄 SprintBacklog 1
 
-|Atividade|Responsável|Tarefa iniciada|Tarefa concluída|Pontos|
-|---|---|---|---|---|
-|Construir a primeira parte do servidor - videoaula do Arley|Todos|✅||8|
-|Diagrama de Caso de uso|Henrique|✅||3|
-|Desenho do layout do site|Douglas e Jaqueline|||5|
-|Desenho do layout das telas|Tiago e Jaqueline|||3|
-|Definição da identidade visual do site|Vitor e Paulo|✅||5|
-|Definição da fonte|Vitor e Paulo|✅||3|
-|Definição da paleta de cores|Vitor e Paulo|||3|
-|Descrever a sequencia das funções|Tiago e Jaqueline|||3|
-|Estruturação e alimentação do GitHub|Gabriel|✅||1|
-|Definição da modelagem do BD|Gabriel|||3|
+| Atividade                                                                  | Responsável                | Tarefa concluída | Pontos |
+| -------------------------------------------------------------------------- | -------------------------- | ---------------- | ------ |
+| Base do servidor backend com automação de banco (DB init e rotas iniciais) | Equipe                     | ✅               | 8      |
+| Diagrama de Casos de Uso (UML)                                             | Henrique                   | ✅               | 5      |
+| Documentação de funcionalidades e elementos das telas                      | Henrique, Tiago, Jaqueline | ✅               | 5      |
+| Diagrama de fluxo de navegação entre telas                                 | Tiago, Jaqueline           | ✅               | 3      |
+| Wireframe do layout do site (protótipo inicial)                            | Vitor, Paulo               | ✅               | 5      |
+| Definição de responsividade (layouts para mobile e tablet)                 | Vitor, Paulo               | ✅               | 3      |
+| Identidade visual (logo e estilo visual)                                   | Vitor, Paulo               | ✅               | 5      |
+| Definição de tipografia (com estudo e variações documentadas)              | Paulo                      | ✅               | 3      |
+| Definição de paleta de cores (com estudo comparativo documentado)          | Paulo                      | ✅               | 5      |
+| Protótipo final (alta fidelidade com interações)                           | Vitor                      | ✅               | 8      |
+| Modelagem conceitual do banco de dados                                     | Gabriel                    | ✅               | 3      |
+| Modelagem lógica do banco de dados                                         | Gabriel                    | ✅               | 5      |
+| Estruturação do repositório GitHub                                         | Gabriel                    | ✅               | 2      |
+| Configuração do GitHub Projects ( Scrum)                                   | Gabriel                    | ✅               | 2      |
 
 # <div id="sprint2">Sprint 2</div>
 
