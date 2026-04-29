@@ -137,6 +137,10 @@ Integrar, em um único projeto prático, os principais conteúdos do semestre:
 | Estruturação do repositório GitHub                                         | Gabriel                    | ✅               | 2      | RNF-06                  |
 | Configuração do GitHub Projects ( Scrum)                                   | Gabriel                    | ✅               | 2      | RNF-06                  |
 
+## 🔥 Burndown Sprint 1
+
+<img src="Scrum/Burndown-Sprint01.jpeg" />
+
 # <div id="sprint2">Sprint 2</div>
 
 **Sprint não iniciada**
