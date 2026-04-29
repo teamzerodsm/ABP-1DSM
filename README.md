@@ -75,29 +75,29 @@ Integrar, em um único projeto prático, os principais conteúdos do semestre:
 
 ### Requisitos Funcionais
 
-| Requisitos Funcionais | Requisitos                                                          | Sprint       |
-| --------------------- | ------------------------------------------------------------------- | ------------ |
-| RF-01                 | Autenticação de usuários (cadastro e login)                         | #01          |
-| RF-02                 | Interface visual e prototipação do sistema.                         | #01          |
-| RF-03                 | Integração entre interface, backend e banco de dados.               | #01 <br> #02 |
-| RF-04                 | Sistema de avaliação por níveis (questões, tentativas e pontuação). | #01 <br> #02 |
-| RF-05                 | Sistema de progressão e acompanhamento do usuário.                  | #02          |
-| RF-06                 | Cálculo de desempenho final e emissão de certificado.               | #03          |
-| RF-07                 | Responsabilidade visual e experiência de navegação do usuário.      | #03          |
-| RF-08                 | Área administrativa para gerenciamento do sistema.                  | #03          |
+| Requisitos Funcionais | Requisitos                                                          | Sprint       | Prioridade |
+| --------------------- | ------------------------------------------------------------------- | ------------ | ---------- |
+| RF-01                 | Autenticação de usuários (cadastro e login)                         | #01          | Alta       |
+| RF-02                 | Interface visual e prototipação do sistema.                         | #01          | Alta       |
+| RF-03                 | Integração entre interface, backend e banco de dados.               | #01 <br> #02 | Alta       |
+| RF-04                 | Sistema de avaliação por níveis (questões, tentativas e pontuação). | #01 <br> #02 | Alta       |
+| RF-05                 | Sistema de progressão e acompanhamento do usuário.                  | #02          | Média      |
+| RF-06                 | Cálculo de desempenho final e emissão de certificado.               | #03          | Média      |
+| RF-07                 | Responsabilidade visual e experiência de navegação do usuário.      | #03          | Média      |
+| RF-08                 | Área administrativa para gerenciamento do sistema.                  | #03          | Baixa      |
 
 <br>
 
 ### Requisitos Não Funcionais
 
-| Requisitos Não Funcionais | Requisitos                                                 | Sprint                |
-| ------------------------- | ---------------------------------------------------------- | --------------------- |
-| RNF-01                    | Responsividade e adaptabilidade entre dispositivos.        | #02 <br> #03          |
-| RNF-02                    | Desempenho e eficiência de carregamento.                   | #02 <br> #03          |
-| RNF-03                    | Segurança e proteção de dados dos usuários.                | #02                   |
-| RNF-04                    | Validação e integridade das regras de negócio no back-end. | #02                   |
-| RNF-05                    | Interface clara, navegável e de fácil utilização.          | #01 <br> #02 <br> #03 |
-| RNF-06                    | Documentação técnica do projeto.                           | #03                   |
+| Requisitos Não Funcionais | Requisitos                                                 | Sprint                | Prioridade |
+| ------------------------- | ---------------------------------------------------------- | --------------------- | ---------- |
+| RNF-01                    | Responsividade e adaptabilidade entre dispositivos.        | #02 <br> #03          | Alta       |
+| RNF-02                    | Desempenho e eficiência de carregamento.                   | #02 <br> #03          | Média      |
+| RNF-03                    | Segurança e proteção de dados dos usuários.                | #02                   | Alta       |
+| RNF-04                    | Validação e integridade das regras de negócio no back-end. | #02                   | Alta       |
+| RNF-05                    | Interface clara, navegável e de fácil utilização.          | #01 <br> #02 <br> #03 | Média      |
+| RNF-06                    | Documentação técnica do projeto.                           | #03                   | Média      |
 
 ### User Stories
 
