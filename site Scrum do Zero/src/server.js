@@ -18,6 +18,7 @@ const assetsPath = path.join(publicPath, "assets")
 
 app.use("/", express.static(pagesPath))
 app.use("/assets", express.static(assetsPath))
+app.use('/assets', express.static(path.join(publicPath,"assets")))
 
 app.use("/api", router)
 
