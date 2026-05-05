@@ -5,8 +5,7 @@ const {
     updateUsuarioNome,
     updateUsuarioEmail,
     updateUsuarioSenha,
-    findUsuarioById,
-    findProximaQuestaoByUsuario
+    findUsuarioById
 }
     = require("../repositories/usuarios.repositories");
 
@@ -173,26 +172,6 @@ router.patch("/senha", authmiddleware, async function (req, res) {
         })
     }
 })
-
-/* GET PRÓXIMA QUESTÃO PENDENTE DO USUÁRIO  
-curl -X GET http://localhost:3000/api/usuarios/proxima-questao \
-  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF91c3VhcmlvIjozLCJpYXQiOjE3NzYzNzc3NzQsImV4cCI6MTc3NjM4MTM3NH0.s1RbqG4nhFLQGEFG-vov-EWqDT0ZZFhfkggxl0wqzfU"
-*/
-router.get("/proxima-questao", authmiddleware, async function (req, res) {
-    try {
-        const questao = await findProximaQuestaoByUsuario(req.usuario.id_usuario);
-        if (!questao) {
-            return res
-                .status(404)
-                .json({ message: "nenhuma questão pendente encontrada" });
-        }
-        return res.status(200).json(questao);
-    } catch (e) {
-        return res.status(500).json({
-            message: "erro interno do servidor",
-        });
-    }
-});
 
 function getIdUsuario(params) {
     const idUsuario = Number(params.idusuario)

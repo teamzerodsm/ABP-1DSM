@@ -23,7 +23,8 @@ async function authmiddleware(req, res, next){
 
         req.usuario = usuario
         return next()
-    } catch{
+    } catch(e){
+        console.log("ERRO: ", e.error)
         return res.status(401).json({ message: "Token inválido ou expirado" })
     }
 }
