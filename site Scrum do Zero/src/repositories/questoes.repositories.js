@@ -1,3 +1,5 @@
+const pool = require("../database/db");
+   
    async function findProximaQuestaoByUsuario(idUsuario) {
   const result = await pool.query(
     `
@@ -40,6 +42,65 @@
   return result.rows[0] || null;
 }
 
+async function findQuestaoDoExameByUsuario(idUsuario, idExame, idQuestao) {
+  const result = await pool.query(
+    `
+    SELECT
+      e.id_exame,
+      q.id_questao,
+      q.alternativa_correta
+    FROM exames e
+    INNER JOIN questoes q
+      ON q.id_modulo = e.id_modulo
+     AND q.grupo IS NOT DISTINCT FROM e.grupo
+    WHERE e.id_usuario = $1
+      AND e.id_exame = $2
+      AND q.id_questao = $3
+    LIMIT 1
+    `,
+    [idUsuario, idExame, idQuestao],
+  );
+
+  return result.rows[0] || null;
+}
+
+async function findRespostaByExameEQuestao(idExame, idQuestao) {
+  const result = await pool.query(
+    `
+    SELECT
+      id_resposta,
+      id_exame,
+      id_questao,
+      resposta,
+      nota,
+      respondido_em
+FROM respostas
+    WHERE id_exame = $1
+      AND id_questao = $2
+    LIMIT 1
+    `,
+    [idExame, idQuestao],
+  );
+
+  return result.rows[0] || null;
+}
+
+async function inserirRespostaQuestao(id_exame, id_questao, resposta, nota) {
+  const result = await pool.query(
+    `
+    INSERT INTO respostas (id_exame, id_questao, nota, resposta)
+    VALUES ($1, $2, $3, $4)
+    RETURNING id_resposta, id_exame, id_questao, nota
+    `,
+    [id_exame, id_questao, nota, resposta],
+  );
+
+  return result.rows[0] || null;
+}
+
 module.exports = {
-  findProximaQuestaoByUsuario
+  findProximaQuestaoByUsuario,
+  findQuestaoDoExameByUsuario,
+  findRespostaByExameEQuestao,
+  inserirRespostaQuestao
 };
