@@ -5,6 +5,7 @@ dotenv.config({
   path: path.resolve(__dirname, "..", "..", ".env"),
 });
 
+//Configuração do banco de dados
 const { Pool } = require("pg");
 let config;
 if (process.env.DATABASE_URL){

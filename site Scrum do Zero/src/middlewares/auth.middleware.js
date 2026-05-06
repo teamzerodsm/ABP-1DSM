@@ -1,6 +1,7 @@
 const {verifyToken} = require("../utils/jwt")
 const {findUsuarioById} = require("../repositories/usuarios.repositories")
 
+//Metodo que verifica se o token esta correto, é chamado sempre junto de api's para a verificação antes de realizar qualquer coisa
 async function authmiddleware(req, res, next){
     const authorization = req.headers.authorization
 
@@ -23,7 +24,8 @@ async function authmiddleware(req, res, next){
 
         req.usuario = usuario
         return next()
-    } catch{
+    } catch(e){
+        console.log("ERRO: ", e.error)
         return res.status(401).json({ message: "Token inválido ou expirado" })
     }
 }

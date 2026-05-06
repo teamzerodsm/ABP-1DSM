@@ -2,6 +2,7 @@ const pool = require("../database/db");
 const { randomBytes } = require("crypto")
 const { hashPassword, verifyPassword } = require("../utils/password")
 
+//Função inserir usuário no banco de dados | é chamada pelo método createUsuario
 async function insertUsuario(client, nome, email, cpf, senha) {
     const certificado_hash = randomBytes(24).toString("hex")
     const senhaCodificada = hashPassword(senha)
@@ -18,6 +19,7 @@ async function insertUsuario(client, nome, email, cpf, senha) {
     return result.rows[0] || null
 }
 
+//Função para selecionar o primeiro módulo que o usuário irá realizar
 async function findPrimeiroModuloid(client) {
     const result = await client.query(
         `SELECT id_modulo FROM modulos ORDER BY id_modulo LIMIT 1`)
@@ -27,6 +29,7 @@ async function findPrimeiroModuloid(client) {
     return result.rows[0] || null
 }
 
+//Seleciona um grupo de questões aleatório
 async function findGrupoAleatorio(client, idModulo) {
     const result = await client.query(
         `SELECT grupo 
@@ -40,6 +43,7 @@ async function findGrupoAleatorio(client, idModulo) {
     return result.rows[0] || null
 }
 
+// Insere um novo exame, com o id do módulo, do usuário que vai realizar, o grupo de questões e a tentativa
 async function insertExame(client, idModulo, idUsuario, grupo, tentativa) {
     const result = await client.query(
         `INSERT INTO exames (id_modulo, id_usuario, grupo, tentativa)
@@ -49,6 +53,7 @@ async function insertExame(client, idModulo, idUsuario, grupo, tentativa) {
     )
 }
 
+// Método principal para cadastro de um novo usuário, utiliza dos métodos acima
 async function createUsuario(nome, email, cpf, senha) {
     const client = await pool.connect()
     try {
@@ -77,12 +82,13 @@ async function createUsuario(nome, email, cpf, senha) {
         return { id_usuario: usuario.id_usuario, nome: usuario.nome, email: usuario.email, cpf: usuario.cpf }
     } catch (e) {
         client.query("ROLLBACK")
-        throw e;
+        print("Erro: ", error.e);
     } finally {
         client.release()
     }
 }
 
+//Atualiza CPF de usuário
 async function updateUsuarioCpf(idUsuario, cpf) {
     const result = await pool.query(`
         UPDATE usuarios
@@ -95,6 +101,7 @@ async function updateUsuarioCpf(idUsuario, cpf) {
     return result.rows[0] || null
 }
 
+//Atualiza NOME de usuário
 async function updateUsuarioNome(idUsuario, nome) {
     const result = await pool.query(`
         UPDATE usuarios
@@ -107,6 +114,7 @@ async function updateUsuarioNome(idUsuario, nome) {
     return result.rows[0] || null
 }
 
+//Atualiza EMAIL de usuário
 async function updateUsuarioEmail(idUsuario, email) {
     const result = await pool.query(`
         UPDATE usuarios
@@ -119,6 +127,7 @@ async function updateUsuarioEmail(idUsuario, email) {
     return result.rows[0] || null
 }
 
+//Atualiza SENHA de usuário
 async function updateUsuarioSenha(idUsuario, senha) {
     const senhaCodificada = hashPassword(senha)
     const result = await pool.query(`
@@ -132,6 +141,7 @@ async function updateUsuarioSenha(idUsuario, senha) {
     return result.rows[0] || null
 }
 
+//Encontra o usuário pelo ID e retorna seu id, nome email e cpf
 async function findUsuarioById(idUsuario) {
     const result = await pool.query(`
         SELECT id_usuario, nome, email, cpf
@@ -142,6 +152,7 @@ async function findUsuarioById(idUsuario) {
     return result.rows[0] || null
 }
 
+//Encontra o usuário pelo CPF e SENHA e retorna seu id, nome email e cpf
 async function findUsuarioByCpfAndSenha(cpf, senha) {
     const result = await pool.query(`
         SELECT id_usuario, nome, email, cpf,senha
@@ -166,46 +177,6 @@ async function findUsuarioByCpfAndSenha(cpf, senha) {
 
 }
 
-async function findProximaQuestaoByUsuario(idUsuario) {
-    const result = await pool.query(
-        ` 
- WITH exame_atual AS ( 
-SELECT id_exame, id_modulo, grupo 
-FROM exames 
-WHERE id_usuario = $1 
-ORDER BY id_exame DESC 
-LIMIT 1 
-) 
-SELECT 
-e.id_exame, 
-q.id_questao, 
-q.id_modulo, 
-q.grupo, 
-q.numero, 
-q.dificuldade, 
-q.enunciado, 
-q.alternativa_a, 
-q.alternativa_b, 
-q.alternativa_c, 
-q.alternativa_d, 
-q.imagem 
-FROM exame_atual e 
-INNER JOIN questoes q 
-ON q.id_modulo = e.id_modulo 
-AND q.grupo IS NOT DISTINCT FROM e.grupo 
-WHERE NOT EXISTS ( 
-SELECT 1 
-FROM respostas r 
-WHERE r.id_exame = e.id_exame 
-AND r.id_questao = q.id_questao 
-) 
-ORDER BY q.numero ASC NULLS LAST, q.id_questao ASC 
-LIMIT 1`,
-        [idUsuario],
-    );
-    return result.rows[0] || null;
-}
-
 module.exports = {
     createUsuario,
     updateUsuarioCpf,
@@ -213,6 +184,5 @@ module.exports = {
     updateUsuarioEmail,
     updateUsuarioSenha,
     findUsuarioById,
-    findUsuarioByCpfAndSenha,
-    findProximaQuestaoByUsuario
+    findUsuarioByCpfAndSenha
 }

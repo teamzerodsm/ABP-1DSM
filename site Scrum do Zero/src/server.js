@@ -11,7 +11,6 @@ dotenv.config({
 const app = express();
 app.use(express.json());
 
-const PORT = process.env.PORT
 const publicPath = path.join(__dirname, "..", "public")
 const pagesPath = path.join(publicPath, "pages")
 const assetsPath = path.join(publicPath, "assets")
@@ -25,6 +24,7 @@ app.use(function(_req,res){
     res.redirect("not-found.html");
 });
 
+const PORT = process.env.PORT
 app.listen(PORT, function () {
     console.log(`Rodando em http://localhost:${PORT}`)
 })
