@@ -20,7 +20,6 @@ Integrar, em um único projeto prático, os principais conteúdos do semestre:
 - Documentação do projeto com **UML**
 - Organização e execução de projeto em equipe
 
-<<<<<<< HEAD
 ---
 
 ### 🛠️ Ferramentas utilizadas
@@ -179,65 +178,6 @@ npm run dev
 
 ### 📝 Product Backlog
 
-=======
----
-
-### 🛠️ Ferramentas utilizadas
-
-<a href="https://www.w3.org/html/" target="_blank" rel="noreferrer">
-<img height="30" width="40" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg" />
-<a/> <br>
-<a href="https://www.w3schools.com/css/" target="_blank" rel="noreferrer">
-<img height="30" width="40" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg" />
-<a/> <br>
-<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank" rel="noreferrer">
-<img height="30" width="40" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg" />
-<a/> <br>
-<a href="https://nodejs.org/pt" target="_blank" rel="noreferrer">
-<img height="30" width="40" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original.svg" />
-<a/> <br>
-<a href="https://www.figma.com/pt-br/" target="_blank" rel="noreferrer">
-<img height="30" width="40" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/figma/figma-original.svg" />
-<a/> <br>
-<a href="https://www.postgresql.org/" target="_blank" rel="noreferrer">
-<img height="30" width="40" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg" />
-<a/> <br>
-<a href="https://git-scm.com/" target="_blank" rel="noreferrer">
-<img height="30" width="40" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg" />
-<a/> <br>
-<a href="https://github.com/" target="_blank" rel="noreferrer">
-<img height="30" width="40" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg" />
-<a/> <br>
-
----
-
-### Sprints
-
-| Sprint | Link                            | Início     | Entrega    | Status |
-| ------ | ------------------------------- | ---------- | ---------- | ------ |
-| 01     | <a href="#sprint1">Sprint 1</a> | 13/04/2026 | 30/04/2026 | ✅     |
-| 02     | <a href="#sprint2">Sprint 2</a> | 04/05/2026 | 21/05/2026 | ❌     |
-| 03     | <a href="#sprint3">Sprint 3</a> | 25/05/2026 | 11/06/2026 | ❌     |
-
----
-
-### 👥 Equipe
-
-| Nome               | Função        | GitHub                                                            |
-| ------------------ | ------------- | ----------------------------------------------------------------- |
-| Douglas Silva      | Scrum Master  | [Moraisdouglas](https://github.com/moraisdouglas)                 |
-| Henrique Martins   | Product Owner | [Henri-Bueno](https://github.com/Henri-Bueno)                     |
-| Gabriel Gomes      | Desenvolvedor | [gabrielgomesfernandes](https://github.com/gabrielgomesfernandes) |
-| Jaqueline Medeiros | Desenvolvedor | [Jaqueline Medeiros](https://github.com/alves-medeiros)           |
-| Paulo Olivetti     | Desenvolvedor | [pauloolivetti](https://github.com/pauloolivetti)                 |
-| Tiago Ferreira     | Desenvolvedor | [tiagof6](https://github.com/tiagof6)                             |
-| Vítor Otavio       | Desenvolvedor | [VirtusXD](https://github.com/VirtusXD)                           |
-
----
-
-### 📝 Product Backlog
-
->>>>>>> 1e00b43e35dfcb2dee92f81758760c7b34744ace
 #### Requisitos Funcionais
 
 | Requisitos Funcionais | Requisitos                                                          | Sprint       | Prioridade |
@@ -250,8 +190,6 @@ npm run dev
 | RF-06                 | Cálculo de desempenho final e emissão de certificado.               | #03          | Média      |
 | RF-07                 | Responsividade visual e experiência de navegação do usuário.        | #03          | Média      |
 | RF-08                 | Área administrativa para gerenciamento do sistema.                  | #03          | Baixa      |
-
-<br>
 
 #### Requisitos Não Funcionais
 
