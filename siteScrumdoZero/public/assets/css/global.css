@@ -1,0 +1,118 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+*, *::before, *::after {
+    box-sizing: border-box;
+  }
+  
+  *:not(dialog) {
+    margin: 0;
+  }
+  
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      interpolate-size: allow-keywords;
+    }
+  }
+  
+  ul{
+    padding: 0;
+  }
+  
+  body {
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  
+  img, picture, video, canvas, svg {
+    display: block;
+    max-width: 100%;
+  }
+  
+  input, button, textarea, select {
+    font: inherit;
+  }
+  
+  p, h1, h2, h3, h4, h5, h6 {
+    overflow-wrap: break-word;
+  }
+  
+  p {
+    text-wrap: pretty;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    text-wrap: balance;
+  }
+  
+  #root, #__next {
+    isolation: isolate;
+  }
+  
+  /******* Modern Reset Section *******/ 
+
+:root{
+    --mainFont: "Poppins";
+    --secondaryFont: "Orbitron";
+
+    --green: #00FF41;
+    --darkBlue: #001F3F;
+    --blue: #003D5C;
+    --mainGradient: linear-gradient(135deg, #001F3F 0%, #003D5C 50%, #00FF41 100%);
+    --secondaryBackground: linear-gradient(135deg, #003D5C 0%, #003D5C 50%, #001F3F 100%);
+
+    --white: #FFFF;
+    --black: #0000;
+}
+
+body{
+    font-family: var(--mainFont);
+    color: var(--white);
+    overflow-x: hidden;
+}
+
+a {
+    text-decoration: none;
+    /* color: var(--Grey); */
+}
+
+/* p{
+  color: var(--Grey);
+}
+
+h1,h2,h3{
+  color: var(--mainGradient);
+  font-family: var(--titleFont);
+} */
+
+.hidden{
+  display: none;
+}
+
+/* .primary-btn{
+  padding: 0.8rem 2rem;
+  border-radius: 100px;
+  background: var(--mainGradient);
+  color: var(--White);
+  transition: all 0.3s ease;
+}
+
+.secondary-btn{
+  padding: 0.8rem 1rem;
+  border-radius: 5px;
+  background-color: var(--White);
+  color: var(--Purple);
+  border: 1px solid var(--Grey);
+  transition: all 0.3s ease;
+} */
+
+.container{
+    max-width: 640px;
+    margin: 0 auto;
+}
+
+@media screen and (min-width: 1024px) {
+    .container{
+        max-width: 1280px;
+    }
+}
+    

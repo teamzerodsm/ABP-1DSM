@@ -1,0 +1,29 @@
+{
+  "name": "abp-1dsm",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node ./src/server",
+    "dev": "node --watch ./src/server",
+    "db:init": "node ./src/infra/run-sql"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Henri-Bueno/ABP-1dsm.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Henri-Bueno/ABP-1dsm/issues"
+  },
+  "homepage": "https://github.com/Henri-Bueno/ABP-1dsm#readme",
+  "dependencies": {
+    "dotenv": "^17.4.1",
+    "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3",
+    "pg": "^8.20.0"
+  }
+}
