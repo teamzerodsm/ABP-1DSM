@@ -3,6 +3,7 @@
     flex-direction: column;
     background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
     position: relative;
+    min-height: 100vh;
 }
 
 /* Desktop container - oculto no mobile */
@@ -16,17 +17,22 @@
 
 /* Mobile View - Padrão */
 .mobile-view {
+    padding: 50px 30px;
+    min-height: 100%;
+}
+
+.mobile-article {
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
-    padding: 50px 30px;
+    align-items: stretch;
     text-align: center;
-    position: relative;
-    z-index: 1;
+    margin: 0 auto;
+    min-height: 100%;
+    max-width: 450px;
 }
 
 .mobile-logo-title {
-    font-size: 32px;
+    font-size: 2rem;
     font-weight: 700;
     margin-bottom: 40px;
 }
@@ -67,26 +73,27 @@
 .info-section{
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 2rem;
-    max-width: 280px;
+    margin-bottom: 4rem;
 }
 
 .info-section h2 {
-    font-size: 20px;
+    font-size: 1.25rem;
     font-weight: 600;
 }
 
 .info-section p {
-    font-size: 14px;
+    font-size: 1rem;
     line-height: 1.5;
-    text-align: justify;
 }
 
 .mobile-buttons {
     display: flex;
-    gap: 20px;
-    justify-content: center;
+    gap: 1.5rem;
     margin-top: auto;
+    justify-content: center;
+    flex-direction: column;
 }
 
 .mobile-button {
