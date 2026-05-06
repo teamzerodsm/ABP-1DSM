@@ -1,8 +1,8 @@
-# ABP-1DSM
+<p align ="center">
+<img height="250" width="250" src="./.github/Logo-Scrum_do_Zero.png"/>
+</p>
 
-This repository has been created for publish our first project (Scrum learning website).
-
-<h1 align="center">📘 Portal de Certificação em Métodologia Ágil – ABP</h1>
+# <h1 align="center">Scrum do Zero</h1>
 
 ## 📌 Descrição do Projeto
 
@@ -10,7 +10,7 @@ Este projeto consiste no desenvolvimento de um **portal web para certificação 
 
 A aplicação permite que usuários se cadastrem, realizem avaliações organizadas por níveis de dificuldade e acompanhem sua evolução, culminando na emissão de um certificado com base no desempenho.
 
-## 🎯 Objetivo Educacional
+### 🎯 Objetivo Educacional
 
 Integrar, em um único projeto prático, os principais conteúdos do semestre:
 
@@ -20,17 +20,149 @@ Integrar, em um único projeto prático, os principais conteúdos do semestre:
 - Documentação do projeto com **UML**
 - Organização e execução de projeto em equipe
 
-## Sprints
+---
+
+### 🛠️ Ferramentas utilizadas
+
+<table align="center">
+    <tbody>
+        <tr>
+            <td colspan="3" align="center"><b>FrontEnd</b></td>
+        </tr>
+        <tr>
+            <td align="center">
+                <a href="https://www.w3.org/html/" target="_blank" rel="noreferrer">
+                <img height="90" width="80" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg" />
+                </a><br>HTML5
+            </td>
+            <td align="center">
+                <a href="https://www.w3schools.com/css/" target="_blank" rel="noreferrer">
+                <img height="90" width="80" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg" />
+                </a><br>CSS3
+            </td>
+            <td align="center">
+                <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank" rel="noreferrer">
+                <img height="90" width="80" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg" />
+                </a><br>JavaScript
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3" align="center"><b>BackEnd</b></td>
+        </tr>
+        <tr>
+            <td colspan="3" align="center">
+                <a href="https://nodejs.org/pt" target="_blank" rel="noreferrer">
+                <img height="90" width="80" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original.svg" />
+                </a><br>Node.js
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3" align="center"><b>Banco de Dados</b></td>
+        </tr>
+        <tr>
+            <td colspan="3" align="center">
+                <a href="https://www.postgresql.org/" target="_blank" rel="noreferrer">
+                <img height="90" width="80" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg" />
+                </a><br>pgAdmin 4
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3" align="center"><b>Design</b></td>
+        </tr>
+        <tr>
+            <td colspan="3" align="center">
+                <a href="https://www.figma.com/pt-br/" target="_blank" rel="noreferrer">
+                <img height="90" width="80" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/figma/figma-original.svg" />
+                </a><br>Figma
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3" align="center"><b>Versionamento</b></td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                <table>
+                    <tr align="center">
+                        <td align="center">
+                            <a href="https://git-scm.com/" target="_blank" rel="noreferrer">
+                            <img height="90" width="80" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg" />
+                            </a><br>Git
+                        </td>
+                        <td align="center">
+                            <a href="https://github.com/" target="_blank" rel="noreferrer">
+                            <img height="90" width="80" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg" />
+                            </a><br>GitHub
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+---
+
+### 🚀 Como iniciar a aplicação
+
+Para executar o projeto localmente, siga os passos abaixo:
+
+#### Pré-requisitos
+
+Antes de começar, certifique-se de ter instalado:
+
+- Node.js
+- npm
+- Git
+
+#### Clone o repositório
+
+- Abra o terminal na pasta desejada
+
+```bash
+git clone https://github.com/teamzerodsm/ABP-1DSM.git
+```
+
+#### Acesse a pasta do projeto
+
+```bash
+cd ABP-1DSM
+```
+
+#### Instale as dependências do backend
+
+```bash
+npm install
+```
+
+#### Inicie o servidor Node.js
+
+```bash
+npm start
+```
+
+ou
+
+```bash
+npm run dev
+```
+
+#### Abra o front-end
+
+- Abra o arquivo `index.html` no navegador ou utilize a extensão **Live Server** no VS Code, caso esteja rodando localmente
+
+---
+
+### Sprints
 
 | Sprint | Link                            | Início     | Entrega    | Status |
 | ------ | ------------------------------- | ---------- | ---------- | ------ |
-| 01     | <a href="#sprint1">Sprint 1</a> | 13/04/2026 | 30/04/2026 | 🔄     |
-| 02     | <a href="#sprint2">Sprint 2</a> | 04/06/2026 | 21/05/2026 | ❌     |
+| 01     | <a href="#sprint1">Sprint 1</a> | 13/04/2026 | 30/04/2026 | ✅     |
+| 02     | <a href="#sprint2">Sprint 2</a> | 04/05/2026 | 21/05/2026 | ❌     |
 | 03     | <a href="#sprint3">Sprint 3</a> | 25/05/2026 | 11/06/2026 | ❌     |
 
 ---
 
-## 👥 Equipe
+### 👥 Equipe
 
 | Nome               | Função        | GitHub                                                            |
 | ------------------ | ------------- | ----------------------------------------------------------------- |
@@ -42,38 +174,11 @@ Integrar, em um único projeto prático, os principais conteúdos do semestre:
 | Tiago Ferreira     | Desenvolvedor | [tiagof6](https://github.com/tiagof6)                             |
 | Vítor Otavio       | Desenvolvedor | [VirtusXD](https://github.com/VirtusXD)                           |
 
-## 🛠️ Ferramentas utilizadas
-
-<a href="https://www.w3.org/html/" target="_blank" rel="noreferrer">
-<img height="30" width="40" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg" />
-<a/> <br>
-<a href="https://www.w3schools.com/css/" target="_blank" rel="noreferrer">
-<img height="30" width="40" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg" />
-<a/> <br>
-<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank" rel="noreferrer">
-<img height="30" width="40" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg" />
-<a/> <br>
-<a href="https://nodejs.org/pt" target="_blank" rel="noreferrer">
-<img height="30" width="40" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original.svg" />
-<a/> <br>
-<a href="https://www.figma.com/pt-br/" target="_blank" rel="noreferrer">
-<img height="30" width="40" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/figma/figma-original.svg" />
-<a/> <br>
-<a href="https://www.postgresql.org/" target="_blank" rel="noreferrer">
-<img height="30" width="40" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg" />
-<a/> <br>
-<a href="https://git-scm.com/" target="_blank" rel="noreferrer">
-<img height="30" width="40" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg" />
-<a/> <br>
-<a href="https://github.com/" target="_blank" rel="noreferrer">
-<img height="30" width="40" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg" />
-<a/> <br>
-
 ---
 
-## 📝 Product Backlog
+### 📝 Product Backlog
 
-### Requisitos Funcionais
+#### Requisitos Funcionais
 
 | Requisitos Funcionais | Requisitos                                                          | Sprint       | Prioridade |
 | --------------------- | ------------------------------------------------------------------- | ------------ | ---------- |
@@ -83,12 +188,12 @@ Integrar, em um único projeto prático, os principais conteúdos do semestre:
 | RF-04                 | Sistema de avaliação por níveis (questões, tentativas e pontuação). | #01 <br> #02 | Alta       |
 | RF-05                 | Sistema de progressão e acompanhamento do usuário.                  | #02          | Média      |
 | RF-06                 | Cálculo de desempenho final e emissão de certificado.               | #03          | Média      |
-| RF-07                 | Responsabilidade visual e experiência de navegação do usuário.      | #03          | Média      |
+| RF-07                 | Responsividade visual e experiência de navegação do usuário.        | #03          | Média      |
 | RF-08                 | Área administrativa para gerenciamento do sistema.                  | #03          | Baixa      |
 
 <br>
 
-### Requisitos Não Funcionais
+#### Requisitos Não Funcionais
 
 | Requisitos Não Funcionais | Requisitos                                                 | Sprint                | Prioridade |
 | ------------------------- | ---------------------------------------------------------- | --------------------- | ---------- |
@@ -99,7 +204,7 @@ Integrar, em um único projeto prático, os principais conteúdos do semestre:
 | RNF-05                    | Interface clara, navegável e de fácil utilização.          | #01 <br> #02 <br> #03 | Média      |
 | RNF-06                    | Documentação técnica do projeto.                           | #03                   | Média      |
 
-### User Stories
+#### User Stories
 
 | Id_Referência                                  | Remetente | Instrução                                                                          | Finalidade                                                           |
 | ---------------------------------------------- | --------- | ---------------------------------------------------------------------------------- | -------------------------------------------------------------------- |
@@ -110,15 +215,40 @@ Integrar, em um único projeto prático, os principais conteúdos do semestre:
 | RNF-02, RNF-03, RNF-04, RNF-06, RNF-07, RNF-08 | Cliente   | Como cliente quero um site intuitivo, responsivo e seguro                          | Para que usuários se sintam seguros e confortáveis utilizando o site |
 | RNF-08                                         | Cliente   | Como cliente, quero que o site tenha uma documentação básica                       | Para o entendimento da execução técnica do site                      |
 
-## Modelo Conceitual
+---
 
-<img src="Documentos/Modelagem/Modelo_Conceitual.png" />
+### Diagrama de caso de uso
+
+<p align="center">
+<img src="Documentos/Modelagem/Diagrama caso de uso - Scrum do Zero.png" />
+</P>
 
 ---
 
-# <div id="sprint1">Sprint 1</div>
+### Modelo Conceitual
 
-## 🔄 SprintBacklog 1
+<p align="center">
+<img src="Documentos/Modelagem/Modelo_Conceitual.png" />
+</P>
+
+---
+
+## <div id="sprint1">Sprint 1</div>
+
+### ▶️ Vídeo da Sprint 1
+
+<p align="center">
+  <a href="https://www.youtube.com/watch?v=AK7-ML59k_c" target="_blank">
+    <img 
+      src="./.github/Thumb_Video-Sprint01.jpg" 
+      alt="Scrum do Zero - Sprint 1"
+      width="600"
+      style="border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.25);"
+    />
+  </a>
+</p>
+
+### 🔄 Sprint Backlog 1
 
 | Atividade                                                                  | Responsável                | Tarefa concluída | Pontos | Requisito               |
 | -------------------------------------------------------------------------- | -------------------------- | ---------------- | ------ | ----------------------- |
@@ -137,12 +267,16 @@ Integrar, em um único projeto prático, os principais conteúdos do semestre:
 | Estruturação do repositório GitHub                                         | Gabriel                    | ✅               | 2      | RNF-06                  |
 | Configuração do GitHub Projects ( Scrum)                                   | Gabriel                    | ✅               | 2      | RNF-06                  |
 
-## 🔥 Burndown Sprint 1
+### 🔥 Burndown Sprint 1
 
+<p align="center">
 <img src="Scrum/Burndown-Sprint01.jpeg" />
+</p>
 
-## Sprint Retrospective
-### 1. O que funcionou bem durante o sprint?
+### Sprint Retrospective
+
+#### 1. O que funcionou bem durante o sprint?
+
 Durante a Sprint 1, o principal ponto positivo foi a colaboração da equipe. Mesmo com
 dificuldades no início, a divisão de tarefas permitiu que cada integrante se concentrasse em uma
 parte específica do projeto, o que ajudou a manter o andamento das entregas. A comunicação
@@ -150,7 +284,9 @@ entre os membros também foi um fator importante, pois facilitou o alinhamento d
 resolução de dúvidas ao longo da sprint. Outro ponto positivo foi a capacidade de adaptação da
 equipe, que conseguiu se reorganizar e manter o ritmo de produção mesmo diante de mudanças
 internas e imprevistos.
-### 2. O que não funcionou tão bem durante o sprint?
+
+#### 2. O que não funcionou tão bem durante o sprint?
+
 O principal problema da sprint foi a dificuldade inicial em estruturar o processo de trabalho.
 Como a equipe ainda estava se adaptando à metodologia Scrum, houve atraso na definição de
 prioridades e na organização das atividades. Também surgiram dificuldades no uso do GitHub,
@@ -158,7 +294,9 @@ principalmente no controle de branches, commits e versionamento. Além disso, al
 foram organizadas com dependência excessiva entre si, o que fez com que atrasos em uma etapa
 impactassem diretamente o andamento de outras. A saída do Scrum Master no meio da sprint
 também exigiu uma reorganização rápida da equipe e impactou parte do fluxo de trabalho.
-### 3. Quais ações podemos tomar para melhorar no próximo sprint?
+
+#### 3. Quais ações podemos tomar para melhorar no próximo sprint?
+
 Para a próxima sprint, a equipe deve focar em melhorar a organização inicial das atividades e
 definir com mais clareza as prioridades antes do início do desenvolvimento. Também será
 importante padronizar melhor o uso do GitHub, principalmente no fluxo de branches e commits,
@@ -167,11 +305,10 @@ dependência entre tarefas, priorizando primeiro versões base e funcionais das 
 avançar para refinamentos. Com uma estrutura mais bem definida desde o início, a equipe tende
 a manter um fluxo de trabalho mais estável e eficiente nas próximas sprints.
 
+## <div id="sprint2">Sprint 2</div>
 
-# <div id="sprint2">Sprint 2</div>
+**Início previsto para 04/05/2026**
 
-**Sprint não iniciada**
+## <div id="sprint3">Sprint 3</div>
 
-# <div id="sprint3">Sprint 3</div>
-
-**Sprint não iniciada**
+**Início previsto para 25/05/2026**
