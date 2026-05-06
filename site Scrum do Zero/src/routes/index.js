@@ -5,6 +5,7 @@ const auth = require("./auth.routes")
 
 const router = Router()
 
+//Define rotas das api's
 router.use("/usuarios", usuarios)
 router.use("/questoes", questoes)
 router.use("/auth", auth)

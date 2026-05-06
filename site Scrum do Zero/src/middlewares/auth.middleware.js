@@ -1,6 +1,7 @@
 const {verifyToken} = require("../utils/jwt")
 const {findUsuarioById} = require("../repositories/usuarios.repositories")
 
+//Metodo que verifica se o token esta correto, é chamado sempre junto de api's para a verificação antes de realizar qualquer coisa
 async function authmiddleware(req, res, next){
     const authorization = req.headers.authorization
 

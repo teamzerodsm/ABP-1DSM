@@ -1,5 +1,6 @@
 const pool = require("../database/db");
 
+// função para selecionar proxima questão do usuário
 async function findProximaQuestaoByUsuario(idUsuario) {
   const result = await pool.query(
     ` 

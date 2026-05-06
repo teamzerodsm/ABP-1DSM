@@ -6,8 +6,10 @@ const router = Router();
 
 /* GET PRÓXIMA QUESTÃO PENDENTE DO USUÁRIO  
 curl -X GET http://localhost:3000/api/questoes/proxima-questao \
-  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF91c3VhcmlvIjoyLCJpYXQiOjE3Nzc5NDMwMTgsImV4cCI6MTc3Nzk0NjYxOH0.GFdbSrvT7LGYOlz9APt0clltmCesXdVn1oRip6DcS_E"
+  -H "Authorization: Bearer "
 */
+
+//rota API que encontra proxima questão para o usuário
 router.get("/proxima-questao", authmiddleware, async function (req, res) {
     try {
         const questao = await findProximaQuestaoByUsuario(req.usuario.id_usuario);
