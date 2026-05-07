@@ -209,8 +209,6 @@ npm run dev
 | RF-07                 | Responsividade visual e experiência de navegação do usuário.        | #03          | Média      |
 | RF-08                 | Área administrativa para gerenciamento do sistema.                  | #03          | Baixa      |
 
-<br>
-
 #### Requisitos Não Funcionais
 
 | Requisitos Não Funcionais | Requisitos                                                 | Sprint                | Prioridade |
@@ -325,7 +323,27 @@ a manter um fluxo de trabalho mais estável e eficiente nas próximas sprints.
 
 ## <div id="sprint2">Sprint 2</div>
 
-**Início previsto para 04/05/2026**
+### 🔄 Sprint Backlog 2
+
+| Atividade                                        | Responsável       | Pontos | Prioridade |
+| ------------------------------------------------ | ----------------- | ------ | ---------- |
+| Desenvolver interface de autenticação            | Vitor, Paulo      | 15     | Alta       |
+| Desenvolver telas de perfil e progresso          | Vitor, Paulo      | 14     | Média      |
+| Desenvolver interface de home page               | Vitor, Paulo      | 15     | Alta       |
+| Desenvolver interface de execução do exame       | Vitor, Paulo      | 15     | Alta       |
+| Desenvolver interface de resultados e pós-exame  | Vitor, Paulo      | 12     | Alta       |
+| Aplicar responsividade global                    | Vitor, Paulo      | 10     | Média      |
+| Implementar controle de questões                 |                   | 14     | Alta       |
+| Implementar controle de exame                    |                   | 9      | Alta       |
+| Implementar controle de tentativas               |                   | 10     | Alta       |
+| Implementar consultas de progresso e certificado |                   | 11     | Média      |
+| Refatorar estrutura backend                      | Igor              | 8      | Baixa      |
+| Elaborar diagrama de classes                     | Henrique          | 10     | Alta       |
+| Elaborar diagramas de sequência de autenticação  | Henrique, Gabriel | 5      | Média      |
+| Elaborar diagramas de sequência de exame         | Henrique, Gabriel | 11     | Alta       |
+| Elaborar diagramas de sequência de progresso     | Henrique, Gabriel | 8      | Média      |
+| Integrar autenticação com navegação              | Henrique, Gabriel | 8      | Alta       |
+| Integrar fluxo completo de exame                 | Henrique, Gabriel | 10     | Alta       |
 
 ## <div id="sprint3">Sprint 3</div>
 
