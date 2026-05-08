@@ -141,6 +141,33 @@ Integrar, em um único projeto prático, os principais conteúdos do semestre:
 
 <img src="Scrum/Burndown-Sprint01.jpeg" />
 
+## Sprint Retrospective
+### 1. O que funcionou bem durante o sprint?
+Durante a Sprint 1, o principal ponto positivo foi a colaboração da equipe. Mesmo com
+dificuldades no início, a divisão de tarefas permitiu que cada integrante se concentrasse em uma
+parte específica do projeto, o que ajudou a manter o andamento das entregas. A comunicação
+entre os membros também foi um fator importante, pois facilitou o alinhamento das decisões e a
+resolução de dúvidas ao longo da sprint. Outro ponto positivo foi a capacidade de adaptação da
+equipe, que conseguiu se reorganizar e manter o ritmo de produção mesmo diante de mudanças
+internas e imprevistos.
+### 2. O que não funcionou tão bem durante o sprint?
+O principal problema da sprint foi a dificuldade inicial em estruturar o processo de trabalho.
+Como a equipe ainda estava se adaptando à metodologia Scrum, houve atraso na definição de
+prioridades e na organização das atividades. Também surgiram dificuldades no uso do GitHub,
+principalmente no controle de branches, commits e versionamento. Além disso, algumas tarefas
+foram organizadas com dependência excessiva entre si, o que fez com que atrasos em uma etapa
+impactassem diretamente o andamento de outras. A saída do Scrum Master no meio da sprint
+também exigiu uma reorganização rápida da equipe e impactou parte do fluxo de trabalho.
+### 3. Quais ações podemos tomar para melhorar no próximo sprint?
+Para a próxima sprint, a equipe deve focar em melhorar a organização inicial das atividades e
+definir com mais clareza as prioridades antes do início do desenvolvimento. Também será
+importante padronizar melhor o uso do GitHub, principalmente no fluxo de branches e commits,
+para evitar retrabalho e desorganização no repositório. Outro ponto importante será reduzir a
+dependência entre tarefas, priorizando primeiro versões base e funcionais das entregas antes de
+avançar para refinamentos. Com uma estrutura mais bem definida desde o início, a equipe tende
+a manter um fluxo de trabalho mais estável e eficiente nas próximas sprints.
+
+
 # <div id="sprint2">Sprint 2</div>
 
 **Sprint não iniciada**
