@@ -11,6 +11,7 @@
   
   @media (prefers-reduced-motion: no-preference) {
     html {
+      scroll-behavior: smooth;
       interpolate-size: allow-keywords;
     }
   }
@@ -68,7 +69,24 @@ body{
     font-family: var(--mainFont);
     color: var(--white);
     overflow-x: hidden;
-    min-height: 100vh;
+}
+
+a {
+    text-decoration: none;
+    /* color: var(--Grey); */
+}
+
+/* p{
+  color: var(--Grey);
+}
+
+h1,h2,h3{
+  color: var(--mainGradient);
+  font-family: var(--titleFont);
+} */
+
+.hidden{
+  display: none;
 }
 
 /* .primary-btn{
@@ -90,7 +108,11 @@ body{
 
 .container{
     max-width: 640px;
-    margin: 0 auto;
+}
+
+.container-quiz{
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
 @media screen and (min-width: 1024px) {
