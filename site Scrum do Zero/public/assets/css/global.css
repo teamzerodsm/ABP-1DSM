@@ -60,8 +60,8 @@
     --mainGradient: linear-gradient(135deg, #001F3F 0%, #003D5C 50%, #00FF41 100%);
     --secondaryBackground: linear-gradient(135deg, #003D5C 0%, #003D5C 50%, #001F3F 100%);
 
-    --white: #FFFF;
-    --black: #0000;
+    --white: #FFF;
+    --black: #000;
 }
 
 body{

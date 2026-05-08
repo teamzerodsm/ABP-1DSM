@@ -37,6 +37,10 @@ app.get("/cadastro", function(_req, res){
     res.sendFile(path.join(pagesPath, "cadastro.html"));
 });
 
+app.get("/perfil", function(_req, res){
+    res.sendFile(path.join(pagesPath, "perfil.html"));
+});
+
 app.use(function(_req, res){
     res.sendFile(path.join(pagesPath, "not-found.html"));
 });
