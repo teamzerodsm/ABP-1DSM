@@ -1,11 +1,13 @@
 const {randomBytes, scryptSync, timingSafeEqual} = require("crypto")
 
+//Metodo para criptografar senha antes de ser inserido
 function hashPassword(password){
     const salt = randomBytes(16).toString("hex")
     const hash = scryptSync(password, salt, 64).toString("hex")
     return `${ salt }:${ hash }`
 }
 
+//Metodo para verificar a senha criptografado
 function verifyPassword(password, storedPassword){
     const [salt, storedHash] = (storedPassword || "").split(":")
     if (!salt || !storedHash) {
