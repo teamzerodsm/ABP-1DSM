@@ -17,6 +17,7 @@ const assetsPath = path.join(publicPath, "assets")
 
 app.use("/", express.static(pagesPath))
 app.use("/assets", express.static(assetsPath))
+app.use('/assets', express.static(path.join(publicPath,"assets")))
 
 app.use("/api", router)
 
@@ -28,3 +29,11 @@ const PORT = process.env.PORT
 app.listen(PORT, function () {
     console.log(`Rodando em http://localhost:${PORT}`)
 })
+
+app.get("/quiz-page", function(_req, res){
+    res.sendFile(path.join(pagesPath, "quiz-page.html"));
+});
+
+app.use(function(_req,res){
+    res.redirect("not-found.html");
+});
