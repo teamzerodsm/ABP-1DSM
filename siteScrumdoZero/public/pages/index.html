@@ -11,7 +11,7 @@
 
 <body>
 
-  <section class="page-container">
+  <main class="page-main-section">
 
     <div class="main-container">
       <div class="left-section">
@@ -110,13 +110,13 @@
       
           <form class="form-login">
             <div class="form-group">
-              <label class="form-label">Seu CPF</label>
-              <input type="text" class="form-input" />
+              <label for="cpf-area" class="form-label">Seu CPF</label>
+              <input class="form-input" name="CPF" data-required="This field is required" id="cpf-area" type="text" />
             </div>
       
             <div class="form-group">
-              <label class="form-label">Sua senha</label>
-              <input type="password" class="form-input">
+              <label for="password-area" class="form-label">Sua senha</label>
+              <input class="form-input" name="password" data-required="This field is required" id="password-area" type="password" >
               <a href="">Esqueci minha senha</a>
             </div>
       
@@ -131,7 +131,7 @@
 
     </section>
 
-  </section>
+  </main>
 
 </body>
 

@@ -1,4 +1,4 @@
-.page-container {
+.page-main-section {
     display: flex;
     background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
     position: relative;
@@ -231,11 +231,11 @@
 
 @media (min-width: 1024px) {
 
-    .page-container {
+    .page-main-section {
         background: transparent;
     }
 
-    .page-container::after {
+    .page-main-section::after {
         display: none;
     }
 

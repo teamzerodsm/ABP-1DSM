@@ -11,6 +11,7 @@
   
   @media (prefers-reduced-motion: no-preference) {
     html {
+      scroll-behavior: smooth;
       interpolate-size: allow-keywords;
     }
   }
@@ -107,7 +108,11 @@ h1,h2,h3{
 
 .container{
     max-width: 640px;
-    margin: 0 auto;
+}
+
+.container-quiz{
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
 @media screen and (min-width: 1024px) {
