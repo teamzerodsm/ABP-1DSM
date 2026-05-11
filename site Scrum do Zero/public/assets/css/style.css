@@ -1,4 +1,6 @@
-@import url(header.css);
+@import url(./components/loginCard.css);
+@import url(./components/dialogModulo.css);
+@import url(./components/header.css);
 @import url(main.css);
 @import url(cadastro.css);
 @import url(perfil.css);

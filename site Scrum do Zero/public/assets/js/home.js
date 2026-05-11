@@ -8,9 +8,3 @@ function hidden(){
 btnAcessar.addEventListener('click', ()=>{
     hidden()
 })
-
-const form = document.querySelector(".form-login");
-
-const inputs = form.querySelectorAll("input");
-
-const emailRegex = /^[A-Za-z0-9_\-\.]+@[A-Za-z0-9_\-\.]{2,}\.[A-Za-z0-9]{2,}(\.[A-Za-z0-9])?/

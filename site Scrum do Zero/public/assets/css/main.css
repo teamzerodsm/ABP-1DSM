@@ -1,5 +1,4 @@
 
-  /* ===== main ===== */
   .info-section-main {
     padding: 32px 20px 40px;
     max-width: 1280px;
@@ -56,81 +55,7 @@
     background-color: #f0f0f0;
     transform: scale(1.01);
   }
-
-  /* ===== OVERLAY (backdrop) ===== */
-  .overlay {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background-color: rgba(80, 80, 80, 0.72);
-    z-index: 200;
-    align-items: center;
-    justify-content: center;
-    padding: 16px;
-  }
-
-  .overlay.active {
-    display: flex;
-  }
-
-  /* ===== DIALOG BOX ===== */
-  .dialog {
-    background: #ffffff;
-    border-radius: 16px;
-    padding: 36px 32px 28px;
-    width: 100%;
-    max-width: 520px;
-    text-align: center;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.18);
-    position: relative;
-    animation: fadeIn 0.2s ease;
-  }
-
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-16px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-
-  .dialog-level-label {
-    font-size: 1rem;
-    font-weight: 400;
-    color: #222;
-    margin-bottom: 8px;
-  }
-
-  .dialog-title {
-    font-size: 1.15rem;
-    font-weight: 900;
-    color: #000;
-    margin-bottom: 20px;
-  }
-
-  .dialog-description {
-    font-size: 0.9rem;
-    color: #333;
-    line-height: 1.6;
-    margin-bottom: 20px;
-    font-style: normal;
-  }
-
-  .dialog-info {
-    font-size: 0.95rem;
-    color: #222;
-    margin-bottom: 8px;
-  }
-
-  .dialog-info + .dialog-info {
-    margin-bottom: 28px;
-  }
-
-  .dialog-actions {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-    margin-top: 28px;
-  }
-
+  
   .btn-cancelar {
     background: none;
     border: none;
@@ -182,12 +107,6 @@
       padding: 32px 24px;
     }
 
-    .dialog {
-      padding: 40px 48px 32px;
-    }
-
-    .dialog-level-label { font-size: 1.05rem; }
-    .dialog-title { font-size: 1.25rem; }
   }
 
   /* ===== DESKTOP (≥ 1024px) ===== */
