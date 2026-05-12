@@ -1,10 +1,10 @@
-<<<<<<< HEAD
-@import url(global.css);
+@import url(progresso.css);
+@import url(./components/loginCard.css);
+@import url(./components/dialogModulo.css);
+@import url(./components/header.css);
 @import url(main.css);
 @import url(cadastro.css);
 @import url(perfil.css);
-=======
 @import url(home.css);
 @import url(quizPage.css);
 @import url(global.css);
->>>>>>> 3bbf31c9e8039ad03dde19848f900827643519fb

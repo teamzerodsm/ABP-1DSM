@@ -41,6 +41,10 @@ app.get("/perfil", function(_req, res){
     res.sendFile(path.join(pagesPath, "perfil.html"));
 });
 
+app.get("/progresso", function(_req, res){
+    res.sendFile(path.join(pagesPath, "progresso.html"));
+});
+
 app.get("/quiz-page", function(_req, res){
     res.sendFile(path.join(pagesPath, "quiz-page.html"));
 });

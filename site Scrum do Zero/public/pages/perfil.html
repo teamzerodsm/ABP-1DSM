@@ -4,28 +4,15 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="/assets/css/style.css">
+  <script src="/assets/js/components/header.js"></script>
+  <script src="/assets/js/perfil.js"></script>
   <title>Alterar Dados</title>
 </head>
-<body class="perfil-page">
-  <header class="topbar">
-    <img class="logo" src="logo.png" alt="Logo">
-    <nav class="nav">
-      <a href="#">Histórico</a>
-      <a href="#">Perfil</a>
-      <a href="#">Certificado</a>
-    </nav>
-    <button class="menu-btn" id="menuBtn" aria-label="Abrir menu" aria-expanded="false">
-      <span></span>
-    </button>
-  </header>
+<body>
 
-  <div class="nav-panel" id="navPanel">
-    <a href="#">Histórico</a>
-    <a href="#">Perfil</a>
-    <a href="#">Certificado</a>
-  </div>
-
-  <main class="profile-main-section">
+  <default-header></default-header>
+  
+  <main class="container profile-main-section">
     <section class="perfil-card">
       <div class="perfil-layout">
         <aside class="perfil-sidebar">
@@ -120,6 +107,5 @@
       </div>
     </section>
   </main>
-  <script src="/assets/js/perfil.js"></script>
 </body>
 </html>

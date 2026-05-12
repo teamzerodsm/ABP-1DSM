@@ -1,92 +1,109 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const btn = document.getElementById('menuBtn');
-    const panel = document.getElementById('navPanel');
-  
-    if (btn && panel) {
-      btn.addEventListener('click', () => {
-        const open = panel.classList.toggle('open');
-        btn.setAttribute('aria-expanded', open);
-      });
-    }
-  
-    const form = document.querySelector('form');
+    const form = document.getElementById('cadastroForm');
+    const mensagem = document.getElementById('mensagem');
+    const nome = document.getElementById('nome');
+    const sobrenome = document.getElementById('sobrenome');
     const cpf = document.getElementById('cpf');
     const email = document.getElementById('email');
-    const senhaAtual = document.getElementById('senha-atual');
-    const novaSenha = document.getElementById('nova-senha');
-    const confirmarSenha = document.getElementById('confirmar-senha');
+    const senha = document.getElementById('senha');
+    const confirmar = document.getElementById('confirmar');
   
-    if (!form || !cpf || !email || !senhaAtual || !novaSenha || !confirmarSenha) return;
+    const campos = [nome, sobrenome, cpf, email, senha, confirmar];
+    const apiUrl = '/api/usuarios';
   
-    const mensagem = document.createElement('div');
-    mensagem.className = 'mensagem';
-    mensagem.id = 'mensagem';
-    form.parentNode.insertBefore(mensagem, form);
-  
-    function setMsg(texto, tipo) {
-      mensagem.textContent = texto;
-      mensagem.className = `mensagem ${tipo}`;
-    }
-  
-    function limparMsg() {
+    const limparMensagem = () => {
       mensagem.textContent = '';
-      mensagem.className = 'mensagem';
-    }
+      mensagem.className = 'cadastro-mensagem';
+      mensagem.style.display = 'none';
+    };
   
-    function validaEmail(valor) {
-      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(valor.trim());
-    }
+    const mostrarMensagem = (texto, tipo) => {
+      mensagem.textContent = texto;
+      mensagem.className = `cadastro-mensagem ${tipo}`;
+      mensagem.style.display = 'block';
+    };
   
-    function limpaCPF(valor) {
-      return valor.replace(/\D/g, '');
-    }
+    const validarEmail = valor => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(valor);
   
-    function validaCPF(cpf) {
-      cpf = limpaCPF(cpf);
-      if (cpf.length !== 11 || /^([0-9])\1+$/.test(cpf)) return false;
-  
-      let soma = 0;
-      for (let i = 0; i < 9; i++) soma += parseInt(cpf[i]) * (10 - i);
-      let resto = (soma * 10) % 11;
-      if (resto === 10 || resto === 11) resto = 0;
-      if (resto !== parseInt(cpf[9])) return false;
-  
-      soma = 0;
-      for (let i = 0; i < 10; i++) soma += parseInt(cpf[i]) * (11 - i);
-      resto = (soma * 10) % 11;
-      if (resto === 10 || resto === 11) resto = 0;
-  
-      return resto === parseInt(cpf[10]);
-    }
-  
-    function formatarCPF(valor) {
-      valor = limpaCPF(valor).slice(0, 11);
-      valor = valor.replace(/(\d{3})(\d)/, '$1.$2');
-      valor = valor.replace(/(\d{3})(\d)/, '$1.$2');
-      valor = valor.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
-      return valor;
-    }
+    const aplicarMascaraCPF = valor =>
+      valor
+        .replace(/\D/g, '')
+        .replace(/(\d{3})(\d)/, '$1.$2')
+        .replace(/(\d{3})(\d)/, '$1.$2')
+        .replace(/(\d{3})(\d{1,2})$/, '$1-$2')
+        .slice(0, 14);
   
     cpf.addEventListener('input', () => {
-      cpf.value = formatarCPF(cpf.value);
+      cpf.value = aplicarMascaraCPF(cpf.value);
     });
   
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-      limparMsg();
+    campos.forEach(campo => campo.addEventListener('input', limparMensagem));
   
+    form.addEventListener('submit', async event => {
+      event.preventDefault();
+  
+      const nomeVal = nome.value.trim();
+      const sobrenomeVal = sobrenome.value.trim();
       const cpfVal = cpf.value.trim();
       const emailVal = email.value.trim();
-      const senhaAtualVal = senhaAtual.value;
-      const novaSenhaVal = novaSenha.value;
-      const confirmarSenhaVal = confirmarSenha.value;
+      const senhaVal = senha.value;
+      const confirmarVal = confirmar.value;
   
-      if (!validaCPF(cpfVal)) return setMsg('CPF inválido.', 'erro');
-      if (!validaEmail(emailVal)) return setMsg('E-mail em formato inválido.', 'erro');
-      if (senhaAtualVal !== '123456') return setMsg('Senha atual incorreta.', 'erro');
-      if (novaSenhaVal.length < 8) return setMsg('A nova senha deve ter no mínimo 8 caracteres.', 'erro');
-      if (novaSenhaVal !== confirmarSenhaVal) return setMsg('A nova senha e a confirmação não conferem.', 'erro');
+      const vazio = campos.find(campo => campo.value.trim() === '');
+      if (vazio) {
+        mostrarMensagem('Preencha todos os campos.', 'erro');
+        vazio.focus();
+        return;
+      }
   
-      setMsg('Dados validados com sucesso!', 'sucesso');
+      if (cpfVal.replace(/\D/g, '').length !== 11) {
+        mostrarMensagem('Digite um CPF válido com 11 números.', 'erro');
+        cpf.focus();
+        return;
+      }
+  
+      if (!validarEmail(emailVal)) {
+        mostrarMensagem('Digite um e-mail válido.', 'erro');
+        email.focus();
+        return;
+      }
+  
+      if (senhaVal.length < 6) {
+        mostrarMensagem('A senha deve ter pelo menos 6 caracteres.', 'erro');
+        senha.focus();
+        return;
+      }
+  
+      if (senhaVal !== confirmarVal) {
+        mostrarMensagem('As senhas não conferem.', 'erro');
+        confirmar.focus();
+        return;
+      }
+  
+      try {
+        const resposta = await fetch(apiUrl, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            nome: `${nomeVal} ${sobrenomeVal}`.trim(),
+            email: emailVal,
+            cpf: cpfVal,
+            senha: senhaVal
+          })
+        });
+  
+        const data = await resposta.json().catch(() => ({}));
+  
+        if (!resposta.ok) {
+          throw new Error(data.message || 'Não foi possível concluir o cadastro.');
+        }
+  
+        mostrarMensagem('Cadastro realizado com sucesso!', 'sucesso');
+        form.reset();
+      } catch (error) {
+        mostrarMensagem(error.message || 'Erro ao conectar com o servidor.', 'erro');
+      }
     });
   });

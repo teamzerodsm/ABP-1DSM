@@ -53,7 +53,7 @@
      CONTENT
   ========================= */
   
-  .content {
+  .content-quiz-page {
     display: flex;
     flex-direction: column;
     gap: 48px;
@@ -220,7 +220,7 @@
     .quiz-main-section{
       padding: 1rem 16px 2rem 16px;
     }
-    .content {
+    .content-quiz-page {
       flex-direction: row;
     }
   

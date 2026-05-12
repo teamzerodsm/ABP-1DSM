@@ -4,38 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/assets/css/style.css">
+    <script type="module" src="/assets/js/main.js"></script>
+    <script src="/assets/js/components/header.js"></script>
     <title>Scrum do Zero</title>
 </head>
 <body>
-     <!-- ===== HEADER ===== -->
-  <header>
-    <div class="logo">
-      <svg viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="30" cy="30" r="28" stroke="#000" stroke-width="2.5"/>
-        <circle cx="30" cy="30" r="18" stroke="#000" stroke-width="2"/>
-        <circle cx="30" cy="30" r="8"  stroke="#000" stroke-width="2"/>
-        <circle cx="30" cy="12" r="3"  fill="#000"/>
-        <circle cx="30" cy="48" r="3"  fill="#000"/>
-        <circle cx="12" cy="30" r="3"  fill="#000"/>
-        <circle cx="48" cy="30" r="3"  fill="#000"/>
-        <text x="50%" y="78%" dominant-baseline="middle" text-anchor="middle"
-              font-size="7" font-family="Arial" font-weight="bold" fill="#000">SCRUM</text>
-      </svg>
-    </div>
 
-    <button class="hamburger" id="hamburger" aria-label="Abrir menu" aria-expanded="false">
-      <span></span><span></span><span></span>
-    </button>
+  <default-header></default-header>
 
-    <nav id="main-nav">
-      <a href="#">Certificado</a>
-      <a href="#">Progresso</a>
-      <a href="#">Perfil</a>
-    </nav>
-  </header>
-
-  <!-- ===== MAIN ===== -->
-  <main>
+  <main class="info-section-main">
     <section class="hero">
       <h1>Seja bem vindo ao Scrum do Zero</h1>
       <p>Escolha seu nível e avance no seu aprendizado em Scrum de forma prática e progressiva.</p>
@@ -44,43 +21,15 @@
     </section>
 
     <div class="levels-card">
-      <button class="level-btn" onclick="openDialog(1, 'Fundamentos das Metodologias Ágeis', 'Conceitos básicos das metodologias ágeis, com foco em colaboração, flexibilidade e melhoria contínua.', 0, 2, 5.0)">Nível 1</button>
-      <button class="level-btn" onclick="openDialog(2, 'Introdução ao Scrum', 'Aprenda os pilares e valores do Scrum e como ele organiza o trabalho em equipe.', 2, 2, 4.5)">Nível 2</button>
-      <button class="level-btn" onclick="openDialog(3, 'Papéis do Scrum', 'Entenda as responsabilidades do Product Owner, Scrum Master e do Time de Desenvolvimento.', 1, 2, 3.8)">Nível 3</button>
-      <button class="level-btn" onclick="openDialog(4, 'Eventos e Artefatos', 'Explore as cerimônias e artefatos que guiam o processo Scrum do início ao fim.', 0, 2, 0.0)">Nível 4</button>
-      <button class="level-btn" onclick="openDialog(5, 'Scrum Avançado', 'Aprofunde-se em métricas, escalabilidade e certificação Scrum profissional.', 0, 2, 0.0)">Nível 5</button>
+      <button class="level-btn" data-idLevel="1">Nível 1</button>
+      <button class="level-btn" data-idLevel="2">Nível 2</button>
+      <button class="level-btn" data-idLevel="3">Nível 3</button>
+      <button class="level-btn" data-idLevel="4">Nível 4</button>
+      <button class="level-btn" data-idLevel="5">Nível 5</button>
     </div>
   </main>
 
-  <!-- ===== OVERLAY + DIALOG ===== -->
-  <div class="overlay" id="overlay" onclick="handleOverlayClick(event)">
-    <div class="dialog" id="dialog">
-      <p class="dialog-level-label" id="dialog-label">Nível 1</p>
-      <p class="dialog-title" id="dialog-title">Fundamentos das Metodologias Ágeis</p>
-      <p class="dialog-description" id="dialog-desc">"Conceitos básicos das metodologias ágeis..."</p>
-      <p class="dialog-info" id="dialog-tentativas">tentativas restantes: 0/2</p>
-      <p class="dialog-info" id="dialog-pontuacao">melhor pontuação: 5.0</p>
+  <default-dialog></default-dialog>
 
-      <div class="dialog-actions">
-        <button class="btn-cancelar" onclick="closeDialog()">Cancelar</button>
-        <button class="btn-prosseguir">Prosseguir</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- ===== SIDEBAR ===== -->
-  <div class="sidebar-overlay" id="sidebar-overlay" aria-hidden="true"></div>
-
-  <nav class="sidebar" id="sidebar" aria-label="Menu de navegação" aria-hidden="true">
-    <h2 class="sidebar-title">Opções</h2>
-    <ul class="sidebar-list">
-      <li><a href="#" class="sidebar-link">Perfil</a></li>
-      <li><a href="#" class="sidebar-link">Histórico</a></li>
-      <li><a href="#" class="sidebar-link">Certificados</a></li>
-    </ul>
-  </nav>
-
-  <!-- ✅ Script AQUI, último elemento antes de </body> -->
-  <script src="/assets/js/main.js"></script>
 </body>
 </html>
