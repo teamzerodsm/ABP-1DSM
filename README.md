@@ -236,7 +236,7 @@ npm run dev
 ### Diagrama de caso de uso
 
 <p align="center">
-<img src="Documentos/Modelagem/Diagrama caso de uso - Scrum do Zero.png" />
+<img src="Documentos/Modelagem//diagramas uml/Diagrama caso de uso - Scrum do Zero.png" />
 </P>
 
 ---
@@ -335,7 +335,7 @@ a manter um fluxo de trabalho mais estável e eficiente nas próximas sprints.
 | Aplicar responsividade global                    | Vitor, Paulo      | 10     | Média      |
 | Implementar controle de questões                 |                   | 14     | Alta       |
 | Implementar controle de exame                    |                   | 9      | Alta       |
-| Implementar controle de tentativas               |                   | 10     | Alta       |
+| Implementar controle de tentativas               | Igor              | 10     | Alta       |
 | Implementar consultas de progresso e certificado |                   | 11     | Média      |
 | Refatorar estrutura backend                      | Igor              | 8      | Baixa      |
 | Elaborar diagrama de classes                     | Henrique          | 10     | Alta       |
