@@ -16,7 +16,7 @@ const router = Router()
 /* POST CRIAR USUÁRIO
 curl -X POST http://localhost:3000/api/usuarios \
   -H "Content-Type: application/json" \
-  -d '{"nome":"Ana","email":"ana@email.com","cpf":"12345678901","senha":"123456","grupo":1}'
+  -d '{"nome":"lucas","email":"lucas@email.com","cpf":"21345678901","senha":"123456"}'
 */
 
 // Rota API para o cadastro, recebe do formulario (req.body) as informações e utiliza do metodo createUsuario
