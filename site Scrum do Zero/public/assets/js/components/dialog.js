@@ -2,7 +2,7 @@ class LevelDialog extends HTMLElement {
   connectedCallback() {
 
     this.innerHTML = `
-        <dialog class='dialog'>
+        <dialog class='dialog' id="dialog-modules">
             <p class="dialog-level-label" id="dialog-level"></p>
             <p class="dialog-title" id="dialog-title"></p>
             <p class="dialog-description" id="dialog-desc"></p>
@@ -16,7 +16,7 @@ class LevelDialog extends HTMLElement {
         </dialog>
         `;
 
-    this.dialog = this.querySelector(".dialog");
+    this.dialog = this.querySelector("#dialog-modules");
     this.dialogLevel = this.querySelector("#dialog-level");
     this.dialogTitle = this.querySelector("#dialog-title");
     this.dialogDesc = this.querySelector("#dialog-desc");
@@ -27,7 +27,7 @@ class LevelDialog extends HTMLElement {
       this.dialog.close();
     });
 
-    this.btnResume = this.querySelector(".btn-prosseguir");
+    this.btn;Resume = this.querySelector(".btn-prosseguir");
 
     this.dialog.addEventListener("click", (event) => {
       const rect = this.dialog.getBoundingClientRect();
@@ -53,4 +53,4 @@ class LevelDialog extends HTMLElement {
 
 }
 
-customElements.define("default-dialog", LevelDialog);
+customElements.define("dialog-modules", LevelDialog);

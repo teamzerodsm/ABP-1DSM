@@ -1,7 +1,7 @@
 import "./components/dialog.js";
 
 const levelBtns = document.querySelectorAll(".level-btn");
-const dialogComponent = document.querySelector("default-dialog");
+const dialogComponent = document.querySelector("dialog-modules");
 
 const dadosDoBanco = [
   { id: 1, level: "Nível 1", titulo: "Fundamentos", descricao: "Descrição aqui...", tentativas: "3", pontos: "100" },
