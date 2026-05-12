@@ -30,7 +30,7 @@ O sistema visual da aplicação foi desenvolvido com foco em:
 
 ---
 
-## 🛠 Ferramentas Utilizadas
+## 🛠️ Ferramentas Utilizadas
 
 <div align="center">
 
@@ -48,6 +48,14 @@ O sistema visual da aplicação foi desenvolvido com foco em:
 Ferramenta utilizada para prototipação, definição da identidade visual e construção das interfaces da aplicação.
 
 </div>
+
+---
+
+## 🔗 Protótipo no Figma
+
+O protótipo completo da aplicação pode ser acessado no link abaixo:
+
+[🎨 Acessar protótipo no Figma](https://www.figma.com/design/n5Jycwi5VFJc5a7DMID4tS/Sem-t%C3%ADtulo?node-id=0-1&t=5rpHQvQgvQhHK1Rf-1)
 
 ---
 
