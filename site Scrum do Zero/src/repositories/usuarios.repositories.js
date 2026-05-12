@@ -2,16 +2,21 @@ const pool = require("../database/db");
 const { randomBytes } = require("crypto")
 const { hashPassword, verifyPassword } = require("../utils/password")
 
+function sanitizeCpf(cpf) {
+    return cpf ? cpf.toString().replace(/\D/g, '') : cpf
+}
+
 //Função inserir usuário no banco de dados | é chamada pelo método createUsuario
 async function insertUsuario(client, nome, email, cpf, senha) {
     const certificado_hash = randomBytes(24).toString("hex")
     const senhaCodificada = hashPassword(senha)
+    const cpfLimpo = sanitizeCpf(cpf)
 
     const result = await client.query(
         `INSERT INTO usuarios (nome, email, cpf, senha, certificado_hash)
         VALUES ($1, $2,$3, $4, $5)
         RETURNING id_usuario, nome, email, cpf, certificado_hash`,
-        [nome, email, cpf, senhaCodificada, certificado_hash]
+        [nome, email, cpfLimpo, senhaCodificada, certificado_hash]
     )
     if (result && result.rowCount == 1) {
         return result.rows[0];
@@ -63,11 +68,11 @@ async function createUsuario(nome, email, cpf, senha) {
 
         const modulo = await findPrimeiroModuloid(client)
         if (!modulo) {
-            throw new error("Nenhum módulo cadastrado para inicializar exame do usuário")
+            throw new Error("Nenhum módulo cadastrado para inicializar exame do usuário")
         }
         const grupo = await findGrupoAleatorio(client, modulo.id_modulo)
         if (!grupo) {
-            throw new error("Nenhum grupo cadastrado para inicializar exame do usuário")
+            throw new Error("Nenhum grupo cadastrado para inicializar exame do usuário")
         }
 
         await insertExame(
@@ -81,8 +86,8 @@ async function createUsuario(nome, email, cpf, senha) {
 
         return { id_usuario: usuario.id_usuario, nome: usuario.nome, email: usuario.email, cpf: usuario.cpf }
     } catch (e) {
-        client.query("ROLLBACK")
-        print("Erro: ", error.e);
+        await client.query("ROLLBACK")
+        throw e
     } finally {
         client.release()
     }
@@ -90,12 +95,13 @@ async function createUsuario(nome, email, cpf, senha) {
 
 //Atualiza CPF de usuário
 async function updateUsuarioCpf(idUsuario, cpf) {
+    const cpfLimpo = sanitizeCpf(cpf)
     const result = await pool.query(`
         UPDATE usuarios
         SET cpf = $1
         WHERE id_usuario = $2
         RETURNING id_usuario`,
-        [cpf, idUsuario]
+        [cpfLimpo, idUsuario]
     )
 
     return result.rows[0] || null
@@ -154,11 +160,12 @@ async function findUsuarioById(idUsuario) {
 
 //Encontra o usuário pelo CPF e SENHA e retorna seu id, nome email e cpf
 async function findUsuarioByCpfAndSenha(cpf, senha) {
+    const cpfLimpo = sanitizeCpf(cpf)
     const result = await pool.query(`
         SELECT id_usuario, nome, email, cpf,senha
         FROM usuarios
         WHERE cpf = $1`,
-        [cpf]
+        [cpfLimpo]
     )
     usuario = result.rows[0]
     if (!result.rows[0]) {
