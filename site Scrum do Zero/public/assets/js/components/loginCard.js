@@ -26,9 +26,9 @@ class loginCard extends HTMLElement {
           </form>
       
           <div class="register-link">
-            Não tem uma conta? <a href="#cadastrar">Cadastrar-se</a>
+             Não tem uma conta? <a href="cadastro.html">Cadastrar-se</a>
           </div>
-        `;
+        `
 
     this.inputCpf = this.querySelector("#cpf-area");
     this.inputPassword = this.querySelector("#password-area");
