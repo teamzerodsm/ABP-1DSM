@@ -22,7 +22,10 @@ router.get("/proxima-questao", authMiddleware, async function (req, res) {
         .json({ message: "nenhuma questão pendente encontrada" });
     }
 
-    return res.status(200).json(questao);
+    return res.status(200).json({
+      ...questao,
+      imagem: questao.imagem ? `/imagem/questoes/${questao.imagem}`: nuul,
+    });
   } catch (e) {
     return res.status(500).json({
       message: "erro interno do servidor",
