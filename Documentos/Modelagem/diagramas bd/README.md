@@ -2,7 +2,7 @@
 
 Esta pasta reúne toda a documentação relacionada à modelagem e estruturação do banco de dados da aplicação, incluindo diagramas conceituais e lógicos utilizados no desenvolvimento do sistema.
 
-A modelagem do banco de dados foi definida durante a [Sprint 1](../../README.md#sprint1) pelo membro:
+A modelagem do banco de dados foi definida durante a [Sprint 1](../../../README.md#sprint1) pelo membro:
 
 - [Gabriel Gomes](https://github.com/gabrielgomesfernandes)
 
