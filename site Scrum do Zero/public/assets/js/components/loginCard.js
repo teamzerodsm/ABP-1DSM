@@ -26,7 +26,7 @@ class loginCard extends HTMLElement {
           </form>
       
           <div class="register-link">
-            Não tem uma conta? <a href="#cadastrar">Cadastrar-se</a>
+            Não tem uma conta? <a href="/cadastro">Cadastrar-se</a>
           </div>
         `;
 
