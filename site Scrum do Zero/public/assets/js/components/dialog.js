@@ -10,8 +10,8 @@ class LevelDialog extends HTMLElement {
             <p class="dialog-info" id="dialog-points"></p>
 
             <div class="dialog-actions">
-                <button class="btn-cancelar">Cancelar</button>
-                <button class="btn-prosseguir">Prosseguir</button>
+                <a class="btn-cancelar">Cancelar</a>
+                <a class="btn-prosseguir" href="/quiz-page">Prosseguir</a>
             </div>
         </dialog>
         `;
