@@ -8,9 +8,9 @@ class MeuCabecalho extends HTMLElement {
                 <img class="logo-img" src="" alt="Logo Scrum Zero"/>
 
                 <nav class="nav-links" id="navLinks">
-                    <a>Histórico</a>
-                    <a>Perfil</a>
-                    <a>Certificado</a>
+                    <a href="/progresso">Histórico</a>
+                    <a href="/perfil">Perfil</a>
+                    <a href="/certificado">Certificado</a>
                 </nav>
 
                 <div class="menu-icon" id="menuIcon">
