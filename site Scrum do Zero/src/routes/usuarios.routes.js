@@ -5,8 +5,7 @@ const {
     updateUsuarioNome,
     updateUsuarioEmail,
     updateUsuarioSenha,
-    findUsuarioById,
-    findProximaQuestaoByUsuario
+    findUsuarioById
 }
     = require("../repositories/usuarios.repositories");
 
@@ -17,8 +16,10 @@ const router = Router()
 /* POST CRIAR USUÁRIO
 curl -X POST http://localhost:3000/api/usuarios \
   -H "Content-Type: application/json" \
-  -d '{"nome":"Ana","email":"ana@email.com","cpf":"12345678901","senha":"123456","grupo":1}'
+  -d '{"nome":"lucas","email":"lucas@email.com","cpf":"21345678901","senha":"123456"}'
 */
+
+// Rota API para o cadastro, recebe do formulario (req.body) as informações e utiliza do metodo createUsuario
 router.post("/", async function (req, res) {
     const { nome, email, cpf, senha } = req.body;
     if (!cpf || !nome || !senha) {
@@ -53,6 +54,8 @@ curl -X PATCH http://localhost:3000/api/usuarios/cpf \
   -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF91c3VhcmlvIjozLCJpYXQiOjE3NzYzNzc3NzQsImV4cCI6MTc3NjM4MTM3NH0.s1RbqG4nhFLQGEFG-vov-EWqDT0ZZFhfkggxl0wqzfU" \
   -d '{"cpf":"11122233344"}'
 */
+
+//Rota API atualizar CPF
 router.patch("/cpf", authmiddleware, async function (req, res) {
     const idUsuario = req.usuario.id_usuario
 
@@ -86,6 +89,8 @@ curl -X PATCH http://localhost:3000/api/usuarios/nome \
   -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF91c3VhcmlvIjozLCJpYXQiOjE3NzYzNzc3NzQsImV4cCI6MTc3NjM4MTM3NH0.s1RbqG4nhFLQGEFG-vov-EWqDT0ZZFhfkggxl0wqzfU" \
   -d '{"nome":"lala"}'
 */
+
+//Rota API atualizar NOME
 router.patch("/nome", authmiddleware, async function (req, res) {
     const idUsuario = req.usuario.id_usuario
 
@@ -114,6 +119,8 @@ curl -X PATCH http://localhost:3000/api/usuarios/email \
    -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF91c3VhcmlvIjozLCJpYXQiOjE3NzYzNzc3NzQsImV4cCI6MTc3NjM4MTM3NH0.s1RbqG4nhFLQGEFG-vov-EWqDT0ZZFhfkggxl0wqzfU" \
   -d '{"email":"lala@teste.com"}'
 */
+
+//Rota API atualizar EMAIL
 router.patch("/email", authmiddleware, async function (req, res) {
     const idUsuario = req.usuario.id_usuario
 
@@ -147,6 +154,8 @@ curl -X PATCH http://localhost:3000/api/usuarios/senha \
    -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF91c3VhcmlvIjozLCJpYXQiOjE3NzYzNzc3NzQsImV4cCI6MTc3NjM4MTM3NH0.s1RbqG4nhFLQGEFG-vov-EWqDT0ZZFhfkggxl0wqzfU" \
   -d '{"senha":"123456"}'
 */
+
+//Rota API atualizar SENHA
 router.patch("/senha", authmiddleware, async function (req, res) {
     const idUsuario = req.usuario.id_usuario
 
@@ -174,26 +183,7 @@ router.patch("/senha", authmiddleware, async function (req, res) {
     }
 })
 
-/* GET PRÓXIMA QUESTÃO PENDENTE DO USUÁRIO  
-curl -X GET http://localhost:3000/api/usuarios/proxima-questao \
-  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF91c3VhcmlvIjozLCJpYXQiOjE3NzYzNzc3NzQsImV4cCI6MTc3NjM4MTM3NH0.s1RbqG4nhFLQGEFG-vov-EWqDT0ZZFhfkggxl0wqzfU"
-*/
-router.get("/proxima-questao", authmiddleware, async function (req, res) {
-    try {
-        const questao = await findProximaQuestaoByUsuario(req.usuario.id_usuario);
-        if (!questao) {
-            return res
-                .status(404)
-                .json({ message: "nenhuma questão pendente encontrada" });
-        }
-        return res.status(200).json(questao);
-    } catch (e) {
-        return res.status(500).json({
-            message: "erro interno do servidor",
-        });
-    }
-});
-
+//Metodo definir id do usuario
 function getIdUsuario(params) {
     const idUsuario = Number(params.idusuario)
 

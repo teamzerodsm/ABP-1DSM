@@ -1,12 +1,92 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ABP</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <script defer src="/assets/js/home.js"></script>
+  <script defer src="/assets/js/components/loginCard.js"></script>
+  <title>ABP</title>
 </head>
+
 <body>
-    <div>home</div>
-   
+
+  <main class="page-main-section">
+
+    <section class="main-container">
+      <div class="left-section">
+        <div class="logo-container">
+          <h1 class="logo-title">Scrum do Zero</h1>
+          <div class="logo">
+            <div class="logo-inner">◐</div>
+            <div class="logo-text">SCRUM</div>
+          </div>
+        </div>
+
+        <div class="content-wrapper">
+          <h2 class="main-title">
+            Seu caminho para dominar<br />
+            metodologias ágeis começa aqui.
+          </h2>
+
+          <p class="description">
+            Plataforma de avaliações progressivas sobre Scrum, com questões Scrum, questões diversificadas,
+            acompanhamento do seu progresso e certificado ao final da jornada.
+          </p>
+
+          <p class="note">
+            Desejo relembrar e/ou estudar um pouco mais antes de realizar o desafio?
+          </p>
+
+          <div class="link-section">
+            Acesse o link: <a href="https://linq.com/klpsv2v" target="_blank"
+              rel="noopener noreferrer">https://linq.com/klpsv2v</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="right-section">
+        <default-logincard></default-logincard>
+      </section>
+    </section>
+
+    <section class="mobile-view">
+
+      <article class="mobile-article-section">
+        <h1 class="mobile-logo-title">Scrum do Zero</h1>
+
+        <div class="mobile-logo">
+          <div class="mobile-logo-inner">◐</div>
+          <div class="mobile-logo-text">SCRUM</div>
+        </div>
+
+        <div class="info-section">
+          <h2>
+            Seu caminho para dominar metodologias ágeis começa aqui.
+          </h2>
+
+          <p>
+            Plataforma de avaliações progressivas sobre Scrum, com questões Scrum, questões diversificadas,
+            acompanhamento
+            do seu progresso e certificado ao final da jornada.
+          </p>
+        </div>
+
+        <div class="mobile-buttons">
+          <a href="#login-card-sec" class="mobile-button" id="access-btn">Acessar</a>
+          <a class="mobile-button" href="/cadastro">Cadastrar</a>
+        </div>
+      </article>
+
+      <section class="mobile-login-section hidden" id="login-card-sec">
+        <default-logincard></default-logincard>
+      </section>
+
+    </section>
+
+  </main>
+
 </body>
+
 </html>

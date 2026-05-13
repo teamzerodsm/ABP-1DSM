@@ -9,7 +9,6 @@ const router = Router();
 router.use("/usuarios", usuarios);
 router.use("/questoes", questoes);
 router.use("/certificados", certificados);
-
 router.use("/auth", auth);
 
 router.use(function(_req,res){
