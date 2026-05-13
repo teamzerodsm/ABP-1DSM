@@ -21,6 +21,7 @@ app.use("/assets", express.static(assetsPath));
 app.use("/api", router);
 
 const PORT = process.env.PORT
+
 app.listen(PORT, function () {
     console.log(`Rodando em http://localhost:${PORT}`);
 });

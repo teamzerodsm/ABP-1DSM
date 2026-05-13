@@ -25,7 +25,8 @@ router.post("/login", async function (req, res) {
             nome: usuario.nome
         })
     }catch(e){
-        return res.status(500).json({
+        const invalidCredentials = e.message === "Usuário não encontrado" || e.message === "Senha inválida"
+        return res.status(invalidCredentials ? 401 : 500).json({
                 message: e.message
             })
     }

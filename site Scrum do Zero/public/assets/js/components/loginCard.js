@@ -23,15 +23,17 @@ class loginCard extends HTMLElement {
             </div>
       
             <button type="submit" class="login-button">Login</button>
+            <p id="login-error" class="error-message"></p>
           </form>
       
           <div class="register-link">
-            Não tem uma conta? <a href="/cadastro">Cadastrar-se</a>
+             Não tem uma conta? <a href="cadastro.html">Cadastrar-se</a>
           </div>
-        `;
+        `
 
     this.inputCpf = this.querySelector("#cpf-area");
     this.inputPassword = this.querySelector("#password-area");
+    this.loginError = this.querySelector("#login-error");
     this.allInputs = this.querySelectorAll(".form-input");
     this.formLogin = this.querySelector(".form-login");
 
@@ -42,22 +44,64 @@ class loginCard extends HTMLElement {
       error.textContent = message;
     }
 
-    function clearError(element) {
+    const clearError = (element) => {
       const error = element.parentElement.querySelector(".error-message");
 
       element.classList.remove("error-message");
       error.textContent = "";
+      if (element === this.inputCpf || element === this.inputPassword) {
+        this.loginError.textContent = "";
+      }
     }
 
-    this.formLogin.addEventListener("submit", (event) => {
+    const loginUrl = "/api/auth/login";
+
+    this.formLogin.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      let hasError = false;
+      this.loginError.textContent = "";
+
       this.allInputs.forEach((input) => {
         if (!input.value.trim()) {
-          event.preventDefault();
           showError(input, input.dataset.required);
+          hasError = true;
         } else {
           clearError(input);
         }
       });
+
+      const cpfValue = this.inputCpf.value.replace(/\D/g, "").trim();
+      const passwordValue = this.inputPassword.value.trim();
+
+      if (!hasError && cpfValue.length !== 11) {
+        showError(this.inputCpf, "Digite um CPF válido com 11 números.");
+        hasError = true;
+      }
+
+      if (hasError) {
+        return;
+      }
+
+      try {
+        const response = await fetch(loginUrl, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ cpf: cpfValue, senha: passwordValue })
+        });
+
+        const data = await response.json().catch(() => ({}));
+
+        if (!response.ok) {
+          this.loginError.textContent = data.message || "CPF ou senha inválidos.";
+          return;
+        }
+
+        window.location.href = "/main";
+      } catch (error) {
+        this.loginError.textContent = "Erro ao conectar com o servidor.";
+      }
     });
 
     this.allInputs.forEach((input) => {

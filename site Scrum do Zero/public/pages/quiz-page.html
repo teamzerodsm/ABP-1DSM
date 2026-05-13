@@ -5,111 +5,65 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/assets/css/style.css">
+  <script type="module" src="/assets/js/quiz-page.js"></script>
   <title>ABP</title>
 </head>
 
 <body>
 
-    <main class="quiz-main-section container-quiz">
-  
-      <!-- Header -->
-      <div class="progress-section">
-  
-        <div class="progress-wrapper">
-  
-          <div class="progress active"></div>
-  
-          <div class="progress"></div>
-          <div class="progress"></div>
-          <div class="progress"></div>
-          <div class="progress"></div>
-          <div class="progress"></div>
-          <div class="progress"></div>
-          <div class="progress"></div>
-          <div class="progress"></div>
-          <div class="progress"></div>
-  
-        </div>
-  
-        <h2 class="module-title">Modulo 1</h2>
-  
-      </div>
-  
-      <section class="content-quiz-page">
-  
-        <!-- Pergunta -->
-        <div class="question-area">
-  
-          <p class="question-number">1-</p>
-  
-          <p class="question-text">
-            Durante a Daily Scrum (Reunião Diária), os Desenvolvedores percebem que o trabalho planejado é muito mais complexo do que o estimado originalmente e que, provavelmente, não conseguirão completar todos os itens do Sprint Backlog até o fim da Sprint.
-          </p>
-  
-          <p class="question-text">
-            Qual é a ação correta a ser tomada, de acordo com o Guia Scrum?
-          </p>
-  
-        </div>
-  
-        <!-- Opções -->
-        <div class="options-area">
-  
-          <div class="options-box">
-  
-            <div class="option">
-              <div class="option-letter">A</div>
-  
-              <p class="option-text">
-                Ajustar o escopo do Sprint Backlog junto ao Product Owner, mantendo a Meta da Sprint.
-              </p>
-            </div>
-  
-            <div class="option">
-              <div class="option-letter">B</div>
-  
-              <p class="option-text">
-                Cancelar a Sprint atual imediatamente e iniciar o planejamento de uma nova.
-              </p>
-            </div>
-  
-            <div class="option">
-              <div class="option-letter">C</div>
-  
-              <p class="option-text">
-                Trabalhar horas extras para garantir que todos os itens previstos sejam concluídos.
-              </p>
-            </div>
-  
-            <div class="option">
-              <div class="option-letter">D</div>
-  
-              <p class="option-text">
-                Remover a Meta da Sprint e focar em finalizar apenas as tarefas mais fáceis.
-              </p>
-            </div>
-  
-          </div>
-  
-        </div>
-  
-      </section>
-  
+  <main class="quiz-main-section container-quiz">
 
-      <div class="footer">
-  
-        <button class="footer-btn">
+    </div>
+
+    <section class="quiz-main-section">
+
+      <div class="progress-section">
+
+        <div class="progress-wrapper" id="progressWrapper"></div>
+
+        <h1 class="module-title"> Módulo 1 </h1>
+
+      </div>
+
+      <div class="content-quiz-page">
+
+        <div class="question-area">
+
+          <h2 class="question-number" id="questionNumber">
+            1 -
+          </h2>
+
+          <p class="question-text" id="questionText"></p>
+
+        </div>
+
+        <div class="options-area">
+
+          <div class="options-box" id="optionsBox"></div>
+
+        </div>
+
+      </div>
+
+      <!-- FOOTER -->
+      <footer class="footer">
+
+        <button class="footer-btn" id="prevBtn">
           Voltar
         </button>
-  
-        <button class="footer-btn">
+
+        <button class="footer-btn" id="nextBtn">
           Prosseguir
         </button>
-  
-    </div>
-  
-    </main>
-  
-  </body>
+
+      </footer>
+
+    </section>
+
+    <dialog-quiz></dialog-quiz>
+
+  </main>
+
+</body>
 
 </html>
