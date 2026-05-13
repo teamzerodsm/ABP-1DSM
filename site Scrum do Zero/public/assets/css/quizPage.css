@@ -261,6 +261,11 @@
   background: #c9c9c9;
 }
 
+.footer-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 /* =========================
      TABLET
   ========================= */

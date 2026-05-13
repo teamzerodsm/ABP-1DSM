@@ -9,13 +9,13 @@ const questions = [
     id: 1,
 
     question:
-      "Durante a Daily Scrum, os Desenvolvedores percebem que o trabalho planejado é mais complexo do que o esperado. Qual deve ser a ação correta?",
+      "Durante a Daily Scrum, os Desenvolvedores percebem que parte das tarefas planejadas para a Sprint está demandando mais tempo e esforço técnico do que o inicialmente previsto. Além disso, surgiram impedimentos que podem comprometer a entrega do Incremento dentro do prazo estabelecido. Considerando as práticas do Scrum, qual deve ser a ação mais adequada da equipe diante dessa situação?",
 
     options: {
-      A: "Ajustar o escopo do Sprint Backlog junto ao Product Owner.",
-      B: "Cancelar imediatamente a Sprint.",
-      C: "Trabalhar horas extras obrigatoriamente.",
-      D: "Ignorar o problema até o final da Sprint.",
+      A: "Reavaliar o Sprint Backlog em conjunto com o Product Owner para adaptar o escopo da Sprint conforme a realidade atual.",
+      B: "Cancelar imediatamente a Sprint e iniciar uma nova sem consultar o restante do Scrum Team.",
+      C: "Exigir que todos os Desenvolvedores realizem horas extras obrigatórias até a conclusão das tarefas.",
+      D: "Continuar trabalhando normalmente e ignorar os impedimentos até a Sprint Review.",
     },
 
     correct: "A",
@@ -25,7 +25,7 @@ const questions = [
     id: 2,
 
     question:
-      "Quem é responsável por maximizar o valor do produto resultante do trabalho do Scrum Team?",
+      "Dentro do framework Scrum, existe um papel responsável por garantir que o produto entregue gere o maior valor possível para clientes, usuários e stakeholders. Esse profissional também é responsável por priorizar o Product Backlog e tomar decisões relacionadas ao direcionamento do produto. Quem exerce essa responsabilidade?",
 
     options: {
       A: "Scrum Master",
@@ -41,13 +41,13 @@ const questions = [
     id: 3,
 
     question:
-      "Qual é o principal objetivo da Sprint Review?",
+      "Ao final de cada Sprint, o Scrum Team realiza um evento oficial para apresentar o trabalho concluído, coletar feedback e discutir possíveis adaptações futuras no produto e no planejamento. Qual é o principal objetivo desse evento dentro do Scrum?",
 
     options: {
-      A: "Planejar a próxima Sprint",
-      B: "Apresentar o incremento aos stakeholders",
-      C: "Avaliar desempenho individual",
-      D: "Corrigir bugs críticos",
+      A: "Planejar detalhadamente todas as atividades da próxima Sprint.",
+      B: "Apresentar o Incremento desenvolvido aos stakeholders e obter feedback sobre o produto.",
+      C: "Avaliar individualmente o desempenho de cada Desenvolvedor durante a Sprint.",
+      D: "Corrigir exclusivamente bugs críticos encontrados durante o desenvolvimento.",
     },
 
     correct: "B",
@@ -57,13 +57,13 @@ const questions = [
     id: 4,
 
     question:
-      "O que representa o Sprint Backlog?",
+      "Durante o planejamento da Sprint, o Scrum Team seleciona itens do Product Backlog e define como o trabalho será executado ao longo do ciclo. O conjunto dessas tarefas e objetivos definidos para a Sprint recebe um nome específico dentro do Scrum. O que representa esse artefato?",
 
     options: {
-      A: "Lista de funcionários",
-      B: "Relatório financeiro",
-      C: "Itens selecionados para a Sprint",
-      D: "Documentação técnica completa",
+      A: "Uma lista de funcionários envolvidos no projeto.",
+      B: "Um relatório financeiro utilizado para medir custos da Sprint.",
+      C: "Os itens selecionados do Product Backlog juntamente com o plano de execução da Sprint.",
+      D: "Toda a documentação técnica completa do sistema desenvolvido.",
     },
 
     correct: "C",
@@ -73,7 +73,7 @@ const questions = [
     id: 5,
 
     question:
-      "Qual evento possui duração máxima de 15 minutos?",
+      "Entre os eventos do Scrum, existe uma reunião diária que possui curta duração e tem como principal objetivo alinhar o trabalho dos Desenvolvedores, identificar impedimentos e acompanhar o progresso em direção à Sprint Goal. Qual evento possui duração máxima recomendada de 15 minutos?",
 
     options: {
       A: "Sprint Planning",
@@ -83,6 +83,86 @@ const questions = [
     },
 
     correct: "D",
+  },
+
+  {
+    id: 6,
+
+    question:
+      "Durante uma Sprint, um stakeholder solicita a inclusão urgente de uma nova funcionalidade que não estava prevista no Sprint Backlog inicial. A equipe acredita que a mudança pode comprometer o objetivo da Sprint caso seja adicionada imediatamente. Segundo o Scrum Guide, qual deve ser a abordagem mais adequada para lidar com essa solicitação?",
+
+    options: {
+      A: "Adicionar automaticamente a funcionalidade ao Sprint Backlog, independentemente do impacto.",
+      B: "Encaminhar a solicitação ao Product Owner para avaliar prioridade e impacto no Sprint Goal.",
+      C: "Permitir que os Desenvolvedores decidam individualmente se irão implementar a funcionalidade.",
+      D: "Ignorar completamente a solicitação até o encerramento do projeto.",
+    },
+
+    correct: "B",
+  },
+
+  {
+    id: 7,
+
+    question:
+      "O Scrum Master desempenha um papel essencial dentro do Scrum Team, atuando não apenas como facilitador, mas também ajudando a organização a compreender e aplicar corretamente os princípios ágeis. Qual das alternativas descreve melhor uma das responsabilidades do Scrum Master?",
+
+    options: {
+      A: "Definir sozinho todas as prioridades do Product Backlog.",
+      B: "Gerenciar diretamente os Desenvolvedores e distribuir tarefas diariamente.",
+      C: "Garantir que o Scrum seja compreendido e aplicado corretamente pelo Scrum Team.",
+      D: "Aprovar exclusivamente as entregas técnicas antes da Sprint Review.",
+    },
+
+    correct: "C",
+  },
+
+  {
+    id: 8,
+
+    question:
+      "No Scrum, o conceito de Incremento está diretamente relacionado ao valor entregue ao final de cada Sprint. Para que um Incremento seja considerado válido, ele precisa atender a determinados critérios definidos previamente pelo Scrum Team. Qual alternativa representa corretamente esse conceito?",
+
+    options: {
+      A: "Uma versão parcial do produto que ainda não precisa estar funcional.",
+      B: "Um conjunto de documentos técnicos criados durante a Sprint.",
+      C: "O resultado do trabalho concluído que atende à Definition of Done e agrega valor ao produto.",
+      D: "Uma estimativa inicial de funcionalidades futuras do sistema.",
+    },
+
+    correct: "C",
+  },
+
+  {
+    id: 9,
+
+    question:
+      "A Sprint Retrospective é um evento importante para promover melhoria contínua dentro do Scrum Team. Durante essa reunião, os membros refletem sobre processos, comunicação, ferramentas e formas de trabalho utilizadas na Sprint anterior. Qual é o principal propósito desse evento?",
+
+    options: {
+      A: "Apresentar funcionalidades concluídas diretamente aos clientes finais.",
+      B: "Planejar os requisitos técnicos completos das próximas releases.",
+      C: "Identificar oportunidades de melhoria e definir ações para aumentar a eficiência da equipe.",
+      D: "Avaliar individualmente os membros do Scrum Team com base em produtividade.",
+    },
+
+    correct: "C",
+  },
+
+  {
+    id: 10,
+
+    question:
+      "Em um projeto que utiliza Scrum, a transparência é considerada um dos pilares fundamentais do framework. Isso significa que informações importantes relacionadas ao produto, progresso e impedimentos devem estar visíveis para todos os envolvidos. Qual prática contribui diretamente para fortalecer esse princípio?",
+
+    options: {
+      A: "Manter apenas os líderes informados sobre o andamento da Sprint.",
+      B: "Documentar problemas somente ao final do projeto para evitar conflitos.",
+      C: "Garantir que o Product Backlog e o progresso da Sprint estejam acessíveis e visíveis ao Scrum Team.",
+      D: "Evitar reuniões frequentes para reduzir exposição de falhas da equipe.",
+    },
+
+    correct: "C",
   },
 ];
 
@@ -149,25 +229,16 @@ function renderProgress() {
 
       }
 
-      // pode navegar apenas
-      // nas questões respondidas
-      // ou atual
-      if (
-        userAnswers[index] ||
-        index === currentQuestionIndex
-      ) {
+      // TODAS navegáveis
+      progress.classList.add("clickable");
 
-        progress.classList.add("clickable");
+      progress.addEventListener("click", () => {
 
-        progress.addEventListener("click", () => {
+        currentQuestionIndex = index;
 
-          currentQuestionIndex = index;
+        renderQuestion();
 
-          renderQuestion();
-
-        });
-
-      }
+      });
 
     }
 
@@ -204,7 +275,7 @@ function renderProgress() {
 
       }
 
-      // revisão navega livremente
+      // revisão navegável
       progress.classList.add("clickable");
 
       progress.addEventListener("click", () => {
@@ -319,7 +390,10 @@ function renderQuestion() {
           option.classList.add("selected");
 
           userAnswers[currentQuestionIndex] =
-            letter;
+          letter;
+
+          // atualiza botão imediatamente
+          updateButtons();
 
         });
 
@@ -344,11 +418,13 @@ function updateButtons() {
   prevBtn.disabled =
     currentQuestionIndex === 0;
 
-  /* =========================
+  /* =================================
      REVIEW MODE
-  ========================= */
+  ================================= */
 
   if (reviewMode) {
+
+    nextBtn.disabled = false;
 
     if (
       currentQuestionIndex ===
@@ -367,10 +443,18 @@ function updateButtons() {
 
   }
 
-  /* =========================
+  /* =================================
      QUIZ NORMAL
-  ========================= */
+  ================================= */
 
+  const allAnswered =
+    questions.every((_, index) => {
+
+      return userAnswers[index];
+
+    });
+
+  // última questão
   if (
     currentQuestionIndex ===
     questions.length - 1
@@ -378,9 +462,19 @@ function updateButtons() {
 
     nextBtn.innerText = "Finalizar";
 
-  } else {
+    // permite responder a última
+    // mas bloqueia finalizar
+    // enquanto houver pendências
+    nextBtn.disabled =
+      !userAnswers[currentQuestionIndex];
+
+  }
+
+  else {
 
     nextBtn.innerText = "Prosseguir";
+
+    nextBtn.disabled = false;
 
   }
 
@@ -392,9 +486,9 @@ function updateButtons() {
 
 nextBtn.addEventListener("click", () => {
 
-  /* =========================
+  /* =================================
      REVIEW MODE
-  ========================= */
+  ================================= */
 
   if (reviewMode) {
 
@@ -417,9 +511,9 @@ nextBtn.addEventListener("click", () => {
 
   }
 
-  /* =========================
+  /* =================================
      QUIZ NORMAL
-  ========================= */
+  ================================= */
 
   if (!userAnswers[currentQuestionIndex]) {
 
