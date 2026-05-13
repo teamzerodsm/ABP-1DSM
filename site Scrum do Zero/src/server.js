@@ -20,9 +20,7 @@ app.use("/assets", express.static(assetsPath));
 
 app.use("/api", router);
 
-let PORT = process.env.PORT
-
-PORT = 3000
+const PORT = process.env.PORT
 
 app.listen(PORT, function () {
     console.log(`Rodando em http://localhost:${PORT}`);
