@@ -100,26 +100,19 @@ let reviewMode = false;
    ELEMENTOS
 ========================================= */
 
-const questionNumber =
-  document.getElementById("questionNumber");
+const questionNumber = document.getElementById("questionNumber");
 
-const questionText =
-  document.getElementById("questionText");
+const questionText = document.getElementById("questionText");
 
-const optionsBox =
-  document.getElementById("optionsBox");
+const optionsBox = document.getElementById("optionsBox");
 
-const progressWrapper =
-  document.getElementById("progressWrapper");
+const progressWrapper = document.getElementById("progressWrapper");
 
-const prevBtn =
-  document.getElementById("prevBtn");
+const prevBtn = document.getElementById("prevBtn");
 
-const nextBtn =
-  document.getElementById("nextBtn");
+const nextBtn = document.getElementById("nextBtn");
 
-const dialogComponent =
-  document.querySelector("dialog-quiz");
+const dialogComponent = document.querySelector("dialog-quiz");
 
 /* =========================================
    RENDER PROGRESS
@@ -136,21 +129,51 @@ function renderProgress() {
 
     progress.classList.add("progress");
 
-    /* =========================
+    /* =================================
        QUIZ NORMAL
-    ========================= */
+    ================================= */
 
     if (!reviewMode) {
 
-      if (index <= currentQuestionIndex) {
-        progress.classList.add("active");
+      // questão respondida
+      if (userAnswers[index]) {
+
+        progress.classList.add("answered");
+
+      }
+
+      // questão atual
+      if (index === currentQuestionIndex) {
+
+        progress.classList.add("current");
+
+      }
+
+      // pode navegar apenas
+      // nas questões respondidas
+      // ou atual
+      if (
+        userAnswers[index] ||
+        index === currentQuestionIndex
+      ) {
+
+        progress.classList.add("clickable");
+
+        progress.addEventListener("click", () => {
+
+          currentQuestionIndex = index;
+
+          renderQuestion();
+
+        });
+
       }
 
     }
 
-    /* =========================
+    /* =================================
        REVIEW MODE
-    ========================= */
+    ================================= */
 
     else {
 
@@ -160,15 +183,37 @@ function renderProgress() {
       const correctAnswer =
         question.correct;
 
+      // correta
       if (userAnswer === correctAnswer) {
 
         progress.classList.add("correct");
 
-      } else {
+      }
+
+      // errada
+      else {
 
         progress.classList.add("wrong");
 
       }
+
+      // questão atual
+      if (index === currentQuestionIndex) {
+
+        progress.classList.add("current");
+
+      }
+
+      // revisão navega livremente
+      progress.classList.add("clickable");
+
+      progress.addEventListener("click", () => {
+
+        currentQuestionIndex = index;
+
+        renderQuestion();
+
+      });
 
     }
 
@@ -472,8 +517,7 @@ function iniciarRevisao() {
    GLOBAL
 ========================================= */
 
-window.iniciarRevisao =
-  iniciarRevisao;
+window.iniciarRevisao = iniciarRevisao;
 
 /* =========================================
    INIT

@@ -38,8 +38,52 @@
   border-radius: 8px;
 }
 
-.progress.active {
+/* =========================
+   PROGRESS STATES
+========================= */
+
+/* Questões respondidas */
+
+.progress.answered {
   background: #000000;
+}
+
+/* Revisão correta */
+
+.progress.correct {
+  background: #2e9b45;
+}
+
+/* Revisão errada */
+
+.progress.wrong {
+  background: #d62828;
+}
+
+/* =========================
+   HOVER
+========================= */
+
+.progress.clickable {
+  cursor: pointer;
+}
+
+/* Hover SOMENTE na atual */
+
+/* =========================
+   QUESTÃO ATUAL
+========================= */
+
+.progress.current {
+  border: 2px solid #82c3ff;
+
+  transform: scaleY(1.08);
+
+  transition: 0.2s ease;
+}
+
+.progress.clickable:hover {
+  opacity: 0.85;
 }
 
 .module-title {
@@ -48,10 +92,6 @@
   font-size: 32px;
   font-weight: 500;
 }
-
-/* =========================
-     CONTENT
-  ========================= */
 
 .content-quiz-page {
   display: flex;
