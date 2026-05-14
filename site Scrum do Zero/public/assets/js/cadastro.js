@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const validarEmail = valor => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(valor);
 
-  const aplicarMascaraCPF = valor =>
+  const aplicarMascaraCPF = valor => 
     valor
       .replace(/\D/g, '')
       .replace(/(\d{3})(\d)/, '$1.$2')

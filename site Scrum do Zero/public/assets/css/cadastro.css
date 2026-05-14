@@ -1,25 +1,3 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box
-}
-:root {
-  --bg: #f7f7f7;
-  --border: #6a6a6a;
-  --input: #e1e1e1;
-  --text: #111;
-  --erro-bg: #ffe3e3;
-  --erro-text: #8a1f1f;
-  --erro-border: #cc6b6b;
-  --sucesso-bg: #e4f7e8;
-  --sucesso-text: #1f6b2a;
-  --sucesso-border: #72b57d
-}
-body {
-  font-family: Arial, Helvetica, sans-serif;
-  background: var(--bg);
-  color: var(--text)
-}
 .cadastro-page {
   min-height: 100vh;
   display: flex;

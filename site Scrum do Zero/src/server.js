@@ -20,9 +20,7 @@ app.use("/assets", express.static(assetsPath));
 
 app.use("/api", router);
 
-let PORT = process.env.PORT
-
-PORT = 3000
+const PORT = process.env.PORT
 
 app.listen(PORT, function () {
     console.log(`Rodando em http://localhost:${PORT}`);
@@ -42,6 +40,10 @@ app.get("/cadastro", function(_req, res){
 
 app.get("/perfil", function(_req, res){
     res.sendFile(path.join(pagesPath, "perfil.html"));
+});
+
+app.get("/progresso", function(_req, res){
+    res.sendFile(path.join(pagesPath, "progresso.html"));
 });
 
 app.get("/quiz-page", function(_req, res){
