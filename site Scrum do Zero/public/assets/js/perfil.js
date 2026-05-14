@@ -1,4 +1,49 @@
-document.addEventListener('DOMContentLoaded', () => {
+async function carregarUsuario() {
+  const token = localStorage.getItem("token");
+
+  const response = await fetch("http://localhost:3000/usuarios/me", {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  const usuario = await response.json();
+
+  console.log(usuario);
+
+  document.querySelector("#nome").value = usuario.nome;
+  document.querySelector("#email").value = usuario.email;
+  document.querySelector("#cpf").value = usuario.cpf;
+}
+
+async function atualizarDados() {
+
+    const token = localStorage.getItem("token")
+
+    const nome = document.querySelector("#nome").value
+    const email = document.querySelector("#email").value
+    const cpf = document.querySelector("#cpf").value
+
+    const response = await fetch("http://localhost:3000/usuarios/me", {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify({
+            nome,
+            email,
+            cpf
+        })
+    })
+
+    const data = await response.json()
+
+    alert(data.message)
+}
+
+/* document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('cadastroForm');
     const mensagem = document.getElementById('mensagem');
     const nome = document.getElementById('nome');
@@ -106,4 +151,4 @@ document.addEventListener('DOMContentLoaded', () => {
         mostrarMensagem(error.message || 'Erro ao conectar com o servidor.', 'erro');
       }
     });
-  });
+  }); */
