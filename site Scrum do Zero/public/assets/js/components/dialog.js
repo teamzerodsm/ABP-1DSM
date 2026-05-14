@@ -27,8 +27,6 @@ class LevelDialog extends HTMLElement {
       this.dialog.close();
     });
 
-    this.btn;Resume = this.querySelector(".btn-prosseguir");
-
     this.dialog.addEventListener("click", (event) => {
       const rect = this.dialog.getBoundingClientRect();
       const isInDialog =

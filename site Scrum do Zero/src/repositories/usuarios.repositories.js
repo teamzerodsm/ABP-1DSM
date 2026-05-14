@@ -158,6 +158,24 @@ async function findUsuarioById(idUsuario) {
     return result.rows[0] || null
 }
 
+async function findUsuarioSenhaById(idUsuario) {
+    const result = await pool.query(`
+        SELECT senha
+        FROM usuarios
+        WHERE id_usuario = $1`,
+        [idUsuario]
+    )
+    return result.rows[0] || null
+}
+
+async function verifyUsuarioSenha(idUsuario, senha) {
+    const usuario = await findUsuarioSenhaById(idUsuario)
+    if (!usuario) {
+        return false
+    }
+    return verifyPassword(senha, usuario.senha)
+}
+
 //Encontra o usuário pelo CPF e SENHA e retorna seu id, nome email e cpf
 async function findUsuarioByCpfAndSenha(cpf, senha) {
     const cpfLimpo = sanitizeCpf(cpf)
@@ -191,5 +209,6 @@ module.exports = {
     updateUsuarioEmail,
     updateUsuarioSenha,
     findUsuarioById,
-    findUsuarioByCpfAndSenha
+    findUsuarioByCpfAndSenha,
+    verifyUsuarioSenha
 }
