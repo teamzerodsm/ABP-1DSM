@@ -1,154 +1,198 @@
+const API_URL = "/api/usuarios";
+
+let form;
+let nomeInput;
+let sobrenomeInput;
+let cpfInput;
+let emailInput;
+let currentPasswordInput;
+let newPasswordInput;
+let confirmPasswordInput;
+let cancelButton;
+let mensagem;
+
+function formatCpf(value) {
+  return value
+    .replace(/\D/g, "")
+    .replace(/(\d{3})(\d)/, "$1.$2")
+    .replace(/(\d{3})(\d)/, "$1.$2")
+    .replace(/(\d{3})(\d{1,2})$/, "$1-$2")
+    .slice(0, 14);
+}
+
+function splitName(fullName) {
+  const parts = fullName.trim().split(" ");
+  return {
+    firstName: parts.shift() || "",
+    lastName: parts.join(" ") || ""
+  };
+}
+
 async function carregarUsuario() {
   const token = localStorage.getItem("token");
+  if (!token) {
+    window.location.href = "/index";
+    return;
+  }
 
-  const response = await fetch("http://localhost:3000/usuarios/me", {
+  const response = await fetch(`${API_URL}/me`, {
     method: "GET",
     headers: {
       Authorization: `Bearer ${token}`,
     },
   });
 
+  if (response.status === 401) {
+    localStorage.removeItem("token");
+    window.location.href = "/index";
+    return;
+  }
+
+  if (!response.ok) {
+    throw new Error("Não foi possível carregar os dados do usuário.");
+  }
+
   const usuario = await response.json();
+  const nomes = splitName(usuario.nome);
 
-  console.log(usuario);
-
-  document.querySelector("#nome").value = usuario.nome;
-  document.querySelector("#email").value = usuario.email;
-  document.querySelector("#cpf").value = usuario.cpf;
+  nomeInput.value = nomes.firstName;
+  sobrenomeInput.value = nomes.lastName;
+  emailInput.value = usuario.email;
+  cpfInput.value = formatCpf(usuario.cpf);
+  document.querySelector(".user-name").textContent = usuario.nome;
+  document.querySelector(".user-email").textContent = usuario.email;
 }
 
-async function atualizarDados() {
-
-    const token = localStorage.getItem("token")
-
-    const nome = document.querySelector("#nome").value
-    const email = document.querySelector("#email").value
-    const cpf = document.querySelector("#cpf").value
-
-    const response = await fetch("http://localhost:3000/usuarios/me", {
-        method: "PUT",
-        headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`
-        },
-        body: JSON.stringify({
-            nome,
-            email,
-            cpf
-        })
-    })
-
-    const data = await response.json()
-
-    alert(data.message)
+function mostrarMensagem(texto, tipo) {
+  if (!mensagem) return;
+  mensagem.textContent = texto;
+  mensagem.className = `mensagem ${tipo}`;
 }
 
-/* document.addEventListener('DOMContentLoaded', () => {
-    const form = document.getElementById('cadastroForm');
-    const mensagem = document.getElementById('mensagem');
-    const nome = document.getElementById('nome');
-    const sobrenome = document.getElementById('sobrenome');
-    const cpf = document.getElementById('cpf');
-    const email = document.getElementById('email');
-    const senha = document.getElementById('senha');
-    const confirmar = document.getElementById('confirmar');
-  
-    const campos = [nome, sobrenome, cpf, email, senha, confirmar];
-    const apiUrl = '/api/usuarios';
-  
-    const limparMensagem = () => {
-      mensagem.textContent = '';
-      mensagem.className = 'cadastro-mensagem';
-      mensagem.style.display = 'none';
-    };
-  
-    const mostrarMensagem = (texto, tipo) => {
-      mensagem.textContent = texto;
-      mensagem.className = `cadastro-mensagem ${tipo}`;
-      mensagem.style.display = 'block';
-    };
-  
-    const validarEmail = valor => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(valor);
-  
-    const aplicarMascaraCPF = valor =>
-      valor
-        .replace(/\D/g, '')
-        .replace(/(\d{3})(\d)/, '$1.$2')
-        .replace(/(\d{3})(\d)/, '$1.$2')
-        .replace(/(\d{3})(\d{1,2})$/, '$1-$2')
-        .slice(0, 14);
-  
-    cpf.addEventListener('input', () => {
-      cpf.value = aplicarMascaraCPF(cpf.value);
-    });
-  
-    campos.forEach(campo => campo.addEventListener('input', limparMensagem));
-  
-    form.addEventListener('submit', async event => {
-      event.preventDefault();
-  
-      const nomeVal = nome.value.trim();
-      const sobrenomeVal = sobrenome.value.trim();
-      const cpfVal = cpf.value.trim();
-      const emailVal = email.value.trim();
-      const senhaVal = senha.value;
-      const confirmarVal = confirmar.value;
-  
-      const vazio = campos.find(campo => campo.value.trim() === '');
-      if (vazio) {
-        mostrarMensagem('Preencha todos os campos.', 'erro');
-        vazio.focus();
-        return;
-      }
-  
-      if (cpfVal.replace(/\D/g, '').length !== 11) {
-        mostrarMensagem('Digite um CPF válido com 11 números.', 'erro');
-        cpf.focus();
-        return;
-      }
-  
-      if (!validarEmail(emailVal)) {
-        mostrarMensagem('Digite um e-mail válido.', 'erro');
-        email.focus();
-        return;
-      }
-  
-      if (senhaVal.length < 6) {
-        mostrarMensagem('A senha deve ter pelo menos 6 caracteres.', 'erro');
-        senha.focus();
-        return;
-      }
-  
-      if (senhaVal !== confirmarVal) {
-        mostrarMensagem('As senhas não conferem.', 'erro');
-        confirmar.focus();
-        return;
-      }
-  
-      try {
-        const resposta = await fetch(apiUrl, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            nome: `${nomeVal} ${sobrenomeVal}`.trim(),
-            email: emailVal,
-            cpf: cpfVal,
-            senha: senhaVal
-          })
-        });
-  
-        const data = await resposta.json().catch(() => ({}));
-  
-        if (!resposta.ok) {
-          throw new Error(data.message || 'Não foi possível concluir o cadastro.');
-        }
-  
-        mostrarMensagem('Cadastro realizado com sucesso!', 'sucesso');
-        form.reset();
-      } catch (error) {
-        mostrarMensagem(error.message || 'Erro ao conectar com o servidor.', 'erro');
-      }
-    });
-  }); */
+function limparMensagem() {
+  if (!mensagem) return;
+  mensagem.textContent = "";
+  mensagem.className = "mensagem";
+}
+
+async function atualizarDados(event) {
+  event.preventDefault();
+
+  const token = localStorage.getItem("token");
+  if (!token) {
+    window.location.href = "/index";
+    return;
+  }
+
+  const nome = nomeInput.value.trim();
+  const sobrenome = sobrenomeInput.value.trim();
+  const cpf = cpfInput.value.replace(/\D/g, "").trim();
+  const email = emailInput.value.trim();
+  const senhaAtual = currentPasswordInput.value;
+  const novaSenha = newPasswordInput.value;
+  const confirmarSenha = confirmPasswordInput.value;
+
+  limparMensagem();
+  if (!nome || !sobrenome || !cpf || !email) {
+    mostrarMensagem("Preencha nome, sobrenome, CPF e e-mail.", "erro");
+    return;
+  }
+
+  if (cpf.length !== 11) {
+    mostrarMensagem("Digite um CPF válido com 11 números.", "erro");
+    cpfInput.focus();
+    return;
+  }
+
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    mostrarMensagem("Digite um e-mail válido.", "erro");
+    emailInput.focus();
+    return;
+  }
+
+  const payload = {
+    nome: `${nome} ${sobrenome}`.trim(),
+    email,
+    cpf
+  };
+
+  if (novaSenha || confirmarSenha || senhaAtual) {
+    if (!senhaAtual) {
+      alert("Digite sua senha atual para alterar a senha.");
+      currentPasswordInput.focus();
+      return;
+    }
+    if (novaSenha.trim().length < 6) {
+      alert("A nova senha deve ter pelo menos 6 caracteres.");
+      newPasswordInput.focus();
+      return;
+    }
+    if (novaSenha !== confirmarSenha) {
+      alert("As senhas não conferem.");
+      confirmPasswordInput.focus();
+      return;
+    }
+
+    payload.senhaAtual = senhaAtual;
+    payload.novaSenha = novaSenha;
+    payload.confirmarSenha = confirmarSenha;
+  }
+
+  const response = await fetch(`${API_URL}/me`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`
+    },
+    body: JSON.stringify(payload)
+  });
+
+  const data = await response.json().catch(() => ({}));
+
+  if (!response.ok) {
+    mostrarMensagem(data.message || "Não foi possível atualizar os dados.", "erro");
+    return;
+  }
+
+  mostrarMensagem("Dados atualizados com sucesso! Redirecionando para a home...", "sucesso");
+  currentPasswordInput.value = "";
+  newPasswordInput.value = "";
+  confirmPasswordInput.value = "";
+  await carregarUsuario();
+  setTimeout(() => {
+    window.location.href = "/main";
+  }, 1500);
+}
+
+function inicializarEventos() {
+  form.addEventListener("submit", atualizarDados);
+  cancelButton.addEventListener("click", () => {
+    window.location.href = "/main";
+  });
+
+  cpfInput.addEventListener("input", () => {
+    cpfInput.value = formatCpf(cpfInput.value);
+  });
+}
+
+window.addEventListener("DOMContentLoaded", async () => {
+  form = document.querySelector("form");
+  nomeInput = document.querySelector("#nome");
+  sobrenomeInput = document.querySelector("#sobrenome");
+  cpfInput = document.querySelector("#cpf");
+  emailInput = document.querySelector("#email");
+  currentPasswordInput = document.querySelector("#senha-atual");
+  newPasswordInput = document.querySelector("#nova-senha");
+  confirmPasswordInput = document.querySelector("#confirmar-senha");
+  cancelButton = document.querySelector(".actions button[type='button']");
+  mensagem = document.querySelector("#perfil-mensagem");
+
+  inicializarEventos();
+  try {
+    await carregarUsuario();
+  } catch (error) {
+    console.error(error);
+    alert("Não foi possível carregar seus dados. Faça login novamente.");
+    window.location.href = "/index";
+  }
+});
