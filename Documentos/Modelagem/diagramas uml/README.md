@@ -38,7 +38,7 @@ Documentar a arquitetura, comportamento e estrutura do sistema para facilitar:
     <img 
         height="100" 
         width="100" 
-        src="../../../.github/astahicon.png" 
+        src="../../../.github/astahIcon.png" 
         alt="Astah"
     />
 </a>
