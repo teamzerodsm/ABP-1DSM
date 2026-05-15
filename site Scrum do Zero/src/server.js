@@ -52,6 +52,10 @@ app.get("/quiz-page", function(_req, res){
     res.sendFile(path.join(pagesPath, "quiz-page.html"));
 });
 
+app.get("/certificado", function(_req, res){
+    res.sendFile(path.join(pagesPath, "certificado.html"));
+});
+
 app.use(function(_req,res){
     res.redirect("not-found.html");
 });

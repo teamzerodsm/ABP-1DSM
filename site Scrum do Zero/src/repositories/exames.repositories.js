@@ -1,6 +1,6 @@
 const pool = require("../database/db");
 
-async function findAllModulos() {
+async function findTodosModulos() {
   const result = await pool.query(
     `SELECT id_modulo, titulo FROM modulos ORDER BY id_modulo ASC`
   );
@@ -15,49 +15,42 @@ async function findModuloById(idModulo) {
   return result.rows[0] || null;
 }
 
-async function findRandomGrupoByModuloExcludingUsed(idUsuario, idModulo) {
-  const result = await pool.query(
+async function findGrupoAleatorioPorModuloExcluindoUsado(clientOrPool, idUsuario, idModulo) {
+  const runner = clientOrPool || pool;
+  const result = await runner.query(
     `
     SELECT q.grupo
     FROM questoes q
     WHERE q.id_modulo = $1
       AND q.grupo IS NOT NULL
-      AND q.grupo NOT IN (
-        SELECT e.grupo
-        FROM exames e
-        WHERE e.id_usuario = $2
-          AND e.id_modulo = $1
-          AND e.grupo IS NOT NULL
-      )
     GROUP BY q.grupo
+    HAVING EXISTS (
+      SELECT 1
+      FROM questoes q2
+      WHERE q2.id_modulo = q.id_modulo
+        AND q2.grupo = q.grupo
+        AND NOT EXISTS (
+          SELECT 1
+          FROM respostas r
+          INNER JOIN exames e ON r.id_exame = e.id_exame
+          WHERE e.id_usuario = $2
+            AND e.id_modulo = q2.id_modulo
+            AND e.grupo = q2.grupo
+            AND r.id_questao = q2.id_questao
+        )
+    )
     ORDER BY RANDOM()
     LIMIT 1
     `,
     [idModulo, idUsuario]
   );
 
-  if (result.rows[0]) {
-    return result.rows[0].grupo;
-  }
-
-  const fallback = await pool.query(
-    `
-    SELECT q.grupo
-    FROM questoes q
-    WHERE q.id_modulo = $1
-      AND q.grupo IS NOT NULL
-    GROUP BY q.grupo
-    ORDER BY RANDOM()
-    LIMIT 1
-    `,
-    [idModulo]
-  );
-
-  return fallback.rows[0]?.grupo || null;
+  return result.rows[0]?.grupo || null;
 }
 
-async function findNextAttemptNumber(idUsuario, idModulo) {
-  const result = await pool.query(
+async function findNumeroProximaTentativa(clientOrPool, idUsuario, idModulo) {
+  const runner = clientOrPool || pool;
+  const result = await runner.query(
     `
     SELECT COALESCE(MAX(tentativa), 0) + 1 AS next_attempt
     FROM exames
@@ -69,8 +62,30 @@ async function findNextAttemptNumber(idUsuario, idModulo) {
   return result.rows[0]?.next_attempt || 1;
 }
 
-async function insertExame(idUsuario, idModulo, grupo, tentativa) {
-  const result = await pool.query(
+async function findExameAtivoPorUsuarioEModulo(clientOrPool, idUsuario, idModulo) {
+  const runner = clientOrPool || pool;
+  const result = await runner.query(
+    `
+    SELECT e.id_exame
+    FROM exames e
+    WHERE e.id_usuario = $1
+      AND e.id_modulo = $2
+      AND NOT EXISTS (
+        SELECT 1
+        FROM respostas r
+        WHERE r.id_exame = e.id_exame
+      )
+    ORDER BY e.id_exame DESC
+    LIMIT 1
+    `,
+    [idUsuario, idModulo]
+  );
+  return result.rows[0] || null;
+}
+
+async function insertExame(clientOrPool, idUsuario, idModulo, grupo, tentativa) {
+  const runner = clientOrPool || pool;
+  const result = await runner.query(
     `
     INSERT INTO exames (id_modulo, id_usuario, grupo, tentativa)
     VALUES ($1, $2, $3, $4)
@@ -81,7 +96,7 @@ async function insertExame(idUsuario, idModulo, grupo, tentativa) {
   return result.rows[0] || null;
 }
 
-async function findExamById(idExame) {
+async function findExameById(idExame) {
   const result = await pool.query(
     `
     SELECT e.id_exame, e.id_usuario, e.id_modulo, e.grupo, e.tentativa,
@@ -95,7 +110,7 @@ async function findExamById(idExame) {
   return result.rows[0] || null;
 }
 
-async function findQuestionsByModuloAndGrupo(idModulo, grupo) {
+async function findQuestoesPorModuloEGrupo(idModulo, grupo) {
   const result = await pool.query(
     `
     SELECT id_questao, id_modulo, grupo, numero, dificuldade, enunciado,
@@ -104,13 +119,14 @@ async function findQuestionsByModuloAndGrupo(idModulo, grupo) {
     WHERE id_modulo = $1
       AND grupo IS NOT DISTINCT FROM $2
     ORDER BY numero ASC, id_questao ASC
+    LIMIT 10
     `,
     [idModulo, grupo]
   );
   return result.rows;
 }
 
-async function findExamHistoryByUsuario(idUsuario) {
+async function findHistoricoExamesPorUsuario(idUsuario) {
   const result = await pool.query(
     `
     SELECT
@@ -133,7 +149,7 @@ async function findExamHistoryByUsuario(idUsuario) {
   return result.rows;
 }
 
-async function findExamReviewById(idExame) {
+async function findRevisaoExameById(idExame) {
   const result = await pool.query(
     `
     SELECT
@@ -168,7 +184,7 @@ async function findExamReviewById(idExame) {
   return result.rows;
 }
 
-async function findExistingResponses(idExame) {
+async function findRespostasExistentes(idExame) {
   const result = await pool.query(
     `
     SELECT id_resposta, id_exame, id_questao, resposta, nota
@@ -180,7 +196,7 @@ async function findExistingResponses(idExame) {
   return result.rows;
 }
 
-async function insertResponses(client, answers) {
+async function insertRespostas(client, answers) {
   const values = [];
   const placeholders = answers
     .map((answer, index) => {
@@ -203,15 +219,16 @@ async function insertResponses(client, answers) {
 }
 
 module.exports = {
-  findAllModulos,
+  findTodosModulos,
   findModuloById,
-  findRandomGrupoByModuloExcludingUsed,
-  findNextAttemptNumber,
+  findGrupoAleatorioPorModuloExcluindoUsado,
+  findNumeroProximaTentativa,
+  findExameAtivoPorUsuarioEModulo,
   insertExame,
-  findExamById,
-  findQuestionsByModuloAndGrupo,
-  findExamHistoryByUsuario,
-  findExamReviewById,
-  findExistingResponses,
-  insertResponses,
+  findExameById,
+  findQuestoesPorModuloEGrupo,
+  findHistoricoExamesPorUsuario,
+  findRevisaoExameById,
+  findRespostasExistentes,
+  insertRespostas,
 };
