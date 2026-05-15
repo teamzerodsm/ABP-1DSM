@@ -34,7 +34,7 @@ async function obterHistorico(idUsuario) {
   }));
 }
 
-router.get("/historico", authmiddleware, async function (req, res) {
+router.get("/tentativas", authmiddleware, async function (req, res) {
   try {
     const history = await obterHistorico(req.usuario.id_usuario);
     return res.status(200).json(history);

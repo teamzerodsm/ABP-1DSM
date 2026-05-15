@@ -36,12 +36,10 @@ curl -X POST http://localhost:3000/api/exames/ID_EXAME/respostas \
     {"id_questao": 20, "resposta": "b"}
   ]'
 
-5. VER HISTÓRICO DE EXAMES
-curl -X GET http://localhost:3000/api/exames/historico \
+5. curl -X GET http://localhost:3000/api/progresso/tentativas \
   -H "Authorization: Bearer SEU_TOKEN"
 
-6. REVISAR EXAME (VER RESPOSTAS CORRETAS)
-curl -X GET http://localhost:3000/api/exames/ID_EXAME/revisao \
+6. curl -X GET http://localhost:3000/api/exames/ID_EXAME/resultado \
   -H "Authorization: Bearer SEU_TOKEN"
 
 NOTAS:
@@ -355,7 +353,7 @@ router.post("/:id/respostas", authmiddleware, async function (req, res) {
   }
 });
 
-router.get("/:id/revisao", authmiddleware, async function (req, res) {
+router.get("/:id/resultado", authmiddleware, async function (req, res) {
   try {
     const examId = Number(req.params.id);
     const result = await revisarExame(req.usuario.id_usuario, examId);
