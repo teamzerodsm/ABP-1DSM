@@ -63,6 +63,37 @@
     margin-top: 28px;
 }
 
+.btn-cancelar {
+    background: none;
+    border: none;
+    font-size: 0.95rem;
+    color: #000;
+    cursor: pointer;
+    text-decoration: underline;
+    padding: 8px 0;
+  }
+
+  .btn-cancelar:hover {
+    color: #333;
+  }
+
+  .btn-prosseguir {
+    background-color: #888;
+    color: #000;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 28px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+
+  .btn-prosseguir:hover {
+    background-color: #707070;
+    color: #fff;
+  }
+
 @media (min-width: 600px) {
 
     .dialog {

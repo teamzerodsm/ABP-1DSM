@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const token = localStorage.getItem('token');
   
   // Lista de páginas que requerem autenticação
-  const paginasProtegidas = ['/main', '/perfil', '/progresso', '/quiz-page'];
+  const paginasProtegidas = ['/main', '/perfil', '/progresso', '/quiz-page', '/certificado'];
   
   // Obtém a página atual
   const paginaAtual = window.location.pathname;

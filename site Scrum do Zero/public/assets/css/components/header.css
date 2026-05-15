@@ -16,8 +16,10 @@
 }
 
  .logo-img-header {
-    width: 110px;
+    position: relative;
+    width: 40px;
     height: 40px;
+    z-index: 2000;
 } 
 
 .nav-links {
@@ -97,13 +99,8 @@
     }
 
     .logo-img-header{
-        width: 72px;
-        height: 69px;
-    }
-
-    .logo-img-header {
-        width: 150px;
-        height: 55px;
+        width: 44px;
+        height: 44px;
     }
 
     .nav-links {
@@ -157,8 +154,8 @@
     }
 
     .logo-img-header{
-        width: 72px;
-        height: 69px;
+        width: 52px;
+        height: 52px;
     }
 
     .nav-links a {

@@ -11,24 +11,28 @@ class loginCard extends HTMLElement {
           <form class="form-login">
             <div class="form-group">
               <label for="cpf-area" class="form-label">Seu CPF</label>
-              <input class="form-input" name="cpf-area" data-required="Por favor, digite seu CPF" id="cpf-area" type="text" />
+
+              <input class="form-input" name="cpf-area" data-required="Por favor, digite seu CPF" id="cpf-area" type="text" aria-describedby="cpf-error"/>
+
               <p id="cpf-error" class="error-message"></p>
             </div>
       
             <div class="form-group">
               <label for="password-area" class="form-label">Sua senha</label>
-              <input class="form-input" name="password-area" data-required="Por favor, digite sua senha" id="password-area" type="password">
+
+              <input class="form-input" name="password-area" id="password-area" type="password" data-required="Por favor, digite sua senha" aria-describedby="password-error">
+
               <p id="password-error" class="error-message"></p>
               <a href="">Esqueci minha senha</a>
             </div>
       
-            <a type="submit" class="login-button" title="Botão para efetuar login">Login</a>
+            <button type="submit" class="login-button">Login</button>
             <p id="login-error" class="error-message"></p>
           </form>
       
           <div class="register-link"> 
             <p>Não tem uma conta?</p> 
-            <a href="cadastro.html" title="Botão para efetuar login">Cadastrar-se</a>
+            <a href="cadastro.html">Cadastrar-se</a>
           </div>
         `
 

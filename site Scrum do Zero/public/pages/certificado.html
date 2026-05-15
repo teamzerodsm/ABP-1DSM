@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Certificado Scrum</title>
+  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&f[]=boska@400,500,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/certificado.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="/assets/js/token-expiration-manager.js"></script>
+  <script src="/assets/js/auth-guard.js"></script>
+  <script defer src="/assets/js/components/header.js"></script>
+  <script defer src="/assets/js/certificado.js"></script>
+</head>
+<body>
+  <main class="page">
+    <div class="topbar">
+      <div class="actions">
+        <button class="btn-primary" id="btnPdf">Baixar Certificado</button>
+      </div>
+    </div>
+
+    <section class="certificate-shell">
+      <article class="certificate" id="certificateArea">
+        <header class="certificate-header">
+          <div>
+            <div class="eyebrow">Plataforma de Certificação</div>
+            <h1>Certificado Scrum</h1>
+            <p class="subtitle">Documento emitido para comprovar a conclusão do curso e o desempenho acadêmico consolidado do participante.</p>
+          </div>
+          <div class="seal">SCRUM<br>2026<br>OFICIAL</div>
+        </header>
+
+        <section class="recipient">
+          <p>Certificamos que</p>
+          <h2 id="nome">--</h2>
+          <p class="description">
+            concluiu com aproveitamento o curso de Certificação Scrum, atendendo aos critérios de avaliação da plataforma e demonstrando desempenho satisfatório nas trilhas formativas disponibilizadas.
+          </p>
+        </section>
+
+        <section class="info-grid">
+          <div class="info-card">
+            <span class="info-label">CPF</span>
+            <div class="info-value" id="cpf">--</div>
+          </div>
+          <div class="info-card">
+            <span class="info-label">E-mail</span>
+            <div class="info-value" id="email">--</div>
+          </div>
+          <div class="info-card">
+            <span class="info-label">Data de emissão</span>
+            <div class="info-value" id="dataEmissao">--</div>
+          </div>
+          <div class="info-card">
+            <span class="info-label">Média final</span>
+            <div class="info-value" id="mediaFinal">--</div>
+          </div>
+        </section>
+
+        <section class="notes">
+          <h3>Melhores notas por nível</h3>
+          <div class="notes-grid" id="listaNotas">
+            <div class="note-item"><strong>Fundamentos Scrum</strong><span>--</span></div>
+            <div class="note-item"><strong>Scrum Master</strong><span>--</span></div>
+            <div class="note-item"><strong>Product Owner</strong><span>--</span></div>
+            <div class="note-item"><strong>Práticas Ágeis, Métricas e Qualidade</strong><span>--</span></div>
+            <div class="note-item"><strong>Aplicação Prática, Cenários e Análise Crítica</strong><span>--</span></div>
+          </div>
+        </section>
+
+        <footer class="footer-row">
+          <div class="certificate-id"><strong>Certificado nº:</strong> <span id="certificadoId">--</span></div>
+          <div class="signature">
+            <div class="signature-line"></div>
+            <strong>Coordenação Acadêmica</strong><br>
+            <small>Assinatura ou validação digital</small>
+          </div>
+        </footer>
+      </article>
+    </section>
+  </main>
+</body>
+</html>
