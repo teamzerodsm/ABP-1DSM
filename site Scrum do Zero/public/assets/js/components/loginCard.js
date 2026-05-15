@@ -17,7 +17,7 @@ class loginCard extends HTMLElement {
       
             <div class="form-group">
               <label for="password-area" class="form-label">Sua senha</label>
-              <input class="form-input" name="password" data-required="Por favor, digite sua senha" id="password-area" type="password" >
+              <input class="form-input" name="password" data-required="Por favor, digite sua senha" id="password-area" type="password">
               <p id="password-error" class="error-message"></p>
               <a href="">Esqueci minha senha</a>
             </div>
