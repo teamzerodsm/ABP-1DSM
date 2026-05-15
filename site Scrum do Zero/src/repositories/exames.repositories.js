@@ -62,6 +62,56 @@ async function findNumeroProximaTentativa(clientOrPool, idUsuario, idModulo) {
   return result.rows[0]?.next_attempt || 1;
 }
 
+async function findTentativasRestantesPorModulo(idUsuario, idModulo) {
+  const result = await pool.query(
+    `
+    SELECT GREATEST(2 - COUNT(*), 0) AS tentativas_restantes
+    FROM exames
+    WHERE id_usuario = $1
+      AND id_modulo = $2
+    `,
+    [idUsuario, idModulo]
+  );
+
+  return Number(result.rows[0]?.tentativas_restantes ?? 2);
+}
+
+async function findNotaPorTentativa(idUsuario, idModulo, tentativa) {
+  const result = await pool.query(
+    `
+    SELECT COALESCE(SUM(r.nota), 0) AS nota
+    FROM exames e
+    LEFT JOIN respostas r ON r.id_exame = e.id_exame
+    WHERE e.id_usuario = $1
+      AND e.id_modulo = $2
+      AND e.tentativa = $3
+    GROUP BY e.id_exame
+    `,
+    [idUsuario, idModulo, tentativa]
+  );
+
+  return result.rows[0] ? Number(result.rows[0].nota) : null;
+}
+
+async function findMaiorNotaPorModulo(idUsuario, idModulo) {
+  const result = await pool.query(
+    `
+    SELECT MAX(total_nota) AS maior_nota
+    FROM (
+      SELECT COALESCE(SUM(r.nota), 0) AS total_nota
+      FROM exames e
+      LEFT JOIN respostas r ON r.id_exame = e.id_exame
+      WHERE e.id_usuario = $1
+        AND e.id_modulo = $2
+      GROUP BY e.id_exame
+    ) AS scores
+    `,
+    [idUsuario, idModulo]
+  );
+
+  return result.rows[0]?.maior_nota !== null ? Number(result.rows[0].maior_nota) : null;
+}
+
 async function findExameAtivoPorUsuarioEModulo(clientOrPool, idUsuario, idModulo) {
   const runner = clientOrPool || pool;
   const result = await runner.query(
@@ -223,6 +273,9 @@ module.exports = {
   findModuloById,
   findGrupoAleatorioPorModuloExcluindoUsado,
   findNumeroProximaTentativa,
+  findTentativasRestantesPorModulo,
+  findNotaPorTentativa,
+  findMaiorNotaPorModulo,
   findExameAtivoPorUsuarioEModulo,
   insertExame,
   findExameById,

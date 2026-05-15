@@ -56,6 +56,9 @@ const {
   findModuloById,
   findGrupoAleatorioPorModuloExcluindoUsado,
   findNumeroProximaTentativa,
+  findTentativasRestantesPorModulo,
+  findNotaPorTentativa,
+  findMaiorNotaPorModulo,
   findExameAtivoPorUsuarioEModulo,
   insertExame,
   findExameById,
@@ -324,6 +327,78 @@ router.get("/historico", authmiddleware, async function (req, res) {
   try {
     const history = await obterHistoricoExames(req.usuario.id_usuario);
     return res.status(200).json(history);
+  } catch (e) {
+    console.error(e);
+    return res.status(500).json({ message: "Erro interno do servidor" });
+  }
+});
+
+router.get("/modulo/:id_modulo/tentativas-restantes", authmiddleware, async function (req, res) {
+  try {
+    const idModulo = Number(req.params.id_modulo);
+    if (!Number.isInteger(idModulo) || idModulo <= 0) {
+      return res.status(400).json({ message: "id_modulo inválido" });
+    }
+
+    const tentativasRestantes = await findTentativasRestantesPorModulo(
+      req.usuario.id_usuario,
+      idModulo
+    );
+
+    return res.status(200).json({
+      id_modulo: idModulo,
+      tentativas_restantes: tentativasRestantes,
+    });
+  } catch (e) {
+    console.error(e);
+    return res.status(500).json({ message: "Erro interno do servidor" });
+  }
+});
+
+router.get("/modulo/:id_modulo/tentativa/:tentativa/nota", authmiddleware, async function (req, res) {
+  try {
+    const idModulo = Number(req.params.id_modulo);
+    const tentativa = Number(req.params.tentativa);
+
+    if (!Number.isInteger(idModulo) || idModulo <= 0) {
+      return res.status(400).json({ message: "id_modulo inválido" });
+    }
+    if (!Number.isInteger(tentativa) || tentativa <= 0 || tentativa > 2) {
+      return res.status(400).json({ message: "tentativa inválida" });
+    }
+
+    const nota = await findNotaPorTentativa(req.usuario.id_usuario, idModulo, tentativa);
+    if (nota === null) {
+      return res.status(404).json({ message: "Tentativa não encontrada" });
+    }
+
+    return res.status(200).json({
+      id_modulo: idModulo,
+      tentativa,
+      nota,
+    });
+  } catch (e) {
+    console.error(e);
+    return res.status(500).json({ message: "Erro interno do servidor" });
+  }
+});
+
+router.get("/modulo/:id_modulo/nota-maxima", authmiddleware, async function (req, res) {
+  try {
+    const idModulo = Number(req.params.id_modulo);
+    if (!Number.isInteger(idModulo) || idModulo <= 0) {
+      return res.status(400).json({ message: "id_modulo inválido" });
+    }
+
+    const maiorNota = await findMaiorNotaPorModulo(req.usuario.id_usuario, idModulo);
+    if (maiorNota === null) {
+      return res.status(404).json({ message: "Nenhuma tentativa encontrada para este módulo" });
+    }
+
+    return res.status(200).json({
+      id_modulo: idModulo,
+      maior_nota: maiorNota,
+    });
   } catch (e) {
     console.error(e);
     return res.status(500).json({ message: "Erro interno do servidor" });
