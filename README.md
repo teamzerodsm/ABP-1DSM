@@ -244,7 +244,7 @@ npm run dev
 ### Modelo Conceitual
 
 <p align="center">
-<img src="Documentos/Modelagem/Modelo_Conceitual.png" />
+<img src="Documentos/Modelagem/diagramas bd/Modelo_Conceitual.png" />
 </P>
 
 ---
