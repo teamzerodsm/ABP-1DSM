@@ -56,13 +56,18 @@
     --secondaryFont: "Orbitron";
 
     --green: #00FF41;
+    --dark-green: #14ca41;
     --darkBlue: #001F3F;
     --blue: #003D5C;
     --mainGradient: linear-gradient(135deg, #001F3F 0%, #003D5C 50%, #00FF41 100%);
     --secondaryBackground: linear-gradient(135deg, #003D5C 0%, #003D5C 50%, #001F3F 100%);
 
     --white: #FFF;
+    --whiteCold: #F0F4F8;
     --black: #000;
+    --grey: #9C9C9C;
+
+    --inputTransparent: rgba(255, 255, 255, 0.10);
 }
 
 html,body{
@@ -75,6 +80,10 @@ body{
     font-family: var(--mainFont);
     color: var(--white);
     overflow-x: hidden;
+}
+
+.body-color{
+  background: var(--mainGradient);
 }
 
 a {

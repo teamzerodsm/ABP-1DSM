@@ -1,6 +1,8 @@
 .page-main-section {
     display: flex;
-    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+    /* background: var(--mainGradient); */
+    background-image: url('../img/GradientDoido2.jpeg');
+    background-size: cover;
     position: relative;
     min-height: 100vh;
 }
@@ -128,7 +130,8 @@
 
     .left-section {
         display: flex;
-        background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+        background-image: url('../img/GradientDoido.jpeg');
+        background-size: cover;
         color: white;
         flex: 1;
         flex-direction: column;
@@ -207,7 +210,7 @@
 
     .right-section {
         display: flex;
-        background: #f5f5f5;
+        background: var(--whiteCold);
         flex: 1;
         align-items: center;
         justify-content: center;
