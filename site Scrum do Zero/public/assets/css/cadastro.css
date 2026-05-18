@@ -1,18 +1,10 @@
-.cadastro-page {
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  padding: 28px 16px 36px
-}
 .cadastro-card {
   width: 100%;
-  max-width: 360px;
-  background: #fff;
-  border: 1.5px solid var(--border);
+  background: var(--darkBlue);
   border-radius: 22px;
   padding: 34px 18px 28px;
-  color:black
 }
+
 .cadastro-title {
   text-align: center;
   font-size: 2rem;
@@ -32,15 +24,15 @@
 }
 .cadastro-mensagem.erro {
   display: block;
-  background: var(--erro-bg);
-  color: var(--erro-text);
-  border: 1px solid var(--erro-border)
+  background: var(--errorColorBg);
+  color: var(--errorColorText);
+  border: 1px solid var(--errorColorCol)
 }
 .cadastro-mensagem.sucesso {
   display: block;
-  background: var(--sucesso-bg);
-  color: var(--sucesso-text);
-  border: 1px solid var(--sucesso-border)
+  background: var(--successColorBg);
+  color: var(--successColorText);
+  border: 1px solid var(--successColorCol)
 }
 .cadastro-form {
   display: flex;
@@ -57,38 +49,35 @@
 .cadastro-field input {
   width: 100%;
   height: 42px;
-  border: 1.5px solid #7a7a7a;
+  border: none;
   border-radius: 10px;
-  background: var(--input);
+  background: var(--inputTransparent);
   padding: 0 14px;
   font-size: 1rem;
+  color: inherit;
   outline: none
 }
 .cadastro-field input:focus {
-  border-color: #4f4f4f
+  border-color: #4f4f4f; /* definir cor de foco */
 }
 .cadastro-btn {
   margin: 8px auto 0;
   width: 220px;
   height: 46px;
-  border: 1.5px solid var(--border);
+  border: none;
   border-radius: 999px;
-  background: #fff;
+  background: var(--green);
   font-size: 1.15rem;
   font-weight: 500;
-  color: var(--text);
+  color: var(--black);
   cursor: pointer;
   transition: 0.2s ease
 }
 .cadastro-btn:hover {
-  background: #f0f0f0
+  background: var(--dark-green)
 }
 @media(min-width:768px) {
-  .cadastro-page {
-      padding: 46px 20px 52px;
-      align-items: center;
-      justify-content: center
-  }
+  
   .cadastro-card {
       max-width: 640px;
       width: 100%;
@@ -125,19 +114,15 @@
   }
 }
 @media(min-width:1024px) {
-  .cadastro-page {
-      padding: 52px 16px 60px;
-      align-items: flex-start;
-      justify-content: center
-  }
+
   .cadastro-card {
-      max-width: 820px;
+      max-width: 920px;
       width: 100%;
-      padding: 46px 46px 34px
+      padding: 3rem 2rem;
   }
   .cadastro-title {
       font-size: 2.25rem;
-      margin-bottom: 28px
+      margin-bottom: 2rem;
   }
   .cadastro-mensagem {
       max-width: 380px;
@@ -147,7 +132,7 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       column-gap: 28px;
-      row-gap: 28px
+      row-gap: 2rem;
   }
   .cadastro-field {
       margin-bottom: 0
@@ -164,6 +149,6 @@
       width: 240px;
       height: 52px;
       font-size: 1.15rem;
-      margin-top: 8px
+      margin-top: 2rem
   }
 }
