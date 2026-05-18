@@ -98,6 +98,7 @@ class loginCard extends HTMLElement {
           return;
         }
 
+        localStorage.setItem("token", data.token);
         window.location.href = "/main";
       } catch (error) {
         this.loginError.textContent = "Erro ao conectar com o servidor.";

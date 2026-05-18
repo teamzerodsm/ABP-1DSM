@@ -1,24 +1,19 @@
-
-  .profile-main-section {
-    /* width: calc(100% - 28px); */
-    margin: 28px auto;
-  }
-  
-  .profile-card {
+  .perfil-card {
     width: 100%;
     background: var(--card);
     border: 1.5px solid #868686;
     border-radius: 18px;
     box-shadow: var(--shadow);
     overflow: hidden;
+    color: #111;
   }
   
-  .profile-layout {
+  .perfil-layout {
     display: grid;
     grid-template-columns: 1fr;
   }
   
-  .sidebar {
+  .perfil-sidebar {
     background: var(--sidebar);
     padding: 22px 16px;
     text-align: center;
@@ -55,17 +50,17 @@
     display: none;
   }
   
-  .content {
+  .perfil-content {
     padding: 20px 14px 24px;
   }
   
-  .title {
+  .perfil-title {
     font-size: 22px;
     font-weight: 500;
     margin-bottom: 10px;
   }
   
-  .subtitle {
+  .perfil-subtitle {
     font-size: 14px;
     line-height: 1.3;
     color: #2c2c2c;
@@ -78,19 +73,19 @@
     margin: 28px 0;
   }
   
-  .grid-form {
+  .perfil-grid-form {
     display: grid;
     grid-template-columns: 1fr;
     gap: 18px;
   }
   
-  .field label {
+  .perfil-field label {
     display: block;
     font-size: 17px;
     margin-bottom: 6px;
   }
   
-  .field input {
+  .perfil-field input {
     width: 100%;
     height: 44px;
     border: 1.2px solid #bfbfbf;
@@ -155,37 +150,37 @@
     border-color: #d9d9d9;
   }
   
-  @media (min-width: 768px) {
+  @media (min-width: 1024px) {
   
     .profile-main-section {
-      /* width: min(1220px, calc(100% - 64px)); */
-      margin: 42px auto;
+      width: min(1220px, calc(100% - 64px));
+      margin: 20px auto;
+      overflow-x: hidden;
     }
   
-    .profile-layout {
+    .perfil-layout {
       grid-template-columns: 260px 1fr;
       align-items: stretch;
     }
   
-    .sidebar {
-      min-height: 650px;
-      padding: 28px 16px;
+    .perfil-sidebar {
+      padding: 20px 16px;
       border-right: 1px solid #d7d7d7;
     }
   
-    .content {
-      padding: 30px 28px 30px 24px;
+    .perfil-content {
+      padding: 20px 28px 20px 24px;
     }
   
-    .title {
+    .perfil-title {
       font-size: 30px;
     }
   
-    .subtitle {
+    .perfil-subtitle {
       font-size: 16px;
     }
   
-    .grid-form {
+    .perfil-grid-form {
       grid-template-columns: 1fr 1fr;
       column-gap: 18px;
       row-gap: 22px;

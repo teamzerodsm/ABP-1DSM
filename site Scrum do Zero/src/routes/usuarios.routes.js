@@ -5,7 +5,8 @@ const {
     updateUsuarioNome,
     updateUsuarioEmail,
     updateUsuarioSenha,
-    findUsuarioById
+    findUsuarioById,
+    verifyUsuarioSenha
 }
     = require("../repositories/usuarios.repositories");
 
@@ -56,6 +57,68 @@ curl -X PATCH http://localhost:3000/api/usuarios/cpf \
 */
 
 //Rota API atualizar CPF
+router.get("/me", authmiddleware, async function (req, res) {
+    return res.status(200).json(req.usuario)
+})
+
+router.put("/me", authmiddleware, async function (req, res) {
+    const idUsuario = req.usuario.id_usuario
+    const { nome, email, cpf, senhaAtual, novaSenha, confirmarSenha } = req.body
+
+    if (!nome || !email || !cpf) {
+        return res.status(400).json({ message: "Nome, e-mail e CPF são obrigatórios." })
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (!emailRegex.test(email)) {
+        return res.status(400).json({ message: "Digite um e-mail válido." })
+    }
+
+    const cpfLimpo = cpf.toString().replace(/\D/g, "")
+    if (cpfLimpo.length !== 11) {
+        return res.status(400).json({ message: "Digite um CPF válido com 11 números." })
+    }
+
+    try {
+        const usuarioAtual = req.usuario
+
+        if (usuarioAtual.nome !== nome) {
+            await updateUsuarioNome(idUsuario, nome)
+        }
+        if (usuarioAtual.email !== email) {
+            await updateUsuarioEmail(idUsuario, email)
+        }
+        if (usuarioAtual.cpf !== cpfLimpo) {
+            await updateUsuarioCpf(idUsuario, cpfLimpo)
+        }
+
+        if (novaSenha || confirmarSenha || senhaAtual) {
+            if (!senhaAtual) {
+                return res.status(400).json({ message: "Senha atual é obrigatória para alterar a senha." })
+            }
+            if (novaSenha !== confirmarSenha) {
+                return res.status(400).json({ message: "A nova senha e a confirmação devem coincidir." })
+            }
+            if (novaSenha.trim().length < 6) {
+                return res.status(400).json({ message: "A senha deve ter pelo menos 6 caracteres." })
+            }
+            const senhaValida = await verifyUsuarioSenha(idUsuario, senhaAtual)
+            if (!senhaValida) {
+                return res.status(401).json({ message: "Senha atual incorreta." })
+            }
+            await updateUsuarioSenha(idUsuario, novaSenha)
+        }
+
+        const usuarioAtualizado = await findUsuarioById(idUsuario)
+        return res.status(200).json(usuarioAtualizado)
+    } catch (e) {
+        if (e && e.code === "23505") {
+            return res.status(409).json({ message: "Já existe usuário com esses dados." })
+        }
+        return res.status(500).json({ message: "Problemas internos no servidor" })
+    }
+})
+
 router.patch("/cpf", authmiddleware, async function (req, res) {
     const idUsuario = req.usuario.id_usuario
 

@@ -11,20 +11,22 @@ dotenv.config({
 const app = express();
 app.use(express.json());
 
-const publicPath = path.join(__dirname, "..", "public")
-const pagesPath = path.join(publicPath, "pages")
-const assetsPath = path.join(publicPath, "assets")
+const PORT = process.env.PORT || 3000;
+const publicPath = path.join(__dirname, "..", "public");
+const pagesPath = path.join(publicPath, "pages");
+const assetsPath = path.join(publicPath, "assets");
+const imagensQuestoesPath = path.join(
+  __dirname,
+  "infra",
+  "init",
+  "seed-data",
+  "imagens",
+);
 
 app.use("/", express.static(pagesPath));
 app.use("/assets", express.static(assetsPath));
-
+app.use("/imagens/questoes", express.static(imagensQuestoesPath));
 app.use("/api", router);
-
-const PORT = process.env.PORT
-
-app.listen(PORT, function () {
-    console.log(`Rodando em http://localhost:${PORT}`);
-});
 
 app.get("/index", function(_req, res){
     res.sendFile(path.join(pagesPath, "index.html"));
@@ -52,4 +54,8 @@ app.get("/quiz-page", function(_req, res){
 
 app.use(function(_req,res){
     res.redirect("not-found.html");
+});
+
+app.listen(PORT, function () {
+    console.log(`Rodando em http://localhost:${PORT}`);
 });

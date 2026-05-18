@@ -100,8 +100,11 @@ document.addEventListener('DOMContentLoaded', () => {
         throw new Error(data.message || 'Não foi possível concluir o cadastro.');
       }
 
-      mostrarMensagem('Cadastro realizado com sucesso!', 'sucesso');
+      mostrarMensagem('Cadastro realizado com sucesso! Redirecionando para o login...', 'sucesso');
       form.reset();
+      setTimeout(() => {
+        window.location.href = './index.html';
+      }, 1500);
     } catch (error) {
       mostrarMensagem(error.message || 'Erro ao conectar com o servidor.', 'erro');
     }
