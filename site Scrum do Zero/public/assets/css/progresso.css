@@ -29,7 +29,7 @@
   }
   
   .stat-card {
-    border: 1.5px solid #cccccc;
+    border: 1.5px solid var(--grey);
     border-radius: 12px;
     padding: 16px 20px 20px;
     background-color: var(--darkBlue);
@@ -58,7 +58,7 @@
   
   /* ── Níveis Concluídos Table Section ── */
   .table-section {
-    border: 1.5px solid #cccccc;
+    border: 1.5px solid var(--grey);
     border-radius: 14px;
     background: var(--darkBlue);
     overflow-y: auto;

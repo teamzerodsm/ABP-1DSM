@@ -1,7 +1,7 @@
 .page-main-section {
     display: flex;
     /* background: var(--mainGradient); */
-    background-image: url('../img/GradientDoido2.jpeg');
+    background-image: url('../img/GradientDoido.jpeg');
     background-size: cover;
     position: relative;
     min-height: 100vh;
@@ -141,7 +141,7 @@
         justify-content: center;
     }
 
-    .left-section::after {
+/*     .left-section::after {
         content: '';
         position: absolute;
         bottom: -100px;
@@ -150,7 +150,7 @@
         height: 400px;
         background: radial-gradient(circle, rgba(255, 255, 255, 0.03) 0%, transparent 70%);
         border-radius: 50%;
-    }
+    } */
 
     .logo-container {
         margin-bottom: 25px;

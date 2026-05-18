@@ -2,7 +2,6 @@
   padding: 16px;
   display: flex;
   flex-direction: column;
-  color: black;
 }
 
 .progress-section {
@@ -13,13 +12,12 @@
   width: 100%;
   max-width: 1280px;
   margin: auto;
-  color: #000;
   padding: 2rem 16px 2rem 16px;
 }
 
 .progress-wrapper {
   width: 100%;
-  border: 1px solid #5e5e5e;
+  background-color: var(--whiteCold);
   border-radius: 16px;
   padding: 6px;
   display: grid;
@@ -29,7 +27,7 @@
 
 .progress {
   height: 40px;
-  background: #d9d9d9;
+  background: #C7C7C7;
   border-radius: 8px;
 }
 
@@ -38,7 +36,7 @@
 /* Questões respondidas */
 
 .progress.answered {
-  background: #000000;
+  background: var(--darkBlue);
 }
 
 /* Revisão correta */
@@ -112,11 +110,9 @@
 }
 
 .options-box {
-  border: 1px solid #5e5e5e;
+  border: 1px solid var(--white);
   border-radius: 24px;
-
   padding: 20px;
-
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -124,42 +120,33 @@
 
 .option {
   width: 100%;
-
   min-height: 70px;
-
-  background: #d9d9d9;
-
+  background: rgba(255,255,255,0.02);
   border-radius: 20px;
-
   display: flex;
   align-items: center;
   gap: 16px;
-
   padding: 14px;
-
   cursor: pointer;
-  border: 2px solid transparent;
-  transition: 0.2s ease;
+  border: 1px solid var(--white);
+  transition:transform .25s ease, border-color .25s ease, background .25s ease, box-shadow .25s ease;
 }
 
 .option:hover {
-  transform: scale(1.01);
+  transform: translateX(6px);
 }
 
 .option.selected {
-  border: 2px solid #000;
-  background: #cfcfcf;
+  background-color: var(--darkBlue);
 }
 
 /* REVIEW MODE */
 
 .option.correct {
-  background: #c8f7c5;
   border: 2px solid #2e9b45;
 }
 
 .option.wrong {
-  background: #ffc9c9;
   border: 2px solid #d62828;
 }
 
@@ -193,8 +180,9 @@
   height: 38px;
 
   border-radius: 12px;
+  border: 1px solid var(--white);
 
-  background: #ffffff;
+  background: transparent;
 
   display: flex;
   align-items: center;
@@ -210,7 +198,6 @@
 .option-text {
   font-size: clamp(0.875rem, 3.6vw, 0.95rem);
   text-align: justify;
-  color: #3a3a3a;
   line-height: 1.5;
 }
 
@@ -225,7 +212,6 @@
 
 .footer-btn {
   border: none;
-  background: #d9d9d9;
   padding: 14px clamp(16px, 5.5vw, 32px);
   border-radius: 14px;
   font-family: 'Orbitron', sans-serif;
@@ -235,13 +221,25 @@
   transition: 0.3s ease;
 }
 
-.footer-btn:hover {
-  background: #c9c9c9;
-}
-
 .footer-btn:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+}
+
+#prevBtn {
+  background: #d9d9d9;
+}
+
+#prevBtn:hover {
+  background: #c9c9c9;
+}
+
+#nextBtn{
+  background: var(--green);
+}
+
+#nextBtn:hover {
+  background: #2cb733;
 }
 
 @media (min-width: 768px) {
