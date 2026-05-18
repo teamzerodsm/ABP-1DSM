@@ -61,8 +61,10 @@
     --blue: #003D5C;
 
     --mainGradient: radial-gradient(circle at top left,rgba(40, 120, 255, 0.10), transparent 30%),radial-gradient(circle at bottom right,rgba(0, 180, 140, 0.10), transparent 35%),linear-gradient(135deg,#021526 0%,#032b43 35%,#014d5e 70%,#026c40 100%);
-
+    
     --secondaryBackground: linear-gradient(135deg, #003D5C 0%, #003D5C 50%, #001F3F 100%);
+
+    --heroBackground: radial-gradient(circle at top left, rgba(0, 255, 170, 0.25), transparent 35%), radial-gradient(circle at bottom right, rgba(0, 180, 255, 0.30), transparent 40%), radial-gradient(circle at center, rgba(0, 255, 120, 0.12), transparent 55%), linear-gradient(135deg, #020617 0%, #031525 25%, #003b46 55%, #001d3d 100%);
 
     --white: #FFF;
     --whiteCold: #F0F4F8;
