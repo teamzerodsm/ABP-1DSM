@@ -189,7 +189,7 @@ npm run dev
 | Igor Corrêa        | Desenvolvedor                | [igorcsouzaa](https://github.com/igorcsouzaa)                     |
 | Jaqueline Medeiros | Desenvolvedor                | [Jaqueline Medeiros](https://github.com/alves-medeiros)           |
 | Tiago Ferreira     | Desenvolvedor                | [tiagof6](https://github.com/tiagof6)                             |
-| Vítor Otavio       | Desenvolvedor                | [VirtusXD](https://github.com/VirtusXD)                           |
+| Vítor Otavio       | Desenvolvedor                | [VirtusXD](https://github.com/vitorreis-dev)                           |
 | Douglas Silva      | Scrum Master (anteriormente) | [Moraisdouglas](https://github.com/moraisdouglas)                 |
 
 ---
