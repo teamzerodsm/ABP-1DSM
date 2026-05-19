@@ -19,25 +19,18 @@ async function findGrupoAleatorioPorModuloExcluindoUsado(clientOrPool, idUsuario
   const runner = clientOrPool || pool;
   const result = await runner.query(
     `
-    SELECT q.grupo
-    FROM questoes q
-    WHERE q.id_modulo = $1
-      AND q.grupo IS NOT NULL
-    GROUP BY q.grupo
-    HAVING EXISTS (
-      SELECT 1
-      FROM questoes q2
-      WHERE q2.id_modulo = q.id_modulo
-        AND q2.grupo = q.grupo
-        AND NOT EXISTS (
-          SELECT 1
-          FROM respostas r
-          INNER JOIN exames e ON r.id_exame = e.id_exame
-          WHERE e.id_usuario = $2
-            AND e.id_modulo = q2.id_modulo
-            AND e.grupo = q2.grupo
-            AND r.id_questao = q2.id_questao
-        )
+    SELECT grupo
+    FROM (
+      SELECT DISTINCT grupo
+      FROM questoes
+      WHERE id_modulo = $1
+        AND grupo IS NOT NULL
+    ) grupos_disponiveis
+    WHERE grupo NOT IN (
+      SELECT e.grupo
+      FROM exames e
+      WHERE e.id_usuario = $2
+        AND e.id_modulo = $1
     )
     ORDER BY RANDOM()
     LIMIT 1
@@ -164,7 +157,8 @@ async function findQuestoesPorModuloEGrupo(idModulo, grupo) {
   const result = await pool.query(
     `
     SELECT id_questao, id_modulo, grupo, numero, dificuldade, enunciado,
-           alternativa_a, alternativa_b, alternativa_c, alternativa_d, imagem
+           alternativa_a, alternativa_b, alternativa_c, alternativa_d,
+           alternativa_correta, imagem
     FROM questoes
     WHERE id_modulo = $1
       AND grupo IS NOT DISTINCT FROM $2

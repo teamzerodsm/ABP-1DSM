@@ -220,7 +220,6 @@ async function enviarRespostasExame(idUsuario, idExame, answers) {
 
     const inserted = await insertRespostas(client, prepared);
     await client.query("COMMIT");
-
     const score = inserted.reduce((sum, item) => sum + Number(item.nota || 0), 0);
     const errors = inserted.length - score;
 

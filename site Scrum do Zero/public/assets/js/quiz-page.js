@@ -1,297 +1,139 @@
-import "./components/dialogNota.js";
+import "./components/dialogNota.js"; 
+const BASE_URL = "http://localhost:3000/api";
+const token = localStorage.getItem("token");
 
-/* =========================================
-   BANCO DE DADOS FICTÍCIO
-========================================= */
+const headers = {
+  "Content-Type": "application/json",
+  Authorization: `Bearer ${token}`,
+};
 
-const questions = [
-  {
-    id: 1,
+const params = new URLSearchParams(window.location.search);
+const idModulo = Number(params.get("modulo"));
 
-    question:
-      "Durante a Daily Scrum, os Desenvolvedores percebem que parte das tarefas planejadas para a Sprint está demandando mais tempo e esforço técnico do que o inicialmente previsto. Além disso, surgiram impedimentos que podem comprometer a entrega do Incremento dentro do prazo estabelecido. Considerando as práticas do Scrum, qual deve ser a ação mais adequada da equipe diante dessa situação?",
-
-    options: {
-      A: "Reavaliar o Sprint Backlog em conjunto com o Product Owner para adaptar o escopo da Sprint conforme a realidade atual.",
-      B: "Cancelar imediatamente a Sprint e iniciar uma nova sem consultar o restante do Scrum Team.",
-      C: "Exigir que todos os Desenvolvedores realizem horas extras obrigatórias até a conclusão das tarefas.",
-      D: "Continuar trabalhando normalmente e ignorar os impedimentos até a Sprint Review.",
-    },
-
-    correct: "A",
-  },
-
-  {
-    id: 2,
-
-    question:
-      "Dentro do framework Scrum, existe um papel responsável por garantir que o produto entregue gere o maior valor possível para clientes, usuários e stakeholders. Esse profissional também é responsável por priorizar o Product Backlog e tomar decisões relacionadas ao direcionamento do produto. Quem exerce essa responsabilidade?",
-
-    options: {
-      A: "Scrum Master",
-      B: "Desenvolvedores",
-      C: "Product Owner",
-      D: "Stakeholders",
-    },
-
-    correct: "C",
-  },
-
-  {
-    id: 3,
-
-    question:
-      "Ao final de cada Sprint, o Scrum Team realiza um evento oficial para apresentar o trabalho concluído, coletar feedback e discutir possíveis adaptações futuras no produto e no planejamento. Qual é o principal objetivo desse evento dentro do Scrum?",
-
-    options: {
-      A: "Planejar detalhadamente todas as atividades da próxima Sprint.",
-      B: "Apresentar o Incremento desenvolvido aos stakeholders e obter feedback sobre o produto.",
-      C: "Avaliar individualmente o desempenho de cada Desenvolvedor durante a Sprint.",
-      D: "Corrigir exclusivamente bugs críticos encontrados durante o desenvolvimento.",
-    },
-
-    correct: "B",
-  },
-
-  {
-    id: 4,
-
-    question:
-      "Durante o planejamento da Sprint, o Scrum Team seleciona itens do Product Backlog e define como o trabalho será executado ao longo do ciclo. O conjunto dessas tarefas e objetivos definidos para a Sprint recebe um nome específico dentro do Scrum. O que representa esse artefato?",
-
-    options: {
-      A: "Uma lista de funcionários envolvidos no projeto.",
-      B: "Um relatório financeiro utilizado para medir custos da Sprint.",
-      C: "Os itens selecionados do Product Backlog juntamente com o plano de execução da Sprint.",
-      D: "Toda a documentação técnica completa do sistema desenvolvido.",
-    },
-
-    correct: "C",
-  },
-
-  {
-    id: 5,
-
-    question:
-      "Entre os eventos do Scrum, existe uma reunião diária que possui curta duração e tem como principal objetivo alinhar o trabalho dos Desenvolvedores, identificar impedimentos e acompanhar o progresso em direção à Sprint Goal. Qual evento possui duração máxima recomendada de 15 minutos?",
-
-    options: {
-      A: "Sprint Planning",
-      B: "Sprint Retrospective",
-      C: "Sprint Review",
-      D: "Daily Scrum",
-    },
-
-    correct: "D",
-  },
-
-  {
-    id: 6,
-
-    question:
-      "Durante uma Sprint, um stakeholder solicita a inclusão urgente de uma nova funcionalidade que não estava prevista no Sprint Backlog inicial. A equipe acredita que a mudança pode comprometer o objetivo da Sprint caso seja adicionada imediatamente. Segundo o Scrum Guide, qual deve ser a abordagem mais adequada para lidar com essa solicitação?",
-
-    options: {
-      A: "Adicionar automaticamente a funcionalidade ao Sprint Backlog, independentemente do impacto.",
-      B: "Encaminhar a solicitação ao Product Owner para avaliar prioridade e impacto no Sprint Goal.",
-      C: "Permitir que os Desenvolvedores decidam individualmente se irão implementar a funcionalidade.",
-      D: "Ignorar completamente a solicitação até o encerramento do projeto.",
-    },
-
-    correct: "B",
-  },
-
-  {
-    id: 7,
-
-    question:
-      "O Scrum Master desempenha um papel essencial dentro do Scrum Team, atuando não apenas como facilitador, mas também ajudando a organização a compreender e aplicar corretamente os princípios ágeis. Qual das alternativas descreve melhor uma das responsabilidades do Scrum Master?",
-
-    options: {
-      A: "Definir sozinho todas as prioridades do Product Backlog.",
-      B: "Gerenciar diretamente os Desenvolvedores e distribuir tarefas diariamente.",
-      C: "Garantir que o Scrum seja compreendido e aplicado corretamente pelo Scrum Team.",
-      D: "Aprovar exclusivamente as entregas técnicas antes da Sprint Review.",
-    },
-
-    correct: "C",
-  },
-
-  {
-    id: 8,
-
-    question:
-      "No Scrum, o conceito de Incremento está diretamente relacionado ao valor entregue ao final de cada Sprint. Para que um Incremento seja considerado válido, ele precisa atender a determinados critérios definidos previamente pelo Scrum Team. Qual alternativa representa corretamente esse conceito?",
-
-    options: {
-      A: "Uma versão parcial do produto que ainda não precisa estar funcional.",
-      B: "Um conjunto de documentos técnicos criados durante a Sprint.",
-      C: "O resultado do trabalho concluído que atende à Definition of Done e agrega valor ao produto.",
-      D: "Uma estimativa inicial de funcionalidades futuras do sistema.",
-    },
-
-    correct: "C",
-  },
-
-  {
-    id: 9,
-
-    question:
-      "A Sprint Retrospective é um evento importante para promover melhoria contínua dentro do Scrum Team. Durante essa reunião, os membros refletem sobre processos, comunicação, ferramentas e formas de trabalho utilizadas na Sprint anterior. Qual é o principal propósito desse evento?",
-
-    options: {
-      A: "Apresentar funcionalidades concluídas diretamente aos clientes finais.",
-      B: "Planejar os requisitos técnicos completos das próximas releases.",
-      C: "Identificar oportunidades de melhoria e definir ações para aumentar a eficiência da equipe.",
-      D: "Avaliar individualmente os membros do Scrum Team com base em produtividade.",
-    },
-
-    correct: "C",
-  },
-
-  {
-    id: 10,
-
-    question:
-      "Em um projeto que utiliza Scrum, a transparência é considerada um dos pilares fundamentais do framework. Isso significa que informações importantes relacionadas ao produto, progresso e impedimentos devem estar visíveis para todos os envolvidos. Qual prática contribui diretamente para fortalecer esse princípio?",
-
-    options: {
-      A: "Manter apenas os líderes informados sobre o andamento da Sprint.",
-      B: "Documentar problemas somente ao final do projeto para evitar conflitos.",
-      C: "Garantir que o Product Backlog e o progresso da Sprint estejam acessíveis e visíveis ao Scrum Team.",
-      D: "Evitar reuniões frequentes para reduzir exposição de falhas da equipe.",
-    },
-
-    correct: "C",
-  },
-];
+let idExame = null;
+let questions = [];
 
 /* =========================================
    ESTADOS
 ========================================= */
 
 let currentQuestionIndex = 0;
-
 const userAnswers = {};
-
 let reviewMode = false;
 
 /* =========================================
    ELEMENTOS
 ========================================= */
 
-const questionNumber = document.getElementById("questionNumber");
-
-const questionText = document.getElementById("questionText");
-
-const optionsBox = document.getElementById("optionsBox");
-
+const questionNumber  = document.getElementById("questionNumber");
+const questionText    = document.getElementById("questionText");
+const optionsBox      = document.getElementById("optionsBox");
 const progressWrapper = document.getElementById("progressWrapper");
-
-const prevBtn = document.getElementById("prevBtn");
-
-const nextBtn = document.getElementById("nextBtn");
-
+const prevBtn         = document.getElementById("prevBtn");
+const nextBtn         = document.getElementById("nextBtn");
 const dialogComponent = document.querySelector("dialog-quiz");
+
+/* =========================================
+   API
+========================================= */
+
+async function iniciarOuRetomar() {
+  const res = await fetch(`${BASE_URL}/exames`, {
+    method: "POST",
+    headers,
+    body: JSON.stringify({ id_modulo: idModulo }),
+  });
+
+  const data = await res.json();
+
+  if (res.status === 409 && data.message.includes("em andamento")) {
+    await retomarExame();
+    return;
+  }
+
+  if (!res.ok) {
+    alert(data.message);
+    window.location.href = "/main";
+    return;
+  }
+
+  idExame = data.exame.id_exame;
+  questions = adaptarQuestoes(data.questions);
+  renderQuestion();
+}
+
+async function retomarExame() {
+  const res = await fetch(`${BASE_URL}/exames/historico`, { headers });
+  const data = await res.json();
+
+  const modulo = data.find((m) => m.id_modulo == idModulo);
+  const exameAtivo = modulo?.tentativas.find((t) => t.respostas_respondidas === 0);
+
+  if (!exameAtivo) {
+    alert("Erro ao retomar exame.");
+    window.location.href = "/main";
+    return;
+  }
+
+  idExame = exameAtivo.id_exame;
+
+  const res2 = await fetch(`${BASE_URL}/exames/${idExame}`, { headers });
+  const data2 = await res2.json();
+
+  questions = adaptarQuestoes(data2.questions);
+  renderQuestion();
+}
+
+function adaptarQuestoes(raw) {
+  console.log("raw[0]:", raw[0]);
+  return raw.map((q) => ({
+    id: q.id_questao,
+    question: q.enunciado,
+    options: {
+      a: q.alternativa_a,
+      b: q.alternativa_b,
+      c: q.alternativa_c,
+      d: q.alternativa_d,
+    },
+    correct: q.alternativa_correta,
+  }));
+}
 
 /* =========================================
    RENDER PROGRESS
 ========================================= */
 
 function renderProgress() {
-
   progressWrapper.innerHTML = "";
 
   questions.forEach((question, index) => {
-
-    const progress =
-      document.createElement("div");
-
+    const progress = document.createElement("div");
     progress.classList.add("progress");
 
-    /* =================================
-       QUIZ NORMAL
-    ================================= */
-
     if (!reviewMode) {
+      if (userAnswers[index])          progress.classList.add("answered");
+      if (index === currentQuestionIndex) progress.classList.add("current");
 
-      // questão respondida
-      if (userAnswers[index]) {
-
-        progress.classList.add("answered");
-
-      }
-
-      // questão atual
-      if (index === currentQuestionIndex) {
-
-        progress.classList.add("current");
-
-      }
-
-      // TODAS navegáveis
       progress.classList.add("clickable");
-
       progress.addEventListener("click", () => {
-
         currentQuestionIndex = index;
-
         renderQuestion();
-
       });
 
-    }
+    } else {
+      const acertou = userAnswers[index] === question.correct;
+      progress.classList.add(acertou ? "correct" : "wrong");
+      if (index === currentQuestionIndex) progress.classList.add("current");
 
-    /* =================================
-       REVIEW MODE
-    ================================= */
-
-    else {
-
-      const userAnswer =
-        userAnswers[index];
-
-      const correctAnswer =
-        question.correct;
-
-      // correta
-      if (userAnswer === correctAnswer) {
-
-        progress.classList.add("correct");
-
-      }
-
-      // errada
-      else {
-
-        progress.classList.add("wrong");
-
-      }
-
-      // questão atual
-      if (index === currentQuestionIndex) {
-
-        progress.classList.add("current");
-
-      }
-
-      // revisão navegável
       progress.classList.add("clickable");
-
       progress.addEventListener("click", () => {
-
         currentQuestionIndex = index;
-
         renderQuestion();
-
       });
-
     }
 
     progressWrapper.appendChild(progress);
-
   });
-
 }
 
 /* =========================================
@@ -299,114 +141,46 @@ function renderProgress() {
 ========================================= */
 
 function renderQuestion() {
+  const currentQuestion = questions[currentQuestionIndex];
 
-  const currentQuestion =
-    questions[currentQuestionIndex];
+  questionNumber.innerText = `${currentQuestionIndex + 1} -`;
+  questionText.innerText   = currentQuestion.question;
+  optionsBox.innerHTML     = "";
 
-  questionNumber.innerText =
-    `${currentQuestion.id} -`;
+  Object.entries(currentQuestion.options).forEach(([letter, text]) => {
+    const option = document.createElement("div");
+    option.classList.add("option");
 
-  questionText.innerText =
-    currentQuestion.question;
+    const selectedAnswer = userAnswers[currentQuestionIndex];
 
-  optionsBox.innerHTML = "";
+    if (!reviewMode) {
+      if (selectedAnswer === letter) option.classList.add("selected");
+    } else {
+      option.classList.add("disabled");
+      if (letter === currentQuestion.correct) option.classList.add("correct");
+      if (selectedAnswer === letter && selectedAnswer !== currentQuestion.correct)
+        option.classList.add("wrong");
+    }
 
-  Object.entries(currentQuestion.options)
-    .forEach(([letter, text]) => {
+    option.innerHTML = `
+      <div class="option-letter">${letter}</div>
+      <p class="option-text">${text}</p>
+    `;
 
-      const option =
-        document.createElement("div");
+    if (!reviewMode) {
+      option.addEventListener("click", () => {
+        document.querySelectorAll(".option").forEach((opt) => opt.classList.remove("selected"));
+        option.classList.add("selected");
+        userAnswers[currentQuestionIndex] = letter;
+        updateButtons();
+      });
+    }
 
-      option.classList.add("option");
-
-      const selectedAnswer =
-        userAnswers[currentQuestionIndex];
-
-      /* =========================
-         QUIZ NORMAL
-      ========================= */
-
-      if (!reviewMode) {
-
-        if (selectedAnswer === letter) {
-          option.classList.add("selected");
-        }
-
-      }
-
-      /* =========================
-         REVIEW MODE
-      ========================= */
-
-      else {
-
-        option.classList.add("disabled");
-
-        // correta
-        if (
-          letter === currentQuestion.correct
-        ) {
-
-          option.classList.add("correct");
-
-        }
-
-        // errada marcada
-        if (
-          selectedAnswer === letter &&
-          selectedAnswer !== currentQuestion.correct
-        ) {
-
-          option.classList.add("wrong");
-
-        }
-
-      }
-
-      option.innerHTML = `
-        <div class="option-letter">
-          ${letter}
-        </div>
-
-        <p class="option-text">
-          ${text}
-        </p>
-      `;
-
-      /* =========================
-         CLICK APENAS QUIZ NORMAL
-      ========================= */
-
-      if (!reviewMode) {
-
-        option.addEventListener("click", () => {
-
-          document
-            .querySelectorAll(".option")
-            .forEach((opt) => {
-              opt.classList.remove("selected");
-            });
-
-          option.classList.add("selected");
-
-          userAnswers[currentQuestionIndex] =
-          letter;
-
-          // atualiza botão imediatamente
-          updateButtons();
-
-        });
-
-      }
-
-      optionsBox.appendChild(option);
-
-    });
+    optionsBox.appendChild(option);
+  });
 
   renderProgress();
-
   updateButtons();
-
 }
 
 /* =========================================
@@ -414,131 +188,50 @@ function renderQuestion() {
 ========================================= */
 
 function updateButtons() {
-
-  prevBtn.disabled =
-    currentQuestionIndex === 0;
-
-  /* =================================
-     REVIEW MODE
-  ================================= */
+  prevBtn.disabled = currentQuestionIndex === 0;
 
   if (reviewMode) {
-
     nextBtn.disabled = false;
-
-    if (
-      currentQuestionIndex ===
-      questions.length - 1
-    ) {
-
-      nextBtn.innerText = "Concluir";
-
-    } else {
-
-      nextBtn.innerText = "Próxima";
-
-    }
-
+    nextBtn.innerText = currentQuestionIndex === questions.length - 1 ? "Concluir" : "Próxima";
     return;
-
   }
 
-  /* =================================
-     QUIZ NORMAL
-  ================================= */
-
-  const allAnswered =
-    questions.every((_, index) => {
-
-      return userAnswers[index];
-
-    });
-
-  // última questão
-  if (
-    currentQuestionIndex ===
-    questions.length - 1
-  ) {
-
+  if (currentQuestionIndex === questions.length - 1) {
     nextBtn.innerText = "Finalizar";
-
-    // permite responder a última
-    // mas bloqueia finalizar
-    // enquanto houver pendências
-    nextBtn.disabled =
-      !userAnswers[currentQuestionIndex];
-
-  }
-
-  else {
-
+    nextBtn.disabled  = !userAnswers[currentQuestionIndex];
+  } else {
     nextBtn.innerText = "Prosseguir";
-
-    nextBtn.disabled = false;
-
+    nextBtn.disabled  = false;
   }
-
 }
 
 /* =========================================
    NEXT BUTTON
 ========================================= */
 
-nextBtn.addEventListener("click", () => {
-
-  /* =================================
-     REVIEW MODE
-  ================================= */
-
+nextBtn.addEventListener("click", async () => {
   if (reviewMode) {
-
-    if (
-      currentQuestionIndex ===
-      questions.length - 1
-    ) {
-
+    if (currentQuestionIndex === questions.length - 1) {
       window.location.href = "/main";
-
       return;
-
     }
-
     currentQuestionIndex++;
-
     renderQuestion();
-
     return;
-
   }
-
-  /* =================================
-     QUIZ NORMAL
-  ================================= */
 
   if (!userAnswers[currentQuestionIndex]) {
-
     alert("Selecione uma alternativa.");
-
     return;
-
   }
 
-  // última questão
-  if (
-    currentQuestionIndex ===
-    questions.length - 1
-  ) {
-
-    mostrarResultado();
-
+  if (currentQuestionIndex === questions.length - 1) {
+    await mostrarResultado();
     return;
-
   }
 
   currentQuestionIndex++;
-
   renderQuestion();
-
 });
 
 /* =========================================
@@ -546,65 +239,89 @@ nextBtn.addEventListener("click", () => {
 ========================================= */
 
 prevBtn.addEventListener("click", () => {
-
   if (currentQuestionIndex > 0) {
-
     currentQuestionIndex--;
-
     renderQuestion();
-
   }
-
 });
 
 /* =========================================
    RESULTADO
 ========================================= */
 
-function mostrarResultado() {
+async function mostrarResultado() {
+  nextBtn.disabled = true;
 
-  let score = 0;
+  const answers = questions.map((q, index) => ({
+    id_questao: q.id,
+    resposta: userAnswers[index],
+  }));
+  
+  console.log("answers enviados:", answers);
+  console.log("userAnswers:", userAnswers);
+  console.log("questions:", questions.map(q => ({ id: q.id, correct: q.correct })));
 
-  questions.forEach((question, index) => {
-
-    if (
-      userAnswers[index] ===
-      question.correct
-    ) {
-
-      score++;
-
-    }
-
+  const res = await fetch(`${BASE_URL}/exames/${idExame}/respostas`, {
+    method: "POST",
+    headers,
+    body: JSON.stringify(answers),
   });
 
-  dialogComponent.setDados({
-    mensagem:
-      `Quiz finalizado! Acertos: ${score} de ${questions.length}`,
+  const data = await res.json();
 
-    nota: score
-  });
+  if (!res.ok) {
+    nextBtn.disabled = false;
+    alert(data.message);
+    return;
+  }
 
-  dialogComponent.dialog.showModal();
+  // verifica se o innerHTML já foi renderizado
+  const mensagemEl = dialogComponent.querySelector("#dialog-quiz-mensagem");
+  const notaEl     = dialogComponent.querySelector("#dialog-quiz-nota");
+  const dialogEl   = dialogComponent.querySelector("#dialog-quiz");
 
+  console.log("mensagemEl:", mensagemEl);
+  console.log("notaEl:", notaEl);
+  console.log("dialogEl:", dialogEl);
+
+  if (!mensagemEl || !notaEl || !dialogEl) {
+    console.error("Elementos do dialog não encontrados. innerHTML:", dialogComponent.innerHTML);
+    return;
+  }
+
+  mensagemEl.innerText = `Quiz finalizado! Acertos: ${data.score} de ${data.total}`;
+  notaEl.innerText     = data.score;
+  dialogEl.showModal();
 }
 
 /* =========================================
    REVIEW MODE
 ========================================= */
 
-function iniciarRevisao() {
+async function iniciarRevisao() {
+  const res  = await fetch(`${BASE_URL}/exames/${idExame}/resultado`, { headers });
+  const data = await res.json();
+
+  questions = data.items.map((item, i) => {
+    userAnswers[i] = item.resposta_usuario;
+    return {
+      id: item.id_questao,
+      question: item.enunciado,
+      options: {
+        a: item.alternativa_a,
+        b: item.alternativa_b,
+        c: item.alternativa_c,
+        d: item.alternativa_d,
+      },
+      correct: item.alternativa_correta,
+    };
+  });
 
   reviewMode = true;
-
   currentQuestionIndex = 0;
-
   document.body.classList.add("review-mode");
-
-  dialogComponent.dialog.close();
-
+  dialogComponent.querySelector("#dialog-quiz").close();
   renderQuestion();
-
 }
 
 /* =========================================
@@ -617,4 +334,4 @@ window.iniciarRevisao = iniciarRevisao;
    INIT
 ========================================= */
 
-renderQuestion();
+iniciarOuRetomar();
