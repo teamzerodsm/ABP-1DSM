@@ -2,7 +2,7 @@
   width: 100%;
   background: var(--darkBlue);
   border-radius: 22px;
-  padding: 34px 18px 28px;
+  padding: 2rem 1.25rem;
 }
 
 .cadastro-title {
@@ -11,6 +11,7 @@
   font-weight: 500;
   margin-bottom: 18px
 }
+
 .cadastro-mensagem {
   display: none;
   margin: 0 auto 22px;
@@ -22,44 +23,40 @@
   width: 100%;
   max-width: 340px
 }
+
 .cadastro-mensagem.erro {
   display: block;
   background: var(--errorColorBg);
   color: var(--errorColorText);
   border: 1px solid var(--errorColorCol)
 }
+
 .cadastro-mensagem.sucesso {
   display: block;
   background: var(--successColorBg);
   color: var(--successColorText);
   border: 1px solid var(--successColorCol)
 }
+
 .cadastro-form {
   display: flex;
   flex-direction: column
 }
+
 .cadastro-field {
   margin-bottom: 22px
 }
+
 .cadastro-field label {
   display: block;
   font-size: 1.1rem;
   margin-bottom: 8px
 }
+
 .cadastro-field input {
-  width: 100%;
-  height: 42px;
-  border: none;
-  border-radius: 10px;
-  background: var(--inputTransparent);
-  padding: 0 14px;
   font-size: 1rem;
-  color: inherit;
-  outline: none
 }
-.cadastro-field input:focus {
-  border-color: #4f4f4f; /* definir cor de foco */
-}
+
 .cadastro-btn {
   margin: 8px auto 0;
   width: 220px;
@@ -101,10 +98,7 @@
       font-size: 1.45rem;
       margin-bottom: 8px
   }
-  .cadastro-field input {
-      height: 58px;
-      border-radius: 8px
-  }
+
   .cadastro-btn {
       display: block;
       width: 320px;
@@ -113,6 +107,7 @@
       font-size: 1.35rem
   }
 }
+
 @media(min-width:1024px) {
 
   .cadastro-card {
@@ -141,9 +136,7 @@
       font-size: 1.2rem;
       margin-bottom: 8px
   }
-  .cadastro-field input {
-      height: 44px
-  }
+
   .cadastro-btn {
       grid-column: 1 / -1;
       width: 240px;

@@ -77,15 +77,10 @@
 }
 
 .mobile-button {
-    padding: 14px 35px;
     background: transparent;
     border: 2px solid white;
-    border-radius: 25px;
     font-size: 16px;
-    font-weight: 600;
     color: white;
-    cursor: pointer;
-    transition: all 0.3s;
 }
 
 .mobile-button:hover {
@@ -197,8 +192,8 @@
     }
 
     .logo-desk {
-        width: 205px;
-        height: 206px;
+        width: 180px;
+        height: 180px;
         margin-bottom: 25px;
         border-radius: 50%;
         display: flex;

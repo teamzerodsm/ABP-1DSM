@@ -10,10 +10,6 @@
     animation: modalFade 0.25s ease;
 }
 
-.dialog::backdrop {
-    background-color: rgba(0, 0, 0, 0.6);
-}
-
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -84,22 +80,18 @@
 }
 
 .btn-cancelar:hover {
-    /*     color: #333; */
     background: rgba(255, 255, 255, 0.08);
     border-color: rgba(255, 255, 255, 0.3);
     transform: translateY(-2px);
 }
 
 .btn-prosseguir {
-    background: linear-gradient(135deg, #4caf50, #72ff67);
+    background: linear-gradient(135deg, #4caf50, #00FF41);
     color: #071b10;
     border: none;
     padding: 0.9rem 1.8rem;
     border-radius: 14px;
-    font-weight: 700;
-    cursor: pointer;
     box-shadow: 0 8px 20px rgba(114, 255, 103, 0.2);
-    transition: 0.25s ease, transform 0.2s ease;
 }
 
 .btn-prosseguir:hover {
