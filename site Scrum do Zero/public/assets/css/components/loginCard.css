@@ -42,23 +42,11 @@
 }
 
 .form-input {
-    width: 100%;
-    padding: 11px 14px;
-    background-color: rgba(255, 255, 255, 0.100);
-    color: var(--white);
-    border: none;
-    border-radius: 10px;
-    font-size: 13px;
-    transition: border-color 0.3s;
-}
-
-.form-input:focus {
-    outline: none;
-    border-color: #333;
+    font-size: 1rem;
 }
 
 .form-input::placeholder {
-    font-size: 12px;
+    font-size: 1rem;
 }
 
 .error-message {
@@ -74,20 +62,14 @@
 
 .login-button {
     width: 100%;
-    padding: 11px;
     background: var(--green);
-    border: 2px solid #333;
-    border-radius: 25px;
+    border: none;
     font-size: 0.875rem;
-    font-weight: 600;
-    color: #333;
-    cursor: pointer;
-    transition: all 0.3s;
+    color: var(--black);
 }
 
 .login-button:hover {
-    background: #333;
-    color: white;
+    background: var(--dark-green)
 }
 
 .register-link {
@@ -136,12 +118,11 @@
     }
 
     .form-input {
-        padding: 12px 15px;
-        font-size: 14px;
+        font-size: 0.875rem;
     }
 
     .form-input::placeholder {
-        font-size: 13px;
+        font-size: 0.875rem;
     }
 
     .forgot-password {
@@ -152,8 +133,7 @@
     }
 
     .login-button {
-        padding: 12px;
-        font-size: 15px;
+        font-size: 1rem;
     }
 
     .register-link {

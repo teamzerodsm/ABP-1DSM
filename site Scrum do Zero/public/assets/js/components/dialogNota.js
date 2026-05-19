@@ -15,12 +15,12 @@ class LevelDialog extends HTMLElement {
 
         <div class="dialog-actions">
 
-          <a class="btn-cancelar"
+          <a class="secondary-button btn-cancelar"
              id="btn-revisao">
              Revisão
           </a>
 
-          <a class="btn-prosseguir"
+          <a class="secondary-button btn-prosseguir"
              href="/main">
              Concluir
           </a>

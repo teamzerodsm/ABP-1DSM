@@ -12,7 +12,7 @@ class loginCard extends HTMLElement {
             <div class="form-group">
               <label for="cpf-area" class="form-label">Seu CPF</label>
 
-              <input class="form-input" name="cpf-area" data-required="Por favor, digite seu CPF" id="cpf-area" type="text" aria-describedby="cpf-error"/>
+              <input class="main-input form-input" name="cpf-area" data-required="Por favor, digite seu CPF" id="cpf-area" type="text" aria-describedby="cpf-error"/>
 
               <p id="cpf-error" class="error-message"></p>
             </div>
@@ -20,13 +20,13 @@ class loginCard extends HTMLElement {
             <div class="form-group">
               <label for="password-area" class="form-label">Sua senha</label>
 
-              <input class="form-input" name="password-area" id="password-area" type="password" data-required="Por favor, digite sua senha" aria-describedby="password-error">
+              <input class="main-input form-input" name="password-area" id="password-area" type="password" data-required="Por favor, digite sua senha" aria-describedby="password-error">
 
               <p id="password-error" class="error-message"></p>
               <a href="" class="forgot-password">Esqueci minha senha</a>
             </div>
       
-            <button type="submit" class="login-button">Login</button>
+            <button type="submit" class="primary-btn login-button">Login</button>
             <p id="login-error" class="error-message"></p>
           </form>
       
