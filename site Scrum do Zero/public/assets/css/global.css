@@ -56,17 +56,34 @@
     --secondaryFont: "Orbitron";
 
     --green: #00FF41;
+    --dark-green: #14ca41;
     --darkBlue: #001F3F;
     --blue: #003D5C;
-    --mainGradient: linear-gradient(135deg, #001F3F 0%, #003D5C 50%, #00FF41 100%);
+
+    --mainGradient: radial-gradient(circle at top left,rgba(40, 120, 255, 0.10), transparent 30%),radial-gradient(circle at bottom right,rgba(0, 180, 140, 0.10), transparent 35%),linear-gradient(135deg,#021526 0%,#032b43 35%,#014d5e 70%,#026c40 100%);
+    
     --secondaryBackground: linear-gradient(135deg, #003D5C 0%, #003D5C 50%, #001F3F 100%);
 
+    --heroBackground: radial-gradient(circle at top left, rgba(0, 255, 170, 0.25), transparent 35%), radial-gradient(circle at bottom right, rgba(0, 180, 255, 0.30), transparent 40%), radial-gradient(circle at center, rgba(0, 255, 120, 0.12), transparent 55%), linear-gradient(135deg, #020617 0%, #031525 25%, #003b46 55%, #001d3d 100%);
+
     --white: #FFF;
+    --whiteCold: #F0F4F8;
     --black: #000;
+    --grey: #9C9C9C;
+
+    --inputTransparent: rgba(255, 255, 255, 0.10);
+
+    --errorColorText: #8a1f1f;
+    --errorColorCol: #cc6b6b;
+    --errorColorBg:#ffe3e3;
+
+    --successColorText: #1f6b2a;
+    --successColorCol: #72b57d;
+    --successColorBg: #e4f7e8; 
 }
 
 html,body{
-  height: 100%;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
 }
@@ -78,42 +95,102 @@ body{
 }
 
 a {
-    text-decoration: none;
-    /* color: var(--Grey); */
+  text-decoration: none;
 }
 
-/* p{
-  color: var(--Grey);
+dialog::backdrop{
+background-color: rgba(0, 0, 0, 0.6);
 }
 
-h1,h2,h3{
-  color: var(--mainGradient);
-  font-family: var(--titleFont);
-} */
+.body-color {
+  min-height: 100vh;
+  position: relative;
+
+  background:var(--mainGradient);
+}
+
+.body-color::before{
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  background:
+    radial-gradient(
+      circle at 20% 25%,
+      rgba(0, 120, 255, 0.08),
+      transparent 25%
+    ),
+
+    radial-gradient(
+      circle at 80% 80%,
+      rgba(0, 255, 180, 0.06),
+      transparent 30%
+    );
+
+  filter: blur(80px);
+  pointer-events: none;
+}
+
+.body-quiz-color{
+  background: var(--secondaryBackground);
+}
+
+.body-quiz-color::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  background:
+    radial-gradient(
+      circle at top left,
+      rgba(0, 180, 255, 0.12),
+      transparent 35%
+    ),
+    radial-gradient(
+      circle at bottom right,
+      rgba(0, 0, 0, 0.25),
+      transparent 40%
+    );
+
+  pointer-events: none;
+}
 
 .hidden{
   display: none;
 }
 
-/* .primary-btn{
-  padding: 0.8rem 2rem;
-  border-radius: 100px;
-  background: var(--mainGradient);
-  color: var(--White);
-  transition: all 0.3s ease;
+.primary-btn{
+  padding: 0.875rem 2rem;
+  border-radius: 25px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
 }
 
-.secondary-btn{
-  padding: 0.8rem 1rem;
-  border-radius: 5px;
-  background-color: var(--White);
-  color: var(--Purple);
-  border: 1px solid var(--Grey);
-  transition: all 0.3s ease;
-} */
+.secondary-button{
+  border: none;
+  padding: 0.9rem 1.8rem;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: 0.25s ease, transform 0.2s ease;
+  font-weight: 600;
+}
 
-dialog::backdrop{
-    background-color: rgba(0, 0, 0, 0.5);
+.main-input {
+  width: 100%;
+  border: none;
+  border-radius: 10px;
+  background: var(--inputTransparent);
+  padding: 0.75rem 0.875rem;
+  color: inherit;
+  outline: none;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease, background 0.25s ease;
+}
+
+.main-input:focus{
+  background: #25527f;
+  border-color: #00ffaa;
+  transform: translateY(-2px);
 }
 
 .container {
@@ -135,6 +212,12 @@ dialog::backdrop{
   justify-content: center;
   align-items: center;
   flex: 1;
+}
+
+@media screen and (min-width: 768px) {
+    .container{
+        padding: 3rem 1.5rem;
+    }
 }
 
 @media screen and (min-width: 1024px) {
