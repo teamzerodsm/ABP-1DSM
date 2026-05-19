@@ -5,6 +5,7 @@ function formatCpf(cpf) {
   return clean.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
 }
 
+
 function preencherCertificado(usuario) {
   const nome = document.getElementById('nome');
   const cpf = document.getElementById('cpf');
@@ -14,7 +15,7 @@ function preencherCertificado(usuario) {
   const certificadoId = document.getElementById('certificadoId');
   const listaNotas = document.getElementById('listaNotas');
 
-  nome.textContent = usuario.nome || '--';
+  nome.textContent = (usuario.nome || '--').toLocaleUpperCase('pt-BR');
   cpf.textContent = formatCpf(usuario.cpf || '--');
   email.textContent = usuario.email || '--';
   dataEmissao.textContent = new Date().toLocaleDateString('pt-BR');

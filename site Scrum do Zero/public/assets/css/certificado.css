@@ -128,7 +128,7 @@ body {
   letter-spacing: 0.28em;
   text-transform: uppercase;
   font-size: 0.82rem;
-  color: #0b6b57;
+  color: black;
   margin-bottom: 12px;
   font-weight: 700;
 }
@@ -138,7 +138,7 @@ h1 {
   font-family: var(--font-display);
   font-size: var(--text-2xl);
   line-height: 1;
-  color: #0d1b2f;
+  color: #0b6b57;
 }
 
 .subtitle {
@@ -206,6 +206,7 @@ h1 {
 
 .info-card {
   padding: 16px;
+  background: linear-gradient(180deg, rgba(11,107,87,0.08), rgba(255,255,255,0.72));
 }
 
 .info-label {
@@ -245,9 +246,10 @@ h1 {
 .note-item {
   padding: 16px;
   border-radius: 16px;
-  background: linear-gradient(180deg, rgba(0,255,65,0.08), rgba(255,255,255,0.72));
+  background: linear-gradient(180deg, rgba(11,107,87,0.08), rgba(255,255,255,0.72));
   border: 1px solid rgba(0, 255, 65, 0.14);
 }
+
 
 .note-item strong {
   display: block;
