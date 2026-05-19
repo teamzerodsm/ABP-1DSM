@@ -6,12 +6,14 @@ class LevelDialog extends HTMLElement {
             <p class="dialog-level-label" id="dialog-level"></p>
             <p class="dialog-title" id="dialog-title"></p>
             <p class="dialog-description" id="dialog-desc"></p>
-            <p class="dialog-info" id="dialog-attempts"></p>
-            <p class="dialog-info" id="dialog-points"></p>
+            <div class="dialog-info-container">
+                <p class="dialog-info" id="dialog-attempts"></p>
+                <p class="dialog-info" id="dialog-points"></p>
+            </div>
 
             <div class="dialog-actions">
-                <a class="btn-cancelar">Cancelar</a>
-                <a class="btn-prosseguir" href="/quiz-page">Prosseguir</a>
+                <a class="secondary-button btn-cancelar">Cancelar</a>
+                <a class="secondary-button btn-prosseguir" href="/quiz-page">Prosseguir</a>
             </div>
         </dialog>
         `;
@@ -45,8 +47,8 @@ class LevelDialog extends HTMLElement {
     this.dialogLevel.innerText = dados.level;
     this.dialogTitle.innerText = dados.titulo;
     this.dialogDesc.innerText = dados.descricao;
-    this.dialogAttempts.innerText = dados.tentativas;
-    this.dialogPoints.innerText = dados.pontos;
+    this.dialogAttempts.innerText = `Tentativas restantes: ${dados.tentativas}`;
+    this.dialogPoints.innerText = `Melhorar pontuação: ${dados.pontos}`;
   }
 
 }
