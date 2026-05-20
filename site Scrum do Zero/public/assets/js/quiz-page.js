@@ -43,7 +43,7 @@ async function iniciarOuRetomar() {
     headers,
     body: JSON.stringify({ id_modulo: idModulo }),
   });
-
+  
   const data = await res.json();
 
   if (res.status === 409 && data.message.includes("em andamento")) {
@@ -98,7 +98,7 @@ function adaptarQuestoes(raw) {
     correct: q.alternativa_correta,
   }));
 }
-
+document.querySelector(".module-title").innerText = `Módulo ${idModulo}`;
 /* =========================================
    RENDER PROGRESS
 ========================================= */

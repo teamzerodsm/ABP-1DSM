@@ -31,23 +31,6 @@ async function fetchDadosModulo(idModulo) {
 }
 
 levelBtns.forEach((btn) => {
-    btn.addEventListener("click", async () => {
-      const levelID = btn.dataset.idlevel;
-      const info = dadosDoBanco.find((dado) => dado.id == levelID);
-  
-      const { tentativas, pontos } = await fetchDadosModulo(levelID);
-  
-      if (tentativas === 0) {
-        btn.disabled = true;
-        return;
-      }
-  
-      dialogComponent.setDados({ ...info, idModulo: info.id, tentativas, pontos });
-      dialogComponent.dialog.showModal();
-    });
-  });
-
-levelBtns.forEach((btn) => {
   btn.addEventListener("click", async () => {
     const levelID = btn.dataset.idlevel;
     const info = dadosDoBanco.find((dado) => dado.id == levelID);
