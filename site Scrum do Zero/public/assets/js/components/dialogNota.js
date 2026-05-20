@@ -15,12 +15,12 @@ class LevelDialog extends HTMLElement {
 
         <div class="dialog-actions">
 
-          <a class="secondary-button btn-cancelar"
+          <a class="btn-cancelar"
              id="btn-revisao">
              Revisão
           </a>
 
-          <a class="secondary-button btn-prosseguir"
+          <a class="btn-prosseguir"
              href="/main">
              Concluir
           </a>
@@ -85,13 +85,11 @@ class LevelDialog extends HTMLElement {
   ========================= */
 
   setDados(dados) {
-
-    this.dialogMensagem.innerText =
-      dados.mensagem;
-
-    this.dialogNota.innerText =
-      dados.nota;
-
+    this.dialogMensagem = this.querySelector("#dialog-quiz-mensagem");
+    this.dialogNota = this.querySelector("#dialog-quiz-nota");
+  
+    this.dialogMensagem.innerText = dados.mensagem;
+    this.dialogNota.innerText = dados.nota;
   }
 
 }
