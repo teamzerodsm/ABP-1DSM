@@ -2,6 +2,10 @@ const express = require('express');
 const dotenv = require('dotenv');
 const path = require('path');
 const router = require("./routes");
+const progressoRoutes = require('./routes/progresso');
+const cors = require('cors');
+
+app.use(cors());
 
 dotenv.config({
     quiet: true,

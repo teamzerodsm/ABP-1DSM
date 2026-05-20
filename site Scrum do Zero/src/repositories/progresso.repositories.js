@@ -21,6 +21,47 @@ async function findHistoricoExamesPorUsuario(idUsuario) {
     [idUsuario]
   );
 
+const db = require("../db");
+
+async function findHistoricoExamesPorUsuario(idUsuario) {
+
+  const sql = `
+    SELECT
+      n.id AS id_modulo,
+      n.titulo AS modulo,
+      p.id AS id_exame,
+      p.tentativa,
+      p.nota,
+      p.data_tentativa,
+      COUNT(r.id) AS respostas_respondidas
+    FROM progresso p
+
+    JOIN niveis n
+      ON n.id = p.nivel_id
+
+    LEFT JOIN respostas r
+      ON r.progresso_id = p.id
+
+    WHERE p.usuario_id = ?
+
+    GROUP BY
+      p.id,
+      n.id
+
+    ORDER BY
+      n.id,
+      p.tentativa
+  `;
+
+  const [rows] = await db.query(sql, [idUsuario]);
+
+  return rows;
+}
+
+module.exports = {
+  findHistoricoExamesPorUsuario,
+};
+
   return result.rows;
 }
 
