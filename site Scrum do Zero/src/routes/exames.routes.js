@@ -100,9 +100,13 @@ async function iniciarExame(idUsuario, idModulo) {
 
     const activeExam = await findExameAtivoPorUsuarioEModulo(client, idUsuario, idModulo);
     if (activeExam) {
-      const error = new Error("Você já possui uma tentativa em andamento neste módulo");
-      error.status = 409;
-      throw error;
+      const exameCompleto = await findExameById(activeExam.id_exame);
+      const questions = await findQuestoesPorModuloEGrupo(exameCompleto.id_modulo, exameCompleto.grupo);
+      await client.query("COMMIT");
+      return {
+        exame: exameCompleto,
+        questions: embaralharQuestoes(questions),
+      };
     }
 
     const nextAttempt = await findNumeroProximaTentativa(client, idUsuario, idModulo);
@@ -220,7 +224,6 @@ async function enviarRespostasExame(idUsuario, idExame, answers) {
 
     const inserted = await insertRespostas(client, prepared);
     await client.query("COMMIT");
-
     const score = inserted.reduce((sum, item) => sum + Number(item.nota || 0), 0);
     const errors = inserted.length - score;
 

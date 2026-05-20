@@ -19,25 +19,18 @@ async function findGrupoAleatorioPorModuloExcluindoUsado(clientOrPool, idUsuario
   const runner = clientOrPool || pool;
   const result = await runner.query(
     `
-    SELECT q.grupo
-    FROM questoes q
-    WHERE q.id_modulo = $1
-      AND q.grupo IS NOT NULL
-    GROUP BY q.grupo
-    HAVING EXISTS (
-      SELECT 1
-      FROM questoes q2
-      WHERE q2.id_modulo = q.id_modulo
-        AND q2.grupo = q.grupo
-        AND NOT EXISTS (
-          SELECT 1
-          FROM respostas r
-          INNER JOIN exames e ON r.id_exame = e.id_exame
-          WHERE e.id_usuario = $2
-            AND e.id_modulo = q2.id_modulo
-            AND e.grupo = q2.grupo
-            AND r.id_questao = q2.id_questao
-        )
+    SELECT grupo
+    FROM (
+      SELECT DISTINCT grupo
+      FROM questoes
+      WHERE id_modulo = $1
+        AND grupo IS NOT NULL
+    ) grupos_disponiveis
+    WHERE grupo NOT IN (
+      SELECT e.grupo
+      FROM exames e
+      WHERE e.id_usuario = $2
+        AND e.id_modulo = $1
     )
     ORDER BY RANDOM()
     LIMIT 1
@@ -53,9 +46,12 @@ async function findNumeroProximaTentativa(clientOrPool, idUsuario, idModulo) {
   const result = await runner.query(
     `
     SELECT COALESCE(MAX(tentativa), 0) + 1 AS next_attempt
-    FROM exames
-    WHERE id_usuario = $1
-      AND id_modulo = $2
+    FROM exames e
+    WHERE e.id_usuario = $1
+      AND e.id_modulo = $2
+      AND EXISTS (
+        SELECT 1 FROM respostas r WHERE r.id_exame = e.id_exame
+      )
     `,
     [idUsuario, idModulo]
   );
@@ -66,9 +62,12 @@ async function findTentativasRestantesPorModulo(idUsuario, idModulo) {
   const result = await pool.query(
     `
     SELECT GREATEST(2 - COUNT(*), 0) AS tentativas_restantes
-    FROM exames
-    WHERE id_usuario = $1
-      AND id_modulo = $2
+    FROM exames e
+    WHERE e.id_usuario = $1
+      AND e.id_modulo = $2
+      AND EXISTS (
+        SELECT 1 FROM respostas r WHERE r.id_exame = e.id_exame
+      )
     `,
     [idUsuario, idModulo]
   );
@@ -164,7 +163,8 @@ async function findQuestoesPorModuloEGrupo(idModulo, grupo) {
   const result = await pool.query(
     `
     SELECT id_questao, id_modulo, grupo, numero, dificuldade, enunciado,
-           alternativa_a, alternativa_b, alternativa_c, alternativa_d, imagem
+           alternativa_a, alternativa_b, alternativa_c, alternativa_d,
+           alternativa_correta, imagem
     FROM questoes
     WHERE id_modulo = $1
       AND grupo IS NOT DISTINCT FROM $2
@@ -191,6 +191,9 @@ async function findHistoricoExamesPorUsuario(idUsuario) {
     INNER JOIN modulos m ON m.id_modulo = e.id_modulo
     LEFT JOIN respostas r ON r.id_exame = e.id_exame
     WHERE e.id_usuario = $1
+      AND EXISTS (
+        SELECT 1 FROM respostas r2 WHERE r2.id_exame = e.id_exame
+      )
     GROUP BY e.id_exame, e.id_modulo, m.titulo, e.grupo, e.tentativa
     ORDER BY e.id_exame DESC
     `,
