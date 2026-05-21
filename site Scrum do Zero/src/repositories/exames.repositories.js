@@ -19,25 +19,18 @@ async function findRandomGrupoByModuloExcludingUsed(clientOrPool, idUsuario, idM
   const runner = clientOrPool || pool;
   const result = await runner.query(
     `
-    SELECT q.grupo
-    FROM questoes q
-    WHERE q.id_modulo = $1
-      AND q.grupo IS NOT NULL
-    GROUP BY q.grupo
-    HAVING EXISTS (
-      SELECT 1
-      FROM questoes q2
-      WHERE q2.id_modulo = q.id_modulo
-        AND q2.grupo = q.grupo
-        AND NOT EXISTS (
-          SELECT 1
-          FROM respostas r
-          INNER JOIN exames e ON r.id_exame = e.id_exame
-          WHERE e.id_usuario = $2
-            AND e.id_modulo = q2.id_modulo
-            AND e.grupo = q2.grupo
-            AND r.id_questao = q2.id_questao
-        )
+    SELECT grupo
+    FROM (
+      SELECT DISTINCT grupo
+      FROM questoes
+      WHERE id_modulo = $1
+        AND grupo IS NOT NULL
+    ) grupos_disponiveis
+    WHERE grupo NOT IN (
+      SELECT e.grupo
+      FROM exames e
+      WHERE e.id_usuario = $2
+        AND e.id_modulo = $1
     )
     ORDER BY RANDOM()
     LIMIT 1
@@ -53,16 +46,76 @@ async function findNextAttemptNumber(clientOrPool, idUsuario, idModulo) {
   const result = await runner.query(
     `
     SELECT COALESCE(MAX(tentativa), 0) + 1 AS next_attempt
-    FROM exames
-    WHERE id_usuario = $1
-      AND id_modulo = $2
+    FROM exames e
+    WHERE e.id_usuario = $1
+      AND e.id_modulo = $2
+      AND EXISTS (
+        SELECT 1 FROM respostas r WHERE r.id_exame = e.id_exame
+      )
     `,
     [idUsuario, idModulo]
   );
   return result.rows[0]?.next_attempt || 1;
 }
 
+<<<<<<< HEAD
 async function findActiveExamByUsuarioModulo(clientOrPool, idUsuario, idModulo) {
+=======
+async function findTentativasRestantesPorModulo(idUsuario, idModulo) {
+  const result = await pool.query(
+    `
+    SELECT GREATEST(2 - COUNT(*), 0) AS tentativas_restantes
+    FROM exames e
+    WHERE e.id_usuario = $1
+      AND e.id_modulo = $2
+      AND EXISTS (
+        SELECT 1 FROM respostas r WHERE r.id_exame = e.id_exame
+      )
+    `,
+    [idUsuario, idModulo]
+  );
+
+  return Number(result.rows[0]?.tentativas_restantes ?? 2);
+}
+
+async function findNotaPorTentativa(idUsuario, idModulo, tentativa) {
+  const result = await pool.query(
+    `
+    SELECT COALESCE(SUM(r.nota), 0) AS nota
+    FROM exames e
+    LEFT JOIN respostas r ON r.id_exame = e.id_exame
+    WHERE e.id_usuario = $1
+      AND e.id_modulo = $2
+      AND e.tentativa = $3
+    GROUP BY e.id_exame
+    `,
+    [idUsuario, idModulo, tentativa]
+  );
+
+  return result.rows[0] ? Number(result.rows[0].nota) : null;
+}
+
+async function findMaiorNotaPorModulo(idUsuario, idModulo) {
+  const result = await pool.query(
+    `
+    SELECT MAX(total_nota) AS maior_nota
+    FROM (
+      SELECT COALESCE(SUM(r.nota), 0) AS total_nota
+      FROM exames e
+      LEFT JOIN respostas r ON r.id_exame = e.id_exame
+      WHERE e.id_usuario = $1
+        AND e.id_modulo = $2
+      GROUP BY e.id_exame
+    ) AS scores
+    `,
+    [idUsuario, idModulo]
+  );
+
+  return result.rows[0]?.maior_nota !== null ? Number(result.rows[0].maior_nota) : null;
+}
+
+async function findExameAtivoPorUsuarioEModulo(clientOrPool, idUsuario, idModulo) {
+>>>>>>> 0f63e7b7f9856691f0884aa2852fe7de05649d54
   const runner = clientOrPool || pool;
   const result = await runner.query(
     `
@@ -114,7 +167,8 @@ async function findQuestionsByModuloAndGrupo(idModulo, grupo) {
   const result = await pool.query(
     `
     SELECT id_questao, id_modulo, grupo, numero, dificuldade, enunciado,
-           alternativa_a, alternativa_b, alternativa_c, alternativa_d, imagem
+           alternativa_a, alternativa_b, alternativa_c, alternativa_d,
+           alternativa_correta, imagem
     FROM questoes
     WHERE id_modulo = $1
       AND grupo IS NOT DISTINCT FROM $2
@@ -141,6 +195,9 @@ async function findExamHistoryByUsuario(idUsuario) {
     INNER JOIN modulos m ON m.id_modulo = e.id_modulo
     LEFT JOIN respostas r ON r.id_exame = e.id_exame
     WHERE e.id_usuario = $1
+      AND EXISTS (
+        SELECT 1 FROM respostas r2 WHERE r2.id_exame = e.id_exame
+      )
     GROUP BY e.id_exame, e.id_modulo, m.titulo, e.grupo, e.tentativa
     ORDER BY e.id_exame DESC
     `,

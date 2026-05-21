@@ -84,15 +84,7 @@
   }
   
   .perfil-field input {
-    width: 100%;
-    height: 44px;
-    border: none;
-    border-radius: 11px;
-    background: var(--inputTransparent);
-    padding: 0 14px;
-    outline: none;
-    font-size: 15px;
-    color: inherit;
+    font-size: 1rem;
   }
   
   .hint {
@@ -132,19 +124,25 @@
     align-items: stretch;
     margin-top: 30px;
   }
-  
-  .btn {
-    height: 44px;
-    border-radius: 10px;
-    background: #fff;
-    font-size: 17px;
-    cursor: pointer;
-    color: #1d1d1d;
-    border: none;
+
+  .btn-return{
+    background: #e5e7eb;
+    color: #0f172a;
+  }
+
+  .btn-return:hover{
+    background: var(--white);
+    transform: translateY(-3px);
   }
   
-  .btn.primary {
+  .btn-save{
     background: var(--green);
+    color: #001b12;  
+  }
+
+  .btn-save:hover{
+    background: #19ff5e;
+    transform: translateY(-3px) scale(1.02);
   }
   
   @media (min-width: 1024px) {
@@ -194,14 +192,6 @@
       justify-content: flex-end;
       gap: 22px;
       margin-top: 38px;
-    }
-  
-    .btn {
-      width: 150px;
-    }
-  
-    .btn.primary {
-      width: 190px;
     }
   
     .security-note {
