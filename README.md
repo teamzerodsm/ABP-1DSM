@@ -159,7 +159,7 @@ npm run dev
 | Sprint | Link                            | Início     | Entrega    | Status |
 | ------ | ------------------------------- | ---------- | ---------- | ------ |
 | 01     | <a href="#sprint1">Sprint 1</a> | 13/04/2026 | 30/04/2026 | ✅     |
-| 02     | <a href="#sprint2">Sprint 2</a> | 04/05/2026 | 21/05/2026 | 🔄     |
+| 02     | <a href="#sprint2">Sprint 2</a> | 04/05/2026 | 21/05/2026 | ✅     |
 | 03     | <a href="#sprint3">Sprint 3</a> | 25/05/2026 | 11/06/2026 | ❌     |
 
 #### Legenda
@@ -189,7 +189,7 @@ npm run dev
 | Igor Corrêa        | Desenvolvedor                | [igorcsouzaa](https://github.com/igorcsouzaa)                     |
 | Jaqueline Medeiros | Desenvolvedor                | [Jaqueline Medeiros](https://github.com/alves-medeiros)           |
 | Tiago Ferreira     | Desenvolvedor                | [tiagof6](https://github.com/tiagof6)                             |
-| Vítor Otavio       | Desenvolvedor                | [VirtusXD](https://github.com/vitorreis-dev)                           |
+| Vítor Otavio       | Desenvolvedor                | [VirtusXD](https://github.com/vitorreis-dev)                      |
 | Douglas Silva      | Scrum Master (anteriormente) | [Moraisdouglas](https://github.com/moraisdouglas)                 |
 
 ---
@@ -322,6 +322,19 @@ avançar para refinamentos. Com uma estrutura mais bem definida desde o início,
 a manter um fluxo de trabalho mais estável e eficiente nas próximas sprints.
 
 ## <div id="sprint2">Sprint 2</div>
+
+### ▶️ Vídeo da Sprint 2
+
+<p align="center">
+  <a href="https://www.youtube.com/watch?v=QbpVfHVA3EQ" target="_blank">
+    <img 
+      src="./.github/Thumb_video-Sprint02.png" 
+      alt="Scrum do Zero - Sprint 2"
+      width="600"
+      style="border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.25);"
+    />
+  </a>
+</p>
 
 ### 🔄 Sprint Backlog 2
 
