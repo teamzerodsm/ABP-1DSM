@@ -323,12 +323,12 @@ a manter um fluxo de trabalho mais estável e eficiente nas próximas sprints.
 
 ## <div id="sprint2">Sprint 2</div>
 
-### ▶️ Vídeo da Sprint 1
+### ▶️ Vídeo da Sprint 2
 
 <p align="center">
   <a href="https://www.youtube.com/watch?v=QbpVfHVA3EQ" target="_blank">
     <img 
-      src="./.github/Thumb_Video-Sprint02.png" 
+      src="./.github/Thumb_video-Sprint02.png" 
       alt="Scrum do Zero - Sprint 2"
       width="600"
       style="border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.25);"
@@ -358,7 +358,7 @@ a manter um fluxo de trabalho mais estável e eficiente nas próximas sprints.
 | Integrar autenticação com navegação              | Henrique, Gabriel       | 8      | Alta       |
 | Integrar fluxo completo de exame                 | Henrique, Gabriel       | 10     | Alta       |
 
-### 🔥 Burndown Sprint 1
+### 🔥 Burndown Sprint 2
 
 <p align="center">
 <img src="Scrum/Burndown-Sprint02.jpeg" />
