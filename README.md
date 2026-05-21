@@ -189,7 +189,7 @@ npm run dev
 | Igor Corrêa        | Desenvolvedor                | [igorcsouzaa](https://github.com/igorcsouzaa)                     |
 | Jaqueline Medeiros | Desenvolvedor                | [Jaqueline Medeiros](https://github.com/alves-medeiros)           |
 | Tiago Ferreira     | Desenvolvedor                | [tiagof6](https://github.com/tiagof6)                             |
-| Vítor Otavio       | Desenvolvedor                | [VirtusXD](https://github.com/vitorreis-dev)                           |
+| Vítor Otavio       | Desenvolvedor                | [VirtusXD](https://github.com/vitorreis-dev)                      |
 | Douglas Silva      | Scrum Master (anteriormente) | [Moraisdouglas](https://github.com/moraisdouglas)                 |
 
 ---
@@ -323,27 +323,46 @@ a manter um fluxo de trabalho mais estável e eficiente nas próximas sprints.
 
 ## <div id="sprint2">Sprint 2</div>
 
+### ▶️ Vídeo da Sprint 1
+
+<p align="center">
+  <a href="https://www.youtube.com/watch?v=QbpVfHVA3EQ" target="_blank">
+    <img 
+      src="./.github/Thumb_Video-Sprint02.png" 
+      alt="Scrum do Zero - Sprint 2"
+      width="600"
+      style="border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.25);"
+    />
+  </a>
+</p>
+
 ### 🔄 Sprint Backlog 2
 
-| Atividade                                        | Responsável       | Pontos | Prioridade |
-| ------------------------------------------------ | ----------------- | ------ | ---------- |
-| Desenvolver interface de autenticação            | Vitor, Paulo      | 15     | Alta       |
-| Desenvolver telas de perfil e progresso          | Vitor, Paulo      | 14     | Média      |
-| Desenvolver interface de home page               | Vitor, Paulo      | 15     | Alta       |
-| Desenvolver interface de execução do exame       | Vitor, Paulo      | 15     | Alta       |
-| Desenvolver interface de resultados e pós-exame  | Vitor, Paulo      | 12     | Alta       |
-| Aplicar responsividade global                    | Vitor, Paulo      | 10     | Média      |
-| Implementar controle de questões                 |                   | 14     | Alta       |
-| Implementar controle de exame                    |                   | 9      | Alta       |
-| Implementar controle de tentativas               | Igor              | 10     | Alta       |
-| Implementar consultas de progresso e certificado |                   | 11     | Média      |
-| Refatorar estrutura backend                      | Igor              | 8      | Baixa      |
-| Elaborar diagrama de classes                     | Henrique          | 10     | Alta       |
-| Elaborar diagramas de sequência de autenticação  | Henrique, Gabriel | 5      | Média      |
-| Elaborar diagramas de sequência de exame         | Henrique, Gabriel | 11     | Alta       |
-| Elaborar diagramas de sequência de progresso     | Henrique, Gabriel | 8      | Média      |
-| Integrar autenticação com navegação              | Henrique, Gabriel | 8      | Alta       |
-| Integrar fluxo completo de exame                 | Henrique, Gabriel | 10     | Alta       |
+| Atividade                                        | Responsável             | Pontos | Prioridade |
+| ------------------------------------------------ | ----------------------- | ------ | ---------- |
+| Desenvolver interface de autenticação            | Vitor, Paulo            | 15     | Alta       |
+| Desenvolver telas de perfil e progresso          | Vitor, Paulo            | 14     | Média      |
+| Desenvolver interface de home page               | Vitor, Paulo            | 15     | Alta       |
+| Desenvolver interface de execução do exame       | Vitor, Paulo            | 15     | Alta       |
+| Desenvolver interface de resultados e pós-exame  | Vitor, Paulo            | 12     | Alta       |
+| Aplicar responsividade global                    | Vitor, Paulo            | 10     | Média      |
+| Implementar controle de questões                 | Igor, Jaqueline e Tiago | 14     | Alta       |
+| Implementar controle de exame                    | Igor, Jaqueline e Tiago | 9      | Alta       |
+| Implementar controle de tentativas               | Igor, Jaqueline e Tiago | 10     | Alta       |
+| Implementar consultas de progresso e certificado | Igor, Jaqueline e Tiago | 11     | Média      |
+| Refatorar estrutura backend                      | Igor, Jaqueline e Tiago | 8      | Baixa      |
+| Elaborar diagrama de classes                     | Henrique                | 10     | Alta       |
+| Elaborar diagramas de sequência de autenticação  | Henrique, Gabriel       | 5      | Média      |
+| Elaborar diagramas de sequência de exame         | Henrique, Gabriel       | 11     | Alta       |
+| Elaborar diagramas de sequência de progresso     | Henrique, Gabriel       | 8      | Média      |
+| Integrar autenticação com navegação              | Henrique, Gabriel       | 8      | Alta       |
+| Integrar fluxo completo de exame                 | Henrique, Gabriel       | 10     | Alta       |
+
+### 🔥 Burndown Sprint 1
+
+<p align="center">
+<img src="Scrum/Burndown-Sprint02.jpeg" />
+</p>
 
 ## <div id="sprint3">Sprint 3</div>
 
