@@ -4,17 +4,20 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="/assets/css/style.css">
+  <meta name="description" content="Área de perfil — altere seus dados pessoais e gerencie a conta.">
+  <link rel="canonical" href="/pages/perfil.html">
+  <title>Perfil — Scrum do Zero</title>
+  <script src="/assets/js/token-expiration-manager.js"></script>
+  <script src="/assets/js/auth-guard.js"></script>
   <script src="/assets/js/components/header.js"></script>
   <script src="/assets/js/perfil.js"></script>
-  <title>Alterar Dados</title>
 </head>
-<body>
+<body class="body-color">
 
   <default-header></default-header>
   
   <main class="container profile-main-section">
     <section class="perfil-card">
-      <div class="perfil-layout">
         <aside class="perfil-sidebar">
           <div class="avatar" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
@@ -41,27 +44,28 @@
         <section class="perfil-content">
             <h1 class="perfil-title">Informações pessoais</h1>
             <p class="perfil-subtitle">Altere seus dados pessoais e mantenha suas informações atualizadas.</p>
+            <div id="perfil-mensagem" class="mensagem" aria-live="polite"></div>
           
             <form>
               <div class="perfil-grid-form">
                 <div class="perfil-field">
                   <label for="nome">Nome</label>
-                  <input id="nome" type="text">
+                  <input class="main-input" id="nome" type="text" name="nome">
                 </div>
           
                 <div class="perfil-field">
                   <label for="sobrenome">Sobrenome</label>
-                  <input id="sobrenome" type="text">
+                  <input class="main-input" id="sobrenome" type="text" name="sobrenome" autocomplete="off">
                 </div>
           
                 <div class="perfil-field">
                   <label for="cpf">CPF</label>
-                  <input id="cpf" type="text">
+                  <input class="main-input" id="cpf" type="text" name="cpf" autocomplete="off">
                 </div>
           
                 <div class="perfil-field">
                   <label for="email">E-mail</label>
-                  <input id="email" type="email">
+                  <input class="main-input" id="email" type="email" name="email" autocomplete="off">
                 </div>
           
                 <div class="divider full"></div>
@@ -73,17 +77,17 @@
           
                 <div class="perfil-field full">
                   <label for="senha-atual">Senha atual</label>
-                  <input id="senha-atual" type="password">
+                  <input class="main-input" id="senha-atual" type="password" name="senha-atual" autocomplete="off">
                 </div>
           
                 <div class="perfil-field">
                   <label for="nova-senha">Nova senha</label>
-                  <input id="nova-senha" type="password">
+                  <input class="main-input" id="nova-senha" type="password" name="nova-senha" autocomplete="off">
                 </div>
           
                 <div class="perfil-field">
                   <label for="confirmar-senha">Confirmar nova senha</label>
-                  <input id="confirmar-senha" type="password">
+                  <input class="main-input" id="confirmar-senha" type="password" name="confirmar-senha" autocomplete="off">
                 </div>
               </div>
 
@@ -99,12 +103,11 @@
             </div>
 
             <div class="actions">
-                <button type="button" class="btn">Cancelar</button>
-                <button type="submit" class="btn primary">Salvar alterações</button>
+                <button aria-label="Botão para cancelar de alteração de dados" type="button" class="secondary-button btn-return">Cancelar</button>
+                <button aria-label="Botão para concluir e alterar os dados respectivos da requisição" type="submit" class="secondary-button btn-save">Salvar alterações</button>
             </div>
           </form>
         </section>
-      </div>
     </section>
   </main>
 </body>

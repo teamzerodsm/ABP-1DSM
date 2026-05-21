@@ -5,9 +5,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/assets/css/style.css">
+  <script src="/assets/js/token-expiration-manager.js"></script>
   <script defer src="/assets/js/home.js"></script>
   <script defer src="/assets/js/components/loginCard.js"></script>
-  <title>ABP</title>
+  <meta name="description" content="Plataforma Scrum do Zero — aprendizado e avaliações progressivas sobre Scrum.">
+  <link rel="canonical" href="/">
+  <title>Scrum do Zero — Início</title>
 </head>
 
 <body>
@@ -19,8 +22,7 @@
         <div class="logo-container">
           <h1 class="logo-title">Scrum do Zero</h1>
           <div class="logo">
-            <div class="logo-inner">◐</div>
-            <div class="logo-text">SCRUM</div>
+            <img class="logo-desk" src="assets/img/logo_scrumdozero.svg" alt="Logo Scrum Zero"/>
           </div>
         </div>
 
@@ -29,22 +31,20 @@
             Seu caminho para dominar<br />
             metodologias ágeis começa aqui.
           </h2>
-
+    
           <p class="description">
             Plataforma de avaliações progressivas sobre Scrum, com questões Scrum, questões diversificadas,
             acompanhamento do seu progresso e certificado ao final da jornada.
           </p>
-
-          <p class="note">
-            Desejo relembrar e/ou estudar um pouco mais antes de realizar o desafio?
-          </p>
-
+    
           <div class="link-section">
-            Acesse o link: <a href="https://linq.com/klpsv2v" target="_blank"
-              rel="noopener noreferrer">https://linq.com/klpsv2v</a>
+            <p>Desejo relembrar e/ou estudar um pouco mais antes de realizar o desafio?</p>
+            <p>Acesse o link: <a href="https://www.scrum.org/courses" target="_blank"
+              rel="noopener noreferrer">https://www.scrum.org/courses</a></p>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
       <section class="right-section">
         <default-logincard></default-logincard>
@@ -56,9 +56,8 @@
       <article class="mobile-article-section">
         <h1 class="mobile-logo-title">Scrum do Zero</h1>
 
-        <div class="mobile-logo">
-          <div class="mobile-logo-inner">◐</div>
-          <div class="mobile-logo-text">SCRUM</div>
+        <a><img class="logo-mobile" src="assets/img/logo_scrumdozero.svg" alt="Logo Scrum Zero"/></a>
+          
         </div>
 
         <div class="info-section">
@@ -74,8 +73,8 @@
         </div>
 
         <div class="mobile-buttons">
-          <a href="#login-card-sec" class="mobile-button" id="access-btn">Acessar</a>
-          <a class="mobile-button" href="/cadastro">Cadastrar</a>
+          <a href="#login-card-sec" class="primary-btn mobile-button" id="access-btn">Acessar</a>
+          <a class="primary-btn mobile-button" href="cadastro.html">Cadastrar</a>
         </div>
       </article>
 

@@ -1,148 +1,127 @@
+.info-section-main {
+  width: 100%;
+}
+
+.hero {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.hero h2 {
+  font-size: 2.25rem;
+  font-weight: 600;
+  line-height: 1.2;
+  margin-bottom: 24px;
+}
+
+.hero h2 span {
+  color: #55C447;
+}
+
+.hero p {
+  font-size: 0.95rem;
+  font-weight: 400;
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+/* ===== CARD DE NÍVEIS ===== */
+.levels-card {
+  border-radius: 16px;
+  padding: 2rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  background-color: var(--darkBlue);;
+}
+
+.level-btn {
+  display: block;
+  width: 100%;
+  padding: 18px 12px;
+  border: 1.5px solid var(--white);
+  border-radius: 16px;
+  background-color: transparent;
+  font-size: 1.1rem;
+  font-weight: 400;
+  color: inherit;
+  cursor: pointer;
+  text-align: center;
+  transition: background-color 0.25s, transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.level-btn:hover {
+  background: rgba(0, 255, 94, 0.12);
+  border-color: #55C447;
+  box-shadow:0 0 12px rgba(0, 255, 94, 0.35);
+  transform: translateY(-2px);
+}
+
+@media (min-width: 768px) {
 
   .info-section-main {
-    padding: 32px 20px 40px;
-    max-width: 1280px;
-    margin: 0 auto;
+    padding: 48px 40px 60px;
   }
 
-  /* ===== HERO ===== */
-  .hero {
-    text-align: center;
-    margin-bottom: 32px;
-    color: #000;
-  }
-
-  .hero h1 {
-    font-size: 1.8rem;
-    font-weight: 900;
-    line-height: 1.2;
-    margin-bottom: 24px;
+  .hero h2 {
+    font-size: 2.4rem;
   }
 
   .hero p {
-    font-size: 0.95rem;
-    font-weight: 700;
-    line-height: 1.6;
-    margin-bottom: 16px;
+    font-size: 1rem;
+    max-width: 540px;
+    margin-left: auto;
+    margin-right: auto;
   }
 
-  /* ===== CARD DE NÍVEIS ===== */
   .levels-card {
-    border: 1.5px solid #aaa;
-    border-radius: 16px;
-    padding: 24px 16px;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
+    max-width: 520px;
+    margin: 0 auto;
+    padding: 32px 24px;
   }
+
+}
+
+@media (min-width: 1280px) {
+
+  .info-section-main {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 100px;
+    padding: 80px 48px;
+  }
+
+  .hero {
+    text-align: left;
+    flex: 1;
+    margin-bottom: 0;
+    max-width: 480px;
+  }
+
+  .hero h2 {
+    font-size: 2.8rem;
+    margin-bottom: 32px;
+  }
+
+  .hero p {
+    font-size: 1.2rem;
+    max-width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .levels-card {
+    flex: 1;
+    flex: 1;
+    max-width: 480px;
+    margin: 0;
+    padding: 4rem 2rem;
+    gap: 32px;
+    }
 
   .level-btn {
-    display: block;
-    width: 100%;
-    padding: 18px 12px;
-    border: 1.5px solid #aaa;
-    border-radius: 12px;
-    background-color: #ffffff;
-    font-size: 1.1rem;
-    font-weight: 400;
-    color: #000;
-    cursor: pointer;
-    text-align: center;
-    transition: background-color 0.2s, transform 0.1s;
+    font-size: 1.2rem;
+    padding: 0.8rem 16px;
   }
-
-  .level-btn:hover {
-    background-color: #f0f0f0;
-    transform: scale(1.01);
-  }
-  
-  .btn-cancelar {
-    background: none;
-    border: none;
-    font-size: 0.95rem;
-    color: #000;
-    cursor: pointer;
-    text-decoration: underline;
-    padding: 8px 0;
-  }
-
-  .btn-cancelar:hover {
-    color: #333;
-  }
-
-  .btn-prosseguir {
-    background-color: #888;
-    color: #000;
-    border: none;
-    border-radius: 8px;
-    padding: 12px 28px;
-    font-size: 0.95rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background-color 0.2s;
-  }
-
-  .btn-prosseguir:hover {
-    background-color: #707070;
-    color: #fff;
-  }
-
-  /* ===== TABLET (≥ 600px) ===== */
-  @media (min-width: 600px) {
-
-    .info-section-main { padding: 48px 40px 60px; }
-
-    .hero h1 { font-size: 2.4rem; }
-
-    .hero p {
-      font-size: 1rem;
-      max-width: 540px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    .levels-card {
-      max-width: 520px;
-      margin: 0 auto;
-      padding: 32px 24px;
-    }
-
-  }
-
-  /* ===== DESKTOP (≥ 1024px) ===== */
-  @media (min-width: 1024px) {
-
-    .info-section-main {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 60px;
-      padding: 80px 48px;
-    }
-
-    .hero {
-      text-align: left;
-      flex: 1;
-      margin-bottom: 0;
-      max-width: 480px;
-    }
-
-    .hero h1 { font-size: 2.8rem; margin-bottom: 32px; }
-
-    .hero p {
-      font-size: 1rem;
-      max-width: 100%;
-      margin-left: 0;
-      margin-right: 0;
-    }
-
-    .levels-card {
-      flex: 1;
-      max-width: 440px;
-      margin: 0;
-      padding: 40px 32px;
-      gap: 18px;
-    }
-
-    .level-btn { font-size: 1.2rem; padding: 20px 16px; }
-  }
+}

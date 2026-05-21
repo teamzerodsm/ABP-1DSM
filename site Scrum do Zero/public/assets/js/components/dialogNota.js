@@ -85,13 +85,11 @@ class LevelDialog extends HTMLElement {
   ========================= */
 
   setDados(dados) {
-
-    this.dialogMensagem.innerText =
-      dados.mensagem;
-
-    this.dialogNota.innerText =
-      dados.nota;
-
+    this.dialogMensagem = this.querySelector("#dialog-quiz-mensagem");
+    this.dialogNota = this.querySelector("#dialog-quiz-nota");
+  
+    this.dialogMensagem.innerText = dados.mensagem;
+    this.dialogNota.innerText = dados.nota;
   }
 
 }

@@ -4,29 +4,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/assets/css/style.css">
+    <script src="/assets/js/token-expiration-manager.js"></script>
+    <script src="/assets/js/auth-guard.js"></script>
     <script type="module" src="/assets/js/main.js"></script>
     <script src="/assets/js/components/header.js"></script>
-    <title>Scrum do Zero</title>
+    <meta name="description" content="Área principal do aluno — escolha níveis e acompanhe seu aprendizado.">
+    <link rel="canonical" href="/pages/main.html">
+    <title>Painel — Scrum do Zero</title>
 </head>
-<body>
+<body class="body-color">
 
   <default-header></default-header>
 
-  <main class="info-section-main">
-    <section class="hero">
-      <h1>Seja bem vindo ao Scrum do Zero</h1>
-      <p>Escolha seu nível e avance no seu aprendizado em Scrum de forma prática e progressiva.</p>
-      <p>Cada módulo foi desenvolvido para reforçar seus conhecimentos e preparar você para os próximos desafios.</p>
-      <p>Selecione um nível para começar ou continue de onde parou.</p>
+  <main class="container initial-page-container">
+    <section class="info-section-main">
+      <div class="hero">
+        <h2>Seja bem vindo ao <span>Scrum do Zero</span></h2>
+        <p>Escolha seu nível e avance no seu aprendizado em Scrum de forma prática e progressiva.</p>
+        <p>Cada módulo foi desenvolvido para reforçar seus conhecimentos e preparar você para os próximos desafios.</p>
+        <p>Selecione um nível para começar ou continue de onde parou.</p>
+      </div>
+    
+      <div class="levels-card">
+        <button aria-label="Botão de acesso para o módulo 1 do Scrum Zero" class="level-btn" data-idLevel="1">Nível 1</button>
+        <button aria-label="Botão de acesso para o módulo 2 do Scrum Zero" class="level-btn" data-idLevel="2">Nível 2</button>
+        <button aria-label="Botão de acesso para o módulo 3 do Scrum Zero" class="level-btn" data-idLevel="3">Nível 3</button>
+        <button aria-label="Botão de acesso para o módulo 4 do Scrum Zero" class="level-btn" data-idLevel="4">Nível 4</button>
+        <button aria-label="Botão de acesso para o módulo 5 do Scrum Zero" class="level-btn" data-idLevel="5">Nível 5</button>
+      </div>
     </section>
-
-    <div class="levels-card">
-      <button class="level-btn" data-idLevel="1">Nível 1</button>
-      <button class="level-btn" data-idLevel="2">Nível 2</button>
-      <button class="level-btn" data-idLevel="3">Nível 3</button>
-      <button class="level-btn" data-idLevel="4">Nível 4</button>
-      <button class="level-btn" data-idLevel="5">Nível 5</button>
-    </div>
   </main>
 
   <dialog-modules></dialog-modules>

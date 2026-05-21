@@ -338,31 +338,45 @@ a manter um fluxo de trabalho mais estável e eficiente nas próximas sprints.
 
 ### 🔄 Sprint Backlog 2
 
-| Atividade                                        | Responsável             | Pontos | Prioridade |
-| ------------------------------------------------ | ----------------------- | ------ | ---------- |
-| Desenvolver interface de autenticação            | Vitor, Paulo            | 15     | Alta       |
-| Desenvolver telas de perfil e progresso          | Vitor, Paulo            | 14     | Média      |
-| Desenvolver interface de home page               | Vitor, Paulo            | 15     | Alta       |
-| Desenvolver interface de execução do exame       | Vitor, Paulo            | 15     | Alta       |
-| Desenvolver interface de resultados e pós-exame  | Vitor, Paulo            | 12     | Alta       |
-| Aplicar responsividade global                    | Vitor, Paulo            | 10     | Média      |
-| Implementar controle de questões                 | Igor, Jaqueline e Tiago | 14     | Alta       |
-| Implementar controle de exame                    | Igor, Jaqueline e Tiago | 9      | Alta       |
-| Implementar controle de tentativas               | Igor, Jaqueline e Tiago | 10     | Alta       |
-| Implementar consultas de progresso e certificado | Igor, Jaqueline e Tiago | 11     | Média      |
-| Refatorar estrutura backend                      | Igor, Jaqueline e Tiago | 8      | Baixa      |
-| Elaborar diagrama de classes                     | Henrique                | 10     | Alta       |
-| Elaborar diagramas de sequência de autenticação  | Henrique, Gabriel       | 5      | Média      |
-| Elaborar diagramas de sequência de exame         | Henrique, Gabriel       | 11     | Alta       |
-| Elaborar diagramas de sequência de progresso     | Henrique, Gabriel       | 8      | Média      |
-| Integrar autenticação com navegação              | Henrique, Gabriel       | 8      | Alta       |
-| Integrar fluxo completo de exame                 | Henrique, Gabriel       | 10     | Alta       |
+| Atividade                                        | Responsável       | Pontos | Prioridade |
+| ------------------------------------------------ | ----------------- | ------ | ---------- |
+| Desenvolver interface de autenticação            | Vitor, Paulo      | 15     | Alta       |
+| Desenvolver telas de perfil e progresso          | Vitor, Paulo      | 14     | Média      |
+| Desenvolver interface de home page               | Vitor, Paulo      | 15     | Alta       |
+| Desenvolver interface de execução do exame       | Vitor, Paulo      | 15     | Alta       |
+| Desenvolver interface de resultados e pós-exame  | Vitor, Paulo      | 12     | Alta       |
+| Aplicar responsividade global                    | Vitor, Paulo      | 10     | Média      |
+| Implementar controle de questões                 | Igor, Jaqueline   | 14     | Alta       |
+| Implementar controle de exame                    | Igor              | 9      | Alta       |
+| Implementar controle de tentativas               | Igor              | 10     | Alta       |
+| Implementar consultas de progresso e certificado | Jaqueline         | 11     | Média      |
+| Refatorar estrutura backend                      | Igor              | 8      | Baixa      |
+| Elaborar diagrama de classes                     | Henrique          | 10     | Alta       |
+| Elaborar diagramas de sequência de autenticação  | Henrique, Gabriel | 5      | Média      |
+| Elaborar diagramas de sequência de exame         | Henrique, Gabriel | 11     | Alta       |
+| Elaborar diagramas de sequência de progresso     | Henrique, Gabriel | 8      | Média      |
+| Integrar autenticação com navegação              | Paulo, Henrique   | 8      | Alta       |
+| Integrar fluxo completo de exame                 | Henrique, Igor    | 10     | Alta       |
 
 ### 🔥 Burndown Sprint 2
 
 <p align="center">
-<img src="Scrum/Burndown-Sprint02.jpeg" />
+<img src="Scrum/Burndown-Sprint02.png" />
 </p>
+
+### Sprint Retrospective
+
+#### 1. O que funcionou bem durante o sprint?
+
+Durante esta sprint, a equipe teve uma organização inicial muito melhor em comparação à sprint anterior, permitindo começar as issues mais cedo e trabalhar com mais clareza. A divisão de tarefas entre documentação, front-end e back-end funcionou bem, dando mais autonomia para cada grupo desenvolver suas atividades sem depender constantemente dos outros integrantes. A equipe de documentação conseguiu estruturar rapidamente os materiais necessários, o que ajudou tanto o front-end quanto o back-end a entenderem melhor os requisitos do sistema. Além disso, os protótipos facilitaram o desenvolvimento das telas e a liderança do Scrum Master e do Product Owner ajudou bastante na organização geral da sprint.
+
+#### 2. O que não funcionou tão bem durante o sprint?
+
+O principal problema da sprint foi a comunicação da equipe, principalmente no back-end. Parte dos integrantes ainda possui pouca experiência prática na área, o que gerou insegurança na hora de desenvolver funcionalidades, realizar commits e se comunicar sobre dúvidas ou alterações no projeto. Além disso, a distribuição das issues acabou ficando muito pesada para a equipe de back-end, causando uma sobrecarga maior nesse setor. Também houve entregas realizadas próximas do prazo final, aumentando a pressão da equipe e dificultando revisões mais tranquilas durante o desenvolvimento.
+
+#### 3. Quais ações podemos tomar para melhorar no próximo sprint?
+
+Para melhorar na próxima sprint, a equipe pretende fortalecer a comunicação e aumentar a colaboração entre os integrantes durante o desenvolvimento, incentivando mais ajuda mútua e troca de conhecimento entre os times. Também será importante buscar mais experiência técnica, principalmente no back-end, para aumentar a confiança e autonomia dos membros da equipe. Além disso, com a experiência adquirida nesta sprint, a intenção é distribuir melhor as issues e equilibrar o esforço entre os grupos, evitando sobrecarga em setores específicos e permitindo que a equipe consiga se reorganizar com mais facilidade diante de dificuldades ou imprevistos.
 
 ## <div id="sprint3">Sprint 3</div>
 

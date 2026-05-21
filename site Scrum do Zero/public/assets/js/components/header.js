@@ -5,7 +5,7 @@ class MeuCabecalho extends HTMLElement {
 
         this.innerHTML = `
             <div class="div-header">
-                <a href="/main"><img class="logo-img" src="" alt="Logo Scrum Zero"/></a>
+                <a href="/main"><img class="logo-img-header" src="assets/img/logo_scrumdozero.svg" alt="Logo Scrum Zero"/></a>
 
                 <nav class="nav-links" id="navLinks">
                     <a href="/progresso">Histórico</a>
