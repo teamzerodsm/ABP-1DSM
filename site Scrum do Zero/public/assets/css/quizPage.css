@@ -1,0 +1,309 @@
+.quiz-main-section {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+.progress-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  max-width: 1280px;
+  margin: auto;
+  padding: 2rem 16px 2rem 16px;
+}
+
+.progress-wrapper {
+  width: 100%;
+  background-color: var(--whiteCold);
+  border-radius: 16px;
+  padding: 6px;
+  display: grid;
+  grid-template-columns:repeat(5, minmax(30px, 1fr));
+  gap: 0.375rem;
+}
+
+.progress {
+  height: 40px;
+  background: #C7C7C7;
+  border-radius: 8px;
+}
+
+/* PROGRESS STATES */
+
+/* Questões respondidas */
+
+.progress.answered {
+  background: var(--darkBlue);
+}
+
+/* Revisão correta */
+
+.progress.correct {
+  background: #2e9b45;
+}
+
+/* Revisão errada */
+
+.progress.wrong {
+  background: #d62828;
+}
+
+/* hover */
+
+.progress.clickable {
+  cursor: pointer;
+}
+
+/* Hover SOMENTE na atual */
+
+.progress.current {
+  border: 2px solid #82c3ff;
+
+  transform: scaleY(1.08);
+
+  transition: 0.2s ease;
+}
+
+.progress.clickable:hover {
+  opacity: 0.85;
+}
+
+.module-title {
+  display: none;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 32px;
+  font-weight: 500;
+}
+
+.content-quiz-page {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+  margin-bottom: 3.5rem;
+}
+
+/* Pergunta */
+
+.question-area {
+  flex: 1;
+
+  font-size: 1rem;
+  line-height: 1.7;
+  text-align: justify;
+}
+
+.question-number {
+  margin-bottom: 16px;
+}
+
+.question-text {
+  margin-bottom: 24px;
+}
+
+/* Opções */
+
+.options-area {
+  flex: 1.2;
+}
+
+.options-box {
+  border: 1px solid var(--white);
+  border-radius: 24px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.option {
+  width: 100%;
+  min-height: 70px;
+  background: rgba(255,255,255,0.02);
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px;
+  cursor: pointer;
+  border: 1px solid var(--white);
+  transition:transform .25s ease, border-color .25s ease, background .25s ease, box-shadow .25s ease;
+}
+
+.option:hover {
+  transform: translateX(6px);
+}
+
+.option.selected {
+  background-color: var(--darkBlue);
+}
+
+/* REVIEW MODE */
+
+.option.correct {
+  border: 2px solid #2e9b45;
+}
+
+.option.wrong {
+  border: 2px solid #d62828;
+}
+
+.option.disabled {
+  pointer-events: none;
+}
+
+/* Progress */
+
+.progress.correct {
+  background: #2e9b45;
+}
+
+.progress.wrong {
+  background: #d62828;
+}
+
+/* evita hover durante revisão */
+
+.review-mode .option:hover {
+  transform: none;
+}
+
+.footer-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.option-letter {
+  width: 38px;
+  height: 38px;
+
+  border-radius: 12px;
+  border: 1px solid var(--white);
+
+  background: transparent;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-family: 'Orbitron', sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+
+  flex-shrink: 0;
+}
+
+.option-text {
+  font-size: clamp(0.875rem, 3.6vw, 0.95rem);
+  text-align: justify;
+  line-height: 1.5;
+}
+
+/* FOOTER */
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+
+  margin-top: auto;
+}
+
+.footer-btn {
+  border: none;
+  padding: 14px clamp(16px, 5.5vw, 32px);
+  border-radius: 14px;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.footer-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+#prevBtn {
+  background: #d9d9d9;
+}
+
+#prevBtn:hover {
+  background: #c9c9c9;
+}
+
+#nextBtn{
+  background: var(--green);
+}
+
+#nextBtn:hover {
+  background: #2cb733;
+}
+
+@media (min-width: 768px) {
+
+  .progress-wrapper {
+    grid-template-columns:repeat(10, minmax(30px, 1fr));
+  }
+
+  .progress{
+    height: 48px;
+  }
+
+  .question-area {
+    font-size: 20px;
+  }
+
+  .options-box {
+    padding: 32px;
+    gap: 24px;
+  }
+
+  .option {
+    min-height: 80px;
+    padding: 16px;
+  }
+
+  .option-letter {
+    width: 42px;
+    height: 42px;
+
+    font-size: 20px;
+  }
+
+  .option-text {
+    font-size: 17px;
+  }
+
+  .footer-btn {
+    padding: 16px 48px;
+    font-size: 18px;
+  }
+
+}
+
+@media (min-width: 1024px) {
+
+  .quiz-main-section {
+    padding: 1rem 16px 2rem 16px;
+  }
+
+  .content-quiz-page {
+    flex-direction: row;
+  }
+
+  .module-title {
+    display: block;
+  }
+
+  .question-area {
+    font-size: 22px;
+  }
+
+  .footer {
+    margin-top: 80px;
+  }
+
+}

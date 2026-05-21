@@ -10,6 +10,7 @@ curl -X POST http://localhost:3000/api/auth/login \
   -d '{"cpf":"12345678901", "senha":"123456"}'
 */
 
+//API de login, recebe CPF e SENHA do front e utiliza a funcao findUsuarioByCpfAndSenha importada do usuario.repositories
 router.post("/login", async function (req, res) {
     const { cpf, senha } = req.body
          if (!cpf || !senha) {
@@ -24,7 +25,8 @@ router.post("/login", async function (req, res) {
             nome: usuario.nome
         })
     }catch(e){
-        return res.status(500).json({
+        const invalidCredentials = e.message === "Usuário não encontrado" || e.message === "Senha inválida"
+        return res.status(invalidCredentials ? 401 : 500).json({
                 message: e.message
             })
     }

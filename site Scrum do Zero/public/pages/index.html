@@ -1,12 +1,91 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ABP</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <script src="/assets/js/token-expiration-manager.js"></script>
+  <script defer src="/assets/js/home.js"></script>
+  <script defer src="/assets/js/components/loginCard.js"></script>
+  <meta name="description" content="Plataforma Scrum do Zero — aprendizado e avaliações progressivas sobre Scrum.">
+  <link rel="canonical" href="/">
+  <title>Scrum do Zero — Início</title>
 </head>
+
 <body>
-    <div>home</div>
-   
+
+  <main class="page-main-section">
+
+    <section class="main-container">
+      <div class="left-section">
+        <div class="logo-container">
+          <h1 class="logo-title">Scrum do Zero</h1>
+          <div class="logo">
+            <img class="logo-desk" src="assets/img/logo_scrumdozero.svg" alt="Logo Scrum Zero"/>
+          </div>
+        </div>
+
+        <div class="content-wrapper">
+          <h2 class="main-title">
+            Seu caminho para dominar<br />
+            metodologias ágeis começa aqui.
+          </h2>
+    
+          <p class="description">
+            Plataforma de avaliações progressivas sobre Scrum, com questões Scrum, questões diversificadas,
+            acompanhamento do seu progresso e certificado ao final da jornada.
+          </p>
+    
+          <div class="link-section">
+            <p>Desejo relembrar e/ou estudar um pouco mais antes de realizar o desafio?</p>
+            <p>Acesse o link: <a href="https://www.scrum.org/courses" target="_blank"
+              rel="noopener noreferrer">https://www.scrum.org/courses</a></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+      <section class="right-section">
+        <default-logincard></default-logincard>
+      </section>
+    </section>
+
+    <section class="mobile-view">
+
+      <article class="mobile-article-section">
+        <h1 class="mobile-logo-title">Scrum do Zero</h1>
+
+        <a><img class="logo-mobile" src="assets/img/logo_scrumdozero.svg" alt="Logo Scrum Zero"/></a>
+          
+        </div>
+
+        <div class="info-section">
+          <h2>
+            Seu caminho para dominar metodologias ágeis começa aqui.
+          </h2>
+
+          <p>
+            Plataforma de avaliações progressivas sobre Scrum, com questões Scrum, questões diversificadas,
+            acompanhamento
+            do seu progresso e certificado ao final da jornada.
+          </p>
+        </div>
+
+        <div class="mobile-buttons">
+          <a href="#login-card-sec" class="primary-btn mobile-button" id="access-btn">Acessar</a>
+          <a class="primary-btn mobile-button" href="cadastro.html">Cadastrar</a>
+        </div>
+      </article>
+
+      <section class="mobile-login-section hidden" id="login-card-sec">
+        <default-logincard></default-logincard>
+      </section>
+
+    </section>
+
+  </main>
+
 </body>
+
 </html>

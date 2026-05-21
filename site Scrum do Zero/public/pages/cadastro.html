@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Página de cadastro de novos participantes no Scrum do Zero.">
+  <link rel="canonical" href="/pages/cadastro.html">
+  <title>Cadastro — Scrum do Zero</title>
+  <link rel="stylesheet" href="/assets/css/style.css"/>
+  <script src="/assets/js/components/header.js"></script>
+  <script src="/assets/js/cadastro.js"></script>
+</head>
+<body class="body-color">
+
+  <header class="header header-cadastro-page">
+    <img class="logo-img-header" src="assets/img/logo_scrumdozero.svg" alt="Logo Scrum Zero"/>
+  </header>
+  
+  <main class="container cadastro-page">
+    <section class="cadastro-card">
+      <h1 class="cadastro-title">Cadastro</h1>
+      <div id="mensagem" class="cadastro-mensagem" aria-live="polite"></div>
+
+      <form id="cadastroForm" class="cadastro-form" novalidate>
+        <div class="cadastro-field">
+          <label for="nome">Nome</label>
+          <input class="main-input input-cadastro" type="text" id="nome" name="nome" />
+        </div>
+
+        <div class="cadastro-field">
+          <label for="sobrenome">Sobrenome</label>
+          <input class="main-input input-cadastro" type="text" id="sobrenome" name="sobrenome" />
+        </div>
+
+        <div class="cadastro-field">
+          <label for="cpf">CPF</label>
+          <input class="main-input input-cadastro" type="text" id="cpf" name="cpf" maxlength="14" />
+        </div>
+
+        <div class="cadastro-field">
+          <label for="email">E-mail</label>
+          <input class="main-input input-cadastro" type="email" id="email" name="email" />
+        </div>
+
+        <div class="cadastro-field">
+          <label for="senha">Senha</label>
+          <input class="main-input input-cadastro" type="password" id="senha" name="senha" />
+        </div>
+
+        <div class="cadastro-field">
+          <label for="confirmar">Confirme sua senha</label>
+          <input class="main-input input-cadastro" type="password" id="confirmar" name="confirmar" />
+        </div>
+
+        <button type="submit" class="primary-btn  cadastro-btn">Cadastrar-se</button>
+      </form>
+    </section>
+  </main>
+</body>
+</html>

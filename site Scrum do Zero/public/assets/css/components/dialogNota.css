@@ -1,0 +1,24 @@
+.dialog-quiz-mensagem {
+    font-size: 1rem;
+    font-weight: 400;
+    color: #222;
+    margin-bottom: 8px;
+}
+
+.dialog-quiz-nota {
+    font-size: 1.15rem;
+    font-weight: 900;
+    color: #000;
+    margin-bottom: 20px;
+}
+
+@media (min-width: 600px) {
+
+    .dialog-quiz-mensagem  {
+        font-size: 1.05rem;
+    }
+
+    .dialog-quiz-nota {
+        font-size: 1.25rem;
+    }
+}

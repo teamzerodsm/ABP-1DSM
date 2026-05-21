@@ -1,0 +1,246 @@
+.page-main-section {
+    display: flex;
+    /* background: var(--mainGradient); */
+    background: var(--heroBackground);
+    background-size: cover;
+    position: relative;
+    min-height: 100vh;
+}
+
+/* Desktop container - oculto no mobile */
+.main-container {
+    display: none;
+}
+
+.footer {
+    display: none;
+}
+
+/* Mobile View - Padrão */
+.mobile-view {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.mobile-article-section {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+    max-width: clamp(300px, 80%, 450px);
+    min-height: 100vh;
+    padding: 2rem 0;
+}
+
+.mobile-logo-title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 40px;
+}
+
+.logo-mobile {
+    width: 102.5px;
+    height: 102.9px;
+    margin: 0 auto 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.info-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3rem;
+    margin-bottom: 4rem;
+}
+
+.info-section h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.info-section p {
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+.mobile-buttons {
+    display: flex;
+    gap: 1.5rem;
+    margin-top: auto;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.mobile-button {
+    background: transparent;
+    border: 2px solid white;
+    font-size: 16px;
+    color: white;
+}
+
+.mobile-button:hover {
+    background: white;
+    color: #1a1a1a;
+}
+
+/* Estilos desktop - inicialmente ocultos */
+.left-section,
+.right-section {
+    display: none;
+}
+
+.mobile-login-section {
+    min-height: 100vh;
+    min-width: clamp(300px, 80%, 450px);
+    padding: 2rem 0;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+
+@media (min-width: 1024px) {
+
+    .page-main-section {
+        background: transparent;
+    }
+
+    .page-main-section::after {
+        display: none;
+    }
+
+    .mobile-view {
+        display: none;
+    }
+
+    .main-container {
+        display: flex;
+        flex: 1;
+    }
+
+    .left-section {
+        display: flex;
+        background-image: url('../img/GradientDoido.jpeg');
+        background-size: cover;
+        flex: 1;
+        flex-direction: column;
+        position: relative;
+        overflow: hidden;
+        padding: 0 50px;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
+        background: var(--heroBackground);
+    }
+
+    .left-section::before {
+        content: "";
+        position: absolute;
+        width: 500px;
+        height: 500px;
+        background: radial-gradient(circle, rgba(0, 255, 170, 0.25), transparent 70%);
+        top: -120px;
+        left: -120px;
+        filter: blur(60px);
+    }
+
+    .left-section::after {
+        content: "";
+        position: absolute;
+        width: 400px;
+        height: 400px;
+        background: radial-gradient(circle, rgba(0, 140, 255, 0.20), transparent 70%);
+        bottom: -120px;
+        right: -120px;
+        filter: blur(70px);
+    }
+
+    .left-section {
+        background-size: 200% 200%;
+        animation: gradientMove 12s ease infinite;
+    }
+
+    @keyframes gradientMove {
+        0% {
+            background-position: 0% 50%;
+        }
+
+        50% {
+            background-position: 100% 50%;
+        }
+
+        100% {
+            background-position: 0% 50%;
+        }
+    }
+
+    .logo-container {
+        margin-bottom: 25px;
+        position: relative;
+        z-index: 1;
+    }
+
+    .logo-title {
+        font-size: 36px;
+        font-weight: 700;
+        margin-bottom: 20px;
+    }
+
+    .logo-desk {
+        width: 180px;
+        height: 180px;
+        margin-bottom: 25px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .content-wrapper {
+        position: relative;
+        z-index: 1;
+        max-width: 380px;
+    }
+
+    .content-wrapper h2 {
+        font-size: 24px;
+        font-weight: 600;
+        margin-bottom: 25px;
+        line-height: 1.4;
+    }
+
+    .content-wrapper p {
+        font-size: 16px;
+        margin-bottom: 20px;
+        line-height: 1.6;
+        color: #d4d4d4;
+    }
+
+    .link-section p {
+        font-size: 14px;
+        margin-bottom: 25px;
+        line-height: 1.5;
+        color: #d4d4d4;
+    }
+
+    .link-section a {
+        color: var(--white);
+        text-decoration: underline;
+    }
+
+    .right-section {
+        display: flex;
+        background: var(--whiteCold);
+        flex: 1;
+        align-items: center;
+        justify-content: center;
+        padding: 40px;
+    }
+}
