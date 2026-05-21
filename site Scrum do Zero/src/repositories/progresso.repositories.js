@@ -1,6 +1,6 @@
 const pool = require("../database/db");
 
-async function findHistoricoExamesPorUsuario(idUsuario) {
+async function findExamHistoryByUsuario(idUsuario) {
   const result = await pool.query(
     `
     SELECT
@@ -28,5 +28,5 @@ async function findHistoricoExamesPorUsuario(idUsuario) {
 }
 
 module.exports = {
-  findHistoricoExamesPorUsuario,
+  findExamHistoryByUsuario,
 };

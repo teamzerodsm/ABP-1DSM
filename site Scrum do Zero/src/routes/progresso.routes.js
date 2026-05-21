@@ -1,42 +1,37 @@
 const { Router } = require("express");
 const authmiddleware = require("../middlewares/auth.middleware");
-const { findHistoricoExamesPorUsuario } = require("../repositories/progresso.repositories");
+const { findExamHistoryByUsuario } = require("../repositories/progresso.repositories");
 
 const router = Router();
 
-async function obterHistorico(idUsuario) {
-  const rows = await findHistoricoExamesPorUsuario(idUsuario);
-
-  const modulosMap = new Map();
-
-  rows.forEach((row) => {
-    if (!modulosMap.has(row.id_modulo)) {
-      modulosMap.set(row.id_modulo, {
-        id_modulo: row.id_modulo,
-        modulo: row.modulo,
-        tentativas: [],
-        max_tentativas: 2,
-      });
-    }
-
-    modulosMap.get(row.id_modulo).tentativas.push({
-      id_exame: row.id_exame,
-      grupo: row.grupo,
-      tentativa: row.tentativa,
-      respostas_respondidas: Number(row.respostas_respondidas) || 0,
-      nota: Number(row.nota) || 0,
-    });
-  });
-
-  return Array.from(modulosMap.values()).map((modulo) => ({
-    ...modulo,
-    tentativas_restantes: modulo.max_tentativas - modulo.tentativas.length,
-  }));
-}
-
-router.get("/tentativas", authmiddleware, async function (req, res) {
+router.get("/historico", authmiddleware, async function (req, res) {
   try {
-    const history = await obterHistorico(req.usuario.id_usuario);
+    const rows = await findExamHistoryByUsuario(req.usuario.id_usuario);
+
+    const modulosMap = new Map();
+    rows.forEach((row) => {
+      if (!modulosMap.has(row.id_modulo)) {
+        modulosMap.set(row.id_modulo, {
+          id_modulo: row.id_modulo,
+          modulo: row.modulo,
+          tentativas: [],
+          max_tentativas: 2,
+        });
+      }
+      modulosMap.get(row.id_modulo).tentativas.push({
+        id_exame: row.id_exame,
+        grupo: row.grupo,
+        tentativa: row.tentativa,
+        respostas_respondidas: Number(row.respostas_respondidas) || 0,
+        nota: Number(row.nota) || 0,
+      });
+    });
+
+    const history = Array.from(modulosMap.values()).map((modulo) => ({
+      ...modulo,
+      tentativas_restantes: modulo.max_tentativas - modulo.tentativas.length,
+    }));
+
     return res.status(200).json(history);
   } catch (e) {
     console.error(e);

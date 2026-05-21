@@ -1,6 +1,6 @@
 const pool = require("../database/db");
 
-async function findTodosModulos() {
+async function findAllModulos() {
   const result = await pool.query(
     `SELECT id_modulo, titulo FROM modulos ORDER BY id_modulo ASC`
   );
@@ -15,7 +15,7 @@ async function findModuloById(idModulo) {
   return result.rows[0] || null;
 }
 
-async function findGrupoAleatorioPorModuloExcluindoUsado(clientOrPool, idUsuario, idModulo) {
+async function findRandomGrupoByModuloExcludingUsed(clientOrPool, idUsuario, idModulo) {
   const runner = clientOrPool || pool;
   const result = await runner.query(
     `
@@ -41,7 +41,7 @@ async function findGrupoAleatorioPorModuloExcluindoUsado(clientOrPool, idUsuario
   return result.rows[0]?.grupo || null;
 }
 
-async function findNumeroProximaTentativa(clientOrPool, idUsuario, idModulo) {
+async function findNextAttemptNumber(clientOrPool, idUsuario, idModulo) {
   const runner = clientOrPool || pool;
   const result = await runner.query(
     `
@@ -58,6 +58,9 @@ async function findNumeroProximaTentativa(clientOrPool, idUsuario, idModulo) {
   return result.rows[0]?.next_attempt || 1;
 }
 
+<<<<<<< HEAD
+async function findActiveExamByUsuarioModulo(clientOrPool, idUsuario, idModulo) {
+=======
 async function findTentativasRestantesPorModulo(idUsuario, idModulo) {
   const result = await pool.query(
     `
@@ -112,6 +115,7 @@ async function findMaiorNotaPorModulo(idUsuario, idModulo) {
 }
 
 async function findExameAtivoPorUsuarioEModulo(clientOrPool, idUsuario, idModulo) {
+>>>>>>> 0f63e7b7f9856691f0884aa2852fe7de05649d54
   const runner = clientOrPool || pool;
   const result = await runner.query(
     `
@@ -145,7 +149,7 @@ async function insertExame(clientOrPool, idUsuario, idModulo, grupo, tentativa) 
   return result.rows[0] || null;
 }
 
-async function findExameById(idExame) {
+async function findExamById(idExame) {
   const result = await pool.query(
     `
     SELECT e.id_exame, e.id_usuario, e.id_modulo, e.grupo, e.tentativa,
@@ -159,7 +163,7 @@ async function findExameById(idExame) {
   return result.rows[0] || null;
 }
 
-async function findQuestoesPorModuloEGrupo(idModulo, grupo) {
+async function findQuestionsByModuloAndGrupo(idModulo, grupo) {
   const result = await pool.query(
     `
     SELECT id_questao, id_modulo, grupo, numero, dificuldade, enunciado,
@@ -176,7 +180,7 @@ async function findQuestoesPorModuloEGrupo(idModulo, grupo) {
   return result.rows;
 }
 
-async function findHistoricoExamesPorUsuario(idUsuario) {
+async function findExamHistoryByUsuario(idUsuario) {
   const result = await pool.query(
     `
     SELECT
@@ -202,7 +206,7 @@ async function findHistoricoExamesPorUsuario(idUsuario) {
   return result.rows;
 }
 
-async function findRevisaoExameById(idExame) {
+async function findExamReviewById(idExame) {
   const result = await pool.query(
     `
     SELECT
@@ -237,7 +241,7 @@ async function findRevisaoExameById(idExame) {
   return result.rows;
 }
 
-async function findRespostasExistentes(idExame) {
+async function findExistingResponses(idExame) {
   const result = await pool.query(
     `
     SELECT id_resposta, id_exame, id_questao, resposta, nota
@@ -249,7 +253,7 @@ async function findRespostasExistentes(idExame) {
   return result.rows;
 }
 
-async function insertRespostas(client, answers) {
+async function insertResponses(client, answers) {
   const values = [];
   const placeholders = answers
     .map((answer, index) => {
@@ -272,19 +276,16 @@ async function insertRespostas(client, answers) {
 }
 
 module.exports = {
-  findTodosModulos,
+  findAllModulos,
   findModuloById,
-  findGrupoAleatorioPorModuloExcluindoUsado,
-  findNumeroProximaTentativa,
-  findTentativasRestantesPorModulo,
-  findNotaPorTentativa,
-  findMaiorNotaPorModulo,
-  findExameAtivoPorUsuarioEModulo,
+  findRandomGrupoByModuloExcludingUsed,
+  findNextAttemptNumber,
+  findActiveExamByUsuarioModulo,
   insertExame,
-  findExameById,
-  findQuestoesPorModuloEGrupo,
-  findHistoricoExamesPorUsuario,
-  findRevisaoExameById,
-  findRespostasExistentes,
-  insertRespostas,
+  findExamById,
+  findQuestionsByModuloAndGrupo,
+  findExamHistoryByUsuario,
+  findExamReviewById,
+  findExistingResponses,
+  insertResponses,
 };
