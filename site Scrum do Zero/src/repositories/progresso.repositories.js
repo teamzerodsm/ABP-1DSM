@@ -7,21 +7,25 @@ async function findHistoricoExamesPorUsuario(idUsuario) {
   const result = await pool.query(
     `
     SELECT
-      e.id_exame,
-      e.id_modulo,
+      m.id_modulo,
       m.titulo AS modulo,
+      e.id_exame,
       e.grupo,
       e.tentativa,
       COUNT(r.id_resposta) AS respostas_respondidas,
       COALESCE(SUM(r.nota), 0) AS nota,
-      (SELECT COUNT(*) FROM questoes WHERE id_modulo = e.id_modulo AND grupo IS NOT DISTINCT FROM e.grupo) AS total_questoes,
+      CASE WHEN e.id_exame IS NOT NULL THEN (
+        SELECT COUNT(*)
+        FROM questoes
+        WHERE id_modulo = e.id_modulo
+          AND grupo IS NOT DISTINCT FROM e.grupo
+      ) ELSE 0 END AS total_questoes,
       MAX(r.respondido_em) AS data_exame
-    FROM exames e
-    INNER JOIN modulos m ON m.id_modulo = e.id_modulo
+    FROM modulos m
+    LEFT JOIN exames e ON e.id_modulo = m.id_modulo AND e.id_usuario = $1
     LEFT JOIN respostas r ON r.id_exame = e.id_exame
-    WHERE e.id_usuario = $1
-    GROUP BY e.id_exame, e.id_modulo, m.titulo, e.grupo, e.tentativa
-    ORDER BY e.id_modulo ASC, e.tentativa ASC
+    GROUP BY m.id_modulo, m.titulo, e.id_exame, e.grupo, e.tentativa
+    ORDER BY m.id_modulo ASC, e.tentativa ASC
     `,
     [idUsuario]
   );
