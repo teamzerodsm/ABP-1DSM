@@ -12,15 +12,15 @@ const dadosDoBanco = [
 ];
 
 async function fetchDadosModulo(idModulo) {
-  const token = localStorage.getItem("token"); // ajusta a chave se necessário
+  const token = localStorage.getItem("token");
   const res = await fetch("/api/progresso/tentativas", {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
+    headers: { Authorization: `Bearer ${token}` },
   });
   const historico = await res.json();
+  console.log("historico completo:", historico);  // <-- adiciona isso
 
   const modulo = historico.find((m) => m.id_modulo == idModulo);
+  console.log("modulo encontrado:", modulo);  // <-- e isso
 
   const tentativas = modulo?.tentativas_restantes ?? 2;
   const pontos = modulo
@@ -29,23 +29,6 @@ async function fetchDadosModulo(idModulo) {
 
   return { tentativas, pontos };
 }
-
-levelBtns.forEach((btn) => {
-    btn.addEventListener("click", async () => {
-      const levelID = btn.dataset.idlevel;
-      const info = dadosDoBanco.find((dado) => dado.id == levelID);
-  
-      const { tentativas, pontos } = await fetchDadosModulo(levelID);
-  
-      if (tentativas === 0) {
-        btn.disabled = true;
-        return;
-      }
-  
-      dialogComponent.setDados({ ...info, idModulo: info.id, tentativas, pontos });
-      dialogComponent.dialog.showModal();
-    });
-  });
 
 levelBtns.forEach((btn) => {
   btn.addEventListener("click", async () => {

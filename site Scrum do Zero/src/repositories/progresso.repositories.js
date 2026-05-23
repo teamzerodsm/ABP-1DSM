@@ -35,23 +35,35 @@ async function findHistoricoExamesPorUsuario(idUsuario) {
 async function findResumoProgressoPorModulo(idUsuario) {
   const result = await pool.query(
     `
+    WITH exam_scores AS (
+      SELECT
+        e.id_exame,
+        e.id_modulo,
+        e.id_usuario,
+        e.tentativa,
+        COALESCE(SUM(r.nota), 0) AS score,
+        MAX(r.respondido_em) AS data_ultima_tentativa
+      FROM exames e
+      LEFT JOIN respostas r ON r.id_exame = e.id_exame
+      WHERE e.id_usuario = $1
+      GROUP BY e.id_exame, e.id_modulo, e.id_usuario, e.tentativa
+    )
     SELECT
       m.id_modulo,
       m.titulo AS modulo,
-      COUNT(e.id_exame) AS total_tentativas,
-      GREATEST(2 - COUNT(e.id_exame), 0) AS tentativas_restantes,
-      MAX(COALESCE(SUM(r.nota), 0)) AS melhor_nota,
-      AVG(COALESCE(SUM(r.nota), 0))::NUMERIC(5,2) AS nota_media,
-      MAX(e.tentativa) AS ultima_tentativa,
-      MAX(e.criado_em) AS data_ultima_tentativa,
-      CASE 
-        WHEN COUNT(e.id_exame) >= 1 AND MAX(COALESCE(SUM(r.nota), 0)) >= 7 THEN 'Aprovado'
-        WHEN COUNT(e.id_exame) >= 1 THEN 'Reprovado'
+      COUNT(ex.id_exame) AS total_tentativas,
+      GREATEST(2 - COUNT(ex.id_exame), 0) AS tentativas_restantes,
+      COALESCE(MAX(ex.score), 0) AS melhor_nota,
+      COALESCE(ROUND(AVG(ex.score)::NUMERIC, 2), 0) AS nota_media,
+      COALESCE(MAX(ex.tentativa), 0) AS ultima_tentativa,
+      MAX(ex.data_ultima_tentativa) AS data_ultima_tentativa,
+      CASE
+        WHEN COUNT(ex.id_exame) >= 1 AND COALESCE(MAX(ex.score), 0) >= 7 THEN 'Aprovado'
+        WHEN COUNT(ex.id_exame) >= 1 THEN 'Reprovado'
         ELSE 'Não iniciado'
       END AS status
     FROM modulos m
-    LEFT JOIN exames e ON e.id_modulo = m.id_modulo AND e.id_usuario = $1
-    LEFT JOIN respostas r ON r.id_exame = e.id_exame
+    LEFT JOIN exam_scores ex ON ex.id_modulo = m.id_modulo
     GROUP BY m.id_modulo, m.titulo
     ORDER BY m.id_modulo ASC
     `,
@@ -67,17 +79,26 @@ async function findResumoProgressoPorModulo(idUsuario) {
 async function findProgressoGeral(idUsuario) {
   const result = await pool.query(
     `
+    WITH exam_scores AS (
+      SELECT
+        e.id_exame,
+        e.id_modulo,
+        e.id_usuario,
+        COALESCE(SUM(r.nota), 0) AS score,
+        MAX(r.respondido_em) AS data_ultima_tentativa
+      FROM exames e
+      LEFT JOIN respostas r ON r.id_exame = e.id_exame
+      WHERE e.id_usuario = $1
+      GROUP BY e.id_exame, e.id_modulo, e.id_usuario
+    )
     SELECT
-      COUNT(DISTINCT e.id_modulo) AS modulos_iniciados,
-      COUNT(DISTINCT CASE WHEN MAX(r.nota) >= 7 THEN e.id_modulo END) AS modulos_aprovados,
-      COUNT(e.id_exame) AS total_tentativas,
-      COUNT(DISTINCT CASE WHEN COUNT(r.id_resposta) > 0 THEN e.id_exame END) AS exames_respondidos,
-      ROUND(AVG(COALESCE(SUM(r.nota), 0))::NUMERIC, 2) AS media_geral,
-      MAX(e.criado_em) AS ultima_atividade
-    FROM exames e
-    LEFT JOIN respostas r ON r.id_exame = e.id_exame
-    WHERE e.id_usuario = $1
-    GROUP BY e.id_usuario
+      COUNT(DISTINCT id_modulo) AS modulos_iniciados,
+      COUNT(DISTINCT CASE WHEN score >= 7 THEN id_modulo END) AS modulos_aprovados,
+      COUNT(id_exame) AS total_tentativas,
+      COUNT(CASE WHEN score IS NOT NULL THEN id_exame END) AS exames_respondidos,
+      COALESCE(ROUND(AVG(score)::NUMERIC, 2), 0) AS media_geral,
+      MAX(data_ultima_tentativa) AS ultima_atividade
+    FROM exam_scores
     `,
     [idUsuario]
   );
@@ -98,15 +119,21 @@ async function findProgressoGeral(idUsuario) {
 async function findTentativasDisponiveisPorModulo(idUsuario, idModulo) {
   const result = await pool.query(
     `
+    WITH exam_scores AS (
+      SELECT
+        e.id_exame,
+        COALESCE(SUM(r.nota), 0) AS score
+      FROM exames e
+      LEFT JOIN respostas r ON r.id_exame = e.id_exame
+      WHERE e.id_usuario = $1 AND e.id_modulo = $2
+      GROUP BY e.id_exame
+    )
     SELECT
-      COUNT(e.id_exame) AS tentativas_usadas,
-      GREATEST(2 - COUNT(e.id_exame), 0) AS tentativas_restantes,
-      CASE WHEN COUNT(e.id_exame) >= 2 THEN true ELSE false END AS limite_atingido,
-      MAX(COALESCE(SUM(r.nota), 0)) AS melhor_nota
-    FROM exames e
-    LEFT JOIN respostas r ON r.id_exame = e.id_exame
-    WHERE e.id_usuario = $1 AND e.id_modulo = $2
-    GROUP BY e.id_modulo
+      COUNT(id_exame) AS tentativas_usadas,
+      GREATEST(2 - COUNT(id_exame), 0) AS tentativas_restantes,
+      COUNT(id_exame) >= 2 AS limite_atingido,
+      COALESCE(MAX(score), 0) AS melhor_nota
+    FROM exam_scores
     `,
     [idUsuario, idModulo]
   );

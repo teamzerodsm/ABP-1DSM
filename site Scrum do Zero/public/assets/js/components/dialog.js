@@ -41,13 +41,21 @@ class LevelDialog extends HTMLElement {
   }
 
   setDados(dados) {
-    this.dialogLevel.innerText = dados.level ?? "";
-    this.dialogTitle.innerText = dados.titulo ?? "";
-    this.dialogDesc.innerText = dados.descricao ?? "";
-    this.dialogAttempts.innerText = `Tentativas Restantes: ${dados.tentativas}`;
-    this.dialogPoints.innerText = `Melhor Pontuação: ${dados.pontos}`;
+  this.dialogLevel.innerText = dados.level ?? "";
+  this.dialogTitle.innerText = dados.titulo ?? "";
+  this.dialogDesc.innerText = dados.descricao ?? "";
+  this.dialogAttempts.innerText = `Tentativas Restantes: ${dados.tentativas}`;
+  this.dialogPoints.innerText = `Melhor Pontuação: ${dados.pontos}`;
+  this.btnProsseguir.href = `/quiz-page?modulo=${dados.idModulo}`;
+
+  if (dados.tentativas === 0) {
+    this.btnProsseguir.classList.add("disabled");
+    this.btnProsseguir.removeAttribute("href");
+  } else {
+    this.btnProsseguir.classList.remove("disabled");
     this.btnProsseguir.href = `/quiz-page?modulo=${dados.idModulo}`;
   }
+}
 }
 
 customElements.define("dialog-modules", LevelDialog);
