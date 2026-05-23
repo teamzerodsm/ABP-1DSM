@@ -2,7 +2,6 @@ const express = require("express");
 const dotenv = require("dotenv");
 const path = require("path");
 const router = require("./routes");
-const progressoRoutes = require("./routes/progresso.routes");
 
 dotenv.config({
   quiet: true,
@@ -28,7 +27,6 @@ app.use("/", express.static(pagesPath));
 app.use("/assets", express.static(assetsPath));
 app.use("/imagens/questoes", express.static(imagensQuestoesPath));
 app.use("/api", router);
-app.use("/progresso", progressoRoutes);
 
 app.get("/index", function (_req, res) {
   res.sendFile(path.join(pagesPath, "index.html"));
