@@ -63,22 +63,25 @@ async function iniciarOuRetomar() {
 }
 
 async function retomarExame() {
-  const res = await fetch(`${BASE_URL}/exames/historico`, { headers });
+  const res = await fetch(`${BASE_URL}/exames/ativo/${idModulo}`, { headers });
   const data = await res.json();
 
-  const modulo = data.find((m) => m.id_modulo == idModulo);
-  const exameAtivo = modulo?.tentativas.find((t) => t.respostas_respondidas === 0);
-
-  if (!exameAtivo) {
-    alert("Erro ao retomar exame.");
+  if (!res.ok) {
+    alert(data.message || "Erro ao retomar exame.");
     window.location.href = "/main";
     return;
   }
 
-  idExame = exameAtivo.id_exame;
+  idExame = data.id_exame;
 
   const res2 = await fetch(`${BASE_URL}/exames/${idExame}`, { headers });
   const data2 = await res2.json();
+
+  if (!res2.ok) {
+    alert(data2.message || "Erro ao carregar o exame ativo.");
+    window.location.href = "/main";
+    return;
+  }
 
   questions = adaptarQuestoes(data2.questions);
   renderQuestion();
