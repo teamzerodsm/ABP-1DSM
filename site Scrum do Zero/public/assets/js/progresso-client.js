@@ -31,6 +31,32 @@
 
     const modules = await res.json();
     renderTable(modules);
+    renderStats(modules);
+  }
+
+  function renderStats(modulos) {
+    // Um nível é concluído se possuir pelo menos uma tentativa com respostas respondidas > 0
+    const completedLevels = modulos.filter(m => 
+      m.tentativas.some(t => Number(t.respostas_respondidas) > 0)
+    ).length;
+
+    // Total de tentativas registradas
+    const totalAttempts = modulos.reduce((sum, m) => sum + m.tentativas.length, 0);
+
+    // Média geral considerando apenas tentativas finalizadas (respostas > 0)
+    const completedAttempts = modulos.flatMap(m => m.tentativas)
+      .filter(t => Number(t.respostas_respondidas) > 0);
+    const average = completedAttempts.length 
+      ? (completedAttempts.reduce((sum, t) => sum + Number(t.nota), 0) / completedAttempts.length).toFixed(1)
+      : "0,0";
+
+    const concluidosEl = document.getElementById("niveis-concluidos");
+    const registradasEl = document.getElementById("tentativas-registradas");
+    const mediaEl = document.getElementById("media-geral");
+
+    if (concluidosEl) concluidosEl.textContent = completedLevels;
+    if (registradasEl) registradasEl.textContent = totalAttempts;
+    if (mediaEl) mediaEl.textContent = `${String(average).replace('.', ',')} / 10`;
   }
 
   function renderTable(modulos) {
