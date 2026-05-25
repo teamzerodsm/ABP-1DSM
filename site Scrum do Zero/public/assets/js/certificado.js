@@ -54,14 +54,23 @@ async function preencherCertificado(usuario) {
   });
 
   if (!res.ok) {
-    console.error('Erro ao buscar histórico:', res.status);
+    mostrarIndisponivel();
     return;
   }
 
-  // Array de módulos com tentativas
   const historico = await res.json();
-
   const historicoMap = new Map(historico.map(m => [m.id_modulo, m]));
+
+  const totalModulos = Object.keys(MODULOS_LABEL).length;
+  const modulosConcluidos = Object.keys(MODULOS_LABEL).filter(idStr => {
+    const moduloData = historicoMap.get(Number(idStr));
+    return moduloData && moduloData.tentativas.length > 0;
+  }).length;
+
+  if (modulosConcluidos < totalModulos) {
+    mostrarIndisponivel(modulosConcluidos, totalModulos);
+    return;
+  }
 
   listaNotas.innerHTML = '';
   const notasPorModulo = [];
@@ -113,6 +122,28 @@ async function carregarDados() {
     localStorage.removeItem('token');
     window.location.href = '/index';
   }
+}
+
+function mostrarIndisponivel(concluidos = 0, total = 5) {
+  const shell = document.querySelector('.certificate-shell');
+  const topbar = document.querySelector('.topbar');
+
+  if (topbar) topbar.style.display = 'none';
+
+  shell.innerHTML = `
+    <div class="unavailable">
+      <div class="unavailable-icon">🎓</div>
+      <h2>Certificado indisponível</h2>
+      <p>Você precisa concluir todos os módulos do curso para emitir seu certificado.</p>
+      <div class="unavailable-progress">
+        <span>${concluidos} de ${total} módulos concluídos</span>
+        <div class="progress-bar">
+          <div class="progress-fill" style="width: ${(concluidos / total) * 100}%"></div>
+        </div>
+      </div>
+      <a href="/pages/modulos" class="btn-primary">Continuar curso</a>
+    </div>
+  `;
 }
 
 async function gerarPDF() {
