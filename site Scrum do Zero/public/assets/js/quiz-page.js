@@ -6,6 +6,8 @@ if (!token) {
   window.location.href = "/index";
 }
 
+console.debug("[quiz-page] token present:", !!token);
+
 const headers = {
   Authorization: `Bearer ${token}`,
 };
@@ -19,10 +21,8 @@ let idExame = null;
 let questions = [];
 
 async function fetchJson(path, options = {}) {
-  const response = await fetch(`${BASE_URL}${path}`, {
-    headers: { ...headers, ...options.headers },
-    ...options,
-  });
+  console.debug("[quiz-page] fetch", path, options.method || "GET", headers);
+  const response = await fetch(`${BASE_URL}${path}`, Object.assign({}, options, { headers: { ...headers, ...options.headers } }));
   const data = await response.json().catch(() => ({}));
   return { response, data };
 }

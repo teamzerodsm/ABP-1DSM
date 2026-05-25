@@ -15,6 +15,7 @@
   async function fetchProgresso() {
     const token = localStorage.getItem("token");
     if (!token) return window.location.href = "/index";
+    console.debug("[progresso-client] token present:", !!token);
 
     const res = await fetch(API, {
       headers: {
