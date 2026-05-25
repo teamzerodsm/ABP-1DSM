@@ -131,6 +131,25 @@ router.post("/", authmiddleware, async function (req, res) {
   }
 });
 
+router.get("/ativo/:id_modulo", authmiddleware, async function (req, res) {
+  try {
+    const idModulo = Number(req.params.id_modulo);
+    if (!Number.isInteger(idModulo) || idModulo <= 0) {
+      return res.status(400).json({ message: "id_modulo inválido" });
+    }
+
+    const activeExam = await findActiveExamByUsuarioModulo(pool, req.usuario.id_usuario, idModulo);
+    if (!activeExam) {
+      return res.status(404).json({ message: "Nenhum exame ativo para este módulo" });
+    }
+
+    return res.status(200).json(activeExam);
+  } catch (e) {
+    console.error(e);
+    return res.status(500).json({ message: "Erro interno do servidor" });
+  }
+});
+
 router.get("/historico", authmiddleware, async function (req, res) {
   try {
     const rows = await findExamHistoryByUsuario(req.usuario.id_usuario);
