@@ -1,51 +1,91 @@
 const API_URL = '/api/usuarios';
 const API_URL_EXAMES = '/api/exames';
 
+// Total de questões por módulo (para converter acertos em nota 0–10)
+const QUESTOES_POR_MODULO = 10;
+
 function formatCpf(cpf) {
   const clean = String(cpf).replace(/\D/g, '');
   return clean.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
 }
 
+// Nomes fixos dos módulos na ordem esperada (id_modulo 1–5)
+const MODULOS_LABEL = {
+  1: 'Fundamentos Scrum',
+  2: 'Scrum Master',
+  3: 'Product Owner',
+  4: 'Práticas Ágeis, Métricas e Qualidade',
+  5: 'Aplicação Prática, Cenários e Análise Crítica',
+};
+
+function melhorNota(tentativas) {
+  if (!tentativas || tentativas.length === 0) return null;
+  // nota vem como acertos (0–10), já é a soma de notas individuais
+  const max = Math.max(...tentativas.map(t => Number(t.nota) || 0));
+  return max;
+}
+
+function formatarNota(nota) {
+  if (nota === null) return '--';
+  // nota já está em escala 0–10 (cada questão vale 1 ponto)
+  return nota.toFixed(1).replace('.', ',');
+}
 
 async function preencherCertificado(usuario) {
-  const nome = document.getElementById('nome');
-  const cpf = document.getElementById('cpf');
-  const email = document.getElementById('email');
+  const nome        = document.getElementById('nome');
+  const cpf         = document.getElementById('cpf');
+  const email       = document.getElementById('email');
   const dataEmissao = document.getElementById('dataEmissao');
-  const mediaFinal = document.getElementById('mediaFinal');
+  const mediaFinal  = document.getElementById('mediaFinal');
   const certificadoId = document.getElementById('certificadoId');
-  const listaNotas = document.getElementById('listaNotas');
+  const listaNotas  = document.getElementById('listaNotas');
 
-  nome.textContent = (usuario.nome || '--').toLocaleUpperCase('pt-BR');
-  cpf.textContent = formatCpf(usuario.cpf || '--');
-  email.textContent = usuario.email || '--';
+  // Dados do usuário
+  nome.textContent        = (usuario.nome || '--').toLocaleUpperCase('pt-BR');
+  cpf.textContent         = formatCpf(usuario.cpf || '--');
+  email.textContent       = usuario.email || '--';
   dataEmissao.textContent = new Date().toLocaleDateString('pt-BR');
-  mediaFinal.textContent = localStorage.getItem('mediaFinal') || '9,0';
   certificadoId.textContent = `SCRUM-${new Date().getFullYear()}-${String(usuario.id_usuario || 0).padStart(6, '0')}`;
 
-  const dadoNivel = JSON.parse(localStorage.getItem('notasCertificado') || 'null') || [
-    { nivel: 'Fundamentos Scrum'},
-    { nivel: 'Scrum Master'},
-    { nivel: 'Product Owner'},
-    { nivel: 'Práticas Ágeis, Métricas e Qualidade'},
-    { nivel: 'Aplicação Prática, Cenários e Análise Crítica'}
-  ];
-
-  const token = localStorage.getItem("token");
+  // Buscar histórico real
+  const token = localStorage.getItem('token');
   const res = await fetch(`${API_URL_EXAMES}/historico`, {
     headers: { Authorization: `Bearer ${token}` },
   });
-  console.log(res.status)
-  const dadoNota = await res.json();
-  console.log(`HISTORICO DO USUARIO: ${dadoNota}`);
+
+  if (!res.ok) {
+    console.error('Erro ao buscar histórico:', res.status);
+    return;
+  }
+
+  // Array de módulos com tentativas
+  const historico = await res.json();
+
+  const historicoMap = new Map(historico.map(m => [m.id_modulo, m]));
 
   listaNotas.innerHTML = '';
-  dadoNivel.forEach(item => {
+  const notasPorModulo = [];
+
+  Object.entries(MODULOS_LABEL).forEach(([idStr, label]) => {
+    const idModulo = Number(idStr);
+    const moduloData = historicoMap.get(idModulo);
+    const nota = moduloData ? melhorNota(moduloData.tentativas) : null;
+    notasPorModulo.push(nota);
+
     const card = document.createElement('div');
     card.className = 'note-item';
-    card.innerHTML = `<strong>${item.nivel}</strong><span>${item.nota}</span>`;
+    card.innerHTML = `<strong>${label}</strong><span>${formatarNota(nota)}</span>`;
     listaNotas.appendChild(card);
   });
+
+  // Média final apenas dos módulos concluídos
+  const notasValidas = notasPorModulo.filter(n => n !== null);
+  if (notasValidas.length > 0) {
+    const media = notasValidas.reduce((a, b) => a + b, 0) / notasValidas.length;
+    mediaFinal.textContent = formatarNota(media);
+  } else {
+    mediaFinal.textContent = '--';
+  }
 }
 
 async function carregarDados() {
@@ -57,7 +97,7 @@ async function carregarDados() {
 
   try {
     const response = await fetch(`${API_URL}/me`, {
-      headers: { Authorization: `Bearer ${token}` }
+      headers: { Authorization: `Bearer ${token}` },
     });
 
     if (!response.ok) {
@@ -67,51 +107,13 @@ async function carregarDados() {
     }
 
     const usuario = await response.json();
-    preencherCertificado(usuario);
+    await preencherCertificado(usuario);
   } catch (error) {
     console.error('Erro ao carregar dados do usuário', error);
     localStorage.removeItem('token');
     window.location.href = '/index';
   }
 }
-
-// async function gerarPDF() {
-//   const element = document.getElementById('certificateArea');
-//   if (!element) {
-//     return;
-//   }
-
-//   const rect = element.getBoundingClientRect();
-//   const canvas = await html2canvas(element, {
-//     scale: 3,
-//     useCORS: true,
-//     backgroundColor: '#ffffff',
-//     width: rect.width,
-//     height: rect.height,
-//     windowWidth: document.documentElement.clientWidth,
-//     windowHeight: document.documentElement.clientHeight,
-//     scrollX: -window.scrollX,
-//     scrollY: -window.scrollY
-//   });
-
-//   const imgData = canvas.toDataURL('image/png');
-//   const { jsPDF } = window.jspdf || window.jspPDF || {};
-//   const pdf = new jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4' });
-//   const pageWidth = pdf.internal.pageSize.getWidth();
-//   const pageHeight = pdf.internal.pageSize.getHeight();
-//   const margin = 15;
-
-//   const imgWidth = canvas.width;
-//   const imgHeight = canvas.height;
-//   const ratio = Math.min((pageWidth - margin * 2) / imgWidth, (pageHeight - margin * 2) / imgHeight);
-//   const renderWidth = imgWidth * ratio;
-//   const renderHeight = imgHeight * ratio;
-//   const x = (pageWidth - renderWidth) / 2;
-//   const y = (pageHeight - renderHeight) / 2;
-
-//   pdf.addImage(imgData, 'PNG', x, y, renderWidth, renderHeight, undefined, 'FAST');
-//   pdf.save('certificado-scrum.pdf');
-// }
 
 async function gerarPDF() {
   const element = document.getElementById('certificateArea');
@@ -122,30 +124,26 @@ async function gerarPDF() {
     useCORS: true,
     backgroundColor: '#ffffff',
     scrollX: 0,
-    scrollY: 0
+    scrollY: 0,
   });
 
   const imgData = canvas.toDataURL('image/png');
   const { jsPDF } = window.jspdf || window.jspPDF || {};
-  const pdf = new jsPDF({
-    orientation: 'landscape',
-    unit: 'mm',
-    format: 'a4'
-  });
+  const pdf = new jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4' });
 
-  const pageWidth = pdf.internal.pageSize.getWidth();
+  const pageWidth  = pdf.internal.pageSize.getWidth();
   const pageHeight = pdf.internal.pageSize.getHeight();
+  const ratio      = Math.max(pageWidth / canvas.width, pageHeight / canvas.height);
 
-  const imgWidth = canvas.width;
-  const imgHeight = canvas.height;
-  const ratio = Math.max(pageWidth / imgWidth, pageHeight / imgHeight);
+  pdf.addImage(
+    imgData, 'PNG',
+    (pageWidth  - canvas.width  * ratio) / 2,
+    (pageHeight - canvas.height * ratio) / 2,
+    canvas.width  * ratio,
+    canvas.height * ratio,
+    undefined, 'FAST'
+  );
 
-  const renderWidth = imgWidth * ratio;
-  const renderHeight = imgHeight * ratio;
-  const x = (pageWidth - renderWidth) / 2;
-  const y = (pageHeight - renderHeight) / 2;
-
-  pdf.addImage(imgData, 'PNG', x, y, renderWidth, renderHeight, undefined, 'FAST');
   pdf.save('certificado-scrum.pdf');
 }
 
@@ -154,8 +152,8 @@ window.addEventListener('DOMContentLoaded', () => {
 
   const btnPdf = document.getElementById('btnPdf');
   if (btnPdf) {
-    btnPdf.addEventListener('click', (event) => {
-      event.preventDefault();
+    btnPdf.addEventListener('click', (e) => {
+      e.preventDefault();
       gerarPDF();
     });
   }
