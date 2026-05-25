@@ -8,6 +8,7 @@ const {
 } = require("../repositories/progresso.repositories");
 
 const router = Router();
+const MAX_TENTATIVAS = 2;
 
 /**
  * GET /api/progresso/tentativas
@@ -29,20 +30,22 @@ router.get("/tentativas", authmiddleware, async function (req, res) {
         });
       }
 
-      modulosMap.get(exame.id_modulo).tentativas.push({
-        id_exame: exame.id_exame,
-        grupo: exame.grupo,
-        tentativa: exame.tentativa,
-        respostas_respondidas: Number(exame.respostas_respondidas) || 0,
-        nota: Number(exame.nota) || 0,
-        total_questoes: Number(exame.total_questoes) || 0,
-        data_exame: exame.data_exame,
-      });
+      if (exame.id_exame) {
+        modulosMap.get(exame.id_modulo).tentativas.push({
+          id_exame: exame.id_exame,
+          grupo: exame.grupo,
+          tentativa: exame.tentativa,
+          respostas_respondidas: Number(exame.respostas_respondidas) || 0,
+          nota: Number(exame.nota) || 0,
+          total_questoes: Number(exame.total_questoes) || 0,
+          data_exame: exame.data_exame,
+        });
+      }
     });
 
     const resultado = Array.from(modulosMap.values()).map((modulo) => ({
       ...modulo,
-      tentativas_restantes: modulo.max_tentativas - modulo.tentativas.length,
+      tentativas_restantes: Math.max(MAX_TENTATIVAS - modulo.tentativas.length, 0),
     }));
 
     return res.status(200).json(resultado);
