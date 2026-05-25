@@ -1,4 +1,5 @@
 const API_URL = '/api/usuarios';
+const API_URL_EXAMES = '/api/exames';
 
 function formatCpf(cpf) {
   const clean = String(cpf).replace(/\D/g, '');
@@ -6,7 +7,7 @@ function formatCpf(cpf) {
 }
 
 
-function preencherCertificado(usuario) {
+async function preencherCertificado(usuario) {
   const nome = document.getElementById('nome');
   const cpf = document.getElementById('cpf');
   const email = document.getElementById('email');
@@ -22,7 +23,7 @@ function preencherCertificado(usuario) {
   mediaFinal.textContent = localStorage.getItem('mediaFinal') || '9,0';
   certificadoId.textContent = `SCRUM-${new Date().getFullYear()}-${String(usuario.id_usuario || 0).padStart(6, '0')}`;
 
-  const dadosNotas = JSON.parse(localStorage.getItem('notasCertificado') || 'null') || [
+  const dadoNivel = JSON.parse(localStorage.getItem('notasCertificado') || 'null') || [
     { nivel: 'Fundamentos Scrum'},
     { nivel: 'Scrum Master'},
     { nivel: 'Product Owner'},
@@ -30,8 +31,16 @@ function preencherCertificado(usuario) {
     { nivel: 'Aplicação Prática, Cenários e Análise Crítica'}
   ];
 
+  const token = localStorage.getItem("token");
+  const res = await fetch(`${API_URL_EXAMES}/historico`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  console.log(res.status)
+  const dadoNota = await res.json();
+  console.log(`HISTORICO DO USUARIO: ${dadoNota}`);
+
   listaNotas.innerHTML = '';
-  dadosNotas.forEach(item => {
+  dadoNivel.forEach(item => {
     const card = document.createElement('div');
     card.className = 'note-item';
     card.innerHTML = `<strong>${item.nivel}</strong><span>${item.nota}</span>`;
