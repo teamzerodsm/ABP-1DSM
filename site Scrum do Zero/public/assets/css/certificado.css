@@ -148,6 +148,20 @@ h1 {
   font-size: var(--text-base);
 }
 
+.dialog-indisponivel {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  background: var(--color-surface);
+  padding: 0;
+  max-width: 480px;
+  width: calc(100% - 2rem);
+}
+
+.dialog-indisponivel::backdrop {
+  background: rgba(3, 27, 52, 0.75);
+  backdrop-filter: blur(4px);
+}
+
 .unavailable {
   display: flex;
   flex-direction: column;

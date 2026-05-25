@@ -125,12 +125,12 @@ async function carregarDados() {
 }
 
 function mostrarIndisponivel(concluidos = 0, total = 5) {
-  const shell = document.querySelector('.certificate-shell');
   const topbar = document.querySelector('.topbar');
-
   if (topbar) topbar.style.display = 'none';
 
-  shell.innerHTML = `
+  const dialog = document.createElement('dialog');
+  dialog.className = 'dialog-indisponivel';
+  dialog.innerHTML = `
     <div class="unavailable">
       <div class="unavailable-icon">🎓</div>
       <h2>Certificado indisponível</h2>
@@ -144,6 +144,9 @@ function mostrarIndisponivel(concluidos = 0, total = 5) {
       <a href="/main" class="btn-primary">Continuar curso</a>
     </div>
   `;
+
+  document.body.appendChild(dialog);
+  dialog.showModal();
 }
 
 async function gerarPDF() {
