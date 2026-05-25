@@ -141,7 +141,7 @@ function mostrarIndisponivel(concluidos = 0, total = 5) {
           <div class="progress-fill" style="width: ${(concluidos / total) * 100}%"></div>
         </div>
       </div>
-      <a href="/pages/modulos" class="btn-primary">Continuar curso</a>
+      <a href="/main" class="btn-primary">Continuar curso</a>
     </div>
   `;
 }
