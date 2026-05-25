@@ -26,6 +26,7 @@
       if (res.status === 401) return window.location.href = "/index";
       const err = await res.json().catch(() => ({}));
       console.error("Erro ao carregar progresso:", err);
+      alert(err.message || "Não foi possível carregar o histórico de progresso.");
       return;
     }
 
@@ -44,9 +45,14 @@
       const getAttemptCell = (attemptNumber) => {
         const attempt = m.tentativas.find(t => Number(t.tentativa) === attemptNumber);
         if (!attempt) return `<td><span class="not-done">Não<br>realizada</span></td>`;
-        if ((Number(attempt.respostas_respondidas) || 0) === 0) return `<td><span class="not-done">Não<br>respondida</span></td>`;
-        const dateText = formatDate(attempt.data_exame || attempt.respondido_em || attempt.data_tentativa);
-        return `<td><a href="#" class="link-date">${dateText.replace('\n', '<br>')}</a></td>`;
+        const isInProgress = (Number(attempt.respostas_respondidas) || 0) === 0;
+        const href = isInProgress
+          ? `/quiz-page.html?modulo=${m.id_modulo}`
+          : `/quiz-page.html?review=true&id_exame=${attempt.id_exame}&modulo=${m.id_modulo}`;
+        const label = isInProgress
+          ? "Continuar"
+          : formatDate(attempt.data_exame || attempt.respondido_em || attempt.data_tentativa).replace('\n', '<br>');
+        return `<td><a href="${href}" class="link-date">${label}</a></td>`;
       };
 
       const row = document.createElement('tr');
