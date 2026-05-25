@@ -23,11 +23,11 @@ function preencherCertificado(usuario) {
   certificadoId.textContent = `SCRUM-${new Date().getFullYear()}-${String(usuario.id_usuario || 0).padStart(6, '0')}`;
 
   const dadosNotas = JSON.parse(localStorage.getItem('notasCertificado') || 'null') || [
-    { nivel: 'Fundamentos Scrum', nota: '8,5' },
-    { nivel: 'Scrum Master', nota: '9,2' },
-    { nivel: 'Product Owner', nota: '9,0' },
-    { nivel: 'Práticas Ágeis, Métricas e Qualidade', nota: '9,0' },
-    { nivel: 'Aplicação Prática, Cenários e Análise Crítica', nota: '9,0' }
+    { nivel: 'Fundamentos Scrum'},
+    { nivel: 'Scrum Master'},
+    { nivel: 'Product Owner'},
+    { nivel: 'Práticas Ágeis, Métricas e Qualidade'},
+    { nivel: 'Aplicação Prática, Cenários e Análise Crítica'}
   ];
 
   listaNotas.innerHTML = '';
