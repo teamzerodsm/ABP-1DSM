@@ -181,15 +181,16 @@ background-color: rgba(0, 0, 0, 0.6);
   border: none;
   border-radius: 10px;
   background: var(--inputTransparent);
-  padding: 0.75rem 2rem 0.75rem 2.8rem;
+  padding: 0.85rem 2rem 0.85rem 2.8rem;
   color: inherit;
   outline: none;
   transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease, background 0.25s ease;
+  border: 1px solid #3F5F86;
 }
 
 .main-input:focus{
   background: #25527f;
-  border-color: #00ffaa;
+  border-color: var(--white);
 }
 
 .container {

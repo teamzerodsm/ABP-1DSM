@@ -3,6 +3,7 @@
   background: var(--darkBlue);
   border-radius: 22px;
   padding: 2rem 1.25rem;
+  border: 1px solid #25527f75;
 }
 
 .header-cadastro-page{
@@ -83,8 +84,8 @@
   position: absolute;
     background: #294c6b;
     left: 8px;
-    top: 8px;
-    border: 1px solid #294c6b;
+    top: 10px;
+    border: 1px solid #25527f75;
     padding: 2px;
     border-radius: 6px;
 }

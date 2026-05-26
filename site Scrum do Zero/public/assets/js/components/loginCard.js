@@ -11,18 +11,22 @@ class loginCard extends HTMLElement {
           <form class="form-login">
             <div class="form-group">
               <label for="cpf-area" class="form-label">Seu CPF</label>
-
-              <input class="main-input form-input" name="cpf-area" data-required="Por favor, digite seu CPF" id="cpf-area" type="text" aria-describedby="cpf-error"/>
-
+              <div class="input-box">
+                <input class="main-input form-input" name="cpf-area" data-required="Por favor, digite seu CPF" id="cpf-area" type="text" aria-describedby="cpf-error"/>
+                <svg xmlns="http://www.w3.org/2000/svg" width="34" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-id-card-icon lucide-id-card"><path d="M16 10h2"/><path d="M16 14h2"/><path d="M6.17 15a3 3 0 0 1 5.66 0"/><circle cx="9" cy="11" r="2"/><rect x="2" y="5" width="20" height="14" rx="2"/></svg>
+              </div>
               <p id="cpf-error" class="error-message"></p>
             </div>
       
             <div class="form-group">
               <label for="password-area" class="form-label">Sua senha</label>
-              <div class="password-input-container">
-                <input class="main-input form-input" name="password-area" id="password-area" type="password" data-required="Por favor, digite sua senha" aria-describedby="password-error">
-                <img src="assets/img/showPassword.png" class="lnr lnr-eye"/>
-                <p id="password-error" class="error-message error-message-2"></p>
+              <div class="input-box">
+                <div class="password-input-container">
+                  <input class="main-input form-input" name="password-area" id="password-area" type="password" data-required="Por favor, digite sua senha" aria-describedby="password-error">
+                  <img src="assets/img/showPassword.png" class="lnr lnr-eye"/>
+                  <p id="password-error" class="error-message error-message-2"></p>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="34" height="31" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-lock-icon lucide-lock"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                </div>
               </div>
               <a href="" class="forgot-password">Esqueci minha senha</a>
             </div>
