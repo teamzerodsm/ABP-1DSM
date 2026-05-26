@@ -21,31 +21,31 @@
 ## 📋 Índice
 
 1. [Descrição do projeto](#-descrição-do-projeto)
-    1. [Objetivo educacional](#-objetivo-educacional)
-    2. [Ferramentas utilizadas](#-ferramentas-utilizadas)
-    3. [Como iniciar a aplicação](#-como-iniciar-a-aplicação)
-    4. [Tabela de sprints](#sprints)
-    5. [Funcionalidades](#-funcionalidades)
-    6. [Equipe](#-equipe)
-    7. [Product backlog](#-product-backlog)
-    8. [Diagrama de caso de uso](#diagrama-de-caso-de-uso)
-    9. [Modelo conceitual](#modelo-conceitual)
+   1. [Objetivo educacional](#-objetivo-educacional)
+   2. [Ferramentas utilizadas](#-ferramentas-utilizadas)
+   3. [Como iniciar a aplicação](#-como-iniciar-a-aplicação)
+   4. [Tabela de sprints](#sprints)
+   5. [Funcionalidades](#-funcionalidades)
+   6. [Equipe](#-equipe)
+   7. [Product backlog](#-product-backlog)
+   8. [Diagrama de caso de uso](#diagrama-de-caso-de-uso)
+   9. [Modelo conceitual](#modelo-conceitual)
 2. [Sprints]()
-    1. [Sprint 1](#sprint-1)
-        1. [Vídeo da Sprint 1](#-video-da-sprint-1)
-        2. [Sprint backlog 1](#-sprint-backlog-1)
-        3. [Sprint burndown 1](#-burndown-sprint-1)
-        4. [Sprint retrospective 1](#sprint-retrospective-1)
-    2. [Sprint 2](#sprint-2)
-        1. [Vídeo da Sprint 2](#-video-da-sprint-2)
-        2. [Sprint backlog 2](#-sprint-backlog-2)
-        3. [Sprint burndown 2](#-burndown-sprint-2)
-        4. [Sprint retrospective 2](#sprint-retrospective-2)
-    3. [Sprint 3](#sprint-3)
-        1. [Vídeo da Sprint 3](#-video-da-sprint-3)
-        2. [Sprint backlog 3](#-sprint-backlog-3)
-        3. [Sprint burndown 3](#-burndown-sprint-3)
-        4. [Sprint retrospective 3](#sprint-retrospective-3)
+   1. [Sprint 1](#sprint-1)
+      1. [Vídeo da Sprint 1](#-video-da-sprint-1)
+      2. [Sprint backlog 1](#-sprint-backlog-1)
+      3. [Sprint burndown 1](#-burndown-sprint-1)
+      4. [Sprint retrospective 1](#sprint-retrospective-1)
+   2. [Sprint 2](#sprint-2)
+      1. [Vídeo da Sprint 2](#-video-da-sprint-2)
+      2. [Sprint backlog 2](#-sprint-backlog-2)
+      3. [Sprint burndown 2](#-burndown-sprint-2)
+      4. [Sprint retrospective 2](#sprint-retrospective-2)
+   3. [Sprint 3](#sprint-3)
+      1. [Vídeo da Sprint 3](#-video-da-sprint-3)
+      2. [Sprint backlog 3](#-sprint-backlog-3)
+      3. [Sprint burndown 3](#-burndown-sprint-3)
+      4. [Sprint retrospective 3](#sprint-retrospective-3)
 
 ## 📌 Descrição do Projeto
 
@@ -183,9 +183,9 @@ npm install
 
 #### Inicie o banco de dados
 
-````bash
+```bash
 npm run db:init
-````
+```
 
 #### Inicie o servidor Node.js
 
@@ -454,24 +454,24 @@ Para melhorar na próxima sprint, a equipe pretende fortalecer a comunicação e
 
 ### 🔄 Sprint Backlog 3
 
-| Atividade                                                                                                    | Responsável | Pontos | Prioridade |
-| ------------------------------------------------------------------------------------------------------------ | ----------- | ------ | ---------- |
-| Desenvolver visualização de progresso do usuário                                                             |             | 10     | Alta       |
-| Implementar listagem de exames já respondidos                                                                |             | 8      | Alta       |
-| Implementar visualização de estatísticas do usuário (tentativas utilizadas, níveis concluídos e média geral) |             | 10     | Alta       |
-| Integrar dados de progresso entre frontend e backend                                                         |             | 8      | Alta       |
-| Implementar cálculo final de média geral do usuário                                                          |             | 7      | Alta       |
-| Desenvolver tela dinâmica de certificado                                                                     |             | 10     | Alta       |
-| Implementar diálogos de aviso e confirmação do sistema (finalizar exame, emissão de certificado)             |             | 10     | Média      |
-| Implementar funcionalidade de logout do usuário                                                              |             | 3      | Média      |
-| Implementar reinicialização de progresso com dupla confirmação                                               |             | 8      | Média      |
-| Refinar interface visual, responsividade e experiência de navegação do usuário                               |             | 12     | Média      |
-| Refatorar estrutura geral do projeto                                                                         |             | 15     | Alta       |
-| Adicionar imagens e documentação visual no README                                                            |             | 5      | Média      |
-| Revisar documentação técnica e estrutura do repositório                                                      |             | 5      | Média      |
-| Executar testes finais de fluxo do sistema                                                                   |             | 10     | Alta       |
-| Corrigir bugs e inconsistências finais                                                                       |             | 12     | Alta       |
-| Implementar fluxo de recuperação e redefinição de senha para usuários                                        |             | 8      | Baixa      |
+| Atividade                                                                                                    | Responsável       | Pontos | Prioridade |
+| ------------------------------------------------------------------------------------------------------------ | ----------------- | ------ | ---------- |
+| Desenvolver visualização de progresso do usuário                                                             | Vitor, Paulo      | 10     | Alta       |
+| Implementar listagem de exames já respondidos                                                                | Tiago, Jaqueline  | 8      | Alta       |
+| Implementar visualização de estatísticas do usuário (tentativas utilizadas, níveis concluídos e média geral) | Vitor, Paulo      | 10     | Alta       |
+| Integrar dados de progresso entre frontend e backend                                                         | Tiago, Jaqueline  | 8      | Alta       |
+| Implementar cálculo final de média geral do usuário                                                          | Tiago, Jaqueline  | 7      | Alta       |
+| Desenvolver tela dinâmica de certificado                                                                     | Igor              | 10     | Alta       |
+| Implementar diálogos de aviso e confirmação do sistema (finalizar exame, emissão de certificado)             | Vitor, Paulo      | 10     | Média      |
+| Implementar funcionalidade de logout do usuário                                                              | Jaqueline         | 3      | Média      |
+| Implementar reinicialização de progresso com dupla confirmação                                               | Igor              | 8      | Média      |
+| Refinar interface visual, responsividade e experiência de navegação do usuário                               | Vitor, Paulo      | 12     | Média      |
+| Refatorar estrutura geral do projeto                                                                         |                   | 15     | Alta       |
+| Adicionar imagens e documentação visual no README                                                            | Henrique, Gabriel | 5      | Média      |
+| Revisar documentação técnica e estrutura do repositório                                                      | Henrique, Gabriel | 5      | Média      |
+| Executar testes finais de fluxo do sistema                                                                   |                   | 10     | Alta       |
+| Corrigir bugs e inconsistências finais                                                                       | Jaqueline         | 12     | Alta       |
+| Implementar fluxo de recuperação e redefinição de senha para usuários                                        |                   | 8      | Baixa      |
 
 ### 🔥 Burndown Sprint 3
 
