@@ -1,5 +1,6 @@
 const {verifyToken} = require("../utils/jwt")
 const {findUsuarioById} = require("../repositories/usuarios.repositories")
+const {isBlacklisted} = require("../utils/tokenBlacklist")
 
 //Metodo que verifica se o token esta correto, é chamado sempre junto de api's para a verificação antes de realizar qualquer coisa
 async function authmiddleware(req, res, next){
@@ -13,6 +14,10 @@ async function authmiddleware(req, res, next){
 
     if (type !== "Bearer" || !token) {
         return res.status(401).json({ message: "Token inválido" })
+    }
+    // Verifica se o token já foi invalidado (logout)
+    if (isBlacklisted(token)) {
+        return res.status(401).json({ message: "Token inválido ou expirado" })
     }
     try {
         const payload = verifyToken(token)
