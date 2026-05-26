@@ -123,9 +123,9 @@ function mostrarDialogReprovado(media) {
         <div class="progress-bar">
           <div class="progress-fill" style="width: ${Math.min((media / 10) * 100, 100)}%"></div>
         </div>
+        <button class="btn-resetar" id="btnResetar">Reiniciar curso</button>
+        <a href="/main" class="btn-secondary">Voltar aos módulos</a>
       </div>
-      <button class="btn-resetar" id="btnResetar">Reiniciar curso</button>
-      <a href="/main" class="btn-secondary">Voltar aos módulos</a>
     </div>
   `;
 
