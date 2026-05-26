@@ -159,7 +159,7 @@ npm run dev
 | Sprint | Link                            | Início     | Entrega    | Status |
 | ------ | ------------------------------- | ---------- | ---------- | ------ |
 | 01     | <a href="#sprint1">Sprint 1</a> | 13/04/2026 | 30/04/2026 | ✅     |
-| 02     | <a href="#sprint2">Sprint 2</a> | 04/05/2026 | 21/05/2026 | 🔄     |
+| 02     | <a href="#sprint2">Sprint 2</a> | 04/05/2026 | 21/05/2026 | ✅     |
 | 03     | <a href="#sprint3">Sprint 3</a> | 25/05/2026 | 11/06/2026 | ❌     |
 
 #### Legenda

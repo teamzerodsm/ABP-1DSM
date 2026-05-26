@@ -58,64 +58,7 @@ async function findNextAttemptNumber(clientOrPool, idUsuario, idModulo) {
   return result.rows[0]?.next_attempt || 1;
 }
 
-<<<<<<< HEAD
 async function findActiveExamByUsuarioModulo(clientOrPool, idUsuario, idModulo) {
-=======
-async function findTentativasRestantesPorModulo(idUsuario, idModulo) {
-  const result = await pool.query(
-    `
-    SELECT GREATEST(2 - COUNT(*), 0) AS tentativas_restantes
-    FROM exames e
-    WHERE e.id_usuario = $1
-      AND e.id_modulo = $2
-      AND EXISTS (
-        SELECT 1 FROM respostas r WHERE r.id_exame = e.id_exame
-      )
-    `,
-    [idUsuario, idModulo]
-  );
-
-  return Number(result.rows[0]?.tentativas_restantes ?? 2);
-}
-
-async function findNotaPorTentativa(idUsuario, idModulo, tentativa) {
-  const result = await pool.query(
-    `
-    SELECT COALESCE(SUM(r.nota), 0) AS nota
-    FROM exames e
-    LEFT JOIN respostas r ON r.id_exame = e.id_exame
-    WHERE e.id_usuario = $1
-      AND e.id_modulo = $2
-      AND e.tentativa = $3
-    GROUP BY e.id_exame
-    `,
-    [idUsuario, idModulo, tentativa]
-  );
-
-  return result.rows[0] ? Number(result.rows[0].nota) : null;
-}
-
-async function findMaiorNotaPorModulo(idUsuario, idModulo) {
-  const result = await pool.query(
-    `
-    SELECT MAX(total_nota) AS maior_nota
-    FROM (
-      SELECT COALESCE(SUM(r.nota), 0) AS total_nota
-      FROM exames e
-      LEFT JOIN respostas r ON r.id_exame = e.id_exame
-      WHERE e.id_usuario = $1
-        AND e.id_modulo = $2
-      GROUP BY e.id_exame
-    ) AS scores
-    `,
-    [idUsuario, idModulo]
-  );
-
-  return result.rows[0]?.maior_nota !== null ? Number(result.rows[0].maior_nota) : null;
-}
-
-async function findExameAtivoPorUsuarioEModulo(clientOrPool, idUsuario, idModulo) {
->>>>>>> 0f63e7b7f9856691f0884aa2852fe7de05649d54
   const runner = clientOrPool || pool;
   const result = await runner.query(
     `
@@ -195,9 +138,6 @@ async function findExamHistoryByUsuario(idUsuario) {
     INNER JOIN modulos m ON m.id_modulo = e.id_modulo
     LEFT JOIN respostas r ON r.id_exame = e.id_exame
     WHERE e.id_usuario = $1
-      AND EXISTS (
-        SELECT 1 FROM respostas r2 WHERE r2.id_exame = e.id_exame
-      )
     GROUP BY e.id_exame, e.id_modulo, m.titulo, e.grupo, e.tentativa
     ORDER BY e.id_exame DESC
     `,
