@@ -4,13 +4,58 @@
 
 # <h1 align="center">Scrum do Zero</h1>
 
+<p align="center">
+<img src="https://img.shields.io/badge/JavaScript-F7DF1E.svg?style=for-the-badge&logo=JavaScript&logoColor=black">
+<img src="https://img.shields.io/badge/HTML5-E34F26.svg?style=for-the-badge&logo=HTML5&logoColor=white">
+<img src="https://img.shields.io/badge/CSS-663399.svg?style=for-the-badge&logo=CSS&logoColor=white">
+<img src="https://img.shields.io/badge/Node.js-5FA04E.svg?style=for-the-badge&logo=nodedotjs&logoColor=white">
+<img src="https://img.shields.io/badge/Figma-F24E1E.svg?style=for-the-badge&logo=Figma&logoColor=white">
+<img src="https://img.shields.io/badge/PostgreSQL-4169E1.svg?style=for-the-badge&logo=PostgreSQL&logoColor=white">
+<img src="https://img.shields.io/badge/Git-F03C2E.svg?style=for-the-badge&logo=Git&logoColor=white">
+<img src="https://img.shields.io/badge/GitHub-181717.svg?style=for-the-badge&logo=GitHub&logoColor=white">
+<img src="https://img.shields.io/badge/UML-FABD14.svg?style=for-the-badge&logo=UML&logoColor=black">
+</p>
+
+---
+
+## 📋 Índice
+
+1. [Descrição do projeto](#-descrição-do-projeto)
+    1. [Objetivo educacional](#-objetivo-educacional)
+    2. [Ferramentas utilizadas](#-ferramentas-utilizadas)
+    3. [Como iniciar a aplicação](#-como-iniciar-a-aplicação)
+    4. [Tabela de sprints](#sprints)
+    5. [Funcionalidades](#-funcionalidades)
+    6. [Equipe](#-equipe)
+    7. [Product backlog](#-product-backlog)
+    8. [Diagrama de caso de uso](#diagrama-de-caso-de-uso)
+    9. [Modelo conceitual](#modelo-conceitual)
+2. [Sprints]()
+    1. [Sprint 1](#sprint-1)
+        1. [Vídeo da Sprint 1](#-video-da-sprint-1)
+        2. [Sprint backlog 1](#-sprint-backlog-1)
+        3. [Sprint burndown 1](#-burndown-sprint-1)
+        4. [Sprint retrospective 1](#sprint-retrospective-1)
+    2. [Sprint 2](#sprint-2)
+        1. [Vídeo da Sprint 2](#-video-da-sprint-2)
+        2. [Sprint backlog 2](#-sprint-backlog-2)
+        3. [Sprint burndown 2](#-burndown-sprint-2)
+        4. [Sprint retrospective 2](#sprint-retrospective-2)
+    3. [Sprint 3](#sprint-3)
+        1. [Vídeo da Sprint 3](#-video-da-sprint-3)
+        2. [Sprint backlog 3](#-sprint-backlog-3)
+        3. [Sprint burndown 3](#-burndown-sprint-3)
+        4. [Sprint retrospective 3](#sprint-retrospective-3)
+
 ## 📌 Descrição do Projeto
 
 Este projeto consiste no desenvolvimento de um **portal web para certificação interna em metodologias ágeis**, com foco em **Scrum**, como parte da Atividade Baseada em Projeto (ABP).
 
 A aplicação permite que usuários se cadastrem, realizem avaliações organizadas por níveis de dificuldade e acompanhem sua evolução, culminando na emissão de um certificado com base no desempenho.
 
-🚧 Projeto em andamento - Sprint 2 focada no desenvolvimento do front-end e integração com backend disponibilizado para fins acadêmicos.
+<p align="center">
+🚧 Projeto em andamento - Sprint 3 focada em correção de bugs e polimento das funcionalidades da aplicação.
+</p>
 
 ### 🎯 Objetivo Educacional
 
@@ -127,7 +172,7 @@ git clone https://github.com/teamzerodsm/ABP-1DSM.git
 #### Acesse a pasta do projeto
 
 ```bash
-cd ABP-1DSM
+cd '.\ABP-1DSM\site Scrum do Zero\'
 ```
 
 #### Instale as dependências do backend
@@ -135,6 +180,12 @@ cd ABP-1DSM
 ```bash
 npm install
 ```
+
+#### Inicie o banco de dados
+
+````bash
+npm run db:init
+````
 
 #### Inicie o servidor Node.js
 
@@ -160,7 +211,7 @@ npm run dev
 | ------ | ------------------------------- | ---------- | ---------- | ------ |
 | 01     | <a href="#sprint1">Sprint 1</a> | 13/04/2026 | 30/04/2026 | ✅     |
 | 02     | <a href="#sprint2">Sprint 2</a> | 04/05/2026 | 21/05/2026 | ✅     |
-| 03     | <a href="#sprint3">Sprint 3</a> | 25/05/2026 | 11/06/2026 | ❌     |
+| 03     | <a href="#sprint3">Sprint 3</a> | 25/05/2026 | 11/06/2026 | 🔄     |
 
 #### Legenda
 
@@ -189,7 +240,7 @@ npm run dev
 | Igor Corrêa        | Desenvolvedor                | [igorcsouzaa](https://github.com/igorcsouzaa)                     |
 | Jaqueline Medeiros | Desenvolvedor                | [Jaqueline Medeiros](https://github.com/alves-medeiros)           |
 | Tiago Ferreira     | Desenvolvedor                | [tiagof6](https://github.com/tiagof6)                             |
-| Vítor Otavio       | Desenvolvedor                | [VirtusXD](https://github.com/vitorreis-dev)                      |
+| Vitor Otavio       | Desenvolvedor                | [VirtusXD](https://github.com/vitorreis-dev)                      |
 | Douglas Silva      | Scrum Master (anteriormente) | [Moraisdouglas](https://github.com/moraisdouglas)                 |
 
 ---
@@ -236,8 +287,10 @@ npm run dev
 ### Diagrama de caso de uso
 
 <p align="center">
-<img src="Documentos/Modelagem//diagramas uml/Diagrama caso de uso - Scrum do Zero.png" />
+<img src="Documentos/Modelagem//diagramas uml/imagens/Diagrama caso de uso - Scrum do Zero.png" />
 </P>
+
+#### [Pasta de modelagem uml](Documentos/Modelagem/diagramas%20uml)
 
 ---
 
@@ -246,6 +299,8 @@ npm run dev
 <p align="center">
 <img src="Documentos/Modelagem/diagramas bd/Modelo_Conceitual.png" />
 </P>
+
+#### [Pasta de modelagem de banco de dados](Documentos/Modelagem/diagramas%20bd/)
 
 ---
 
@@ -289,7 +344,7 @@ npm run dev
 <img src="Scrum/Burndown-Sprint01.jpeg" />
 </p>
 
-### Sprint Retrospective
+### Sprint Retrospective 1
 
 #### 1. O que funcionou bem durante o sprint?
 
@@ -320,6 +375,8 @@ para evitar retrabalho e desorganização no repositório. Outro ponto important
 dependência entre tarefas, priorizando primeiro versões base e funcionais das entregas antes de
 avançar para refinamentos. Com uma estrutura mais bem definida desde o início, a equipe tende
 a manter um fluxo de trabalho mais estável e eficiente nas próximas sprints.
+
+---
 
 ## <div id="sprint2">Sprint 2</div>
 
@@ -364,7 +421,7 @@ a manter um fluxo de trabalho mais estável e eficiente nas próximas sprints.
 <img src="Scrum/Burndown-Sprint02.png" />
 </p>
 
-### Sprint Retrospective
+### Sprint Retrospective 2
 
 #### 1. O que funcionou bem durante o sprint?
 
@@ -378,6 +435,48 @@ O principal problema da sprint foi a comunicação da equipe, principalmente no 
 
 Para melhorar na próxima sprint, a equipe pretende fortalecer a comunicação e aumentar a colaboração entre os integrantes durante o desenvolvimento, incentivando mais ajuda mútua e troca de conhecimento entre os times. Também será importante buscar mais experiência técnica, principalmente no back-end, para aumentar a confiança e autonomia dos membros da equipe. Além disso, com a experiência adquirida nesta sprint, a intenção é distribuir melhor as issues e equilibrar o esforço entre os grupos, evitando sobrecarga em setores específicos e permitindo que a equipe consiga se reorganizar com mais facilidade diante de dificuldades ou imprevistos.
 
+---
+
 ## <div id="sprint3">Sprint 3</div>
 
-**Início previsto para 25/05/2026**
+### ▶️ Vídeo da Sprint 3
+
+<p align="center">
+  <a href="" target="_blank">
+    <img 
+      src="./.github/Thumb_video-Sprint03.png" 
+      alt="Scrum do Zero - Sprint 3"
+      width="600"
+      style="border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.25);"
+    />
+  </a>
+</p>
+
+### 🔄 Sprint Backlog 3
+
+| Atividade                                                                                                    | Responsável | Pontos | Prioridade |
+| ------------------------------------------------------------------------------------------------------------ | ----------- | ------ | ---------- |
+| Desenvolver visualização de progresso do usuário                                                             |             | 10     | Alta       |
+| Implementar listagem de exames já respondidos                                                                |             | 8      | Alta       |
+| Implementar visualização de estatísticas do usuário (tentativas utilizadas, níveis concluídos e média geral) |             | 10     | Alta       |
+| Integrar dados de progresso entre frontend e backend                                                         |             | 8      | Alta       |
+| Implementar cálculo final de média geral do usuário                                                          |             | 7      | Alta       |
+| Desenvolver tela dinâmica de certificado                                                                     |             | 10     | Alta       |
+| Implementar diálogos de aviso e confirmação do sistema (finalizar exame, emissão de certificado)             |             | 10     | Média      |
+| Implementar funcionalidade de logout do usuário                                                              |             | 3      | Média      |
+| Implementar reinicialização de progresso com dupla confirmação                                               |             | 8      | Média      |
+| Refinar interface visual, responsividade e experiência de navegação do usuário                               |             | 12     | Média      |
+| Refatorar estrutura geral do projeto                                                                         |             | 15     | Alta       |
+| Adicionar imagens e documentação visual no README                                                            |             | 5      | Média      |
+| Revisar documentação técnica e estrutura do repositório                                                      |             | 5      | Média      |
+| Executar testes finais de fluxo do sistema                                                                   |             | 10     | Alta       |
+| Corrigir bugs e inconsistências finais                                                                       |             | 12     | Alta       |
+| Implementar fluxo de recuperação e redefinição de senha para usuários                                        |             | 8      | Baixa      |
+
+### 🔥 Burndown Sprint 3
+
+<p align="center">
+<img src="Scrum/Burndown-Sprint03.png" />
+</p>
+
+### Sprint Retrospective 3
