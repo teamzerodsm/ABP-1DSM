@@ -1,4 +1,5 @@
 const pool = require("../database/db");
+const MAX_TENTATIVAS = 2;
 
 /**
  * Retorna histórico detalhado de todos os exames de um usuário com cálculo de notas
@@ -56,7 +57,7 @@ async function findResumoProgressoPorModulo(idUsuario) {
       m.id_modulo,
       m.titulo AS modulo,
       COUNT(ex.id_exame) AS total_tentativas,
-      GREATEST(2 - COUNT(ex.id_exame), 0) AS tentativas_restantes,
+      GREATEST($2 - COUNT(ex.id_exame), 0) AS tentativas_restantes,
       COALESCE(MAX(ex.score), 0) AS melhor_nota,
       COALESCE(ROUND(AVG(ex.score)::NUMERIC, 2), 0) AS nota_media,
       COALESCE(MAX(ex.tentativa), 0) AS ultima_tentativa,
@@ -71,7 +72,7 @@ async function findResumoProgressoPorModulo(idUsuario) {
     GROUP BY m.id_modulo, m.titulo
     ORDER BY m.id_modulo ASC
     `,
-    [idUsuario]
+    [idUsuario, MAX_TENTATIVAS]
   );
 
   return result.rows;
@@ -134,17 +135,17 @@ async function findTentativasDisponiveisPorModulo(idUsuario, idModulo) {
     )
     SELECT
       COUNT(id_exame) AS tentativas_usadas,
-      GREATEST(2 - COUNT(id_exame), 0) AS tentativas_restantes,
-      COUNT(id_exame) >= 2 AS limite_atingido,
+      GREATEST($3 - COUNT(id_exame), 0) AS tentativas_restantes,
+      COUNT(id_exame) >= $3 AS limite_atingido,
       COALESCE(MAX(score), 0) AS melhor_nota
     FROM exam_scores
     `,
-    [idUsuario, idModulo]
+    [idUsuario, idModulo, MAX_TENTATIVAS]
   );
 
   return result.rows[0] || {
     tentativas_usadas: 0,
-    tentativas_restantes: 2,
+    tentativas_restantes: MAX_TENTATIVAS,
     limite_atingido: false,
     melhor_nota: 0,
   };
