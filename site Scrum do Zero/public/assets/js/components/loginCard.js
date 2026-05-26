@@ -22,8 +22,8 @@ class loginCard extends HTMLElement {
               <div class="password-input-container">
                 <input class="main-input form-input" name="password-area" id="password-area" type="password" data-required="Por favor, digite sua senha" aria-describedby="password-error">
                 <img src="assets/img/showPassword.png" class="lnr lnr-eye"/>
+                <p id="password-error" class="error-message error-message-2"></p>
               </div>
-              <p id="password-error" class="error-message"></p>
               <a href="" class="forgot-password">Esqueci minha senha</a>
             </div>
       

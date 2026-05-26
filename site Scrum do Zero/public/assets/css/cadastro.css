@@ -74,6 +74,21 @@
   transition: 0.2s ease
 }
 
+.input-box {
+  position: relative;
+  width: 100%;
+}
+
+.input-box svg {
+  position: absolute;
+    background: #294c6b;
+    left: 8px;
+    top: 8px;
+    border: 1px solid #294c6b;
+    padding: 2px;
+    border-radius: 6px;
+}
+
 .cadastro-btn:hover {
   background: var(--dark-green)
 }

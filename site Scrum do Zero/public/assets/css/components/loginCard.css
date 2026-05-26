@@ -65,6 +65,10 @@
     color: hsl(0, 66%, 54%);
 }
 
+.error-message-2{
+    margin-top: 0.825rem;
+}
+
 .forgot-password {
     font-size: 0.8rem;
     color: var(--white);
@@ -104,6 +108,10 @@
 
 @media (min-width: 1024px) {
 
+    .form-login{
+        gap: 1.5rem;
+    }
+
     .login-card {
         padding: 40px 35px;
         max-width: 500px;
@@ -119,10 +127,6 @@
 
     .login-header p {
         font-size: 1rem;
-    }
-
-    .form-group {
-        margin-bottom: 20px;
     }
 
     .form-label {
@@ -146,6 +150,7 @@
 
     .login-button {
         font-size: 1rem;
+        margin-top: 1rem;
     }
 
     .register-link {
