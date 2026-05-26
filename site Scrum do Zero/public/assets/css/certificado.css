@@ -80,6 +80,28 @@ body {
   transform: translateY(-1px);
 }
 
+.btn-secondary {
+  border: 1.5px solid #03213d;
+  border-radius: 999px;
+  padding: 12px 20px;
+  min-height: 44px;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  background: transparent;
+  color: #03213d;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform .2s ease, background .2s ease;
+}
+
+.btn-secondary:hover {
+  background: rgba(3, 33, 61, 0.05);
+  transform: translateY(-1px);
+}
+
 .certificate-shell {
   background: rgba(255, 255, 255, 0.42);
   border: 1px solid rgba(0, 255, 65, 0.14);

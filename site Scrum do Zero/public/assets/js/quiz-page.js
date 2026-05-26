@@ -38,6 +38,13 @@ const dialogComponent = document.querySelector("dialog-quiz");
 ========================================= */
 
 async function iniciarOuRetomar() {
+  const isReview = params.get("review") === "true";
+  if (isReview) {
+    idExame = Number(params.get("id_exame"));
+    await iniciarRevisao();
+    return;
+  }
+
   const res = await fetch(`${BASE_URL}/exames`, {
     method: "POST",
     headers,
@@ -299,7 +306,7 @@ async function mostrarResultado() {
 ========================================= */
 
 async function iniciarRevisao() {
-  const res  = await fetch(`${BASE_URL}/exames/${idExame}/resultado`, { headers });
+  const res  = await fetch(`${BASE_URL}/exames/${idExame}/revisao`, { headers });
   const data = await res.json();
 
   questions = data.items.map((item, i) => {
@@ -320,7 +327,10 @@ async function iniciarRevisao() {
   reviewMode = true;
   currentQuestionIndex = 0;
   document.body.classList.add("review-mode");
-  dialogComponent.querySelector("#dialog-quiz").close();
+  const dialogQuiz = dialogComponent?.querySelector("#dialog-quiz");
+  if (dialogQuiz && dialogQuiz.open) {
+    dialogQuiz.close();
+  }
   renderQuestion();
 }
 

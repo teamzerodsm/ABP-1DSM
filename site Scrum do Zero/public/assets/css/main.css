@@ -125,3 +125,17 @@
     padding: 0.8rem 16px;
   }
 }
+
+.level-btn.locked {
+  border-color: rgba(255, 255, 255, 0.15) !important;
+  color: rgba(255, 255, 255, 0.3) !important;
+  cursor: not-allowed !important;
+  pointer-events: none !important;
+  background-color: rgba(255, 255, 255, 0.02) !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+.level-btn.locked::after {
+  content: ' 🔒';
+}
