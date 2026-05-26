@@ -25,17 +25,29 @@
           <div class="stats-grid">
             <div class="stat-card">
               <p class="stat-label">Níveis Concluídos</p>
+<<<<<<< Updated upstream
               <span class="stat-value" id="niveis-concluidos">-</span>
+=======
+              <span class="stat-value" id="niveisConcluidosValue">0</span>
+>>>>>>> Stashed changes
             </div>
       
             <div class="stat-card">
               <p class="stat-label">Tentativas Registradas</p>
+<<<<<<< Updated upstream
               <span class="stat-value" id="tentativas-registradas">-</span>
+=======
+              <span class="stat-value" id="tentativasRegistradasValue">0</span>
+>>>>>>> Stashed changes
             </div>
       
             <div class="stat-card">
               <p class="stat-label">Média Geral</p>
+<<<<<<< Updated upstream
               <span class="stat-value" id="media-geral">- / 10</span>
+=======
+              <span class="stat-value" id="mediaGeralValue">-</span>
+>>>>>>> Stashed changes
             </div>
           </div>
       
@@ -57,97 +69,134 @@
                 </tr>
               </thead>
       
-              <tbody>
-                <tr>
-                  <td id="col-left">Fundamentos do Scrum</td>
-                  <td>8,5</td>
-                  <td>
-                    <a href="#" class="link-date">
-                      16/04/26<br>
-                      21:10
-                    </a>
-                  </td>
-                  <td>
-                    <span class="not-done">
-                      Não<br>
-                      realizada
-                    </span>
-                  </td>
-                </tr>
-      
-                <tr>
-                  <td id="col-left">Papéis do Scrum</td>
-                  <td>8,5</td>
-                  <td>
-                    <a href="#" class="link-date">
-                      16/04/26<br>
-                      21:10
-                    </a>
-                  </td>
-                  <td>
-                    <span class="not-done">
-                      Não<br>
-                      realizada
-                    </span>
-                  </td>
-                </tr>
-      
-                <tr>
-                  <td id="col-left">Eventos do Scrum</td>
-                  <td>8,5</td>
-                  <td>
-                    <a href="#" class="link-date">
-                      16/04/26<br>
-                      21:10
-                    </a>
-                  </td>
-                  <td>
-                    <span class="not-done">
-                      Não<br>
-                      realizada
-                    </span>
-                  </td>
-                </tr>
-      
-                <tr>
-                  <td id="col-left">Artefatos e transparência</td>
-                  <td>8,5</td>
-                  <td>
-                    <a href="#" class="link-date">
-                      16/04/26<br>
-                      21:10
-                    </a>
-                  </td>
-                  <td>
-                    <span class="not-done">
-                      Não<br>
-                      realizada
-                    </span>
-                  </td>
-                </tr>
-      
-                <tr>
-                  <td id="col-left">Aplicação Prática, Cenários e Análise Crítica</td>
-                  <td>8,5</td>
-                  <td>
-                    <a href="#" class="link-date">
-                      16/04/26<br>
-                      21:10
-                    </a>
-                  </td>
-                  <td>
-                    <span class="not-done">
-                      Não<br>
-                      realizada
-                    </span>
-                  </td>
-                </tr>
+              <tbody id="progressTableBody">
+                <!-- Será preenchido pelo JavaScript -->
               </tbody>
             </table>
       
           </div>
         </div>
     </main>
+<<<<<<< Updated upstream
       <script src="/assets/js/progresso-client.js"></script>
+=======
+
+    <script>
+        const API_BASE_URL = '/api';
+
+        async function loadProgressData() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/progresso/historico`, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                if (!response.ok) {
+                    throw new Error('Erro ao carregar dados de progresso');
+                }
+
+                const data = await response.json();
+                populateStats(data);
+                populateTable(data);
+            } catch (error) {
+                console.error('Erro ao carregar dados:', error);
+            }
+        }
+
+        function populateStats(data) {
+            const history = data.history || [];
+            const mediaGeral = data.mediaGeral || {};
+
+            // Total de tentativas
+            const totalTentativas = history.reduce((sum, modulo) => {
+                return sum + modulo.tentativas.length;
+            }, 0);
+
+            // Níveis concluídos
+            const niveisConcluidosCount = history.length;
+
+            // Atualizar elementos
+            document.getElementById('niveisConcluidosValue').textContent = niveisConcluidosCount;
+            document.getElementById('tentativasRegistradasValue').textContent = totalTentativas;
+
+            // Média geral - mostrar "Pendente" se não completou todos os 5 níveis
+            const mediaGeralElement = document.getElementById('mediaGeralValue');
+            if (mediaGeral.status === 'completo' && mediaGeral.mediaGeral !== null) {
+                mediaGeralElement.textContent = `${mediaGeral.mediaGeral} / 10`;
+            } else {
+                mediaGeralElement.textContent = 'Pendente';
+            }
+        }
+
+        function populateTable(data) {
+            const tableBody = document.getElementById('progressTableBody');
+            const history = data.history || [];
+
+            // Limpar conteúdo anterior
+            tableBody.innerHTML = '';
+
+            if (history.length === 0) {
+                tableBody.innerHTML = '<tr><td colspan="4" style="text-align: center; padding: 20px;">Nenhum resultado encontrado</td></tr>';
+                return;
+            }
+
+            history.forEach(modulo => {
+                const row = document.createElement('tr');
+
+                // Calcular melhor nota entre as tentativas
+                let melhorNota = 0;
+                modulo.tentativas.forEach(tentativa => {
+                    const nota = tentativa.nota;
+                    if (nota > melhorNota) {
+                        melhorNota = nota;
+                    }
+                });
+
+                // Formatar melhor nota
+                const notaFormatada = melhorNota > 0 ? melhorNota.toFixed(1) : '-';
+
+                // Preparar tentativas
+                const tentativa1 = modulo.tentativas[0];
+                const tentativa2 = modulo.tentativas[1];
+
+                let tentativa1Html = '<span class="not-done">Não<br>realizada</span>';
+                if (tentativa1) {
+                    const data = new Date(tentativa1.id_exame * 1000); // Ajustar se necessário
+                    tentativa1Html = `
+                        <a href="#" class="link-date">
+                            ${new Date(tentativa1.id_exame * 1000).toLocaleDateString('pt-BR')}<br>
+                            ${new Date(tentativa1.id_exame * 1000).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}
+                        </a>
+                    `;
+                }
+
+                let tentativa2Html = '<span class="not-done">Não<br>realizada</span>';
+                if (tentativa2) {
+                    tentativa2Html = `
+                        <a href="#" class="link-date">
+                            ${new Date(tentativa2.id_exame * 1000).toLocaleDateString('pt-BR')}<br>
+                            ${new Date(tentativa2.id_exame * 1000).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}
+                        </a>
+                    `;
+                }
+
+                row.innerHTML = `
+                    <td id="col-left">${modulo.modulo}</td>
+                    <td>${notaFormatada}</td>
+                    <td>${tentativa1Html}</td>
+                    <td>${tentativa2Html}</td>
+                `;
+
+                tableBody.appendChild(row);
+            });
+        }
+
+        // Carregar dados quando a página for carregada
+        document.addEventListener('DOMContentLoaded', loadProgressData);
+    </script>
+>>>>>>> Stashed changes
 </body>
 </html>

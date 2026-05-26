@@ -29,6 +29,7 @@ async function findHistoricoExamesPorUsuario(idUsuario) {
   return result.rows;
 }
 
+<<<<<<< Updated upstream
 /**
  * Retorna resumo consolidado por módulo (melhor nota, tentativas, status)
  */
@@ -151,4 +152,78 @@ module.exports = {
   findResumoProgressoPorModulo,
   findProgressoGeral,
   findTentativasDisponiveisPorModulo,
+=======
+async function getMediaGeralStatus(idUsuario) {
+  try {
+    // Verifica quantos módulos foram concluídos
+    const modulosResult = await pool.query(
+      `
+      SELECT COUNT(DISTINCT e.id_modulo) as modulos_concluidos
+      FROM exames e
+      WHERE e.id_usuario = $1
+        AND EXISTS (
+          SELECT 1 FROM respostas r WHERE r.id_exame = e.id_exame
+        )
+      `,
+      [idUsuario]
+    );
+
+    const modulosConcluidos = modulosResult.rows[0]?.modulos_concluidos || 0;
+    const totalModulos = 5; // Total de 5 níveis
+
+    // Se todos os 5 módulos foram concluídos, calcula a média geral
+    if (modulosConcluidos === totalModulos) {
+      const mediaResult = await pool.query(
+        `
+        WITH melhor_nota_por_modulo AS (
+          SELECT 
+            e.id_modulo,
+            MAX(COALESCE(SUM(r.nota), 0)::float / NULLIF(COUNT(r.id_resposta), 0)::float * 10) as nota_modulo
+          FROM exames e
+          LEFT JOIN respostas r ON r.id_exame = e.id_exame
+          WHERE e.id_usuario = $1
+            AND EXISTS (
+              SELECT 1 FROM respostas r2 WHERE r2.id_exame = e.id_exame
+            )
+          GROUP BY e.id_exame, e.id_modulo
+        )
+        SELECT ROUND(AVG(nota_modulo)::numeric, 1) as media_geral
+        FROM melhor_nota_por_modulo
+        `,
+        [idUsuario]
+      );
+
+      if (mediaResult.rows.length > 0 && mediaResult.rows[0].media_geral) {
+        const media = parseFloat(mediaResult.rows[0].media_geral);
+        return {
+          status: "completo",
+          mediaGeral: media,
+          modulosConcluidos,
+          totalModulos,
+        };
+      }
+    }
+
+    // Se não completou todos, retorna pendente
+    return {
+      status: "pendente",
+      mediaGeral: null,
+      modulosConcluidos,
+      totalModulos,
+    };
+  } catch (error) {
+    console.error('Erro ao calcular média geral:', error);
+    return {
+      status: "pendente",
+      mediaGeral: null,
+      modulosConcluidos: 0,
+      totalModulos: 5,
+    };
+  }
+}
+
+module.exports = {
+  findExamHistoryByUsuario,
+  getMediaGeralStatus,
+>>>>>>> Stashed changes
 };

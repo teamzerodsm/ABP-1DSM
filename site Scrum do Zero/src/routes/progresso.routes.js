@@ -1,11 +1,15 @@
 const { Router } = require("express");
 const authmiddleware = require("../middlewares/auth.middleware");
+<<<<<<< Updated upstream
 const {
   findHistoricoExamesPorUsuario,
   findResumoProgressoPorModulo,
   findProgressoGeral,
   findTentativasDisponiveisPorModulo,
 } = require("../repositories/progresso.repositories");
+=======
+const { findExamHistoryByUsuario, getMediaGeralStatus } = require("../repositories/progresso.repositories");
+>>>>>>> Stashed changes
 
 const router = Router();
 
@@ -45,6 +49,7 @@ router.get("/tentativas", authmiddleware, async function (req, res) {
       tentativas_restantes: modulo.max_tentativas - modulo.tentativas.length,
     }));
 
+<<<<<<< Updated upstream
     return res.status(200).json(resultado);
   } catch (e) {
     console.error(e);
@@ -99,6 +104,14 @@ router.get("/modulo/:id_modulo", authmiddleware, async function (req, res) {
     return res.status(200).json({
       id_modulo: idModulo,
       ...tentativas,
+=======
+    // Obtém status da média geral
+    const mediaGeralStatus = await getMediaGeralStatus(req.usuario.id_usuario);
+
+    return res.status(200).json({
+      history,
+      mediaGeral: mediaGeralStatus,
+>>>>>>> Stashed changes
     });
   } catch (e) {
     console.error(e);

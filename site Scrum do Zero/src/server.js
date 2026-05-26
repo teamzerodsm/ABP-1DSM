@@ -52,8 +52,17 @@ app.get("/quiz-page", function (_req, res) {
   res.sendFile(path.join(pagesPath, "quiz-page.html"));
 });
 
+<<<<<<< Updated upstream
 app.get("/certificado", function (_req, res) {
   res.sendFile(path.join(pagesPath, "certificado.html"));
+=======
+app.get("/quiz-page", function(_req, res){
+    res.sendFile(path.join(pagesPath, "quiz-page.html"));
+});
+
+app.get("/certificado", function(_req, res){
+    res.sendFile(path.join(pagesPath, "certificado.html"));
+>>>>>>> Stashed changes
 });
 
 app.use(function (_req, res) {
