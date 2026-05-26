@@ -7,6 +7,14 @@
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
+.lnr-eye {
+    position: absolute;
+    top: 14px;
+    right: 10px;
+    cursor: pointer;
+    width: 20px;
+}
+
 .login-header {
     text-align: center;
     margin-bottom: 25px;
@@ -47,6 +55,10 @@
 
 .form-input::placeholder {
     font-size: 1rem;
+}
+
+.password-input-container{
+    position: relative;
 }
 
 .error-message {

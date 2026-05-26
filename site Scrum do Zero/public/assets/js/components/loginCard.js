@@ -19,9 +19,10 @@ class loginCard extends HTMLElement {
       
             <div class="form-group">
               <label for="password-area" class="form-label">Sua senha</label>
-
-              <input class="main-input form-input" name="password-area" id="password-area" type="password" data-required="Por favor, digite sua senha" aria-describedby="password-error">
-
+              <div class="password-input-container">
+                <input class="main-input form-input" name="password-area" id="password-area" type="password" data-required="Por favor, digite sua senha" aria-describedby="password-error">
+                <img src="assets/img/showPassword.png" class="lnr lnr-eye"/>
+              </div>
               <p id="password-error" class="error-message"></p>
               <a href="" class="forgot-password">Esqueci minha senha</a>
             </div>
@@ -41,6 +42,7 @@ class loginCard extends HTMLElement {
     this.loginError = this.querySelector("#login-error");
     this.allInputs = this.querySelectorAll(".form-input");
     this.formLogin = this.querySelector(".form-login");
+    this.eyeBtn = this.querySelector(".lnr-eye");
 
     function showError(element, message) {
       const error = element.parentElement.querySelector(".error-message");
@@ -116,6 +118,16 @@ class loginCard extends HTMLElement {
           clearError(input);
         }
       });
+    });
+
+    this.eyeBtn.addEventListener("click", () => {
+      if (this.inputPassword.getAttribute("type") == "password") {
+        this.inputPassword.setAttribute("type", "text");
+        this.eyeBtn.setAttribute("src","assets/img/hidePassword.png")
+      } else {
+        this.inputPassword.setAttribute("type", "password");
+        this.eyeBtn.setAttribute("src","assets/img/showPassword.png")
+      }
     });
   }
 }
