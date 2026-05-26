@@ -315,4 +315,36 @@ router.get("/:id/revisao", authmiddleware, async function (req, res) {
   }
 });
 
+router.delete("/resetar", authmiddleware, async function (req, res) {
+  try {
+    const client = await pool.connect();
+    try {
+      await client.query("BEGIN");
+
+      await client.query(
+        `DELETE FROM respostas WHERE id_exame IN (
+           SELECT id_exame FROM exames WHERE id_usuario = $1
+         )`,
+        [req.usuario.id_usuario]
+      );
+
+      await client.query(
+        `DELETE FROM exames WHERE id_usuario = $1`,
+        [req.usuario.id_usuario]
+      );
+
+      await client.query("COMMIT");
+      return res.status(200).json({ message: "Progresso resetado com sucesso" });
+    } catch (err) {
+      await client.query("ROLLBACK");
+      throw err;
+    } finally {
+      client.release();
+    }
+  } catch (e) {
+    console.error(e);
+    return res.status(500).json({ message: "Erro interno do servidor" });
+  }
+});
+
 module.exports = router;
