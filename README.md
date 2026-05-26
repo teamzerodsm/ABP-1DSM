@@ -18,6 +18,35 @@
 
 ---
 
+## 📋 Índice
+
+1. [Descrição do projeto](#-descrição-do-projeto)
+    1. [Objetivo educacional](#-objetivo-educacional)
+    2. [Ferramentas utilizadas](#-ferramentas-utilizadas)
+    3. [Como iniciar a aplicação](#-como-iniciar-a-aplicação)
+    4. [Tabela de sprints](#sprints)
+    5. [Funcionalidades](#-funcionalidades)
+    6. [Equipe](#-equipe)
+    7. [Product backlog](#-product-backlog)
+    8. [Diagrama de caso de uso](#diagrama-de-caso-de-uso)
+    9. [Modelo conceitual](#modelo-conceitual)
+2. [Sprints]()
+    1. [Sprint 1](#sprint-1)
+        1. [Vídeo da Sprint 1](#-video-da-sprint-1)
+        2. [Sprint backlog 1](#-sprint-backlog-1)
+        3. [Sprint burndown 1](#-burndown-sprint-1)
+        4. [Sprint retrospective 1](#sprint-retrospective-1)
+    2. [Sprint 2](#sprint-2)
+        1. [Vídeo da Sprint 2](#-video-da-sprint-2)
+        2. [Sprint backlog 2](#-sprint-backlog-2)
+        3. [Sprint burndown 2](#-burndown-sprint-2)
+        4. [Sprint retrospective 2](#sprint-retrospective-2)
+    3. [Sprint 3](#sprint-3)
+        1. [Vídeo da Sprint 3](#-video-da-sprint-3)
+        2. [Sprint backlog 3](#-sprint-backlog-3)
+        3. [Sprint burndown 3](#-burndown-sprint-3)
+        4. [Sprint retrospective 3](#sprint-retrospective-3)
+
 ## 📌 Descrição do Projeto
 
 Este projeto consiste no desenvolvimento de um **portal web para certificação interna em metodologias ágeis**, com foco em **Scrum**, como parte da Atividade Baseada em Projeto (ABP).
@@ -261,6 +290,8 @@ npm run dev
 <img src="Documentos/Modelagem//diagramas uml/imagens/Diagrama caso de uso - Scrum do Zero.png" />
 </P>
 
+#### [Pasta de modelagem uml](Documentos/Modelagem/diagramas%20uml)
+
 ---
 
 ### Modelo Conceitual
@@ -268,6 +299,8 @@ npm run dev
 <p align="center">
 <img src="Documentos/Modelagem/diagramas bd/Modelo_Conceitual.png" />
 </P>
+
+#### [Pasta de modelagem de banco de dados](Documentos/Modelagem/diagramas%20bd/)
 
 ---
 
@@ -311,7 +344,7 @@ npm run dev
 <img src="Scrum/Burndown-Sprint01.jpeg" />
 </p>
 
-### Sprint Retrospective
+### Sprint Retrospective 1
 
 #### 1. O que funcionou bem durante o sprint?
 
@@ -388,7 +421,7 @@ a manter um fluxo de trabalho mais estável e eficiente nas próximas sprints.
 <img src="Scrum/Burndown-Sprint02.png" />
 </p>
 
-### Sprint Retrospective
+### Sprint Retrospective 2
 
 #### 1. O que funcionou bem durante o sprint?
 
@@ -446,4 +479,4 @@ Para melhorar na próxima sprint, a equipe pretende fortalecer a comunicação e
 <img src="Scrum/Burndown-Sprint03.png" />
 </p>
 
-### Sprint Retrospective
+### Sprint Retrospective 3
