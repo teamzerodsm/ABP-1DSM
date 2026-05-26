@@ -55,28 +55,6 @@ class LevelDialog extends HTMLElement {
 
       });
 
-    /* =========================
-       CLICK OUTSIDE
-    ========================= */
-
-    this.dialog.addEventListener("click", (event) => {
-
-      const rect =
-        this.dialog.getBoundingClientRect();
-
-      const isInDialog =
-        event.clientX >= rect.left &&
-        event.clientX <= rect.right &&
-        event.clientY >= rect.top &&
-        event.clientY <= rect.bottom;
-
-      if (!isInDialog) {
-
-        this.dialog.close();
-
-      }
-
-    });
 
   }
 
