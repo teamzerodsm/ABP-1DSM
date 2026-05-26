@@ -13,6 +13,7 @@ const dadosDoBanco = [
 
 async function fetchDadosModulo(idModulo) {
   const token = localStorage.getItem("token");
+  console.debug("[main] fetchDadosModulo token present:", !!token, "idModulo:", idModulo);
   const res = await fetch("/api/progresso/tentativas", {
     headers: { Authorization: `Bearer ${token}` },
   });

@@ -1,6 +1,6 @@
-# 📝 # Diagramas UML
+# 📝 Diagramas UML
 
-Esta pasta reúne toda a documentação relacionada aos diagramas uml criados e utilizados durante o projeto, incluindo diagramas de caso de uso, classe e sequência. 
+Esta pasta reúne toda a documentação relacionada aos diagramas uml criados e utilizados durante o projeto, incluindo diagramas de caso de uso, classe e sequência.
 
 A modelagem dos diagramas foi definida durante a [Sprint 1](../../../README.md#sprint1) e [Sprint 2](../../../README.md#sprint2) pelos membros:
 
@@ -11,10 +11,10 @@ A modelagem dos diagramas foi definida durante a [Sprint 1](../../../README.md#s
 
 ## 📁 Estrutura da Pasta
 
-| Documento | Descrição |
-|---|---|
-| `Diagrama de caso de uso.png` | Representação visual das funcionalidades da aplicação |
-| `Scrum do Zero.asta` | Arquivo raiz da modelagem dos diagramas |
+| Documento            | Descrição                                                              |
+| -------------------- | ---------------------------------------------------------------------- |
+| `imagens`            | Imagens para facilitar visualização no caso da falta do programa `Astah UML` |
+| `Scrum do Zero.asta` | Arquivo raiz da modelagem dos diagramas                                |
 
 ---
 
@@ -30,7 +30,6 @@ Documentar a arquitetura, comportamento e estrutura do sistema para facilitar:
 ---
 
 ## 🛠️ Ferramentas Utilizadas
-
 
 <div align="center">
 
@@ -56,7 +55,7 @@ Ferramenta utilizada para a modelagem UML do sistema, auxiliando na criação de
 <a href="https://astah.net/" target="_blank" rel="noreferrer">
     <img 
         width="600"
-        src="Diagrama caso de uso - Scrum do Zero.png" 
+        src="imagens/Diagrama caso de uso - Scrum do Zero.png" 
         alt="Diagrama de caso de uso"
     />
 </a>

@@ -1,38 +1,108 @@
 const { Router } = require("express");
 const authmiddleware = require("../middlewares/auth.middleware");
-const { findExamHistoryByUsuario } = require("../repositories/progresso.repositories");
+const {
+  findHistoricoExamesPorUsuario,
+  findResumoProgressoPorModulo,
+  findProgressoGeral,
+  findTentativasDisponiveisPorModulo,
+} = require("../repositories/progresso.repositories");
 
 const router = Router();
+const MAX_TENTATIVAS = 2;
 
-router.get("/historico", authmiddleware, async function (req, res) {
+/**
+ * GET /api/progresso/tentativas
+ * Retorna histórico detalhado de exames do usuário
+ */
+router.get("/tentativas", authmiddleware, async function (req, res) {
   try {
-    const rows = await findExamHistoryByUsuario(req.usuario.id_usuario);
+    const historico = await findHistoricoExamesPorUsuario(req.usuario.id_usuario);
 
+    // Agrupa por módulo para compatibilidade com frontend
     const modulosMap = new Map();
-    rows.forEach((row) => {
-      if (!modulosMap.has(row.id_modulo)) {
-        modulosMap.set(row.id_modulo, {
-          id_modulo: row.id_modulo,
-          modulo: row.modulo,
+    historico.forEach((exame) => {
+      if (!modulosMap.has(exame.id_modulo)) {
+        modulosMap.set(exame.id_modulo, {
+          id_modulo: exame.id_modulo,
+          modulo: exame.modulo,
           tentativas: [],
           max_tentativas: 2,
         });
       }
-      modulosMap.get(row.id_modulo).tentativas.push({
-        id_exame: row.id_exame,
-        grupo: row.grupo,
-        tentativa: row.tentativa,
-        respostas_respondidas: Number(row.respostas_respondidas) || 0,
-        nota: Number(row.nota) || 0,
-      });
+
+      if (exame.id_exame) {
+        modulosMap.get(exame.id_modulo).tentativas.push({
+          id_exame: exame.id_exame,
+          grupo: exame.grupo,
+          tentativa: exame.tentativa,
+          respostas_respondidas: Number(exame.respostas_respondidas) || 0,
+          nota: Number(exame.nota) || 0,
+          total_questoes: Number(exame.total_questoes) || 0,
+          data_exame: exame.data_exame,
+        });
+      }
     });
 
-    const history = Array.from(modulosMap.values()).map((modulo) => ({
+    const resultado = Array.from(modulosMap.values()).map((modulo) => ({
       ...modulo,
-      tentativas_restantes: modulo.max_tentativas - modulo.tentativas.length,
+      tentativas_restantes: Math.max(MAX_TENTATIVAS - modulo.tentativas.length, 0),
     }));
 
-    return res.status(200).json(history);
+    return res.status(200).json(resultado);
+  } catch (e) {
+    console.error(e);
+    return res.status(500).json({ message: "Erro interno do servidor" });
+  }
+});
+
+/**
+ * GET /api/progresso/resumo
+ * Retorna resumo consolidado por módulo
+ */
+router.get("/resumo", authmiddleware, async function (req, res) {
+  try {
+    const resumo = await findResumoProgressoPorModulo(req.usuario.id_usuario);
+    return res.status(200).json(resumo);
+  } catch (e) {
+    console.error(e);
+    return res.status(500).json({ message: "Erro interno do servidor" });
+  }
+});
+
+/**
+ * GET /api/progresso/geral
+ * Retorna resumo geral do progresso do usuário
+ */
+router.get("/geral", authmiddleware, async function (req, res) {
+  try {
+    const progresso = await findProgressoGeral(req.usuario.id_usuario);
+    return res.status(200).json(progresso);
+  } catch (e) {
+    console.error(e);
+    return res.status(500).json({ message: "Erro interno do servidor" });
+  }
+});
+
+/**
+ * GET /api/progresso/modulo/:id_modulo
+ * Retorna informações de tentativas disponíveis para um módulo específico
+ */
+router.get("/modulo/:id_modulo", authmiddleware, async function (req, res) {
+  try {
+    const idModulo = Number(req.params.id_modulo);
+    if (!Number.isInteger(idModulo) || idModulo <= 0) {
+      return res.status(400).json({ message: "id_modulo inválido" });
+    }
+
+    const tentativas = await findTentativasDisponiveisPorModulo(
+      req.usuario.id_usuario,
+      idModulo
+    );
+
+    return res.status(200).json({
+      id_modulo: idModulo,
+      ...tentativas,
+    });
   } catch (e) {
     console.error(e);
     return res.status(500).json({ message: "Erro interno do servidor" });
