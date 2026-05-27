@@ -1,7 +1,5 @@
 # Imagens dos Diagramas
 
----
-
 ## Geral
 
 ### Diagrama de caso de uso
@@ -10,21 +8,21 @@
 
 #### Descrição
 
-##### Criação de uma conta
+**Criação de uma conta:**
 
 Permitir ao usuário criar uma conta informando CPF, nome, email e senha.
 
 **Pré-condição:** 
 - usuário não pode já estar cadastrado com o mesmo cpf e email
 
-##### Logar em uma conta
+**Logar em uma conta:**
 
 Autenticar o usuário no sistema utilizando apenas CPF e senha.
 
 **Pré-condição:** 
 - este usuario já deve estar cadastrado
 
-##### Iniciar avaliação
+**Iniciar avaliação:**
 
 Inicializa uma avaliação de um nível com questões selecionadas automaticamente dentro do grupo e nivel selecionados.
 
@@ -34,7 +32,7 @@ Inicializa uma avaliação de um nível com questões selecionadas automaticamen
 - 10 questões devem ser selecionadas do banco de dados seguindo a lógida de serem do mesmo módulo e grupo.
 - sendo 3 faceis, 4 médias e 3 difíceis
 
-##### Responder avaliação
+**Responder avaliação:**
 
 Permitir o usuario responder as questôes selecionadas pelo sistema e validar sua resposta.
 
@@ -47,14 +45,14 @@ Caso feito na segunda tentativa a nota deve ser comparada com a da primeira tent
 **Pré-condição:**  
 - este usuario já deve estar cadastrado e realizando uma avaliação
 
-##### Visualizar tentativas
+**Visualizar tentativas:**
 
 Um metodo do usuario visualizar quantas tentativas ainda restam para ele realizar cada exame. Sendo 2 tentativas por exame.
 
 **Pré-condição:** 
 - o usuario já deve estar cadastrado
 
-##### Consultar progresso
+**Consultar progresso:**
 
 Permitir que o usuario acompanhe seu progresso nos níveis, visualizando os níveis concluidos contendo:
 - notas em cada tentativa
@@ -64,7 +62,7 @@ Permitir que o usuario acompanhe seu progresso nos níveis, visualizando os nív
 **Pré-condição:** 
 - este usuario já deve estar cadastrado
 
-##### Consultar média final
+**Consultar média final:**
 
 O usuário deve possuir a escolha de visualizar a média final dele antes de emitir o certificado, para saber o próprio desempenho.
 
@@ -74,7 +72,7 @@ isso poderá ser visivel tanto na área de consultar o progresso quanto antes de
 - chamado por emitir certificado
 - o usuario precisa ja ter concluido cada um dos niveis
 
-##### Visualizar certificado
+**Visualizar certificado:**
 
 Gera um certificado para o usuário visualizar como ele será definido com base no desempenho atual dele.
 
@@ -85,7 +83,7 @@ E então irá gerar o documento contendo, no mínimo: nome completo, CPF, email,
 **Pré-condição:** 
 - o usuario deve possuir todos os níveis concluidos
 
-##### Emitir certificado
+**Emitir certificado:**
 
 Sendo feito exclusivamente após o usuário ja ter visualizado como o certificado será montado, ele gera o certificado oficial com as informações e disponibilizando para que ele possa baixa-lo
 
@@ -99,31 +97,31 @@ Sendo feito exclusivamente após o usuário ja ter visualizado como o certificad
 
 #### Descrição
 
-##### Usuário
+**Usuário:**
 
 Representa um usuário cadastrado na plataforma, responsável por acessar os níveis disponíveis, realizar tentativas  acompanhar seu desempenho no sistema e gerar seu certificado.
 
-##### Certificado
+**Certificado:**
 
 Representa um certificado emitido ao usuário com base em seu desempenho na plataforma, contendo informações do usuário e a média final obtida, tendo como base a melhor nota obtida em cada um dos níveis.
 
-##### Progresso nível
+**Progresso nível:**
 
 Representa o progresso de um usuário em um nível específico, armazenando informações relacionadas ao desempenho, tentativas restantes e melhor nota obtida dentre as tentativas realizadas.
 
-##### Nível
+**Nível**
 
 Representa um nível disponível no sistema, responsável por agrupar questões de determinada dificuldade ou etapa de aprendizagem.
 
-##### Tentativa
+**Tentativa:**
 
 Representa uma tentativa realizada pelo usuário em um nível específico, sendo responsável por registrar o desempenho obtido e as respostas associadas à execução.
 
-##### Resposta
+**Resposta:**
 
 Representa a resposta fornecida pelo usuário para uma questão durante uma tentativa, armazenando a alternativa selecionada e o resultado da validação da resposta.
 
-##### Questões
+**Questões:**
 
 Representa uma questão disponível no sistema, responsável por fornecer o enunciado, alternativas e critérios utilizados na validação das respostas do usuário.
 
