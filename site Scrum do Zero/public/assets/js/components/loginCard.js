@@ -49,17 +49,18 @@ class loginCard extends HTMLElement {
     this.eyeBtn = this.querySelector(".lnr-eye");
 
     function showError(element, message) {
-      const error = element.parentElement.querySelector(".error-message");
+      const formGroup = element.closest('.form-group') || element.parentElement;
+      const error = formGroup ? formGroup.querySelector(".error-message") : null;
+      if (!error) return;
 
-      error.classList.add("error-message");
       error.textContent = message;
     }
 
     const clearError = (element) => {
-      const error = element.parentElement.querySelector(".error-message");
+      const formGroup = element.closest('.form-group') || element.parentElement;
+      const error = formGroup ? formGroup.querySelector(".error-message") : null;
 
-      element.classList.remove("error-message");
-      error.textContent = "";
+      if (error) error.textContent = "";
       if (element === this.inputCpf || element === this.inputPassword) {
         this.loginError.textContent = "";
       }
