@@ -25,32 +25,56 @@
       <form id="cadastroForm" class="cadastro-form" novalidate>
         <div class="cadastro-field">
           <label for="nome">Nome</label>
-          <input class="main-input input-cadastro" type="text" id="nome" name="nome" />
+          <div class="input-box">
+            <svg xmlns="http://www.w3.org/2000/svg" width="34" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user-round-icon lucide-user-round"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></svg>
+            <input class="main-input input-cadastro" type="text" id="nome" name="nome" />
+          </div>
         </div>
 
         <div class="cadastro-field">
           <label for="sobrenome">Sobrenome</label>
-          <input class="main-input input-cadastro" type="text" id="sobrenome" name="sobrenome" />
+          <div class="input-box">
+            <input class="main-input input-cadastro" type="text" id="sobrenome" name="sobrenome" />
+            <svg xmlns="http://www.w3.org/2000/svg" width="34" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user-round-icon lucide-user-round"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></svg>
+          </div>
         </div>
 
         <div class="cadastro-field">
           <label for="cpf">CPF</label>
-          <input class="main-input input-cadastro" type="text" id="cpf" name="cpf" maxlength="14" />
+          <div class="input-box">
+            <input class="main-input input-cadastro" type="text" id="cpf" name="cpf" maxlength="14" />
+            <svg xmlns="http://www.w3.org/2000/svg" width="34" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-id-card-icon lucide-id-card"><path d="M16 10h2"/><path d="M16 14h2"/><path d="M6.17 15a3 3 0 0 1 5.66 0"/><circle cx="9" cy="11" r="2"/><rect x="2" y="5" width="20" height="14" rx="2"/></svg>
+          </div>
         </div>
 
         <div class="cadastro-field">
           <label for="email">E-mail</label>
-          <input class="main-input input-cadastro" type="email" id="email" name="email" />
+          <div class="input-box">
+            <input class="main-input input-cadastro" type="email" id="email" name="email" />
+            <svg xmlns="http://www.w3.org/2000/svg" width="34" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mail-icon lucide-mail"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"/><rect x="2" y="4" width="20" height="16" rx="2"/></svg>
+          </div>
         </div>
 
         <div class="cadastro-field">
           <label for="senha">Senha</label>
-          <input class="main-input input-cadastro" type="password" id="senha" name="senha" />
+          <div class="input-box">
+            <div class="password-input-container">
+              <input class="main-input input-cadastro" type="password" id="senha" name="senha" />
+              <img alt="fazer o alt" src="assets/img/showPassword.png" class="lnr lnr-eye" />
+            </div>
+            <svg xmlns="http://www.w3.org/2000/svg" width="34" height="31" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-lock-icon lucide-lock"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          </div>
         </div>
 
         <div class="cadastro-field">
           <label for="confirmar">Confirme sua senha</label>
-          <input class="main-input input-cadastro" type="password" id="confirmar" name="confirmar" />
+          <div class="input-box">
+            <div class="password-input-container">
+              <input class="main-input input-cadastro" type="password" id="confirmar" name="confirmar"/>
+              <img alt="fazer o alt" src="assets/img/showPassword.png" class="lnr lnr-eye"/>
+            </div>
+            <svg xmlns="http://www.w3.org/2000/svg" width="34" height="31" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-lock-icon lucide-lock"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          </div>
         </div>
 
         <button type="submit" class="primary-btn  cadastro-btn">Cadastrar-se</button>

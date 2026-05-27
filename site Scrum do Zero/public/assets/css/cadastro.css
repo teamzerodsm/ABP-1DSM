@@ -3,6 +3,7 @@
   background: var(--darkBlue);
   border-radius: 22px;
   padding: 2rem 1.25rem;
+  border: 1px solid #25527f75;
 }
 
 .header-cadastro-page{
@@ -72,6 +73,21 @@
   color: var(--black);
   cursor: pointer;
   transition: 0.2s ease
+}
+
+.input-box {
+  position: relative;
+  width: 100%;
+}
+
+.input-box svg {
+  position: absolute;
+    background: #294c6b;
+    left: 8px;
+    top: 10px;
+    border: 1px solid #25527f75;
+    padding: 2px;
+    border-radius: 6px;
 }
 
 .cadastro-btn:hover {
