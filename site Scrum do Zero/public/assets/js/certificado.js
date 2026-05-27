@@ -1,152 +1,255 @@
-const API_URL = '/api/usuarios';
+const API_URL = "/api/usuarios";
+const API_URL_EXAMES = "/api/exames";
+
+// Total de questões por módulo (para converter acertos em nota 0–10)
+const QUESTOES_POR_MODULO = 10;
 
 function formatCpf(cpf) {
-  const clean = String(cpf).replace(/\D/g, '');
-  return clean.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
+  const clean = String(cpf).replace(/\D/g, "");
+  return clean.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
 }
 
+// Nomes fixos dos módulos na ordem esperada (id_modulo 1–5)
+const MODULOS_LABEL = {
+  1: "Fundamentos Scrum",
+  2: "Scrum Master",
+  3: "Product Owner",
+  4: "Práticas Ágeis, Métricas e Qualidade",
+  5: "Aplicação Prática, Cenários e Análise Crítica",
+};
 
-function preencherCertificado(usuario) {
-  const nome = document.getElementById('nome');
-  const cpf = document.getElementById('cpf');
-  const email = document.getElementById('email');
-  const dataEmissao = document.getElementById('dataEmissao');
-  const mediaFinal = document.getElementById('mediaFinal');
-  const certificadoId = document.getElementById('certificadoId');
-  const listaNotas = document.getElementById('listaNotas');
+function melhorNota(tentativas) {
+  if (!tentativas || tentativas.length === 0) return null;
+  // nota vem como acertos (0–10), já é a soma de notas individuais
+  const max = Math.max(...tentativas.map((t) => Number(t.nota) || 0));
+  return max;
+}
 
-  nome.textContent = (usuario.nome || '--').toLocaleUpperCase('pt-BR');
-  cpf.textContent = formatCpf(usuario.cpf || '--');
-  email.textContent = usuario.email || '--';
-  dataEmissao.textContent = new Date().toLocaleDateString('pt-BR');
-  mediaFinal.textContent = localStorage.getItem('mediaFinal') || '9,0';
-  certificadoId.textContent = `SCRUM-${new Date().getFullYear()}-${String(usuario.id_usuario || 0).padStart(6, '0')}`;
+function formatarNota(nota) {
+  if (nota === null) return "--";
+  // nota já está em escala 0–10 (cada questão vale 1 ponto)
+  return nota.toFixed(1).replace(".", ",");
+}
 
-  const dadosNotas = JSON.parse(localStorage.getItem('notasCertificado') || 'null') || [
-    { nivel: 'Fundamentos Scrum', nota: '8,5' },
-    { nivel: 'Scrum Master', nota: '9,2' },
-    { nivel: 'Product Owner', nota: '9,0' },
-    { nivel: 'Práticas Ágeis, Métricas e Qualidade', nota: '9,0' },
-    { nivel: 'Aplicação Prática, Cenários e Análise Crítica', nota: '9,0' }
-  ];
+async function preencherCertificado(usuario) {
+  const nome = document.getElementById("nome");
+  const cpf = document.getElementById("cpf");
+  const email = document.getElementById("email");
+  const dataEmissao = document.getElementById("dataEmissao");
+  const mediaFinal = document.getElementById("mediaFinal");
+  const certificadoId = document.getElementById("certificadoId");
+  const listaNotas = document.getElementById("listaNotas");
 
-  listaNotas.innerHTML = '';
-  dadosNotas.forEach(item => {
-    const card = document.createElement('div');
-    card.className = 'note-item';
-    card.innerHTML = `<strong>${item.nivel}</strong><span>${item.nota}</span>`;
+  // Dados do usuário
+  nome.textContent = (usuario.nome || "--").toLocaleUpperCase("pt-BR");
+  cpf.textContent = formatCpf(usuario.cpf || "--");
+  email.textContent = usuario.email || "--";
+  dataEmissao.textContent = new Date().toLocaleDateString("pt-BR");
+  certificadoId.textContent = `SCRUM-${new Date().getFullYear()}-${String(
+    usuario.id_usuario || 0
+  ).padStart(6, "0")}`;
+
+  // Buscar histórico real
+  const token = localStorage.getItem("token");
+  const res = await fetch(`${API_URL_EXAMES}/historico`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+
+  if (!res.ok) {
+    mostrarIndisponivel();
+    return;
+  }
+
+  const historico = await res.json();
+  const historicoMap = new Map(historico.map((m) => [m.id_modulo, m]));
+
+  const totalModulos = Object.keys(MODULOS_LABEL).length;
+  const modulosConcluidos = Object.keys(MODULOS_LABEL).filter((idStr) => {
+    const moduloData = historicoMap.get(Number(idStr));
+    return moduloData && moduloData.tentativas.length > 0;
+  }).length;
+
+  if (modulosConcluidos < totalModulos) {
+    mostrarIndisponivel(modulosConcluidos, totalModulos);
+    return;
+  }
+
+  listaNotas.innerHTML = "";
+  const notasPorModulo = [];
+
+  Object.entries(MODULOS_LABEL).forEach(([idStr, label]) => {
+    const idModulo = Number(idStr);
+    const moduloData = historicoMap.get(idModulo);
+    const nota = moduloData ? melhorNota(moduloData.tentativas) : null;
+    notasPorModulo.push(nota);
+
+    const card = document.createElement("div");
+    card.className = "note-item";
+    card.innerHTML = `<strong>${label}</strong><span>${formatarNota(
+      nota
+    )}</span>`;
     listaNotas.appendChild(card);
   });
+
+  const notasValidas = notasPorModulo.filter((n) => n !== null);
+  let media = 0;
+
+  if (notasValidas.length > 0) {
+    media = notasValidas.reduce((a, b) => a + b, 0) / notasValidas.length;
+    mediaFinal.textContent = formatarNota(media);
+  } else {
+    mediaFinal.textContent = "--";
+  }
+
+  if (media < 6) {
+    mostrarDialogReprovado(media);
+    return;
+  }
+}
+
+function mostrarDialogReprovado(media) {
+  const topbar = document.querySelector('.topbar');
+  if (topbar) topbar.style.display = 'none';
+
+  const dialog = document.createElement('dialog');
+  dialog.className = 'dialog-indisponivel dialog-reprovado';
+  dialog.innerHTML = `
+    <div class="unavailable">
+      <div class="unavailable-icon">📋</div>
+      <h2>Média insuficiente</h2>
+      <p>Sua média final foi <strong>${formatarNota(media)}</strong>. É necessário atingir pelo menos <strong>6,0</strong> para emitir o certificado.</p>
+      <div class="unavailable-progress">
+        <span>Média obtida: ${formatarNota(media)} / 10,0</span>
+        <div class="progress-bar">
+          <div class="progress-fill" style="width: ${Math.min((media / 10) * 100, 100)}%"></div>
+        </div>
+        <button class="btn-resetar" id="btnResetar">Reiniciar curso</button>
+        <a href="/main" class="btn-secondary">Voltar aos módulos</a>
+      </div>
+    </div>
+  `;
+
+  document.body.appendChild(dialog);
+  dialog.showModal();
+
+  dialog.querySelector('#btnResetar').addEventListener('click', () => confirmarReset(dialog));
+}
+
+async function confirmarReset(dialogAnterior) {
+
+  const token = localStorage.getItem('token');
+  try {
+    const res = await fetch(`${API_URL_EXAMES}/resetar`, {
+      method: 'DELETE',
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
+    if (!res.ok) throw new Error('Falha ao resetar');
+
+    dialogAnterior.close();
+    dialogAnterior.remove();
+    window.location.href = '/main';
+  } catch (err) {
+    console.error(err);
+    alert('Erro ao reiniciar o curso. Tente novamente.');
+  }
 }
 
 async function carregarDados() {
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem("token");
   if (!token) {
-    window.location.href = '/index';
+    window.location.href = "/index";
     return;
   }
 
   try {
     const response = await fetch(`${API_URL}/me`, {
-      headers: { Authorization: `Bearer ${token}` }
+      headers: { Authorization: `Bearer ${token}` },
     });
 
     if (!response.ok) {
-      localStorage.removeItem('token');
-      window.location.href = '/index';
+      localStorage.removeItem("token");
+      window.location.href = "/index";
       return;
     }
 
     const usuario = await response.json();
-    preencherCertificado(usuario);
+    await preencherCertificado(usuario);
   } catch (error) {
-    console.error('Erro ao carregar dados do usuário', error);
-    localStorage.removeItem('token');
-    window.location.href = '/index';
+    console.error("Erro ao carregar dados do usuário", error);
+    localStorage.removeItem("token");
+    window.location.href = "/index";
   }
 }
 
-// async function gerarPDF() {
-//   const element = document.getElementById('certificateArea');
-//   if (!element) {
-//     return;
-//   }
+function mostrarIndisponivel(concluidos = 0, total = 5) {
+  const topbar = document.querySelector(".topbar");
+  if (topbar) topbar.style.display = "none";
 
-//   const rect = element.getBoundingClientRect();
-//   const canvas = await html2canvas(element, {
-//     scale: 3,
-//     useCORS: true,
-//     backgroundColor: '#ffffff',
-//     width: rect.width,
-//     height: rect.height,
-//     windowWidth: document.documentElement.clientWidth,
-//     windowHeight: document.documentElement.clientHeight,
-//     scrollX: -window.scrollX,
-//     scrollY: -window.scrollY
-//   });
+  const dialog = document.createElement("dialog");
+  dialog.className = "dialog-indisponivel";
+  dialog.innerHTML = `
+    <div class="unavailable">
+      <div class="unavailable-icon">🎓</div>
+      <h2>Certificado indisponível</h2>
+      <p>Você precisa concluir todos os módulos do curso para emitir seu certificado.</p>
+      <div class="unavailable-progress">
+        <span>${concluidos} de ${total} módulos concluídos</span>
+        <div class="progress-bar">
+          <div class="progress-fill" style="width: ${
+            (concluidos / total) * 100
+          }%"></div>
+        </div>
+      </div>
+      <a href="/main" class="btn-primary">Continuar curso</a>
+    </div>
+  `;
 
-//   const imgData = canvas.toDataURL('image/png');
-//   const { jsPDF } = window.jspdf || window.jspPDF || {};
-//   const pdf = new jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4' });
-//   const pageWidth = pdf.internal.pageSize.getWidth();
-//   const pageHeight = pdf.internal.pageSize.getHeight();
-//   const margin = 15;
-
-//   const imgWidth = canvas.width;
-//   const imgHeight = canvas.height;
-//   const ratio = Math.min((pageWidth - margin * 2) / imgWidth, (pageHeight - margin * 2) / imgHeight);
-//   const renderWidth = imgWidth * ratio;
-//   const renderHeight = imgHeight * ratio;
-//   const x = (pageWidth - renderWidth) / 2;
-//   const y = (pageHeight - renderHeight) / 2;
-
-//   pdf.addImage(imgData, 'PNG', x, y, renderWidth, renderHeight, undefined, 'FAST');
-//   pdf.save('certificado-scrum.pdf');
-// }
+  document.body.appendChild(dialog);
+  dialog.showModal();
+}
 
 async function gerarPDF() {
-  const element = document.getElementById('certificateArea');
+  const element = document.getElementById("certificateArea");
   if (!element) return;
 
   const canvas = await html2canvas(element, {
     scale: 3,
     useCORS: true,
-    backgroundColor: '#ffffff',
+    backgroundColor: "#ffffff",
     scrollX: 0,
-    scrollY: 0
+    scrollY: 0,
   });
 
-  const imgData = canvas.toDataURL('image/png');
+  const imgData = canvas.toDataURL("image/png");
   const { jsPDF } = window.jspdf || window.jspPDF || {};
-  const pdf = new jsPDF({
-    orientation: 'landscape',
-    unit: 'mm',
-    format: 'a4'
-  });
+  const pdf = new jsPDF({ orientation: "landscape", unit: "mm", format: "a4" });
 
   const pageWidth = pdf.internal.pageSize.getWidth();
   const pageHeight = pdf.internal.pageSize.getHeight();
+  const ratio = Math.max(pageWidth / canvas.width, pageHeight / canvas.height);
 
-  const imgWidth = canvas.width;
-  const imgHeight = canvas.height;
-  const ratio = Math.max(pageWidth / imgWidth, pageHeight / imgHeight);
+  pdf.addImage(
+    imgData,
+    "PNG",
+    (pageWidth - canvas.width * ratio) / 2,
+    (pageHeight - canvas.height * ratio) / 2,
+    canvas.width * ratio,
+    canvas.height * ratio,
+    undefined,
+    "FAST"
+  );
 
-  const renderWidth = imgWidth * ratio;
-  const renderHeight = imgHeight * ratio;
-  const x = (pageWidth - renderWidth) / 2;
-  const y = (pageHeight - renderHeight) / 2;
-
-  pdf.addImage(imgData, 'PNG', x, y, renderWidth, renderHeight, undefined, 'FAST');
-  pdf.save('certificado-scrum.pdf');
+  pdf.save("certificado-scrum.pdf");
 }
 
-window.addEventListener('DOMContentLoaded', () => {
+window.addEventListener("DOMContentLoaded", () => {
   carregarDados();
 
-  const btnPdf = document.getElementById('btnPdf');
+  const btnPdf = document.getElementById("btnPdf");
   if (btnPdf) {
-    btnPdf.addEventListener('click', (event) => {
-      event.preventDefault();
+    btnPdf.addEventListener("click", (e) => {
+      e.preventDefault();
       gerarPDF();
     });
   }

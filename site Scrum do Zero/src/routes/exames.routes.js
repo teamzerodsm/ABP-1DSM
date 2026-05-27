@@ -69,6 +69,7 @@ const {
 } = require("../repositories/exames.repositories");
 
 const router = Router();
+const MAX_TENTATIVAS = 2;
 
 function shuffleQuestions(questions) {
   return [...questions].sort(() => Math.random() - 0.5);
@@ -164,18 +165,20 @@ router.get("/historico", authmiddleware, async function (req, res) {
           max_tentativas: 2,
         });
       }
-      modulosMap.get(row.id_modulo).tentativas.push({
-        id_exame: row.id_exame,
-        grupo: row.grupo,
-        tentativa: row.tentativa,
-        respostas_respondidas: Number(row.respostas_respondidas) || 0,
-        nota: Number(row.nota) || 0,
-      });
+      if (row.id_exame) {
+        modulosMap.get(row.id_modulo).tentativas.push({
+          id_exame: row.id_exame,
+          grupo: row.grupo,
+          tentativa: row.tentativa,
+          respostas_respondidas: Number(row.respostas_respondidas) || 0,
+          nota: Number(row.nota) || 0,
+        });
+      }
     });
 
     const history = Array.from(modulosMap.values()).map((modulo) => ({
       ...modulo,
-      tentativas_restantes: modulo.max_tentativas - modulo.tentativas.length,
+      tentativas_restantes: Math.max(MAX_TENTATIVAS - modulo.tentativas.length, 0),
     }));
 
     return res.status(200).json(history);
@@ -309,6 +312,38 @@ router.get("/:id/revisao", authmiddleware, async function (req, res) {
   } catch (e) {
     console.error(e);
     return res.status(e.status || 500).json({ message: e.message || "Erro interno do servidor" });
+  }
+});
+
+router.delete("/resetar", authmiddleware, async function (req, res) {
+  try {
+    const client = await pool.connect();
+    try {
+      await client.query("BEGIN");
+
+      await client.query(
+        `DELETE FROM respostas WHERE id_exame IN (
+           SELECT id_exame FROM exames WHERE id_usuario = $1
+         )`,
+        [req.usuario.id_usuario]
+      );
+
+      await client.query(
+        `DELETE FROM exames WHERE id_usuario = $1`,
+        [req.usuario.id_usuario]
+      );
+
+      await client.query("COMMIT");
+      return res.status(200).json({ message: "Progresso resetado com sucesso" });
+    } catch (err) {
+      await client.query("ROLLBACK");
+      throw err;
+    } finally {
+      client.release();
+    }
+  } catch (e) {
+    console.error(e);
+    return res.status(500).json({ message: "Erro interno do servidor" });
   }
 });
 
