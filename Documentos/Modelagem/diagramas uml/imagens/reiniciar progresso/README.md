@@ -60,4 +60,4 @@ Representa uma questão disponível no sistema, responsável por fornecer o enun
 
 ---
 
-### [Retornar para Diagramas UML](../README.md)
+### [Retornar para Diagramas UML](../../README.md)
