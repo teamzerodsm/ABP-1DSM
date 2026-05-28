@@ -8,7 +8,6 @@ class MeuCabecalho extends HTMLElement {
                 <a href="/main"><img class="logo-img-header" src="assets/img/logo_scrumdozero.svg" alt="Logo Scrum Zero"/></a>
 
                 <nav class="nav-links" id="navLinks">
-                    <a href="/main">Níveis</a>
                     <a href="/progresso">Histórico</a>
                     <a href="/perfil">Perfil</a>
                     <a href="/certificado">Certificado</a>
