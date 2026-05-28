@@ -47,25 +47,18 @@ async function atualizarBloqueioNiveis() {
       m.tentativas.some(t => Number(t.respostas_respondidas) > 0)
     ).length;
 
-    let average = null;
-    if (completedLevels === 5) {
-      let sumBest = 0;
-      historico.forEach(m => {
-        const completedAttempts = m.tentativas.filter(t => Number(t.respostas_respondidas) > 0);
-        const best = completedAttempts.length 
-          ? Math.max(...completedAttempts.map(t => Number(t.nota))) 
-          : 0;
-        sumBest += best;
-      });
-      average = (sumBest / 5).toFixed(1);
-    }
+    let sumBest = 0;
+    historico.forEach(m => {
+      const completedAttempts = m.tentativas.filter(t => Number(t.respostas_respondidas) > 0);
+      const best = completedAttempts.length 
+        ? Math.max(...completedAttempts.map(t => Number(t.nota))) 
+        : 0;
+      sumBest += best;
+    });
+    const average = (sumBest / 5).toFixed(1);
 
     localStorage.setItem("niveisConcluidos", completedLevels);
-    if (average !== null) {
-      localStorage.setItem("mediaFinal", average);
-    } else {
-      localStorage.removeItem("mediaFinal");
-    }
+    localStorage.setItem("mediaFinal", average);
     window.dispatchEvent(new Event('progressUpdated'));
 
     levelBtns.forEach((btn) => {

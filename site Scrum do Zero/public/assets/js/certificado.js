@@ -101,7 +101,7 @@ async function carregarDados() {
         : 0;
       sumBest += best;
     });
-    const media = completedLevels === 5 ? (sumBest / 5) : 0;
+    const media = sumBest / 5;
 
     if (completedLevels < 5 || media < 6.0) {
       alert("Você precisa concluir todos os 5 níveis com média geral igual ou superior a 6,0 para acessar seu certificado.");
