@@ -193,6 +193,29 @@ background-color: rgba(0, 0, 0, 0.6);
   border-color: var(--white);
 }
 
+.input-box {
+  position: relative;
+  width: 100%;
+}
+
+.input-box svg {
+  position: absolute;
+    background: #294c6b;
+    left: 8px;
+    top: 12px;
+    border: 1px solid #25527f75;
+    padding: 2px;
+    border-radius: 6px;
+}
+
+.lnr-eye {
+    position: absolute;
+    top: 18.5px;
+    right: 10px;
+    cursor: pointer;
+    width: 20px;
+}
+
 .container {
   width: 100%;
   max-width: 640px;
@@ -201,7 +224,7 @@ background-color: rgba(0, 0, 0, 0.6);
   justify-content: center;
   align-items: center;
   flex: 1;
-  padding: 1rem 1.5rem;
+  padding: 2rem 1rem;
 }
 
 .container-quiz{
