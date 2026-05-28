@@ -6,31 +6,31 @@
 
 ### Classes progresso
 
-<img align="center" src="Classes progresso.png">
+<img align="center" src="classes progresso.png">
 
 ---
 
 ### Sequência consultar média geral
 
-<img align="center" src="Sequencia consultar media geral.png">
+<img align="center" src="sequencia consultar media geral.png">
 
 ---
 
 ### Sequência consultar tentativas restantes
 
-<img align="center" src="Sequencia consultar tentativas restantes.png">
+<img align="center" src="sequencia consultar tentativas restantes.png">
 
 ---
 
 ### Sequência Falha ao consultar média geral
 
-<img align="center" src="Sequencia Falha ao consultar media geral.png">
+<img align="center" src="sequencia Falha ao consultar media geral.png">
 
 ---
 
 ### Sequência vizualizar progresso
 
-<img align="center" src="Sequência vizualizar progresso.png">
+<img align="center" src="sequência vizualizar progresso.png">
 
 ---
 
