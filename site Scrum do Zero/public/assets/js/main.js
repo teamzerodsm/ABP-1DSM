@@ -92,7 +92,9 @@ async function atualizarBloqueioNiveis() {
 
 levelBtns.forEach((btn) => {
   btn.addEventListener("click", async () => {
-    if (btn.classList.contains("locked")) return;
+    if (btn.classList.contains("locked") || btn.disabled) {
+      return;
+    }
     const levelID = btn.dataset.idlevel;
     const info = dadosDoBanco.find((dado) => dado.id == levelID);
 

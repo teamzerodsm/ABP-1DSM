@@ -57,6 +57,23 @@
   transform: translateY(-2px);
 }
 
+.level-btn.locked {
+  background-color: rgba(220, 220, 220, 0.08) !important;
+  border-color: rgba(220, 220, 220, 0.2) !important;
+  color: rgba(220, 220, 220, 0.4) !important;
+  cursor: not-allowed !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+.level-btn.locked:hover {
+  background-color: rgba(220, 220, 220, 0.08) !important;
+  border-color: rgba(220, 220, 220, 0.2) !important;
+  color: rgba(220, 220, 220, 0.4) !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
 @media (min-width: 768px) {
 
   .info-section-main {
