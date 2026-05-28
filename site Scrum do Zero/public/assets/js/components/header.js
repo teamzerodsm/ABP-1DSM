@@ -10,8 +10,8 @@ class MeuCabecalho extends HTMLElement {
   <a href="/progresso">Histórico</a>
   <a href="/perfil">Perfil</a>
 
-  <span class="certificado-wrapper bloqueado" data-tooltip="Finalize os módulos para emitir o certificado">
-    <a href="/certificado" id="btnCertificado" class="link-certificado" aria-disabled="true">
+  <span class="certificado-wrapper">
+    <a href="/certificado" id="btnCertificado" class="link-certificado">
       Certificado
     </a>
   </span>
@@ -27,47 +27,20 @@ class MeuCabecalho extends HTMLElement {
 
     const navLinks = this.querySelector("#navLinks");
     const menuIcon = this.querySelector("#menuIcon");
+    const botaoCertificado = this.querySelector("#btnCertificado");
 
     menuIcon.addEventListener("click", () => {
       menuIcon.classList.toggle("ativo");
       navLinks.classList.toggle("aberto");
     });
+
+    if (botaoCertificado) {
+      botaoCertificado.addEventListener("click", async (event) => {
+        event.preventDefault();
+        await verificarAcessoCertificado();
+      });
+    }
   }
 }
 
 customElements.define("default-header", MeuCabecalho);
-function verificarLiberacaoCertificado() {
-  const totalNiveis = 5;
-
-  const niveisConcluidosEl = document.getElementById("niveis-concluidos");
-  const wrapperCertificado = document.querySelector(".certificado-wrapper");
-  const botaoCertificado = document.getElementById("btnCertificado");
-
-  if (!wrapperCertificado || !botaoCertificado) return;
-
-  let niveisConcluidos = 0;
-
-  if (niveisConcluidosEl) {
-    const textoNiveis = niveisConcluidosEl.textContent.trim();
-    niveisConcluidos = parseInt(textoNiveis, 10);
-  }
-
-  if (isNaN(niveisConcluidos) || niveisConcluidos < 0) {
-    niveisConcluidos = Number(localStorage.getItem("niveisConcluidos")) || 0;
-  }
-
-  if (niveisConcluidos >= totalNiveis) {
-    wrapperCertificado.classList.remove("bloqueado");
-    botaoCertificado.removeAttribute("aria-disabled");
-    botaoCertificado.style.pointerEvents = "auto";
-    botaoCertificado.style.opacity = "1";
-  } else {
-    wrapperCertificado.classList.add("bloqueado");
-    botaoCertificado.setAttribute("aria-disabled", "true");
-    botaoCertificado.style.pointerEvents = "none";
-    botaoCertificado.style.opacity = "0.45";
-  }
-}
-
-document.addEventListener("DOMContentLoaded", verificarLiberacaoCertificado);
-document.addEventListener("progressUpdated", verificarLiberacaoCertificado);
