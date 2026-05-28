@@ -13,11 +13,13 @@ const dadosDoBanco = [
 
 async function fetchDadosModulo(idModulo) {
   const token = localStorage.getItem("token");
-  const res = await fetch("/api/progresso/historico", {
+  const res = await fetch("/api/progresso/tentativas", {
     headers: { Authorization: `Bearer ${token}` },
   });
-  const data = await res.json();
-  const historico = data.history || [];
+  if (!res.ok) {
+    return { tentativas: 2, pontos: 0 };
+  }
+  const historico = await res.json();
   console.log("historico completo:", historico);
 
   const modulo = historico.find((m) => m.id_modulo == idModulo);
