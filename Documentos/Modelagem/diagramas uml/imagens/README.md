@@ -1,5 +1,7 @@
 # Imagens dos Diagramas
 
+---
+
 ## Geral
 
 ### Diagrama de caso de uso
@@ -91,6 +93,8 @@ Sendo feito exclusivamente após o usuário ja ter visualizado como o certificad
 - o usuario precisa ja ter concluido cada um dos niveis
 - o usuário ja deve ter visualizado o certificado
 
+---
+
 ### Diagrama de classes geral
 
 <img align="center" src="classes geral.png">
@@ -126,3 +130,5 @@ Representa a resposta fornecida pelo usuário para uma questão durante uma tent
 Representa uma questão disponível no sistema, responsável por fornecer o enunciado, alternativas e critérios utilizados na validação das respostas do usuário.
 
 ---
+
+### [Retornar para Diagramas UML](../README.md)

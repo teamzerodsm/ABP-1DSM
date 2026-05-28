@@ -1,18 +1,32 @@
 # Imagens dos diagramas
 
+---
+
 ## Diagramas de certificado
 
 ### Classes certificado
 
 <img align="center" src="classes certificado.png">
 
+---
+
+### Sequência emitir certificados
+
+<img align="center" src="sequencia emitir certificado.png">
+
+---
+
 ### Sequência níveis incorretos
 
 <img align="center" src="sequencia niveis incompletos.png">
 
+---
+
 ### Sequencia todos os níveis concluídos
 
 <img align="center" src="sequencia todos os niveis concluidos.png">
+
+---
 
 #### Descrição
 
@@ -48,7 +62,9 @@ dessa forma o usuário irá visualizar se está tudo correto com suas informaç�
 
 após isso ele poderá fazer o dowload para possuir o próprio certificado em mãos.
 
-Pré-condiçâo: 
+**Pré-condição:** 
 - usúario somente acessará esta tela após concluir pelo menos uma tentativa em cada um dos 5 níveis
 
 ---
+
+### [Retornar para Diagramas UML](../../README.md)
