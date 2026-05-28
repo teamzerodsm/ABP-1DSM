@@ -24,7 +24,7 @@
 
 ### Sequência Falha ao consultar média geral
 
-<img align="center" src="sequencia Falha ao consultar media geral.png">
+<img align="center" src="sequencia falha ao consultar media geral.png">
 
 ---
 
