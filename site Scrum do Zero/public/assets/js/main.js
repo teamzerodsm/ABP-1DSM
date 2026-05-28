@@ -42,3 +42,4 @@ levelBtns.forEach((btn) => {
     dialogComponent.dialog.showModal();
   });
 });
+

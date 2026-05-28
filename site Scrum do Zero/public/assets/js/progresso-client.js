@@ -34,6 +34,7 @@
     const modules = await res.json();
     renderTable(modules);
     renderStats(modules);
+    window.dispatchEvent(new Event('progressUpdated'));
   }
 
   function renderStats(modulos) {
@@ -59,6 +60,8 @@
     if (concluidosEl) concluidosEl.textContent = completedLevels;
     if (registradasEl) registradasEl.textContent = totalAttempts;
     if (mediaEl) mediaEl.textContent = `${String(average).replace('.', ',')} / 10`;
+
+    localStorage.setItem("niveisConcluidos", completedLevels);
   }
 
   function renderTable(modulos) {
