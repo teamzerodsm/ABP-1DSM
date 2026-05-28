@@ -151,8 +151,4 @@
   background-color: rgba(255, 255, 255, 0.02) !important;
   box-shadow: none !important;
   transform: none !important;
-}
-
-.level-btn.locked::after {
-  content: ' 🔒';
-}
+}
