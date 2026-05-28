@@ -67,7 +67,7 @@
         const average = (sumBest / 5).toFixed(1);
         mediaEl.textContent = `${String(average).replace('.', ',')} / 10`;
       } else {
-        mediaEl.textContent = "N/A";
+        mediaEl.textContent = "0";
       }
     }
 
