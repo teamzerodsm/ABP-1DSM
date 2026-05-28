@@ -46,32 +46,17 @@ Documentar a arquitetura, comportamento e estrutura do sistema para facilitar:
 
 Ferramenta utilizada para a modelagem UML do sistema, auxiliando na criação de diagramas de classes, casos de uso, sequência, atividades e demais representações da arquitetura e comportamento da aplicação.
 
+</div>
+
 ---
 
-## Diagrama de caso de uso
+## 📝 Diagramas criados
 
-<div align="center">
-
-<a href="https://astah.net/" target="_blank" rel="noreferrer">
-    <img 
-        width="600"
-        src="imagens/Diagrama caso de uso - Scrum do Zero.png" 
-        alt="Diagrama de caso de uso"
-    />
-</a>
-
-<p>
-O diagrama de caso de uso representa as principais funcionalidades do sistema e a interação entre os atores envolvidos.
-</p>
-<p>
-Este diagrama auxilia na visualização dos requisitos funcionais e no entendimento das responsabilidades de cada ator dentro da aplicação.
-</p>
-<p>
-O ator Usuário pode realizar operações como:
-<br>
--Criação e acesso à conta<br>
--Iniciar e responder avaliações <br>
--Visualizar média final e tentativas restantes<br>
--Visualizar e emitir certificados.<br>
--Acompanhar o desempenho por meio da consulta de progresso
-</p>
+- ### [Diagramas gerais](imagens/README.md)
+- ### [Diagramas de certificado](imagens/certificado/README.md)
+- ### [Diagramas de criação de conta](imagens/criar%20conta/README.md)
+- ### [Diagramas de exame](imagens/responder%20exame/README.md)
+- ### [Diagramas de login](imagens/logar%20em%20conta/README.md)
+- ### [Diagramas de reinicialização de progresso](imagens/reiniciar%20progresso/README.md)
+- ### [Diagramas de logout](imagens/sair%20de%20conta/README.md)
+- ### [Diagramas de visualização de progresso](imagens/visualizar%20progresso/README.md)

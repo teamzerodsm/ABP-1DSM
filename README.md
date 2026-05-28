@@ -19,33 +19,68 @@
 ---
 
 ## 📋 Índice
+<details open>
+  <summary><b>Sumário do Projeto</b></summary>
 
-1. [Descrição do projeto](#-descrição-do-projeto)
-    1. [Objetivo educacional](#-objetivo-educacional)
-    2. [Ferramentas utilizadas](#-ferramentas-utilizadas)
-    3. [Como iniciar a aplicação](#-como-iniciar-a-aplicação)
-    4. [Tabela de sprints](#sprints)
-    5. [Funcionalidades](#-funcionalidades)
-    6. [Equipe](#-equipe)
-    7. [Product backlog](#-product-backlog)
-    8. [Diagrama de caso de uso](#diagrama-de-caso-de-uso)
-    9. [Modelo conceitual](#modelo-conceitual)
-2. [Sprints]()
-    1. [Sprint 1](#sprint-1)
-        1. [Vídeo da Sprint 1](#-video-da-sprint-1)
-        2. [Sprint backlog 1](#-sprint-backlog-1)
-        3. [Sprint burndown 1](#-burndown-sprint-1)
-        4. [Sprint retrospective 1](#sprint-retrospective-1)
-    2. [Sprint 2](#sprint-2)
-        1. [Vídeo da Sprint 2](#-video-da-sprint-2)
-        2. [Sprint backlog 2](#-sprint-backlog-2)
-        3. [Sprint burndown 2](#-burndown-sprint-2)
-        4. [Sprint retrospective 2](#sprint-retrospective-2)
-    3. [Sprint 3](#sprint-3)
-        1. [Vídeo da Sprint 3](#-video-da-sprint-3)
-        2. [Sprint backlog 3](#-sprint-backlog-3)
-        3. [Sprint burndown 3](#-burndown-sprint-3)
-        4. [Sprint retrospective 3](#sprint-retrospective-3)
+  <ul>
+    <li>
+      <details>
+        <summary><a href="#-descrição-do-projeto">1. Descrição do projeto</a></summary>
+        <ul>
+          <li><a href="#-objetivo-educacional">1.1. Objetivo educacional</a></li>
+          <li><a href="#-ferramentas-utilizadas">1.2. Ferramentas utilizadas</a></li>
+          <li><a href="#-como-iniciar-a-aplicação">1.3. Como iniciar a aplicação</a></li>
+          <li><a href="#sprints">1.4. Tabela de sprints</a></li>
+          <li><a href="#-funcionalidades">1.5. Funcionalidades</a></li>
+          <li><a href="#-equipe">1.6. Equipe</a></li>
+          <li><a href="#-product-backlog">1.7. Product backlog</a></li>
+          <li><a href="#diagrama-de-caso-de-uso">1.8. Diagrama de caso de uso</a></li>
+          <li><a href="#modelo-conceitual">1.9. Modelo conceitual</a></li>
+        </ul>
+      </details>
+    </li>
+    <li>
+      <details>
+        <summary><a href="#sprints">2. Sprints</a></summary>
+        <ul>
+          <li>
+            <details>
+              <summary><a href="#sprint-1">2.1. Sprint 1</a></summary>
+              <ul>
+                <li><a href="#-video-da-sprint-1">2.1.1. Vídeo da Sprint 1</a></li>
+                <li><a href="#-sprint-backlog-1">2.1.2. Sprint backlog 1</a></li>
+                <li><a href="#-burndown-sprint-1">2.1.3. Sprint burndown 1</a></li>
+                <li><a href="#sprint-retrospective-1">2.1.4. Sprint retrospective 1</a></li>
+              </ul>
+            </details>
+          </li>
+          <li>
+            <details>
+              <summary><a href="#sprint-2">2.2. Sprint 2</a></summary>
+              <ul>
+                <li><a href="#-video-da-sprint-2">2.2.1. Vídeo da Sprint 2</a></li>
+                <li><a href="#-sprint-backlog-2">2.2.2. Sprint backlog 2</a></li>
+                <li><a href="#-burndown-sprint-2">2.2.3. Sprint burndown 2</a></li>
+                <li><a href="#sprint-retrospective-2">2.2.4. Sprint retrospective 2</a></li>
+              </ul>
+            </details>
+          </li>
+          <li>
+            <details>
+              <summary><a href="#sprint-3">2.3. Sprint 3</a></summary>
+              <ul>
+                <li><a href="#-video-da-sprint-3">2.3.1. Vídeo da Sprint 3</a></li>
+                <li><a href="#-sprint-backlog-3">2.3.2. Sprint backlog 3</a></li>
+                <li><a href="#-burndown-sprint-3">2.3.3. Sprint burndown 3</a></li>
+                <li><a href="#sprint-retrospective-3">2.3.4. Sprint retrospective 3</a></li>
+              </ul>
+            </details>
+          </li>
+        </ul>
+      </details>
+    </li>
+  </ul>
+</details>
 
 ## 📌 Descrição do Projeto
 
@@ -183,9 +218,9 @@ npm install
 
 #### Inicie o banco de dados
 
-````bash
+```bash
 npm run db:init
-````
+```
 
 #### Inicie o servidor Node.js
 
@@ -247,40 +282,188 @@ npm run dev
 
 ### 📝 Product Backlog
 
-#### Requisitos Funcionais
+<details open>
+  <summary><b>Especificações do Projeto (Tabelas)</b></summary>
+  <br>
 
-| Requisitos Funcionais | Requisitos                                                          | Sprint       | Prioridade |
-| --------------------- | ------------------------------------------------------------------- | ------------ | ---------- |
-| RF-01                 | Autenticação de usuários (cadastro e login)                         | #01          | Alta       |
-| RF-02                 | Interface visual e prototipação do sistema.                         | #01          | Alta       |
-| RF-03                 | Integração entre interface, backend e banco de dados.               | #01 <br> #02 | Alta       |
-| RF-04                 | Sistema de avaliação por níveis (questões, tentativas e pontuação). | #01 <br> #02 | Alta       |
-| RF-05                 | Sistema de progressão e acompanhamento do usuário.                  | #02          | Média      |
-| RF-06                 | Cálculo de desempenho final e emissão de certificado.               | #03          | Média      |
-| RF-07                 | Responsividade visual e experiência de navegação do usuário.        | #03          | Média      |
-| RF-08                 | Área administrativa para gerenciamento do sistema.                  | #03          | Baixa      |
+  <!-- TABELA 1: REQUISITOS FUNCIONAIS -->
+  <details>
+    <summary>📌 Requisitos Funcionais</summary>
+    <br>
+    <table border="1">
+      <thead>
+        <tr>
+          <th>Requisitos Funcionais</th>
+          <th>Requisitos</th>
+          <th>Sprint</th>
+          <th>Prioridade</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>RF-01</td>
+          <td>Autenticação de usuários (cadastro e login)</td>
+          <td>#01</td>
+          <td>Alta</td>
+        </tr>
+        <tr>
+          <td>RF-02</td>
+          <td>Interface visual e prototipação do sistema.</td>
+          <td>#01</td>
+          <td>Alta</td>
+        </tr>
+        <tr>
+          <td>RF-03</td>
+          <td>Integração entre interface, backend e banco de dados.</td>
+          <td>#01 <br> #02</td>
+          <td>Alta</td>
+        </tr>
+        <tr>
+          <td>RF-04</td>
+          <td>Sistema de avaliação por níveis (questões, tentativas e pontuação).</td>
+          <td>#01 <br> #02</td>
+          <td>Alta</td>
+        </tr>
+        <tr>
+          <td>RF-05</td>
+          <td>Sistema de progressão e acompanhamento do usuário.</td>
+          <td>#02</td>
+          <td>Média</td>
+        </tr>
+        <tr>
+          <td>RF-06</td>
+          <td>Cálculo de desempenho final e emissão de certificado.</td>
+          <td>#03</td>
+          <td>Média</td>
+        </tr>
+        <tr>
+          <td>RF-07</td>
+          <td>Responsividade visual e experiência de navegação do usuário.</td>
+          <td>#03</td>
+          <td>Média</td>
+        </tr>
+        <tr>
+          <td>RF-08</td>
+          <td>Área administrativa para gerenciamento do sistema.</td>
+          <td>#03</td>
+          <td>Baixa</td>
+        </tr>
+      </tbody>
+    </table>
+  </details>
 
-#### Requisitos Não Funcionais
+  <br>
 
-| Requisitos Não Funcionais | Requisitos                                                 | Sprint                | Prioridade |
-| ------------------------- | ---------------------------------------------------------- | --------------------- | ---------- |
-| RNF-01                    | Responsividade e adaptabilidade entre dispositivos.        | #02 <br> #03          | Alta       |
-| RNF-02                    | Desempenho e eficiência de carregamento.                   | #02 <br> #03          | Média      |
-| RNF-03                    | Segurança e proteção de dados dos usuários.                | #02                   | Alta       |
-| RNF-04                    | Validação e integridade das regras de negócio no back-end. | #02                   | Alta       |
-| RNF-05                    | Interface clara, navegável e de fácil utilização.          | #01 <br> #02 <br> #03 | Média      |
-| RNF-06                    | Documentação técnica do projeto.                           | #03                   | Média      |
+  <!-- TABELA 2: REQUISITOS NÃO FUNCIONAIS -->
+  <details>
+    <summary>⚙️ Requisitos Não Funcionais</summary>
+    <br>
+    <table border="1">
+      <thead>
+        <tr>
+          <th>Requisitos Não Funcionais</th>
+          <th>Requisitos</th>
+          <th>Sprint</th>
+          <th>Prioridade</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>RNF-01</td>
+          <td>Responsividade e adaptabilidade entre dispositivos.</td>
+          <td>#02 <br> #03</td>
+          <td>Alta</td>
+        </tr>
+        <tr>
+          <td>RNF-02</td>
+          <td>Desempenho e eficiência de carregamento.</td>
+          <td>#02 <br> #03</td>
+          <td>Média</td>
+        </tr>
+        <tr>
+          <td>RNF-03</td>
+          <td>Segurança e proteção de dados dos usuários.</td>
+          <td>#02</td>
+          <td>Alta</td>
+        </tr>
+        <tr>
+          <td>RNF-04</td>
+          <td>Validação e integridade das regras de negócio no back-end.</td>
+          <td>#02</td>
+          <td>Alta</td>
+        </tr>
+        <tr>
+          <td>RNF-05</td>
+          <td>Interface clara, navegável e de fácil utilização.</td>
+          <td>#01 <br> #02 <br> #03</td>
+          <td>Média</td>
+        </tr>
+        <tr>
+          <td>RNF-06</td>
+          <td>Documentação técnica do projeto.</td>
+          <td>#03</td>
+          <td>Média</td>
+        </tr>
+      </tbody>
+    </table>
+  </details>
 
-#### User Stories
+  <br>
 
-| Id_Referência                                  | Remetente | Instrução                                                                          | Finalidade                                                           |
-| ---------------------------------------------- | --------- | ---------------------------------------------------------------------------------- | -------------------------------------------------------------------- |
-| RF-01, RF-02                                   | Cliente   | Como cliente, quero poder visualizar um protótipo do site                          | Para entender sua estrutura e funcionalidades                        |
-| RF-03, RF-04                                   | Cliente   | Como cliente, eu quero que os usuários consigam se cadastrar no site e fazer login | Para terem acesso ao conteúdo do curso                               |
-| RF-05, RF-06, RF-07, RF-08, RF-09, RF-10       | Usuário   | Como usuário, quero realizar o conteúdo do curso de maneira organizada             | Para adquirir conhecimento com o conteúdo do curso                   |
-| RF-11, RF-12, RF-13                            | Usuário   | Como usuário, quero emitir meu certificado                                         | Para concluir o curso                                                |
-| RNF-02, RNF-03, RNF-04, RNF-06, RNF-07, RNF-08 | Cliente   | Como cliente quero um site intuitivo, responsivo e seguro                          | Para que usuários se sintam seguros e confortáveis utilizando o site |
-| RNF-08                                         | Cliente   | Como cliente, quero que o site tenha uma documentação básica                       | Para o entendimento da execução técnica do site                      |
+  <!-- TABELA 3: USER STORIES -->
+  <details>
+    <summary>👥 User Stories</summary>
+    <br>
+    <table border="1">
+      <thead>
+        <tr>
+          <th>Id_Referência</th>
+          <th>Remetente</th>
+          <th>Instrução</th>
+          <th>Finalidade</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>RF-01, RF-02</td>
+          <td>Cliente</td>
+          <td>Como cliente, quero poder visualizar um protótipo do site</td>
+          <td>Para entender sua estrutura e funcionalidades</td>
+        </tr>
+        <tr>
+          <td>RF-03, RF-04</td>
+          <td>Cliente</td>
+          <td>Como cliente, eu quero que os usuários consigam se cadastrar no site e fazer login</td>
+          <td>Para terem acesso ao conteúdo do curso</td>
+        </tr>
+        <tr>
+          <td>RF-05, RF-06, RF-07, RF-08, RF-09, RF-10</td>
+          <td>Usuário</td>
+          <td>Como usuário, quero realizar o conteúdo do curso de maneira organizada</td>
+          <td>Para adquirir conhecimento com o conteúdo do curso</td>
+        </tr>
+        <tr>
+          <td>RF-11, RF-12, RF-13</td>
+          <td>Usuário</td>
+          <td>Como usuário, quero emitir meu certificado</td>
+          <td>Para concluir o curso</td>
+        </tr>
+        <tr>
+          <td>RNF-02, RNF-03, RNF-04, RNF-06, RNF-07, RNF-08</td>
+          <td>Cliente</td>
+          <td>Como cliente quero um site intuitivo, responsivo e seguro</td>
+          <td>Para que usuários se sintam seguros e confortáveis utilizando o site</td>
+        </tr>
+        <tr>
+          <td>RNF-08</td>
+          <td>Cliente</td>
+          <td>Como cliente, quero que o site tenha uma documentação básica</td>
+          <td>Para o entendimento da execução técnica do site</td>
+        </tr>
+      </tbody>
+    </table>
+  </details>
+</details>
 
 ---
 
@@ -346,35 +529,59 @@ npm run dev
 
 ### Sprint Retrospective 1
 
-#### 1. O que funcionou bem durante o sprint?
+<details open>
+  <summary><b>🔄 Sprint 1 Retrospective</b></summary>
+  <br>
 
-Durante a Sprint 1, o principal ponto positivo foi a colaboração da equipe. Mesmo com
-dificuldades no início, a divisão de tarefas permitiu que cada integrante se concentrasse em uma
-parte específica do projeto, o que ajudou a manter o andamento das entregas. A comunicação
-entre os membros também foi um fator importante, pois facilitou o alinhamento das decisões e a
-resolução de dúvidas ao longo da sprint. Outro ponto positivo foi a capacidade de adaptação da
-equipe, que conseguiu se reorganizar e manter o ritmo de produção mesmo diante de mudanças
-internas e imprevistos.
+  <!-- PERGUNTA 1 -->
+  <details>
+    <summary>🟢 1. O que funcionou bem durante o sprint?</summary>
+    <br>
+    <p>
+      Durante a Sprint 1, o principal ponto positivo foi a colaboração da equipe. Mesmo com
+      dificuldades no início, a divisão de tarefas permitiu que cada integrante se concentrasse em uma
+      parte específica do projeto, o que ajudou a manter o andamento das entregas. A comunicação
+      entre os membros também foi um fator importante, pois facilitou o alinhamento das decisões e a
+      resolução de dúvidas ao longo da sprint. Outro ponto positivo foi a capacidade de adaptação da
+      equipe, que conseguiu se reorganizar e manter o ritmo de produção mesmo diante de mudanças
+      internas e imprevistos.
+    </p>
+  </details>
 
-#### 2. O que não funcionou tão bem durante o sprint?
+  <br>
 
-O principal problema da sprint foi a dificuldade inicial em estruturar o processo de trabalho.
-Como a equipe ainda estava se adaptando à metodologia Scrum, houve atraso na definição de
-prioridades e na organização das atividades. Também surgiram dificuldades no uso do GitHub,
-principalmente no controle de branches, commits e versionamento. Além disso, algumas tarefas
-foram organizadas com dependência excessiva entre si, o que fez com que atrasos em uma etapa
-impactassem diretamente o andamento de outras. A saída do Scrum Master no meio da sprint
-também exigiu uma reorganização rápida da equipe e impactou parte do fluxo de trabalho.
+  <!-- PERGUNTA 2 -->
+  <details>
+    <summary>🔴 2. O que não funcionou tão bem durante o sprint?</summary>
+    <br>
+    <p>
+      O principal problema da sprint foi a dificuldade inicial em estruturar o processo de trabalho.
+      Como a equipe ainda estava se adaptando à metodologia Scrum, houve atraso na definição de
+      prioridades e na organização das atividades. Também surgiram dificuldades no uso do GitHub,
+      principalmente no controle de branches, commits e versionamento. Além disso, algumas tarefas
+      foram organizadas com dependência excessiva entre si, o que fez com que atrasos em uma etapa
+      impactassem diretamente o andamento de outras. A saída do Scrum Master no meio da sprint
+      também exigiu uma reorganização rápida da equipe e impactou parte do fluxo de trabalho.
+    </p>
+  </details>
 
-#### 3. Quais ações podemos tomar para melhorar no próximo sprint?
+  <br>
 
-Para a próxima sprint, a equipe deve focar em melhorar a organização inicial das atividades e
-definir com mais clareza as prioridades antes do início do desenvolvimento. Também será
-importante padronizar melhor o uso do GitHub, principalmente no fluxo de branches e commits,
-para evitar retrabalho e desorganização no repositório. Outro ponto importante será reduzir a
-dependência entre tarefas, priorizando primeiro versões base e funcionais das entregas antes de
-avançar para refinamentos. Com uma estrutura mais bem definida desde o início, a equipe tende
-a manter um fluxo de trabalho mais estável e eficiente nas próximas sprints.
+  <!-- PERGUNTA 3 -->
+  <details>
+    <summary>🔵 3. Quais ações podemos tomar para melhorar no próximo sprint?</summary>
+    <br>
+    <p>
+      Para a próxima sprint, a equipe deve focar em melhorar a organização inicial das atividades e
+      definir com mais clareza as prioridades antes do início do desenvolvimento. Também será
+      importante padronizar melhor o uso do GitHub, principalmente no fluxo de branches e commits,
+      para evitar retrabalho e desorganização no repositório. Outro ponto importante será reduzir a
+      dependência entre tarefas, priorizando primeiro versões base e funcionais das entregas antes de
+      avançar para refinamentos. Com uma estrutura mais bem definida desde o início, a equipe tende
+      a manter um fluxo de trabalho mais estável e eficiente nas próximas sprints.
+    </p>
+  </details>
+</details>
 
 ---
 
@@ -423,17 +630,41 @@ a manter um fluxo de trabalho mais estável e eficiente nas próximas sprints.
 
 ### Sprint Retrospective 2
 
-#### 1. O que funcionou bem durante o sprint?
+<details open>
+  <summary><b>🔄 Sprint 2 Retrospective</b></summary>
+  <br>
 
-Durante esta sprint, a equipe teve uma organização inicial muito melhor em comparação à sprint anterior, permitindo começar as issues mais cedo e trabalhar com mais clareza. A divisão de tarefas entre documentação, front-end e back-end funcionou bem, dando mais autonomia para cada grupo desenvolver suas atividades sem depender constantemente dos outros integrantes. A equipe de documentação conseguiu estruturar rapidamente os materiais necessários, o que ajudou tanto o front-end quanto o back-end a entenderem melhor os requisitos do sistema. Além disso, os protótipos facilitaram o desenvolvimento das telas e a liderança do Scrum Master e do Product Owner ajudou bastante na organização geral da sprint.
+  <!-- PERGUNTA 1 -->
+  <details>
+    <summary>🟢 1. O que funcionou bem durante o sprint?</summary>
+    <br>
+    <p>
+      Durante esta sprint, a equipe teve uma organização inicial muito melhor em comparação à sprint anterior, permitindo começar as issues mais cedo e trabalhar com mais clareza. A divisão de tarefas entre documentação, front-end e back-end funcionou bem, dando mais autonomia para cada grupo desenvolver suas atividades sem depender constantemente dos outros integrantes. A equipe de documentação conseguiu estruturar rapidamente os materiais necessários, o que ajudou tanto o front-end quanto o back-end a entenderem melhor os requisitos do sistema. Além disso, os protótipos facilitaram o desenvolvimento das telas e a liderança do Scrum Master e do Product Owner ajudou bastante na organização geral da sprint.
+    </p>
+  </details>
 
-#### 2. O que não funcionou tão bem durante o sprint?
+  <br>
 
-O principal problema da sprint foi a comunicação da equipe, principalmente no back-end. Parte dos integrantes ainda possui pouca experiência prática na área, o que gerou insegurança na hora de desenvolver funcionalidades, realizar commits e se comunicar sobre dúvidas ou alterações no projeto. Além disso, a distribuição das issues acabou ficando muito pesada para a equipe de back-end, causando uma sobrecarga maior nesse setor. Também houve entregas realizadas próximas do prazo final, aumentando a pressão da equipe e dificultando revisões mais tranquilas durante o desenvolvimento.
+  <!-- PERGUNTA 2 -->
+  <details>
+    <summary>🔴 2. O que não funcionou tão bem durante o sprint?</summary>
+    <br>
+    <p>
+      O principal problema da sprint foi a comunicação da equipe, principalmente no back-end. Parte dos integrantes ainda possui pouca experiência prática na área, o que gerou insegurança na hora de desenvolver funcionalidades, realizar commits e se comunicar sobre dúvidas ou alterações no projeto. Além disso, a distribuição das issues acabou ficando muito pesada para a equipe de back-end, causando uma sobrecarga maior nesse setor. Também houve entregas realizadas próximas do prazo final, aumentando a pressão da equipe e dificultando revisões mais tranquilas durante o desenvolvimento.
+    </p>
+  </details>
 
-#### 3. Quais ações podemos tomar para melhorar no próximo sprint?
+  <br>
 
-Para melhorar na próxima sprint, a equipe pretende fortalecer a comunicação e aumentar a colaboração entre os integrantes durante o desenvolvimento, incentivando mais ajuda mútua e troca de conhecimento entre os times. Também será importante buscar mais experiência técnica, principalmente no back-end, para aumentar a confiança e autonomia dos membros da equipe. Além disso, com a experiência adquirida nesta sprint, a intenção é distribuir melhor as issues e equilibrar o esforço entre os grupos, evitando sobrecarga em setores específicos e permitindo que a equipe consiga se reorganizar com mais facilidade diante de dificuldades ou imprevistos.
+  <!-- PERGUNTA 3 -->
+  <details>
+    <summary>🔵 3. Quais ações podemos tomar para melhorar no próximo sprint?</summary>
+    <br>
+    <p>
+      Para melhorar na próxima sprint, a equipe pretende fortalecer a comunicação e aumentar a colaboração entre os integrantes durante o desenvolvimento, incentivando mais ajuda mútua e troca de conhecimento entre os times. Também será importante buscar mais experiência técnica, principalmente no back-end, para aumentar a confiança e autonomia dos membros da equipe. Além disso, com a experiência adquirida nesta sprint, a intenção é distribuir melhor as issues e equilibrar o effort entre os grupos, evitando sobrecarga em setores específicos e permitindo que a equipe consiga se reorganizar com mais facilidade diante de dificuldades ou imprevistos.
+    </p>
+  </details>
+</details>
 
 ---
 
@@ -454,24 +685,24 @@ Para melhorar na próxima sprint, a equipe pretende fortalecer a comunicação e
 
 ### 🔄 Sprint Backlog 3
 
-| Atividade                                                                                                    | Responsável | Pontos | Prioridade |
-| ------------------------------------------------------------------------------------------------------------ | ----------- | ------ | ---------- |
-| Desenvolver visualização de progresso do usuário                                                             |             | 10     | Alta       |
-| Implementar listagem de exames já respondidos                                                                |             | 8      | Alta       |
-| Implementar visualização de estatísticas do usuário (tentativas utilizadas, níveis concluídos e média geral) |             | 10     | Alta       |
-| Integrar dados de progresso entre frontend e backend                                                         |             | 8      | Alta       |
-| Implementar cálculo final de média geral do usuário                                                          |             | 7      | Alta       |
-| Desenvolver tela dinâmica de certificado                                                                     |             | 10     | Alta       |
-| Implementar diálogos de aviso e confirmação do sistema (finalizar exame, emissão de certificado)             |             | 10     | Média      |
-| Implementar funcionalidade de logout do usuário                                                              |             | 3      | Média      |
-| Implementar reinicialização de progresso com dupla confirmação                                               |             | 8      | Média      |
-| Refinar interface visual, responsividade e experiência de navegação do usuário                               |             | 12     | Média      |
-| Refatorar estrutura geral do projeto                                                                         |             | 15     | Alta       |
-| Adicionar imagens e documentação visual no README                                                            |             | 5      | Média      |
-| Revisar documentação técnica e estrutura do repositório                                                      |             | 5      | Média      |
-| Executar testes finais de fluxo do sistema                                                                   |             | 10     | Alta       |
-| Corrigir bugs e inconsistências finais                                                                       |             | 12     | Alta       |
-| Implementar fluxo de recuperação e redefinição de senha para usuários                                        |             | 8      | Baixa      |
+| Atividade                                                                                                    | Responsável       | Pontos | Prioridade |
+| ------------------------------------------------------------------------------------------------------------ | ----------------- | ------ | ---------- |
+| Desenvolver visualização de progresso do usuário                                                             | Vitor, Paulo      | 10     | Alta       |
+| Implementar listagem de exames já respondidos                                                                | Tiago, Jaqueline  | 8      | Alta       |
+| Implementar visualização de estatísticas do usuário (tentativas utilizadas, níveis concluídos e média geral) | Vitor, Paulo      | 10     | Alta       |
+| Integrar dados de progresso entre frontend e backend                                                         | Tiago, Jaqueline  | 8      | Alta       |
+| Implementar cálculo final de média geral do usuário                                                          | Tiago, Jaqueline  | 7      | Alta       |
+| Desenvolver tela dinâmica de certificado                                                                     | Igor              | 10     | Alta       |
+| Implementar diálogos de aviso e confirmação do sistema (finalizar exame, emissão de certificado)             | Vitor, Paulo      | 10     | Média      |
+| Implementar funcionalidade de logout do usuário                                                              | Jaqueline         | 3      | Média      |
+| Implementar reinicialização de progresso com dupla confirmação                                               | Igor              | 8      | Média      |
+| Refinar interface visual, responsividade e experiência de navegação do usuário                               | Vitor, Paulo      | 12     | Média      |
+| Refatorar estrutura geral do projeto                                                                         |                   | 15     | Alta       |
+| Adicionar imagens e documentação visual no README                                                            | Henrique, Gabriel | 5      | Média      |
+| Revisar documentação técnica e estrutura do repositório                                                      | Henrique, Gabriel | 5      | Média      |
+| Executar testes finais de fluxo do sistema                                                                   |                   | 10     | Alta       |
+| Corrigir bugs e inconsistências finais                                                                       | Jaqueline         | 12     | Alta       |
+| Implementar fluxo de recuperação e redefinição de senha para usuários                                        |                   | 8      | Baixa      |
 
 ### 🔥 Burndown Sprint 3
 
