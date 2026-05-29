@@ -56,8 +56,7 @@ async function preencherCertificado(usuario) {
   });
 
   if (!res.ok) {
-    mostrarIndisponivel();
-    return;
+    return window.location.href = "/main";
   }
 
   const historico = await res.json();
@@ -70,8 +69,7 @@ async function preencherCertificado(usuario) {
   }).length;
 
   if (modulosConcluidos < totalModulos) {
-    mostrarIndisponivel(modulosConcluidos, totalModulos);
-    return;
+    return window.location.href = "/main";
   }
 
   listaNotas.innerHTML = "";
@@ -101,59 +99,14 @@ async function preencherCertificado(usuario) {
     mediaFinal.textContent = "--";
   }
 
+  // Validação: média mínima 6.0 para emitir certificado
   if (media < 6) {
-    mostrarDialogReprovado(media);
-    return;
+    return window.location.href = "/main";
   }
 }
 
-function mostrarDialogReprovado(media) {
-  const topbar = document.querySelector('.topbar');
-  if (topbar) topbar.style.display = 'none';
 
-  const dialog = document.createElement('dialog');
-  dialog.className = 'dialog-indisponivel dialog-reprovado';
-  dialog.innerHTML = `
-    <div class="unavailable">
-      <div class="unavailable-icon">📋</div>
-      <h2>Média insuficiente</h2>
-      <p>Sua média final foi <strong>${formatarNota(media)}</strong>. É necessário atingir pelo menos <strong>6,0</strong> para emitir o certificado.</p>
-      <div class="unavailable-progress">
-        <span>Média obtida: ${formatarNota(media)} / 10,0</span>
-        <div class="progress-bar">
-          <div class="progress-fill" style="width: ${Math.min((media / 10) * 100, 100)}%"></div>
-        </div>
-        <button class="btn-resetar" id="btnResetar">Reiniciar curso</button>
-        <a href="/main" class="btn-secondary">Voltar aos módulos</a>
-      </div>
-    </div>
-  `;
 
-  document.body.appendChild(dialog);
-  dialog.showModal();
-
-  dialog.querySelector('#btnResetar').addEventListener('click', () => confirmarReset(dialog));
-}
-
-async function confirmarReset(dialogAnterior) {
-
-  const token = localStorage.getItem('token');
-  try {
-    const res = await fetch(`${API_URL_EXAMES}/resetar`, {
-      method: 'DELETE',
-      headers: { Authorization: `Bearer ${token}` },
-    });
-
-    if (!res.ok) throw new Error('Falha ao resetar');
-
-    dialogAnterior.close();
-    dialogAnterior.remove();
-    window.location.href = '/main';
-  } catch (err) {
-    console.error(err);
-    alert('Erro ao reiniciar o curso. Tente novamente.');
-  }
-}
 
 async function carregarDados() {
   const token = localStorage.getItem("token");
@@ -180,33 +133,6 @@ async function carregarDados() {
     localStorage.removeItem("token");
     window.location.href = "/index";
   }
-}
-
-function mostrarIndisponivel(concluidos = 0, total = 5) {
-  const topbar = document.querySelector(".topbar");
-  if (topbar) topbar.style.display = "none";
-
-  const dialog = document.createElement("dialog");
-  dialog.className = "dialog-indisponivel";
-  dialog.innerHTML = `
-    <div class="unavailable">
-      <div class="unavailable-icon">🎓</div>
-      <h2>Certificado indisponível</h2>
-      <p>Você precisa concluir todos os módulos do curso para emitir seu certificado.</p>
-      <div class="unavailable-progress">
-        <span>${concluidos} de ${total} módulos concluídos</span>
-        <div class="progress-bar">
-          <div class="progress-fill" style="width: ${
-            (concluidos / total) * 100
-          }%"></div>
-        </div>
-      </div>
-      <a href="/main" class="btn-primary">Continuar curso</a>
-    </div>
-  `;
-
-  document.body.appendChild(dialog);
-  dialog.showModal();
 }
 
 async function gerarPDF() {
