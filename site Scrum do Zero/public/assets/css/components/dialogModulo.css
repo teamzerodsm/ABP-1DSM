@@ -100,6 +100,15 @@
     filter: brightness(1.01);
 }
 
+.btn-prosseguir.disabled {
+    background: rgba(220, 220, 220, 0.1) !important;
+    color: rgba(255, 255, 255, 0.3) !important;
+    cursor: not-allowed !important;
+    pointer-events: none !important;
+    box-shadow: none !important;
+    transform: none !important;
+}
+
 @media (min-width: 600px) {
 
     .dialog {

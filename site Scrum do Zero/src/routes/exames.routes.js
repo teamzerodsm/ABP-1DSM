@@ -74,7 +74,6 @@ const MAX_TENTATIVAS = 2;
 function shuffleQuestions(questions) {
   return [...questions].sort(() => Math.random() - 0.5);
 }
-
 router.post("/", authmiddleware, async function (req, res) {
   try {
     const { id_modulo } = req.body;
@@ -87,6 +86,18 @@ router.post("/", authmiddleware, async function (req, res) {
       return res.status(404).json({ message: "Módulo não encontrado" });
     }
 
+    if (id_modulo > 1) {
+      const history = await findExamHistoryByUsuario(req.usuario.id_usuario);
+      const prevCompleted = history.some(
+        (attempt) =>
+          attempt.id_modulo === id_modulo - 1 &&
+          Number(attempt.respostas_respondidas) > 0
+      );
+      if (!prevCompleted) {
+        return res.status(403).json({ message: "Você precisa concluir o nível anterior antes de iniciar este." });
+      }
+    }
+
     const client = await pool.connect();
     try {
       await client.query("BEGIN");
@@ -95,6 +106,21 @@ router.post("/", authmiddleware, async function (req, res) {
         `SELECT 1 FROM exames WHERE id_usuario = $1 AND id_modulo = $2 FOR UPDATE`,
         [req.usuario.id_usuario, id_modulo]
       );
+
+      if (id_modulo > 1) {
+        const prevModuloId = id_modulo - 1;
+        const prevAttempt = await client.query(
+          `SELECT 1 FROM exames e
+           WHERE e.id_usuario = $1 AND e.id_modulo = $2
+             AND EXISTS (SELECT 1 FROM respostas r WHERE r.id_exame = e.id_exame)
+           LIMIT 1`,
+          [req.usuario.id_usuario, prevModuloId]
+        );
+        if (prevAttempt.rows.length === 0) {
+          await client.query("ROLLBACK");
+          return res.status(403).json({ message: "Você precisa concluir o nível anterior antes de iniciar este nível." });
+        }
+      }
 
       const activeExam = await findActiveExamByUsuarioModulo(client, req.usuario.id_usuario, id_modulo);
       if (activeExam) {
@@ -165,15 +191,14 @@ router.get("/historico", authmiddleware, async function (req, res) {
           max_tentativas: 2,
         });
       }
-      if (row.id_exame) {
-        modulosMap.get(row.id_modulo).tentativas.push({
-          id_exame: row.id_exame,
-          grupo: row.grupo,
-          tentativa: row.tentativa,
-          respostas_respondidas: Number(row.respostas_respondidas) || 0,
-          nota: Number(row.nota) || 0,
-        });
-      }
+      modulosMap.get(row.id_modulo).tentativas.push({
+        id_exame: row.id_exame,
+        grupo: row.grupo,
+        tentativa: row.tentativa,
+        respostas_respondidas: Number(row.respostas_respondidas) || 0,
+        nota: Number(row.nota) || 0,
+        respondido_em: row.respondido_em,
+      });
     });
 
     const history = Array.from(modulosMap.values()).map((modulo) => ({

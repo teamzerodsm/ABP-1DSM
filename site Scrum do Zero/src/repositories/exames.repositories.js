@@ -133,7 +133,8 @@ async function findExamHistoryByUsuario(idUsuario) {
       e.grupo,
       e.tentativa,
       COUNT(r.id_resposta) AS respostas_respondidas,
-      COALESCE(SUM(r.nota), 0) AS nota
+      COALESCE(SUM(r.nota), 0) AS nota,
+      MAX(r.respondido_em) AS respondido_em
     FROM exames e
     INNER JOIN modulos m ON m.id_modulo = e.id_modulo
     LEFT JOIN respostas r ON r.id_exame = e.id_exame

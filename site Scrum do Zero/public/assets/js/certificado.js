@@ -6,7 +6,7 @@ function formatCpf(cpf) {
 }
 
 
-function preencherCertificado(usuario) {
+function preencherCertificado(usuario, progressData = []) {
   const nome = document.getElementById('nome');
   const cpf = document.getElementById('cpf');
   const email = document.getElementById('email');
@@ -15,20 +15,42 @@ function preencherCertificado(usuario) {
   const certificadoId = document.getElementById('certificadoId');
   const listaNotas = document.getElementById('listaNotas');
 
-  nome.textContent = (usuario.nome || '--').toLocaleUpperCase('pt-BR');
+  nome.textContent = (usuario.nome || '--').toUpperCase();
   cpf.textContent = formatCpf(usuario.cpf || '--');
   email.textContent = usuario.email || '--';
   dataEmissao.textContent = new Date().toLocaleDateString('pt-BR');
-  mediaFinal.textContent = localStorage.getItem('mediaFinal') || '9,0';
   certificadoId.textContent = `SCRUM-${new Date().getFullYear()}-${String(usuario.id_usuario || 0).padStart(6, '0')}`;
 
-  const dadosNotas = JSON.parse(localStorage.getItem('notasCertificado') || 'null') || [
-    { nivel: 'Fundamentos Scrum', nota: '8,5' },
-    { nivel: 'Scrum Master', nota: '9,2' },
-    { nivel: 'Product Owner', nota: '9,0' },
-    { nivel: 'Práticas Ágeis, Métricas e Qualidade', nota: '9,0' },
-    { nivel: 'Aplicação Prática, Cenários e Análise Crítica', nota: '9,0' }
+  const modulosMapping = [
+    { id: 1, label: 'Fundamentos Scrum' },
+    { id: 2, label: 'Scrum Master' },
+    { id: 3, label: 'Product Owner' },
+    { id: 4, label: 'Práticas Ágeis, Métricas e Qualidade' },
+    { id: 5, label: 'Aplicação Prática, Cenários e Análise Crítica' }
   ];
+
+  let sum = 0;
+  let count = 0;
+  const dadosNotas = modulosMapping.map(m => {
+    const match = progressData.find(item => Number(item.id_modulo) === m.id);
+    const completedAttempts = match
+      ? match.tentativas.filter(t => Number(t.respostas_respondidas) > 0)
+      : [];
+    const best = completedAttempts.length
+      ? Math.max(...completedAttempts.map(t => Number(t.nota)))
+      : 0;
+
+    sum += best;
+    count++;
+
+    return {
+      nivel: m.label,
+      nota: String(best.toFixed(1)).replace('.', ',')
+    };
+  });
+
+  const media = count > 0 ? (sum / count).toFixed(1) : '0,0';
+  mediaFinal.textContent = `${String(media).replace('.', ',')} / 10`;
 
   listaNotas.innerHTML = '';
   dadosNotas.forEach(item => {
@@ -58,51 +80,42 @@ async function carregarDados() {
     }
 
     const usuario = await response.json();
-    preencherCertificado(usuario);
+
+    const progressResponse = await fetch("/api/progresso/tentativas", {
+      headers: { Authorization: `Bearer ${token}` }
+    });
+    let progressData = [];
+    if (progressResponse.ok) {
+      progressData = await progressResponse.json();
+    }
+
+    const completedLevels = progressData.filter(m => 
+      m.tentativas.some(t => Number(t.respostas_respondidas) > 0)
+    ).length;
+
+    let sumBest = 0;
+    progressData.forEach(m => {
+      const completedAttempts = m.tentativas.filter(t => Number(t.respostas_respondidas) > 0);
+      const best = completedAttempts.length 
+        ? Math.max(...completedAttempts.map(t => Number(t.nota))) 
+        : 0;
+      sumBest += best;
+    });
+    const media = sumBest / 5;
+
+    if (completedLevels < 5 || media < 6.0) {
+      alert("Você precisa concluir todos os 5 níveis com média geral igual ou superior a 6,0 para acessar seu certificado.");
+      window.location.href = "/main";
+      return;
+    }
+
+    preencherCertificado(usuario, progressData);
   } catch (error) {
     console.error('Erro ao carregar dados do usuário', error);
     localStorage.removeItem('token');
     window.location.href = '/index';
   }
 }
-
-// async function gerarPDF() {
-//   const element = document.getElementById('certificateArea');
-//   if (!element) {
-//     return;
-//   }
-
-//   const rect = element.getBoundingClientRect();
-//   const canvas = await html2canvas(element, {
-//     scale: 3,
-//     useCORS: true,
-//     backgroundColor: '#ffffff',
-//     width: rect.width,
-//     height: rect.height,
-//     windowWidth: document.documentElement.clientWidth,
-//     windowHeight: document.documentElement.clientHeight,
-//     scrollX: -window.scrollX,
-//     scrollY: -window.scrollY
-//   });
-
-//   const imgData = canvas.toDataURL('image/png');
-//   const { jsPDF } = window.jspdf || window.jspPDF || {};
-//   const pdf = new jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4' });
-//   const pageWidth = pdf.internal.pageSize.getWidth();
-//   const pageHeight = pdf.internal.pageSize.getHeight();
-//   const margin = 15;
-
-//   const imgWidth = canvas.width;
-//   const imgHeight = canvas.height;
-//   const ratio = Math.min((pageWidth - margin * 2) / imgWidth, (pageHeight - margin * 2) / imgHeight);
-//   const renderWidth = imgWidth * ratio;
-//   const renderHeight = imgHeight * ratio;
-//   const x = (pageWidth - renderWidth) / 2;
-//   const y = (pageHeight - renderHeight) / 2;
-
-//   pdf.addImage(imgData, 'PNG', x, y, renderWidth, renderHeight, undefined, 'FAST');
-//   pdf.save('certificado-scrum.pdf');
-// }
 
 async function gerarPDF() {
   const element = document.getElementById('certificateArea');

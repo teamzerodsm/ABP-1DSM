@@ -143,9 +143,6 @@ const prevBtn         = document.getElementById("prevBtn");
 const nextBtn         = document.getElementById("nextBtn");
 const dialogComponent = document.querySelector("dialog-quiz");
 
-/* =========================================
-   API
-========================================= */
 function adaptarQuestoes(raw) {
   console.log("raw[0]:", raw[0]);
   return raw.map((q) => ({
@@ -381,7 +378,10 @@ async function iniciarRevisao() {
   reviewMode = true;
   currentQuestionIndex = 0;
   document.body.classList.add("review-mode");
-  dialogComponent.querySelector("#dialog-quiz").close();
+  const dialogQuiz = dialogComponent?.querySelector("#dialog-quiz");
+  if (dialogQuiz && dialogQuiz.open) {
+    dialogQuiz.close();
+  }
   renderQuestion();
 }
 

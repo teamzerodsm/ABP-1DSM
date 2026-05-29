@@ -48,6 +48,41 @@ class MeuCabecalho extends HTMLElement {
             menuIcon.classList.toggle('ativo');
             navLinks.classList.toggle('aberto');
         });
+
+        const btnLogout = this.querySelector('#btnLogout');
+        if (btnLogout) {
+            btnLogout.addEventListener('click', (event) => {
+                event.preventDefault();
+                localStorage.removeItem("token");
+                localStorage.removeItem("niveisConcluidos");
+                localStorage.removeItem("mediaFinal");
+                window.location.href = "/index";
+            });
+        }
+
+        const checkCertificado = () => {
+            const token = localStorage.getItem("token");
+            const concluidos = Number(localStorage.getItem("niveisConcluidos")) || 0;
+            const media = Number(localStorage.getItem("mediaFinal")) || 0;
+
+            const linkCertificado = this.querySelector('a[href="/certificado"]');
+            if (linkCertificado) {
+                if (!token || concluidos < 5 || media < 6.0) {
+                    linkCertificado.removeAttribute("href");
+                    linkCertificado.style.opacity = "0.45";
+                    linkCertificado.style.pointerEvents = "none";
+                    linkCertificado.style.cursor = "not-allowed";
+                } else {
+                    linkCertificado.setAttribute("href", "/certificado");
+                    linkCertificado.style.opacity = "1";
+                    linkCertificado.style.pointerEvents = "auto";
+                    linkCertificado.style.cursor = "pointer";
+                }
+            }
+        };
+
+        checkCertificado();
+        window.addEventListener('progressUpdated', checkCertificado);
     }
 }
 
