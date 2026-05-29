@@ -8,6 +8,7 @@
     <script src="/assets/js/auth-guard.js"></script>
     <script src="/assets/js/components/dialogCertificado.js"></script>
     <script src="/assets/js/components/header.js"></script>
+    <script src="/assets/js/components/dialogResetar.js"></script>
     <meta name="description" content="Histórico e resumo do seu progresso no curso Scrum do Zero.">
     <link rel="icon" type="image/png" href="/assets/img/logo_scrumdozero.svg"/>
     <link rel="canonical" href="/pages/progresso.html">
@@ -15,6 +16,7 @@
 </head>
 <body class="body-color">
     <default-header></default-header>
+    <dialog-quiz></dialog-quiz>
 
     <main class="container progress-page-container">
         <div class="progress-container">
@@ -49,7 +51,7 @@
                 <p>Resumo por nível concluído com suas demais informações.</p>
               </div>
               <div class="reset-btn-box">
-                <a class="reset-btn" href="#">
+                <a class="reset-btn" href="#" id="reset-btn">
                   <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#ff4747"
                     stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"
                     class="lucide lucide-rotate-ccw-icon lucide-rotate-ccw">
