@@ -87,7 +87,7 @@
 
       const row = document.createElement('tr');
       row.innerHTML = `
-        <td class="col-nivel">${m.modulo}</td>
+        <td class="col-nivel" id="col-left">${m.modulo}</td>
         <td class="col-nota">${best !== null ? best : '-'}</td>
         ${getAttemptCell(1)}
         ${getAttemptCell(2)}
