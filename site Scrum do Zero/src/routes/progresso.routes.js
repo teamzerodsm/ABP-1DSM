@@ -3,6 +3,7 @@ const authmiddleware = require("../middlewares/auth.middleware");
 const { findExamHistoryByUsuario } = require("../repositories/progresso.repositories");
 
 const router = Router();
+const MAX_TENTATIVAS = 2;
 
 async function obterProgresso(req, res) {
   try {
@@ -18,19 +19,23 @@ async function obterProgresso(req, res) {
           max_tentativas: 2,
         });
       }
-      modulosMap.get(row.id_modulo).tentativas.push({
-        id_exame: row.id_exame,
-        grupo: row.grupo,
-        tentativa: row.tentativa,
-        respostas_respondidas: Number(row.respostas_respondidas) || 0,
-        nota: Number(row.nota) || 0,
-        respondido_em: row.respondido_em,
-      });
+
+      if (row.id_exame) {
+        modulosMap.get(row.id_modulo).tentativas.push({
+          id_exame: row.id_exame,
+          grupo: row.grupo,
+          tentativa: row.tentativa,
+          respostas_respondidas: Number(row.respostas_respondidas) || 0,
+          nota: Number(row.nota) || 0,
+          total_questoes: Number(row.total_questoes) || 0,
+          data_exame: row.data_exame,
+        });
+      }
     });
 
     const history = Array.from(modulosMap.values()).map((modulo) => ({
       ...modulo,
-      tentativas_restantes: modulo.max_tentativas - modulo.tentativas.length,
+      tentativas_restantes: Math.max(MAX_TENTATIVAS - modulo.tentativas.length, 0),
     }));
 
     return res.status(200).json(history);

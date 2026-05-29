@@ -1,6 +1,7 @@
 const { Router } = require("express")
 const {findUsuarioByCpfAndSenha} = require("../repositories/usuarios.repositories")
 const { createToken } = require("../utils/jwt")
+const { addToken } = require("../utils/tokenBlacklist")
 
 const router = Router()
 
@@ -30,6 +31,22 @@ router.post("/login", async function (req, res) {
                 message: e.message
             })
     }
+})
+
+// POST LOGOUT: invalida o token enviado no header Authorization
+router.post('/logout', function (req, res) {
+    const authorization = req.headers.authorization
+    if (!authorization) {
+        return res.status(204).send()
+    }
+
+    const [type, token] = authorization.split(' ')
+    if (type !== 'Bearer' || !token) {
+        return res.status(400).json({ message: 'Token inválido' })
+    }
+
+    addToken(token)
+    return res.status(200).json({ message: 'Logout realizado' })
 })
 
 

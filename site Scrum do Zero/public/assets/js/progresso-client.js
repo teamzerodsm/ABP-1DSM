@@ -43,8 +43,11 @@
       m.tentativas.some(t => Number(t.respostas_respondidas) > 0)
     ).length;
 
-    // Total de tentativas registradas
-    const totalAttempts = modulos.reduce((sum, m) => sum + m.tentativas.length, 0);
+    // Total de tentativas registradas válidas (apenas tentativas com respostas efetivamente enviadas)
+    const totalAttempts = modulos.reduce(
+      (sum, m) => sum + m.tentativas.filter(t => Number(t.respostas_respondidas) > 0).length,
+      0
+    );
 
     const concluidosEl = document.getElementById("niveis-concluidos");
     const registradasEl = document.getElementById("tentativas-registradas");

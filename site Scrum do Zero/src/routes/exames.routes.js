@@ -69,6 +69,7 @@ const {
 } = require("../repositories/exames.repositories");
 
 const router = Router();
+const MAX_TENTATIVAS = 2;
 
 function shuffleQuestions(questions) {
   return [...questions].sort(() => Math.random() - 0.5);
@@ -164,20 +165,6 @@ router.get("/ativo/:id_modulo", authmiddleware, async function (req, res) {
       return res.status(400).json({ message: "id_modulo inválido" });
     }
 
-    if (idModulo > 1) {
-      const prevModuloId = idModulo - 1;
-      const prevAttempt = await pool.query(
-        `SELECT 1 FROM exames e
-         WHERE e.id_usuario = $1 AND e.id_modulo = $2
-           AND EXISTS (SELECT 1 FROM respostas r WHERE r.id_exame = e.id_exame)
-         LIMIT 1`,
-        [req.usuario.id_usuario, prevModuloId]
-      );
-      if (prevAttempt.rows.length === 0) {
-        return res.status(403).json({ message: "Você precisa concluir o nível anterior antes de iniciar este nível." });
-      }
-    }
-
     const activeExam = await findActiveExamByUsuarioModulo(pool, req.usuario.id_usuario, idModulo);
     if (!activeExam) {
       return res.status(404).json({ message: "Nenhum exame ativo para este módulo" });
@@ -216,7 +203,7 @@ router.get("/historico", authmiddleware, async function (req, res) {
 
     const history = Array.from(modulosMap.values()).map((modulo) => ({
       ...modulo,
-      tentativas_restantes: modulo.max_tentativas - modulo.tentativas.length,
+      tentativas_restantes: Math.max(MAX_TENTATIVAS - modulo.tentativas.length, 0),
     }));
 
     return res.status(200).json(history);

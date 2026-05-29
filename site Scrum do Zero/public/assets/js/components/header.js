@@ -11,7 +11,7 @@ class MeuCabecalho extends HTMLElement {
                     <a href="/progresso">Histórico</a>
                     <a href="/perfil">Perfil</a>
                     <a href="/certificado">Certificado</a>
-                    <a href="#" id="btnLogout">Sair</a>
+                    <a href="#" id="logoutLink">Sair</a>
                 </nav>
 
                 <div class="menu-icon" id="menuIcon">
@@ -24,6 +24,25 @@ class MeuCabecalho extends HTMLElement {
 
         const navLinks = this.querySelector('#navLinks');
         const menuIcon = this.querySelector('#menuIcon');
+
+        const logoutLink = this.querySelector('#logoutLink');
+        if (logoutLink) {
+            logoutLink.addEventListener('click', async (e) => {
+                e.preventDefault();
+                const token = localStorage.getItem('token');
+                try {
+                    await fetch('/api/auth/logout', {
+                        method: 'POST',
+                        headers: { Authorization: `Bearer ${token}` }
+                    });
+                } catch (err) {
+                    // ignore network errors and continue with local logout
+                }
+                localStorage.removeItem('token');
+                localStorage.removeItem('nome');
+                window.location.href = '/index';
+            });
+        }
 
         menuIcon.addEventListener('click', () => {
             menuIcon.classList.toggle('ativo');

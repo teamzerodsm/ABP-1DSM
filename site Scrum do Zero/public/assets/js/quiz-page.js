@@ -1,17 +1,127 @@
-import "./components/dialogNota.js"; 
-const BASE_URL = "http://localhost:3000/api";
+import "./components/dialogNota.js";
+const BASE_URL = "/api";
 const token = localStorage.getItem("token");
 
+if (!token) {
+  window.location.href = "/index";
+}
+
+console.debug("[quiz-page] token present:", !!token);
+
 const headers = {
-  "Content-Type": "application/json",
   Authorization: `Bearer ${token}`,
 };
 
 const params = new URLSearchParams(window.location.search);
 const idModulo = Number(params.get("modulo"));
+const idExameFromUrl = Number(params.get("id_exame"));
+const reviewModeUrl = params.get("review") === "true";
 
 let idExame = null;
 let questions = [];
+
+async function fetchJson(path, options = {}) {
+  console.debug("[quiz-page] fetch", path, options.method || "GET", headers);
+  const response = await fetch(`${BASE_URL}${path}`, Object.assign({}, options, { headers: { ...headers, ...options.headers } }));
+  const data = await response.json().catch(() => ({}));
+  return { response, data };
+}
+
+function getErrorMessage(result, fallback = "Erro ao conectar com o servidor.") {
+  return result.data?.message || fallback;
+}
+
+async function iniciarOuRetomar() {
+  if (reviewModeUrl && idExameFromUrl > 0) {
+    document.querySelector(".module-title").innerText = idModulo ? `Módulo ${idModulo}` : "Revisão";
+    return iniciarRevisaoPorId(idExameFromUrl);
+  }
+
+  if (!idModulo || !Number.isInteger(idModulo)) {
+    alert("Módulo inválido. Retornando ao início.");
+    window.location.href = "/main";
+    return;
+  }
+
+  document.querySelector(".module-title").innerText = `Módulo ${idModulo}`;
+
+  const ativo = await fetchJson(`/exames/ativo/${idModulo}`);
+  if (ativo.response.ok) {
+    idExame = ativo.data.id_exame;
+    return carregarExame(idExame);
+  }
+
+  if (ativo.response.status !== 404) {
+    alert(getErrorMessage(ativo, "Erro ao verificar exame em andamento."));
+    window.location.href = "/main";
+    return;
+  }
+
+  return criarExame();
+}
+
+async function carregarExame(exameId) {
+  const result = await fetchJson(`/exames/${exameId}`);
+  if (!result.response.ok) {
+    alert(getErrorMessage(result, "Erro ao carregar o exame."));
+    window.location.href = "/main";
+    return;
+  }
+
+  questions = adaptarQuestoes(result.data.questions);
+  renderQuestion();
+}
+
+async function criarExame() {
+  const result = await fetchJson("/exames", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ id_modulo: idModulo }),
+  });
+
+  if (!result.response.ok) {
+    if (result.response.status === 409 && result.data.message?.includes("em andamento")) {
+      return iniciarOuRetomar();
+    }
+    alert(getErrorMessage(result, "Erro ao iniciar o exame."));
+    window.location.href = "/main";
+    return;
+  }
+
+  idExame = result.data.exame.id_exame;
+  questions = adaptarQuestoes(result.data.questions);
+  renderQuestion();
+}
+
+async function iniciarRevisaoPorId(exameId) {
+  const result = await fetchJson(`/exames/${exameId}/revisao`);
+  if (!result.response.ok) {
+    alert(getErrorMessage(result, "Erro ao abrir a revisão do exame."));
+    window.location.href = "/main";
+    return;
+  }
+
+  questions = result.data.items.map((item, i) => {
+    userAnswers[i] = item.resposta_usuario;
+    return {
+      id: item.id_questao,
+      question: item.enunciado,
+      options: {
+        a: item.alternativa_a,
+        b: item.alternativa_b,
+        c: item.alternativa_c,
+        d: item.alternativa_d,
+      },
+      correct: item.alternativa_correta,
+    };
+  });
+
+  reviewMode = true;
+  currentQuestionIndex = 0;
+  document.body.classList.add("review-mode");
+  document.querySelector(".module-title").innerText = idModulo ? `Módulo ${idModulo}` : "Revisão";
+  renderQuestion();
+}
 
 /* =========================================
    ESTADOS
@@ -33,64 +143,6 @@ const prevBtn         = document.getElementById("prevBtn");
 const nextBtn         = document.getElementById("nextBtn");
 const dialogComponent = document.querySelector("dialog-quiz");
 
-/* =========================================
-   API
-========================================= */
-
-async function iniciarOuRetomar() {
-  const isReview = params.get("review") === "true";
-  if (isReview) {
-    idExame = Number(params.get("id_exame"));
-    await iniciarRevisao();
-    return;
-  }
-
-  const res = await fetch(`${BASE_URL}/exames`, {
-    method: "POST",
-    headers,
-    body: JSON.stringify({ id_modulo: idModulo }),
-  });
-  
-  const data = await res.json();
-
-  if (res.status === 409 && data.message.includes("em andamento")) {
-    await retomarExame();
-    return;
-  }
-
-  if (!res.ok) {
-    alert(data.message);
-    window.location.href = "/main";
-    return;
-  }
-
-  idExame = data.exame.id_exame;
-  questions = adaptarQuestoes(data.questions);
-  renderQuestion();
-}
-
-async function retomarExame() {
-  const res = await fetch(`${BASE_URL}/exames/historico`, { headers });
-  const data = await res.json();
-
-  const modulo = data.find((m) => m.id_modulo == idModulo);
-  const exameAtivo = modulo?.tentativas.find((t) => t.respostas_respondidas === 0);
-
-  if (!exameAtivo) {
-    alert("Erro ao retomar exame.");
-    window.location.href = "/main";
-    return;
-  }
-
-  idExame = exameAtivo.id_exame;
-
-  const res2 = await fetch(`${BASE_URL}/exames/${idExame}`, { headers });
-  const data2 = await res2.json();
-
-  questions = adaptarQuestoes(data2.questions);
-  renderQuestion();
-}
-
 function adaptarQuestoes(raw) {
   console.log("raw[0]:", raw[0]);
   return raw.map((q) => ({
@@ -105,7 +157,6 @@ function adaptarQuestoes(raw) {
     correct: q.alternativa_correta,
   }));
 }
-document.querySelector(".module-title").innerText = `Módulo ${idModulo}`;
 /* =========================================
    RENDER PROGRESS
 ========================================= */
@@ -263,42 +314,37 @@ async function mostrarResultado() {
     id_questao: q.id,
     resposta: userAnswers[index],
   }));
-  
-  console.log("answers enviados:", answers);
-  console.log("userAnswers:", userAnswers);
-  console.log("questions:", questions.map(q => ({ id: q.id, correct: q.correct })));
 
-  const res = await fetch(`${BASE_URL}/exames/${idExame}/respostas`, {
-    method: "POST",
-    headers,
-    body: JSON.stringify(answers),
-  });
+  try {
+    const res = await fetch(`${BASE_URL}/exames/${idExame}/respostas`, {
+      method: "POST",
+      headers: { ...headers, "Content-Type": "application/json" },
+      body: JSON.stringify(answers),
+    });
 
-  const data = await res.json();
+    const data = await res.json().catch(() => ({}));
 
-  if (!res.ok) {
+    if (!res.ok) {
+      throw new Error(data.message || "Erro ao enviar as respostas.");
+    }
+
+    const mensagemEl = dialogComponent.querySelector("#dialog-quiz-mensagem");
+    const notaEl = dialogComponent.querySelector("#dialog-quiz-nota");
+    const dialogEl = dialogComponent.querySelector("#dialog-quiz");
+
+    if (!mensagemEl || !notaEl || !dialogEl) {
+      console.error("Elementos do dialog não encontrados. innerHTML:", dialogComponent.innerHTML);
+      return;
+    }
+
+    mensagemEl.innerText = `Quiz finalizado! Acertos: ${data.score} de ${data.total}`;
+    notaEl.innerText = data.score;
+    dialogEl.showModal();
+  } catch (error) {
+    console.error(error);
+    alert(error.message || "Erro ao enviar as respostas.");
     nextBtn.disabled = false;
-    alert(data.message);
-    return;
   }
-
-  // verifica se o innerHTML já foi renderizado
-  const mensagemEl = dialogComponent.querySelector("#dialog-quiz-mensagem");
-  const notaEl     = dialogComponent.querySelector("#dialog-quiz-nota");
-  const dialogEl   = dialogComponent.querySelector("#dialog-quiz");
-
-  console.log("mensagemEl:", mensagemEl);
-  console.log("notaEl:", notaEl);
-  console.log("dialogEl:", dialogEl);
-
-  if (!mensagemEl || !notaEl || !dialogEl) {
-    console.error("Elementos do dialog não encontrados. innerHTML:", dialogComponent.innerHTML);
-    return;
-  }
-
-  mensagemEl.innerText = `Quiz finalizado! Acertos: ${data.score} de ${data.total}`;
-  notaEl.innerText     = data.score;
-  dialogEl.showModal();
 }
 
 /* =========================================
@@ -307,7 +353,12 @@ async function mostrarResultado() {
 
 async function iniciarRevisao() {
   const res  = await fetch(`${BASE_URL}/exames/${idExame}/revisao`, { headers });
-  const data = await res.json();
+  const data = await res.json().catch(() => ({}));
+
+  if (!res.ok) {
+    alert(data.message || "Erro ao carregar a revisão do exame.");
+    return;
+  }
 
   questions = data.items.map((item, i) => {
     userAnswers[i] = item.resposta_usuario;
