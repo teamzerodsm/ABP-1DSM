@@ -110,9 +110,10 @@ async function iniciarRevisaoPorId(exameId) {
         a: item.alternativa_a,
         b: item.alternativa_b,
         c: item.alternativa_c,
-        d: item.alternativa_d,
+        d: item.alternativa_d
       },
       correct: item.alternativa_correta,
+      imagem: item.imagem || null,
     };
   });
 
@@ -135,19 +136,18 @@ let reviewMode = false;
    ELEMENTOS
 ========================================= */
 
-const questionNumber  = document.getElementById("questionNumber");
-const questionText    = document.getElementById("questionText");
-const optionsBox      = document.getElementById("optionsBox");
+const questionNumber = document.getElementById("questionNumber");
+const questionText = document.getElementById("questionText");
+const optionsBox = document.getElementById("optionsBox");
 const progressWrapper = document.getElementById("progressWrapper");
-const prevBtn         = document.getElementById("prevBtn");
-const nextBtn         = document.getElementById("nextBtn");
+const prevBtn = document.getElementById("prevBtn");
+const nextBtn = document.getElementById("nextBtn");
 const dialogComponent = document.querySelector("dialog-quiz");
 
 /* =========================================
    API
 ========================================= */
 function adaptarQuestoes(raw) {
-  console.log("raw[0]:", raw[0]);
   return raw.map((q) => ({
     id: q.id_questao,
     question: q.enunciado,
@@ -158,6 +158,7 @@ function adaptarQuestoes(raw) {
       d: q.alternativa_d,
     },
     correct: q.alternativa_correta,
+    imagem: q.imagem && q.imagem !== "NULL" ? q.imagem : null,  // ← fix
   }));
 }
 /* =========================================
@@ -172,7 +173,7 @@ function renderProgress() {
     progress.classList.add("progress");
 
     if (!reviewMode) {
-      if (userAnswers[index])          progress.classList.add("answered");
+      if (userAnswers[index]) progress.classList.add("answered");
       if (index === currentQuestionIndex) progress.classList.add("current");
 
       progress.classList.add("clickable");
@@ -205,8 +206,18 @@ function renderQuestion() {
   const currentQuestion = questions[currentQuestionIndex];
 
   questionNumber.innerText = `${currentQuestionIndex + 1} -`;
-  questionText.innerText   = currentQuestion.question;
-  optionsBox.innerHTML     = "";
+  questionText.innerText = currentQuestion.question;
+
+  const questionImg = document.getElementById("questionImg");
+  console.log("imagem:", currentQuestion.imagem, "img el:", questionImg);
+  if (currentQuestion.imagem) {
+    questionImg.src = `/imagens/questoes/${currentQuestion.imagem}`;
+    questionImg.style.display = "block";
+  } else {
+    questionImg.removeAttribute("src");
+    questionImg.style.display = "none";
+  }
+  optionsBox.innerHTML = "";
 
   Object.entries(currentQuestion.options).forEach(([letter, text]) => {
     const option = document.createElement("div");
@@ -259,10 +270,10 @@ function updateButtons() {
 
   if (currentQuestionIndex === questions.length - 1) {
     nextBtn.innerText = "Finalizar";
-    nextBtn.disabled  = !userAnswers[currentQuestionIndex];
+    nextBtn.disabled = !userAnswers[currentQuestionIndex];
   } else {
     nextBtn.innerText = "Prosseguir";
-    nextBtn.disabled  = false;
+    nextBtn.disabled = false;
   }
 }
 
@@ -370,7 +381,7 @@ async function mostrarResultado() {
 ========================================= */
 
 async function iniciarRevisao() {
-  const res  = await fetch(`${BASE_URL}/exames/${idExame}/revisao`, { headers });
+  const res = await fetch(`${BASE_URL}/exames/${idExame}/revisao`, { headers });
   const data = await res.json().catch(() => ({}));
 
   if (!res.ok) {

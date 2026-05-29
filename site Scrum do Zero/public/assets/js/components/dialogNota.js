@@ -8,6 +8,7 @@ class LevelDialog extends HTMLElement {
         <div class="dialog-quiz-verify">
           <h3 class="dialog-level-label">Você tem certeza que quer enviar o questionário?</h3>
 
+          <div class="dialog-actions">
             <a class="btn-cancelar"
               id="btn-retornar-verify"
               href="#">
@@ -19,6 +20,7 @@ class LevelDialog extends HTMLElement {
               href="#">
               Enviar
             </a>
+          </div>
 
         </div>
 
@@ -53,8 +55,7 @@ class LevelDialog extends HTMLElement {
       </dialog>
     `;
 
-    this.dialog =
-      this.querySelector("#dialog-quiz");
+    this.dialog = this.querySelector("#dialog-quiz");
 
     this.dialogMensagem = this.querySelector("#dialog-quiz-mensagem");
     this.dialogNota = this.querySelector("#dialog-quiz-nota");
@@ -98,6 +99,29 @@ class LevelDialog extends HTMLElement {
       window.location.href = "/main";
     });
 
+    /* =========================
+       CLICK OUTSIDE
+    ========================= */
+
+    this.dialog.addEventListener("click", (event) => {
+
+      const rect = this.dialog.getBoundingClientRect();
+
+      const isInDialog =
+        event.clientX >= rect.left &&
+        event.clientX <= rect.right &&
+        event.clientY >= rect.top &&
+        event.clientY <= rect.bottom;
+
+      if (!isInDialog) {
+        const verify = this.querySelector(".dialog-quiz-verify");
+        const verifyVisible = verify && getComputedStyle(verify).display !== "none";
+        if (verifyVisible) {
+          this.dialog.close();
+        }
+      }
+
+    });
 
   }
 
