@@ -57,17 +57,22 @@
     if (registradasEl) registradasEl.textContent = totalAttempts;
 
     if (mediaEl) {
-      // Calcular média das melhores notas de cada um dos 5 módulos
-      let sumBest = 0;
-      modulos.forEach(m => {
-        const completedAttempts = m.tentativas.filter(t => Number(t.respostas_respondidas) > 0);
-        const best = completedAttempts.length 
-          ? Math.max(...completedAttempts.map(t => Number(t.nota))) 
-          : 0;
-        sumBest += best;
-      });
-      const average = (sumBest / 5).toFixed(1);
-      mediaEl.textContent = `${String(average).replace('.', ',')} / 10`;
+      // Só mostrar a média se todos os 5 níveis foram concluídos
+      if (completedLevels === 5) {
+        // Calcular média das melhores notas de cada um dos 5 módulos
+        let sumBest = 0;
+        modulos.forEach(m => {
+          const completedAttempts = m.tentativas.filter(t => Number(t.respostas_respondidas) > 0);
+          const best = completedAttempts.length 
+            ? Math.max(...completedAttempts.map(t => Number(t.nota))) 
+            : 0;
+          sumBest += best;
+        });
+        const average = (sumBest / 5).toFixed(1);
+        mediaEl.textContent = String(average).replace('.', ',');
+      } else {
+        mediaEl.textContent = `--`;
+      }
     }
 
     localStorage.setItem("niveisConcluidos", completedLevels);
