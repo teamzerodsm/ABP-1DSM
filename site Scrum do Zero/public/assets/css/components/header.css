@@ -20,7 +20,12 @@
     width: 40px;
     height: 40px;
     z-index: 2000;
+    transition: transform 0.2s ease;
 } 
+
+.logo-img-header:hover {
+    transform: scale(1.08);
+}
 
 .certificado-wrapper {
   position: relative;
@@ -61,11 +66,6 @@
 .certificado-wrapper.bloqueado:hover::after {
   opacity: 1;
   visibility: visible;
-}
-
-.certificado-wrapper:not(.bloqueado) .link-certificado:hover {
-    opacity: 1;
-    transform: scale(1.08);
 }
 
 .nav-links {
