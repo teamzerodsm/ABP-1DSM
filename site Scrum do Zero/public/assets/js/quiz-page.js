@@ -176,11 +176,14 @@ function renderProgress() {
       if (userAnswers[index]) progress.classList.add("answered");
       if (index === currentQuestionIndex) progress.classList.add("current");
 
-      progress.classList.add("clickable");
-      progress.addEventListener("click", () => {
-        currentQuestionIndex = index;
-        renderQuestion();
-      });
+      // Só permite clicar em perguntas já respondidas ou a atual
+      if (userAnswers[index] || index === currentQuestionIndex) {
+        progress.classList.add("clickable");
+        progress.addEventListener("click", () => {
+          currentQuestionIndex = index;
+          renderQuestion();
+        });
+      }
 
     } else {
       const acertou = userAnswers[index] === question.correct;
