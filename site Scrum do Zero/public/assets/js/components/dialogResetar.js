@@ -35,6 +35,7 @@ class LevelDialog extends HTMLElement {
   
       this.btnRetornar = this.querySelector("#btn-retornar-reset");
       this.btnEnviar = this.querySelector("#btn-avancar-reset");
+      this.inputReset = this.querySelector("#word-reset");
   
       /* =========================
          VERIFY - RETORNAR (volta ao fluxo da página)
@@ -42,6 +43,47 @@ class LevelDialog extends HTMLElement {
       this.btnRetornar.addEventListener("click", (e) => {
         e.preventDefault();
         this.dialog.close();
+      });
+
+      /* =========================
+         VERIFY - ENVIAR (executa reset no backend)
+      ========================= */
+      this.btnEnviar.addEventListener("click", async (e) => {
+        e.preventDefault();
+        const value = (this.inputReset && this.inputReset.value || "").trim();
+        if (value.toUpperCase() !== "RESETAR") {
+          alert('Digite "RESETAR" para confirmar o reset do progresso.');
+          return;
+        }
+
+        const token = localStorage.getItem('token');
+        if (!token) {
+          alert('Usuário não autenticado. Faça login novamente.');
+          return window.location.href = '/index';
+        }
+
+        try {
+          const res = await fetch('/api/exames/resetar', {
+            method: 'DELETE',
+            headers: {
+              'Authorization': `Bearer ${token}`,
+              'Content-Type': 'application/json'
+            }
+          });
+
+          if (!res.ok) {
+            const err = await res.json().catch(() => ({}));
+            alert(err.message || 'Não foi possível resetar o progresso.');
+            return;
+          }
+
+          alert('Progresso resetado com sucesso. A página será recarregada.');
+          this.dialog.close();
+          window.location.reload();
+        } catch (err) {
+          console.error(err);
+          alert('Erro ao conectar com o servidor. Tente novamente.');
+        }
       });
   
       /* =========================
