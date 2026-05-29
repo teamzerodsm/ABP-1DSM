@@ -60,7 +60,7 @@ function criarDialogoCertificado(titulo, texto, detalhe, botaoTexto = "Continuar
   dialog.className = "dialog";
 
   dialog.innerHTML = `
-    <p class="dialog-title">${titulo}</p>
+    <p class="dialog-title-cert">${titulo}</p>
     <p class="dialog-description">${texto}</p>
 
 
