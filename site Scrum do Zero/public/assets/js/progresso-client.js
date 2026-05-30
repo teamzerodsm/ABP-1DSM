@@ -84,18 +84,17 @@
     tbody.innerHTML = '';
 
     modulos.forEach((m) => {
-      const best = m.tentativas.length ? Math.max(...m.tentativas.map(t => Number(t.nota))) : null;
+      const completedAttempts = m.tentativas.filter(t => (Number(t.respostas_respondidas) || 0) > 0);
+      const best = completedAttempts.length ? Math.max(...completedAttempts.map(t => Number(t.nota))) : null;
 
       const getAttemptCell = (attemptNumber) => {
         const attempt = m.tentativas.find(t => Number(t.tentativa) === attemptNumber);
         if (!attempt) return `<td><span class="not-done">Não<br>realizada</span></td>`;
         const isInProgress = (Number(attempt.respostas_respondidas) || 0) === 0;
-        const href = isInProgress
-          ? `/quiz-page?modulo=${m.id_modulo}`
-          : `/quiz-page?review=true&id_exame=${attempt.id_exame}&modulo=${m.id_modulo}`;
-        const label = isInProgress
-          ? "Continuar"
-          : formatDate(attempt.data_exame || attempt.respondido_em || attempt.data_tentativa).replace('\n', '<br>');
+        if (isInProgress) return `<td><span class="not-done">Não<br>realizada</span></td>`;
+        
+        const href = `/quiz-page?review=true&id_exame=${attempt.id_exame}&modulo=${m.id_modulo}`;
+        const label = formatDate(attempt.data_exame || attempt.respondido_em || attempt.data_tentativa).replace('\n', '<br>');
         return `<td><a href="${href}" class="link-date">${label}</a></td>`;
       };
 
