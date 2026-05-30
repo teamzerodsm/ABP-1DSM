@@ -30,7 +30,7 @@
           <li><a href="#-objetivo-educacional">1.1. Objetivo educacional</a></li>
           <li><a href="#-ferramentas-utilizadas">1.2. Ferramentas utilizadas</a></li>
           <li><a href="#-como-iniciar-a-aplicação">1.3. Como iniciar a aplicação</a></li>
-          <li><a href="#sprints">1.4. Tabela de sprints</a></li>
+          <li><a href="#sprints">1.4. Tabela e programação das sprints</a></li>
           <li><a href="#-funcionalidades">1.5. Funcionalidades</a></li>
           <li><a href="#-equipe">1.6. Equipe</a></li>
           <li><a href="#-product-backlog">1.7. Product backlog</a></li>
@@ -103,6 +103,46 @@ Integrar, em um único projeto prático, os principais conteúdos do semestre:
 - Organização e execução de projeto em equipe
 
 ---
+
+## 📁 Organização de pastas
+
+```mermaid
+graph LR
+    %% Nó Raiz principal
+    raiz["ABP-1DSM"]
+
+    %% --- Fluxo do GitHub (Azul) ---
+    raiz --- github[".github"]
+    github --- desc.github["Pasta destinada a guardar arquivos de apoio para READMEs"]
+
+    %% --- Fluxo de Documentos (Verde) ---
+    raiz --- doc["Documentos"]
+    doc --- desc.doc["Pasta destinada a armazenar a documentação realizada durante o desenvolvimento do site"]
+
+    %% --- Fluxo do Scrum (Amarelo) ---
+    raiz --- Scrum["Scrum"]
+    Scrum --- desc.scrum["Pasta destinada a armazenar os documentos relacionados a metodologia SCRUM utilizada durante o desenvolvimento"]
+
+    %% --- Fluxo do Site (Vermelho) ---
+    raiz --- site["site Scrum do Zero"]
+    site --- desc.site["Pasta raiz da aplicação"]
+
+    %% --- Aplicação de Cores por Ramificação ---
+    class github,desc.github ramoAzul;
+    class doc,desc.doc ramoVerde;
+    class Scrum,desc.scrum ramoAmarelo;
+    class site,desc.site ramoVermelho;
+
+    %% --- Definição das Classes de Estilo ---
+    classDef default fill:#f9f9f9,stroke:#333,stroke-width:1px,color:#333;
+    classDef ramoAzul fill:#e6f2ff,stroke:#4a90e2,stroke-width:2px,color:#1d3557;
+    classDef ramoVerde fill:#e6f7ed,stroke:#2ecc71,stroke-width:2px,color:#145a32;
+    classDef ramoAmarelo fill:#fffde6,stroke:#f1c40f,stroke-width:2px,color:#7d6608;
+    classDef ramoVermelho fill:#fdf2f2,stroke:#e74c3c,stroke-width:2px,color:#78281f;
+```
+
+---
+
 
 ### 🛠️ Ferramentas utilizadas
 
@@ -216,6 +256,20 @@ cd '.\ABP-1DSM\site Scrum do Zero\'
 npm install
 ```
 
+#### Configure o arquivo ``.env``
+
+preencha as seguintes configurações do seu banco de dados no arquivo ``ABP-1DSM/site Scrum do Zero/.env``
+
+```bash
+PORT= ****
+
+POSTGRES_HOST= ****
+POSTGRES_USER= ****
+POSTGRES_PASSWORD= ****
+POSTGRES_DB= ****
+POSTGRES_PORT= ****
+```
+
 #### Inicie o banco de dados
 
 ```bash
@@ -253,6 +307,58 @@ npm run dev
 ✅ - Sprint concluída <br>
 🔄 - Sprint em andamento <br>
 ❌ - Sprint não iniciada
+
+### Cronograma das sprints
+
+```mermaid
+  %%{init: {'flowchart': {'curve': 'stepBefore'}}}%%
+graph TD
+    %% Nós do Diagrama
+    s1["Sprint 1"]
+    s2["Sprint 2"]
+    s3["Sprint 3"]
+
+    %% Setas direcionadas para os subgráficos
+    s1 --> DOC
+    s2 --> IMP
+    s3 --> BUG
+
+    subgraph DOC [Documentação da aplicação]
+    direction TD
+      a1["Criação dos diagramas UML"]
+      a1 --- a2["Criação dos protótipos do design do site"]
+      a2 --- a3["Idealização do fluxo de navegação"]
+    end
+
+    subgraph IMP [Implementação da aplicação]
+    direction TD
+      b1["Implementação dos protótipos em HTML"]
+      b1 --- b2["Alterar o backend proposto para se encaixar nos objetivos do site"]
+      b2 --- b3["Integração dos protótipos dos fluxos"]
+    end
+
+    subgraph BUG [Correções de bugs e aperfeiçoamento]
+    direction TD
+      c1["Criação do certificado final"]
+      c1 --- c2["Correção de bugs identificados nas sprints anteriores"]
+      c2 --- c3["Aperfeiçoar o Front-End para melhor representação dos fluxos"]
+    end
+
+    %% --- Aplicação de Cores por Ramificação ---
+    class s1,s2,s3 topoSprint;
+    class DOC,a1,a2,a3 ramoVermelho;
+    class IMP,b1,b2,b3 ramoAzul;
+    class BUG,c1,c2,c3 ramoVerde;
+
+    %% --- Definição das Classes de Estilo Unificadas ---
+    classDef default fill:#f9f9f9,stroke:#333,stroke-width:1px,color:#333;
+    classDef topoSprint fill:#f9f9f9,stroke:#333,stroke-width:1px,color:#333;
+    classDef ramoAzul fill:#e6f2ff,stroke:#4a90e2,stroke-width:2px,color:#1d3557;
+    classDef ramoVerde fill:#e6f7ed,stroke:#2ecc71,stroke-width:2px,color:#145a32;
+    classDef ramoVermelho fill:#fdf2f2,stroke:#e74c3c,stroke-width:2px,color:#78281f;
+
+
+```
 
 ---
 
