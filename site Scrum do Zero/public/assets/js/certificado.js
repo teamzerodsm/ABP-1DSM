@@ -19,9 +19,10 @@ const MODULOS_LABEL = {
 };
 
 function melhorNota(tentativas) {
-  if (!tentativas || tentativas.length === 0) return null;
+  const completed = tentativas ? tentativas.filter(t => (Number(t.respostas_respondidas) || 0) > 0) : [];
+  if (completed.length === 0) return null;
   // nota vem como acertos (0–10), já é a soma de notas individuais
-  const max = Math.max(...tentativas.map((t) => Number(t.nota) || 0));
+  const max = Math.max(...completed.map((t) => Number(t.nota) || 0));
   return max;
 }
 
@@ -65,7 +66,7 @@ async function preencherCertificado(usuario) {
   const totalModulos = Object.keys(MODULOS_LABEL).length;
   const modulosConcluidos = Object.keys(MODULOS_LABEL).filter((idStr) => {
     const moduloData = historicoMap.get(Number(idStr));
-    return moduloData && moduloData.tentativas.length > 0;
+    return moduloData && moduloData.tentativas.some((t) => (Number(t.respostas_respondidas) || 0) > 0);
   }).length;
 
   if (modulosConcluidos < totalModulos) {

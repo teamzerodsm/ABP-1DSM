@@ -1,4 +1,4 @@
-﻿class MeuCabecalho extends HTMLElement {
+class MeuCabecalho extends HTMLElement {
   connectedCallback() {
     this.classList.add("header");
 
@@ -69,8 +69,6 @@
       });
     }
 
-    checkCertificado();
-    window.addEventListener('progressUpdated', checkCertificado);
   }
 }
 
