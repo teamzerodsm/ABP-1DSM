@@ -107,5 +107,17 @@
   }
 
   // inicia quando o DOM estiver pronto
-  document.addEventListener('DOMContentLoaded', fetchProgresso);
+  document.addEventListener('DOMContentLoaded', () => {
+    fetchProgresso();
+    const resetBtn = document.getElementById('reset-btn');
+    if (resetBtn) {
+      resetBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const dialogEl = document.querySelector('dialog-quiz');
+        if (dialogEl && dialogEl.dialog) {
+          dialogEl.dialog.showModal();
+        }
+      });
+    }
+  });
 })();

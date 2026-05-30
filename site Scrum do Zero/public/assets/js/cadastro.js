@@ -1,45 +1,45 @@
-document.addEventListener('DOMContentLoaded', () => {
-  const form = document.getElementById('cadastroForm');
-  const mensagem = document.getElementById('mensagem');
-  const nome = document.getElementById('nome');
-  const sobrenome = document.getElementById('sobrenome');
-  const cpf = document.getElementById('cpf');
-  const email = document.getElementById('email');
-  const senha = document.getElementById('senha');
-  const confirmar = document.getElementById('confirmar');
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.getElementById("cadastroForm");
+  const mensagem = document.getElementById("mensagem");
+  const nome = document.getElementById("nome");
+  const sobrenome = document.getElementById("sobrenome");
+  const cpf = document.getElementById("cpf");
+  const email = document.getElementById("email");
+  const senha = document.getElementById("senha");
+  const confirmar = document.getElementById("confirmar");
 
   const campos = [nome, sobrenome, cpf, email, senha, confirmar];
-  const apiUrl = '/api/usuarios';
+  const apiUrl = "/api/usuarios";
 
   const limparMensagem = () => {
-    mensagem.textContent = '';
-    mensagem.className = 'cadastro-mensagem';
-    mensagem.style.display = 'none';
+    mensagem.textContent = "";
+    mensagem.className = "cadastro-mensagem";
+    mensagem.style.display = "none";
   };
 
   const mostrarMensagem = (texto, tipo) => {
     mensagem.textContent = texto;
     mensagem.className = `cadastro-mensagem ${tipo}`;
-    mensagem.style.display = 'block';
+    mensagem.style.display = "block";
   };
 
-  const validarEmail = valor => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(valor);
+  const validarEmail = (valor) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(valor);
 
-  const aplicarMascaraCPF = valor => 
+  const aplicarMascaraCPF = (valor) =>
     valor
-      .replace(/\D/g, '')
-      .replace(/(\d{3})(\d)/, '$1.$2')
-      .replace(/(\d{3})(\d)/, '$1.$2')
-      .replace(/(\d{3})(\d{1,2})$/, '$1-$2')
+      .replace(/\D/g, "")
+      .replace(/(\d{3})(\d)/, "$1.$2")
+      .replace(/(\d{3})(\d)/, "$1.$2")
+      .replace(/(\d{3})(\d{1,2})$/, "$1-$2")
       .slice(0, 14);
 
-  cpf.addEventListener('input', () => {
+  cpf.addEventListener("input", () => {
     cpf.value = aplicarMascaraCPF(cpf.value);
   });
 
-  campos.forEach(campo => campo.addEventListener('input', limparMensagem));
+  campos.forEach((campo) => campo.addEventListener("input", limparMensagem));
 
-  form.addEventListener('submit', async event => {
+  form.addEventListener("submit", async (event) => {
     event.preventDefault();
 
     const nomeVal = nome.value.trim();
@@ -49,64 +49,89 @@ document.addEventListener('DOMContentLoaded', () => {
     const senhaVal = senha.value;
     const confirmarVal = confirmar.value;
 
-    const vazio = campos.find(campo => campo.value.trim() === '');
+    const vazio = campos.find((campo) => campo.value.trim() === "");
     if (vazio) {
-      mostrarMensagem('Preencha todos os campos.', 'erro');
+      mostrarMensagem("Preencha todos os campos.", "erro");
       vazio.focus();
       return;
     }
 
-    if (cpfVal.replace(/\D/g, '').length !== 11) {
-      mostrarMensagem('Digite um CPF válido com 11 números.', 'erro');
+    if (cpfVal.replace(/\D/g, "").length !== 11) {
+      mostrarMensagem("Digite um CPF válido com 11 números.", "erro");
       cpf.focus();
       return;
     }
 
     if (!validarEmail(emailVal)) {
-      mostrarMensagem('Digite um e-mail válido.', 'erro');
+      mostrarMensagem("Digite um e-mail válido.", "erro");
       email.focus();
       return;
     }
 
     if (senhaVal.length < 6) {
-      mostrarMensagem('A senha deve ter pelo menos 6 caracteres.', 'erro');
+      mostrarMensagem("A senha deve ter pelo menos 6 caracteres.", "erro");
       senha.focus();
       return;
     }
 
     if (senhaVal !== confirmarVal) {
-      mostrarMensagem('As senhas não conferem.', 'erro');
+      mostrarMensagem("As senhas não conferem.", "erro");
       confirmar.focus();
       return;
     }
 
     try {
       const resposta = await fetch(apiUrl, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json'
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           nome: `${nomeVal} ${sobrenomeVal}`.trim(),
           email: emailVal,
           cpf: cpfVal,
-          senha: senhaVal
-        })
+          senha: senhaVal,
+        }),
       });
 
       const data = await resposta.json().catch(() => ({}));
 
       if (!resposta.ok) {
-        throw new Error(data.message || 'Não foi possível concluir o cadastro.');
+        throw new Error(
+          data.message || "Não foi possível concluir o cadastro.",
+        );
       }
 
-      mostrarMensagem('Cadastro realizado com sucesso! Redirecionando para o login...', 'sucesso');
+      mostrarMensagem(
+        "Cadastro realizado com sucesso! Redirecionando para o login...",
+        "sucesso",
+      );
       form.reset();
       setTimeout(() => {
-        window.location.href = './index.html';
+        window.location.href = "./index.html";
       }, 1500);
     } catch (error) {
-      mostrarMensagem(error.message || 'Erro ao conectar com o servidor.', 'erro');
+      mostrarMensagem(
+        error.message || "Erro ao conectar com o servidor.",
+        "erro",
+      );
     }
+  });
+
+  // Lógica para mostrar/esconder senha em ambos os inputs
+  const eyeButtons = document.querySelectorAll(".lnr-eye");
+  eyeButtons.forEach((eyeBtn) => {
+    eyeBtn.addEventListener("click", () => {
+      const container = eyeBtn.closest(".password-input-container");
+      const inputPassword = container.querySelector("input[type='password'], input[type='text']");
+
+      if (inputPassword.getAttribute("type") === "password") {
+        inputPassword.setAttribute("type", "text");
+        eyeBtn.setAttribute("src", "assets/img/hidePassword.png");
+      } else {
+        inputPassword.setAttribute("type", "password");
+        eyeBtn.setAttribute("src", "assets/img/showPassword.png");
+      }
+    });
   });
 });

@@ -3,6 +3,7 @@
   background: var(--darkBlue);
   border-radius: 22px;
   padding: 2rem 1.25rem;
+  border: 1px solid #25527f75;
 }
 
 .header-cadastro-page{
