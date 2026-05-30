@@ -12,7 +12,7 @@
                     <span class="certificado-wrapper">
                         <a href="/certificado" id="btnCertificado" class="link-certificado">Certificado</a>
                     </span>
-                    <a href="#" id="logoutLink">Sair</a>
+                    <a href="#" id="logoutLink"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-square-arrow-right-exit-icon lucide-square-arrow-right-exit"><path d="M10 12h11"/><path d="m17 16 4-4-4-4"/><path d="M21 6.344V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-1.344"/></svg></a>
                 </nav>
 
                 <div class="menu-icon" id="menuIcon">

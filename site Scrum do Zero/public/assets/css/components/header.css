@@ -206,4 +206,8 @@
         font-size: 1rem;
     }
 
+    .nav-links{
+        align-items: center;
+    }
+
 }
