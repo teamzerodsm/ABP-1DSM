@@ -110,9 +110,10 @@ async function iniciarRevisaoPorId(exameId) {
         a: item.alternativa_a,
         b: item.alternativa_b,
         c: item.alternativa_c,
-        d: item.alternativa_d,
+        d: item.alternativa_d
       },
       correct: item.alternativa_correta,
+      imagem: item.imagem || null,
     };
   });
 
@@ -135,16 +136,15 @@ let reviewMode = false;
    ELEMENTOS
 ========================================= */
 
-const questionNumber  = document.getElementById("questionNumber");
-const questionText    = document.getElementById("questionText");
-const optionsBox      = document.getElementById("optionsBox");
+const questionNumber = document.getElementById("questionNumber");
+const questionText = document.getElementById("questionText");
+const optionsBox = document.getElementById("optionsBox");
 const progressWrapper = document.getElementById("progressWrapper");
-const prevBtn         = document.getElementById("prevBtn");
-const nextBtn         = document.getElementById("nextBtn");
+const prevBtn = document.getElementById("prevBtn");
+const nextBtn = document.getElementById("nextBtn");
 const dialogComponent = document.querySelector("dialog-quiz");
 
 function adaptarQuestoes(raw) {
-  console.log("raw[0]:", raw[0]);
   return raw.map((q) => ({
     id: q.id_questao,
     question: q.enunciado,
@@ -155,6 +155,7 @@ function adaptarQuestoes(raw) {
       d: q.alternativa_d,
     },
     correct: q.alternativa_correta,
+    imagem: q.imagem && q.imagem !== "NULL" ? q.imagem : null,  // ← fix
   }));
 }
 /* =========================================
@@ -169,14 +170,17 @@ function renderProgress() {
     progress.classList.add("progress");
 
     if (!reviewMode) {
-      if (userAnswers[index])          progress.classList.add("answered");
+      if (userAnswers[index]) progress.classList.add("answered");
       if (index === currentQuestionIndex) progress.classList.add("current");
 
-      progress.classList.add("clickable");
-      progress.addEventListener("click", () => {
-        currentQuestionIndex = index;
-        renderQuestion();
-      });
+      // Só permite clicar em perguntas já respondidas ou a atual
+      if (userAnswers[index] || index === currentQuestionIndex) {
+        progress.classList.add("clickable");
+        progress.addEventListener("click", () => {
+          currentQuestionIndex = index;
+          renderQuestion();
+        });
+      }
 
     } else {
       const acertou = userAnswers[index] === question.correct;
@@ -202,8 +206,18 @@ function renderQuestion() {
   const currentQuestion = questions[currentQuestionIndex];
 
   questionNumber.innerText = `${currentQuestionIndex + 1} -`;
-  questionText.innerText   = currentQuestion.question;
-  optionsBox.innerHTML     = "";
+  questionText.innerText = currentQuestion.question;
+
+  const questionImg = document.getElementById("questionImg");
+  console.log("imagem:", currentQuestion.imagem, "img el:", questionImg);
+  if (currentQuestion.imagem) {
+    questionImg.src = `/imagens/questoes/${currentQuestion.imagem}`;
+    questionImg.style.display = "block";
+  } else {
+    questionImg.removeAttribute("src");
+    questionImg.style.display = "none";
+  }
+  optionsBox.innerHTML = "";
 
   Object.entries(currentQuestion.options).forEach(([letter, text]) => {
     const option = document.createElement("div");
@@ -256,10 +270,10 @@ function updateButtons() {
 
   if (currentQuestionIndex === questions.length - 1) {
     nextBtn.innerText = "Finalizar";
-    nextBtn.disabled  = !userAnswers[currentQuestionIndex];
+    nextBtn.disabled = !userAnswers[currentQuestionIndex];
   } else {
     nextBtn.innerText = "Prosseguir";
-    nextBtn.disabled  = false;
+    nextBtn.disabled = false;
   }
 }
 
@@ -308,42 +322,57 @@ prevBtn.addEventListener("click", () => {
 ========================================= */
 
 async function mostrarResultado() {
-  nextBtn.disabled = true;
+  // Preparar respostas e abrir diálogo de verificação
+  const answers = questions.map((q, index) => ({ id_questao: q.id, resposta: userAnswers[index] }));
 
-  const answers = questions.map((q, index) => ({
-    id_questao: q.id,
-    resposta: userAnswers[index],
-  }));
+  // Guarda as respostas pendentes no componente para o handler usar
+  dialogComponent._pendingAnswers = answers;
 
-  try {
-    const res = await fetch(`${BASE_URL}/exames/${idExame}/respostas`, {
-      method: "POST",
-      headers: { ...headers, "Content-Type": "application/json" },
-      body: JSON.stringify(answers),
+  // Anexa o listener de confirmação apenas uma vez
+  if (!dialogComponent._confirmListenerAdded) {
+    dialogComponent.addEventListener("confirm-submit", async () => {
+      if (dialogComponent._sending) return;
+      dialogComponent._sending = true;
+      nextBtn.disabled = true;
+      try {
+        const res = await fetch(`${BASE_URL}/exames/${idExame}/respostas`, {
+          method: "POST",
+          headers: { ...headers, "Content-Type": "application/json" },
+          body: JSON.stringify(dialogComponent._pendingAnswers || []),
+        });
+
+        const data = await res.json().catch(() => ({}));
+
+        if (!res.ok) {
+          throw new Error(data.message || "Erro ao enviar as respostas.");
+        }
+
+        if (typeof dialogComponent.showCompleted === "function") {
+          dialogComponent.showCompleted({ mensagem: `Quiz finalizado! Acertos: ${data.score} de ${data.total}`, nota: data.score });
+        } else {
+          const mensagemEl = dialogComponent.querySelector("#dialog-quiz-mensagem");
+          const notaEl = dialogComponent.querySelector("#dialog-quiz-nota");
+          if (mensagemEl) mensagemEl.innerText = `Quiz finalizado! Acertos: ${data.score} de ${data.total}`;
+          if (notaEl) notaEl.innerText = data.score;
+          const dialogEl = dialogComponent.querySelector && dialogComponent.querySelector("#dialog-quiz");
+          if (dialogEl && dialogEl.showModal) dialogEl.showModal();
+        }
+      } catch (error) {
+        console.error(error);
+        alert(error.message || "Erro ao enviar as respostas.");
+        nextBtn.disabled = false;
+      } finally {
+        dialogComponent._sending = false;
+      }
     });
+    dialogComponent._confirmListenerAdded = true;
+  }
 
-    const data = await res.json().catch(() => ({}));
-
-    if (!res.ok) {
-      throw new Error(data.message || "Erro ao enviar as respostas.");
-    }
-
-    const mensagemEl = dialogComponent.querySelector("#dialog-quiz-mensagem");
-    const notaEl = dialogComponent.querySelector("#dialog-quiz-nota");
-    const dialogEl = dialogComponent.querySelector("#dialog-quiz");
-
-    if (!mensagemEl || !notaEl || !dialogEl) {
-      console.error("Elementos do dialog não encontrados. innerHTML:", dialogComponent.innerHTML);
-      return;
-    }
-
-    mensagemEl.innerText = `Quiz finalizado! Acertos: ${data.score} de ${data.total}`;
-    notaEl.innerText = data.score;
-    dialogEl.showModal();
-  } catch (error) {
-    console.error(error);
-    alert(error.message || "Erro ao enviar as respostas.");
-    nextBtn.disabled = false;
+  if (typeof dialogComponent.showVerify === "function") {
+    dialogComponent.showVerify();
+  } else {
+    const dialogEl = dialogComponent.querySelector && dialogComponent.querySelector("#dialog-quiz");
+    if (dialogEl && dialogEl.showModal) dialogEl.showModal();
   }
 }
 
@@ -352,7 +381,7 @@ async function mostrarResultado() {
 ========================================= */
 
 async function iniciarRevisao() {
-  const res  = await fetch(`${BASE_URL}/exames/${idExame}/revisao`, { headers });
+  const res = await fetch(`${BASE_URL}/exames/${idExame}/revisao`, { headers });
   const data = await res.json().catch(() => ({}));
 
   if (!res.ok) {

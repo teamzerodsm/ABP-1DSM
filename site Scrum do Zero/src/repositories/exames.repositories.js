@@ -216,17 +216,17 @@ async function insertResponses(client, answers) {
   return result.rows;
 }
 
-module.exports = {
-  findAllModulos,
-  findModuloById,
-  findRandomGrupoByModuloExcludingUsed,
-  findNextAttemptNumber,
-  findActiveExamByUsuarioModulo,
-  insertExame,
-  findExamById,
-  findQuestionsByModuloAndGrupo,
-  findExamHistoryByUsuario,
-  findExamReviewById,
-  findExistingResponses,
-  insertResponses,
-};
+  module.exports = {
+    findAllModulos,
+    findModuloById,
+    findRandomGrupoByModuloExcludingUsed,
+    findNextAttemptNumber,
+    findActiveExamByUsuarioModulo,
+    insertExame,
+    findExamById,
+    findQuestionsByModuloAndGrupo,
+    findExamHistoryByUsuario,
+    findExamReviewById,
+    findExistingResponses,
+    insertResponses,
+  };

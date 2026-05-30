@@ -12,7 +12,7 @@ class LevelDialog extends HTMLElement {
 
             <div class="dialog-actions">
                 <a class="secondary-button btn-cancelar">Cancelar</a>
-                <a class="secondary-button btn-prosseguir" href="/quiz-page">Prosseguir</a>
+                <a class="secondary-button btn-prosseguir" href="/quiz-page" target="_blank">Prosseguir</a>
             </div>
         </dialog>
         `;

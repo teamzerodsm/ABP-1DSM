@@ -196,3 +196,4 @@ window.addEventListener("DOMContentLoaded", async () => {
     window.location.href = "/index";
   }
 });
+

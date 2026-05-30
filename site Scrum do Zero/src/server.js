@@ -26,6 +26,9 @@ const imagensQuestoesPath = path.join(
 app.use("/", express.static(pagesPath));
 app.use("/assets", express.static(assetsPath));
 app.use("/imagens/questoes", express.static(imagensQuestoesPath));
+app.use("/imagens/questoes", function (_req, res) {
+  res.status(404).end();
+});
 app.use("/api", router);
 
 app.get("/index", function (_req, res) {
