@@ -33,10 +33,16 @@ async function obterProgresso(req, res) {
       }
     });
 
-    const history = Array.from(modulosMap.values()).map((modulo) => ({
-      ...modulo,
-      tentativas_restantes: Math.max(MAX_TENTATIVAS - modulo.tentativas.length, 0),
-    }));
+    const history = Array.from(modulosMap.values()).map((modulo) => {
+      const completedAttempts = modulo.tentativas.filter(
+        (t) => Number(t.respostas_respondidas) > 0
+      ).length;
+
+      return {
+        ...modulo,
+        tentativas_restantes: Math.max(MAX_TENTATIVAS - completedAttempts, 0),
+      };
+    });
 
     return res.status(200).json(history);
   } catch (e) {
