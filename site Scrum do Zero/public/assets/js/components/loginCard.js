@@ -47,6 +47,7 @@ class loginCard extends HTMLElement {
     this.allInputs = this.querySelectorAll(".form-input");
     this.formLogin = this.querySelector(".form-login");
     this.eyeBtn = this.querySelector(".lnr-eye");
+    this.forgotPasswordLink = this.querySelector(".forgot-password");
 
     function showError(element, message) {
       const formGroup = element.closest('.form-group') || element.parentElement;
@@ -134,6 +135,17 @@ class loginCard extends HTMLElement {
         this.eyeBtn.setAttribute("src","assets/img/showPassword.png")
       }
     });
+
+    // Integrar com dialog de recuperação de senha
+    if (this.forgotPasswordLink) {
+      this.forgotPasswordLink.addEventListener("click", (e) => {
+        e.preventDefault();
+        const dialogForgotPassword = document.querySelector("dialog-forgot-password");
+        if (dialogForgotPassword && dialogForgotPassword.openDialog) {
+          dialogForgotPassword.openDialog();
+        }
+      });
+    }
   }
 }
 
