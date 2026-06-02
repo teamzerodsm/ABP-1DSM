@@ -5,7 +5,7 @@ class LevelDialog extends HTMLElement {
       this.innerHTML = `
         <dialog class='dialog' id="dialog-quiz">
 
-            <h2 class="dialog-level-label">Você tem certeza que quer enviar o questionário?</h2>
+            <h2 class="dialog-label">Você tem certeza que quer enviar o questionário?</h2>
 
             <p class="dialog-title">Digite "RESETAR" para confirmar</p>
 

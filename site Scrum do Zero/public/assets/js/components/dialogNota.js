@@ -6,7 +6,7 @@ class LevelDialog extends HTMLElement {
       <dialog class='dialog' id="dialog-quiz">
 
         <div class="dialog-quiz-verify">
-          <h3 class="dialog-level-label">Você tem certeza que quer enviar o questionário?</h3>
+          <h3 class="dialog-title">Você tem certeza que quer enviar o questionário?</h3>
 
           <div class="dialog-actions">
             <a class="btn-cancelar"
@@ -26,7 +26,7 @@ class LevelDialog extends HTMLElement {
 
         <div class="dialog-quiz-completed" style="display:none;">
 
-          <p class="dialog-level-label"
+          <p class="dialog-title"
             id="dialog-quiz-mensagem">
           </p>
 

@@ -103,7 +103,7 @@ function mostrarDialogCertificadoIndisponivel(concluidos, total) {
     "Certificado indisponível",
     "Você precisa concluir todos os módulos do curso para emitir seu certificado.",
     `${concluidos} de ${total} módulos concluídos`,
-    "Continuar curso"
+    "Continuar"
   );
 }
 
@@ -112,6 +112,6 @@ function mostrarDialogCertificadoReprovado(media) {
     "Média insuficiente",
     `Sua média final foi ${media.toFixed(1).replace(".", ",")}. É necessário atingir pelo menos 6,0 para emitir o certificado.`,
     "Continue seus estudos e tente novamente.",
-    "Continuar curso"
+    "Continuar"
   );
 }
