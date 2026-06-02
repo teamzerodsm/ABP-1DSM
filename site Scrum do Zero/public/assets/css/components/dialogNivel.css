@@ -1,0 +1,14 @@
+.lb-level {
+    margin-bottom: 0.5rem;
+    text-align: center;
+    color: #7dff72;
+}
+
+.btn-prosseguir.disabled {
+    background: rgba(220, 220, 220, 0.1) !important;
+    color: rgba(255, 255, 255, 0.3) !important;
+    cursor: not-allowed !important;
+    pointer-events: none !important;
+    box-shadow: none !important;
+    transform: none !important;
+}

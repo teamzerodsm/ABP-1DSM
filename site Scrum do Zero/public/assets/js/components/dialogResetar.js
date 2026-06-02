@@ -5,7 +5,7 @@ class LevelDialog extends HTMLElement {
       this.innerHTML = `
         <dialog class='dialog' id="dialog-quiz">
 
-            <h2 class="dialog-level-label">Você tem certeza que quer enviar o questionário?</h2>
+            <h2 class="dialog-label">Você tem certeza que quer enviar o questionário?</h2>
 
             <p class="dialog-title">Digite "RESETAR" para confirmar</p>
 
@@ -45,13 +45,18 @@ class LevelDialog extends HTMLElement {
         this.dialog.close();
       });
 
+      this.inputReset.addEventListener('input', (e) => {
+        const input = e.target;
+        input.value = input.value.toUpperCase();
+      });
+
       /* =========================
          VERIFY - ENVIAR (executa reset no backend)
       ========================= */
       this.btnEnviar.addEventListener("click", async (e) => {
         e.preventDefault();
         const value = (this.inputReset && this.inputReset.value || "").trim();
-        if (value.toUpperCase() !== "RESETAR") {
+        if (value !== "RESETAR") {
           alert('Digite "RESETAR" para confirmar o reset do progresso.');
           return;
         }

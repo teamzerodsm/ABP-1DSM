@@ -1,8 +1,8 @@
 class LevelDialog extends HTMLElement {
   connectedCallback() {
     this.innerHTML = `
-     <dialog class='dialog' id="dialog-modules">
-            <p class="dialog-level-label" id="dialog-level"></p>
+     <dialog class='dialog dialog-modules' id="dialog-modules">
+            <p class="dialog-label lb-level" id="dialog-level"></p>
             <p class="dialog-title" id="dialog-title"></p>
             <p class="dialog-description" id="dialog-desc"></p>
             <div class="dialog-info-container">
@@ -11,8 +11,8 @@ class LevelDialog extends HTMLElement {
             </div>
 
             <div class="dialog-actions">
-                <a class="secondary-button btn-cancelar">Cancelar</a>
-                <a class="secondary-button btn-prosseguir" href="/quiz-page" target="_blank">Prosseguir</a>
+                <a class="btn-cancelar">Cancelar</a>
+                <a class="btn-prosseguir" href="/quiz-page" target="_blank">Prosseguir</a>
             </div>
         </dialog>
         `;

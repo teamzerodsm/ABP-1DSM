@@ -20,6 +20,30 @@ function formatCpf(value) {
     .slice(0, 14);
 }
 
+function validarCpf(cpf) {
+  const cpfLimpo = cpf.replace(/\D/g, '');
+  if (cpfLimpo.length !== 11) return false;
+  if (/^(\d)\1{10}$/.test(cpfLimpo)) return false;
+
+  let soma = 0;
+  for (let i = 1; i <= 9; i++) {
+    soma += parseInt(cpfLimpo.substring(i - 1, i)) * (11 - i);
+  }
+  let resto = (soma * 10) % 11;
+  if (resto === 10 || resto === 11) resto = 0;
+  if (resto !== parseInt(cpfLimpo.substring(9, 10))) return false;
+
+  soma = 0;
+  for (let i = 1; i <= 10; i++) {
+    soma += parseInt(cpfLimpo.substring(i - 1, i)) * (12 - i);
+  }
+  resto = (soma * 10) % 11;
+  if (resto === 10 || resto === 11) resto = 0;
+  if (resto !== parseInt(cpfLimpo.substring(10, 11))) return false;
+
+  return true;
+}
+
 function splitName(fullName) {
   const parts = fullName.trim().split(" ");
   return {
@@ -100,6 +124,12 @@ async function atualizarDados(event) {
 
   if (cpf.length !== 11) {
     mostrarMensagem("Digite um CPF válido com 11 números.", "erro");
+    cpfInput.focus();
+    return;
+  }
+
+  if (!validarCpf(cpfInput.value)) {
+    mostrarMensagem("CPF inválido. Digite um CPF válido.", "erro");
     cpfInput.focus();
     return;
   }

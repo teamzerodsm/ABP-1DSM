@@ -23,7 +23,7 @@ class loginCard extends HTMLElement {
               <div class="input-box">
                 <div class="password-input-container">
                   <input class="main-input form-input" name="password-area" id="password-area" type="password" data-required="Por favor, digite sua senha" aria-describedby="password-error">
-                  <img src="assets/img/showPassword.png" class="lnr lnr-eye"/>
+                  <img alt="Botão para exibir senha" src="assets/img/showPassword.png" class="lnr lnr-eye"/>
                   <p id="password-error" class="error-message error-message-2"></p>
                   <svg xmlns="http://www.w3.org/2000/svg" width="34" height="31" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-lock-icon lucide-lock"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
                 </div>
@@ -47,6 +47,31 @@ class loginCard extends HTMLElement {
     this.allInputs = this.querySelectorAll(".form-input");
     this.formLogin = this.querySelector(".form-login");
     this.eyeBtn = this.querySelector(".lnr-eye");
+    this.forgotPasswordLink = this.querySelector(".forgot-password");
+
+    const validarCpf = (cpf) => {
+      const cpfLimpo = cpf.replace(/\D/g, '');
+      if (cpfLimpo.length !== 11) return false;
+      if (/^(\d)\1{10}$/.test(cpfLimpo)) return false;
+
+      let soma = 0;
+      for (let i = 1; i <= 9; i++) {
+        soma += parseInt(cpfLimpo.substring(i - 1, i)) * (11 - i);
+      }
+      let resto = (soma * 10) % 11;
+      if (resto === 10 || resto === 11) resto = 0;
+      if (resto !== parseInt(cpfLimpo.substring(9, 10))) return false;
+
+      soma = 0;
+      for (let i = 1; i <= 10; i++) {
+        soma += parseInt(cpfLimpo.substring(i - 1, i)) * (12 - i);
+      }
+      resto = (soma * 10) % 11;
+      if (resto === 10 || resto === 11) resto = 0;
+      if (resto !== parseInt(cpfLimpo.substring(10, 11))) return false;
+
+      return true;
+    };
 
     function showError(element, message) {
       const formGroup = element.closest('.form-group') || element.parentElement;
@@ -84,11 +109,6 @@ class loginCard extends HTMLElement {
 
       const cpfValue = this.inputCpf.value.replace(/\D/g, "").trim();
       const passwordValue = this.inputPassword.value.trim();
-
-      if (!hasError && cpfValue.length !== 11) {
-        showError(this.inputCpf, "Digite um CPF válido com 11 números.");
-        hasError = true;
-      }
 
       if (hasError) {
         return;
@@ -134,6 +154,17 @@ class loginCard extends HTMLElement {
         this.eyeBtn.setAttribute("src","assets/img/showPassword.png")
       }
     });
+
+    // Integrar com dialog de recuperação de senha
+    if (this.forgotPasswordLink) {
+      this.forgotPasswordLink.addEventListener("click", (e) => {
+        e.preventDefault();
+        const dialogForgotPassword = document.querySelector("dialog-forgot-password");
+        if (dialogForgotPassword && dialogForgotPassword.openDialog) {
+          dialogForgotPassword.openDialog();
+        }
+      });
+    }
   }
 }
 
