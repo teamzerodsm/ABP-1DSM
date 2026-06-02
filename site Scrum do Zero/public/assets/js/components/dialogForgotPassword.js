@@ -88,7 +88,7 @@ class ForgotPasswordDialog extends HTMLElement {
     // Estado
     let currentStep = 1;
     let recoveryData = {};
-    let codeTimer = null;
+    this.codeTimer = null;
 
     // PASSO 1: Enviar código
     this.querySelector("#btn-send-code").addEventListener("click", async () => {
@@ -106,7 +106,7 @@ class ForgotPasswordDialog extends HTMLElement {
       }
 
       errorEl.textContent = "";
-      
+
       try {
         const response = await fetch("/api/auth/forgot-password", {
           method: "POST",
@@ -114,7 +114,7 @@ class ForgotPasswordDialog extends HTMLElement {
           body: JSON.stringify({ email })
         });
 
-        const data = await response.json();
+        const data = await response.json().catch(() => ({}));
 
         if (!response.ok) {
           errorEl.textContent = data.message || "Erro ao enviar código";
@@ -124,6 +124,8 @@ class ForgotPasswordDialog extends HTMLElement {
         recoveryData = { email, token: data.token };
         this.goToStep(2);
         this.startCodeTimer();
+        const verifyBtn = this.querySelector("#btn-verify-code");
+        if (verifyBtn) verifyBtn.disabled = false;
       } catch (error) {
         errorEl.textContent = "Erro ao conectar com servidor";
       }
@@ -148,7 +150,7 @@ class ForgotPasswordDialog extends HTMLElement {
           body: JSON.stringify({ email: recoveryData.email, codigo })
         });
 
-        const data = await response.json();
+        const data = await response.json().catch(() => ({}));
 
         if (!response.ok) {
           errorEl.textContent = data.message || "Código inválido";
@@ -157,7 +159,10 @@ class ForgotPasswordDialog extends HTMLElement {
 
         recoveryData = { ...recoveryData, recovery_id: data.recovery_id, id_usuario: data.id_usuario };
         this.goToStep(3);
-        clearInterval(codeTimer);
+        if (this.codeTimer) {
+          clearTimeout(this.codeTimer);
+          this.codeTimer = null;
+        }
       } catch (error) {
         errorEl.textContent = "Erro ao verificar código";
       }
@@ -199,14 +204,18 @@ class ForgotPasswordDialog extends HTMLElement {
           })
         });
 
-        const data = await response.json();
+        const data = await response.json().catch(() => ({}));
+        console.log("reset-password response:", response.status, data);
 
         if (!response.ok) {
           errorEl.textContent = data.message || "Erro ao alterar senha";
           return;
         }
 
-        this.goToStep(4); // Passo sucesso
+        // Mostrar mensagem de sucesso e avançar
+        const successMsgEl = this.querySelector(".step-success p");
+        if (successMsgEl) successMsgEl.textContent = data.message || "Sua senha foi alterada com sucesso. Faça login com sua nova senha.";
+        this.goToStep("success"); // Passo sucesso
       } catch (error) {
         errorEl.textContent = "Erro ao conectar com servidor";
       }
@@ -231,26 +240,29 @@ class ForgotPasswordDialog extends HTMLElement {
 
     // Helper methods
     const goToStep = (step) => {
-      document.querySelectorAll(".step").forEach(s => s.classList.remove("active"));
-      document.querySelector(`.step-${step}`).classList.add("active");
+      this.querySelectorAll(".step").forEach(s => s.classList.remove("active"));
+      const el = this.querySelector(`.step-${step}`);
+      if (el) el.classList.add("active");
       currentStep = step;
     };
 
     const startCodeTimer = () => {
       let remaining = 900; // 15 minutos
       const timerEl = this.querySelector("#code-timer");
-      
+      const verifyBtn = this.querySelector("#btn-verify-code");
+      if (verifyBtn) verifyBtn.disabled = false;
+
       const updateTimer = () => {
         const minutes = Math.floor(remaining / 60);
         const seconds = remaining % 60;
-        timerEl.textContent = `Código expira em ${minutes}:${String(seconds).padStart(2, "0")}`;
-        
+        if (timerEl) timerEl.textContent = `Código expira em ${minutes}:${String(seconds).padStart(2, "0")}`;
+
         if (remaining > 0) {
           remaining--;
-          codeTimer = setTimeout(updateTimer, 1000);
+          this.codeTimer = setTimeout(updateTimer, 1000);
         } else {
-          timerEl.textContent = "Código expirado. Solicite um novo.";
-          this.querySelector("#btn-verify-code").disabled = true;
+          if (timerEl) timerEl.textContent = "Código expirado. Solicite um novo.";
+          if (verifyBtn) verifyBtn.disabled = true;
         }
       };
 
@@ -270,20 +282,34 @@ class ForgotPasswordDialog extends HTMLElement {
   }
 
   closeDialog() {
-    // Reset para passo 1
-    document.querySelectorAll(".step").forEach(s => s.classList.remove("active"));
-    document.querySelector(".step-1").classList.add("active");
-    
+    // Reset para passo 1 (escopo do componente)
+    this.querySelectorAll(".step").forEach(s => s.classList.remove("active"));
+    this.querySelector(".step-1").classList.add("active");
+
     // Limpar campos
-    this.querySelector("#forgot-email").value = "";
-    this.querySelector("#forgot-code").value = "";
-    this.querySelector("#forgot-password").value = "";
-    this.querySelector("#forgot-password-confirm").value = "";
-    
-    // Limpar erros
-    document.querySelectorAll(".error-message").forEach(e => e.textContent = "");
-    
-    this.dialog.close();
+    const emailEl = this.querySelector("#forgot-email");
+    const codeEl = this.querySelector("#forgot-code");
+    const pwdEl = this.querySelector("#forgot-password");
+    const pwdConfirmEl = this.querySelector("#forgot-password-confirm");
+    if (emailEl) emailEl.value = "";
+    if (codeEl) codeEl.value = "";
+    if (pwdEl) pwdEl.value = "";
+    if (pwdConfirmEl) pwdConfirmEl.value = "";
+
+    // Limpar erros (escopo do componente)
+    this.querySelectorAll(".error-message").forEach(e => e.textContent = "");
+
+    // Limpar timer se existir
+    if (this.codeTimer) {
+      clearTimeout(this.codeTimer);
+      this.codeTimer = null;
+    }
+
+    try {
+      this.dialog.close();
+    } catch (e) {
+      // ignore if dialog already closed
+    }
   }
 }
 

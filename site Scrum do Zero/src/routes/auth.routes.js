@@ -1,7 +1,8 @@
 const { Router } = require("express")
 const { findUsuarioByCpfAndSenha } = require("../repositories/usuarios.repositories")
 const { createToken } = require("../utils/jwt")
-const bcrypt = require("bcryptjs");
+// Use project's password utils for consistent hashing
+const { hashPassword } = require("../utils/password");
 const { 
   findUsuarioByEmail, 
   criarRecuperacaoSenha, 
@@ -127,11 +128,11 @@ router.post("/reset-password", async function (req, res) {
   }
 
   try {
-    // Hash da nova senha
-    const senhaCriptografada = await bcrypt.hash(nova_senha, 10)
+    // Hash da nova senha usando scrypt (consistente com `hashPassword` usado no restante do projeto)
+    const senhaCriptografada = hashPassword(nova_senha);
 
     // Atualizar senha do usuário
-    await atualizarSenha(id_usuario, senhaCriptografada)
+    await atualizarSenha(id_usuario, senhaCriptografada);
 
     // Marcar token como utilizado
     await marcarComoUtilizado(recovery_id)
