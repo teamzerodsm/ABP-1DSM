@@ -25,7 +25,7 @@ async function verificarAcessoCertificado() {
     const historico = await historicoRes.json();
     const totalModulos = 5;
     const modulosConcluidos = historico.filter(
-      (modulo) => modulo.tentativas && modulo.tentativas.length > 0
+      (modulo) => modulo.tentativas && modulo.tentativas.some((t) => (Number(t.respostas_respondidas) || 0) > 0)
     ).length;
 
     if (modulosConcluidos < totalModulos) {
@@ -34,8 +34,11 @@ async function verificarAcessoCertificado() {
     }
 
     const notas = historico.map((modulo) => {
-      if (!modulo.tentativas || modulo.tentativas.length === 0) return null;
-      return Math.max(...modulo.tentativas.map((t) => Number(t.nota) || 0));
+      const tentativasConcluidas = modulo.tentativas
+        ? modulo.tentativas.filter((t) => (Number(t.respostas_respondidas) || 0) > 0)
+        : [];
+      if (tentativasConcluidas.length === 0) return null;
+      return Math.max(...tentativasConcluidas.map((t) => Number(t.nota) || 0));
     });
 
     const notasValidas = notas.filter((nota) => nota !== null);

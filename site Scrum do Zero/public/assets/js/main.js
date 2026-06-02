@@ -27,9 +27,12 @@ async function fetchDadosModulo(idModulo) {
   console.log("modulo encontrado:", modulo);
 
   const tentativas = modulo?.tentativas_restantes ?? 2;
-  const pontos = modulo
-    ? Math.max(...modulo.tentativas.map((t) => t.nota), 0)
-    : 0;
+  const completedAttempts = modulo
+    ? modulo.tentativas.filter((t) => (Number(t.respostas_respondidas) || 0) > 0)
+    : [];
+  const pontos = completedAttempts.length
+    ? Math.max(...completedAttempts.map((t) => Number(t.nota) || 0))
+    : "-";
 
   return { tentativas, pontos };
 }
