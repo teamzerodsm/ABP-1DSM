@@ -15,7 +15,7 @@
 }
 
 .hero h2 span {
-  color: #55C447;
+  color: var(--mainGreen);
 }
 
 .hero p {
@@ -52,7 +52,7 @@
 
 .level-btn:hover {
   background: rgba(0, 255, 94, 0.12);
-  border-color: #55C447;
+  border-color: var(--mainGreen);
   box-shadow:0 0 12px rgba(0, 255, 94, 0.35);
   transform: translateY(-2px);
 }
@@ -151,4 +151,4 @@
   background-color: rgba(255, 255, 255, 0.02) !important;
   box-shadow: none !important;
   transform: none !important;
-}
+}
