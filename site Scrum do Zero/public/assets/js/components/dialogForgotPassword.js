@@ -5,8 +5,8 @@ class ForgotPasswordDialog extends HTMLElement {
         <div class="forgot-password-content">
           <!-- PASSO 1: EMAIL -->
           <div class="step step-1 active">
-            <h2>Recuperar Senha</h2>
-            <p>Digite seu email para receber um código de recuperação</p>
+            <h2 class="dialog-title">Recuperar Senha</h2>
+            <p class="dialog-description">Digite seu email para receber um código de recuperação</p>
             
             <div class="form-group">
               <label for="forgot-email">Email cadastrado:</label>
@@ -15,15 +15,15 @@ class ForgotPasswordDialog extends HTMLElement {
             </div>
 
             <div class="dialog-actions">
-              <button class="secondary-button btn-cancel" id="btn-cancel-forgot">Cancelar</button>
-              <button class="secondary-button btn-proceed" id="btn-send-code">Enviar código</button>
+              <button class="btn-cancelar btn-cancel" id="btn-cancel-forgot">Cancelar</button>
+              <button class="btn-prosseguir" id="btn-send-code">Enviar código</button>
             </div>
           </div>
 
           <!-- PASSO 2: CÓDIGO -->
           <div class="step step-2">
-            <h2>Verificar Código</h2>
-            <p>Digite o código enviado para seu email</p>
+            <h2 class="dialog-title">Verificar Código</h2>
+            <p class="dialog-description">Digite o código enviado para seu email</p>
             
             <div class="form-group">
               <label for="forgot-code">Código de recuperação:</label>
@@ -33,15 +33,15 @@ class ForgotPasswordDialog extends HTMLElement {
             </div>
 
             <div class="dialog-actions">
-              <button class="secondary-button btn-back" id="btn-back-email">Voltar</button>
-              <button class="secondary-button btn-proceed" id="btn-verify-code">Verificar</button>
+              <button class="btn-cancelar btn-back" id="btn-back-email">Voltar</button>
+              <button class="btn-prosseguir" id="btn-verify-code">Verificar</button>
             </div>
           </div>
 
           <!-- PASSO 3: NOVA SENHA -->
           <div class="step step-3">
-            <h2>Nova Senha</h2>
-            <p>Digite sua nova senha</p>
+            <h2 class="dialog-title">Nova Senha</h2>
+            <p class="dialog-description">Digite sua nova senha</p>
             
             <div class="form-group">
               <label for="forgot-password">Nova senha:</label>
@@ -56,19 +56,19 @@ class ForgotPasswordDialog extends HTMLElement {
             </div>
 
             <div class="dialog-actions">
-              <button class="secondary-button btn-cancel" id="btn-cancel-password">Cancelar</button>
-              <button class="secondary-button btn-proceed" id="btn-reset-password">Alterar Senha</button>
+              <button class="btn-cancelar btn-cancel" id="btn-cancel-password">Cancelar</button>
+              <button class="btn-prosseguir" id="btn-reset-password">Alterar Senha</button>
             </div>
           </div>
 
           <!-- SUCESSO -->
           <div class="step step-success">
             <div class="success-icon">✓</div>
-            <h2>Senha Alterada!</h2>
-            <p>Sua senha foi alterada com sucesso. Faça login com sua nova senha.</p>
+            <h2 class="dialog-title">Senha Alterada!</h2>
+            <p> class="class="dialog-description"Sua senha foi alterada com sucesso. Faça login com sua nova senha.</p>
             
-            <div class="dialog-actions">
-              <button class="secondary-button btn-proceed" id="btn-close-success">Fechar</button>
+            <div class="dialog-actions ">
+              <button class="btn-prosseguir btn-finished" id="btn-close-success">Fechar</button>
             </div>
           </div>
         </div>
