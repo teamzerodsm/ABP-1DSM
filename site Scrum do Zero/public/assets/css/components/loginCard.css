@@ -53,7 +53,7 @@
 }
 
 .error-message {
-    color: hsl(0, 66%, 54%);
+    color: var(--errorColorLoginCard);
 }
 
 .error-message-2{
