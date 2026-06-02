@@ -21,10 +21,15 @@
     height: 40px;
     z-index: 2000;
     transition: transform 0.2s ease;
-} 
+}
 
 .logo-img-header:hover {
     transform: scale(1.08);
+}
+
+/* Tooltip para logo mobile */
+.div-header > a::after {
+    bottom: -38px;
 }
 
 .certificado-wrapper {
@@ -107,6 +112,41 @@
     transform: scale(1.02);
 }
 
+/* Tooltips mobile */
+.nav-links a::after {
+    bottom: -38px;
+}
+
+/* Tooltips */
+.btn-with-tooltip {
+    position: relative;
+}
+
+.btn-with-tooltip::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.9);
+    color: #fff;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 13px;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+    z-index: 1001;
+    pointer-events: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.btn-with-tooltip:hover::after {
+    opacity: 1;
+    visibility: visible;
+}
+
 .menu-icon {
     display: flex;
     flex-direction: column;
@@ -157,6 +197,12 @@
         height: 44px;
     }
 
+    /* Tooltip para logo */
+    .div-header > a::after {
+        bottom: -40px;
+        font-size: 13px;
+    }
+
     .nav-links {
         display: flex;
         position: static;
@@ -186,6 +232,19 @@
         transform: translateY(-2px) scale(1.10);
     }
 
+    /* Tooltips desktop */
+    .nav-links a::after {
+        bottom: -45px;
+    }
+
+    /* Quebra de linha apenas no tooltip do botão sair em tablets */
+    #logoutLink::after {
+        white-space: normal;
+        max-width: 100px;
+        text-align: center;
+        line-height: 1.3;
+    }
+
 }
 
 @media screen and (min-width: 1024px) {
@@ -205,6 +264,17 @@
 
     .nav-links a {
         font-size: 1rem;
+    }
+
+    /* Tooltip para logo em telas grandes */
+    .div-header > a::after {
+        bottom: -42px;
+    }
+
+    /* Remove quebra de linha no botão sair em telas grandes */
+    #logoutLink::after {
+        white-space: nowrap;
+        max-width: none;
     }
 
 }

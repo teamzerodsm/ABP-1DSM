@@ -4,15 +4,15 @@
 
     this.innerHTML = `
             <div class="div-header">
-                <a href="/main"><img class="logo-img-header" src="assets/img/logo_scrumdozero.svg" alt="Logo Scrum Zero"/></a>
+                <a href="/main" class="btn-with-tooltip" data-tooltip="Página Inicial"><img class="logo-img-header" src="assets/img/logo_scrumdozero.svg" alt="Logo Scrum Zero"/></a>
 
                 <nav class="nav-links" id="navLinks">
-                    <a href="/progresso">Histórico</a>
-                    <a href="/perfil">Perfil</a>
+                    <a href="/progresso" class="btn-with-tooltip" data-tooltip="Ver seu histórico de progresso">Histórico</a>
+                    <a href="/perfil" class="btn-with-tooltip" data-tooltip="Acessar seu perfil">Perfil</a>
                     <span class="certificado-wrapper">
-                        <a href="/certificado" id="btnCertificado" class="link-certificado">Certificado</a>
+                        <a href="/certificado" id="btnCertificado" class="link-certificado btn-with-tooltip" data-tooltip="Gerar seu certificado">Certificado</a>
                     </span>
-                    <a href="#" id="logoutLink"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-square-arrow-right-exit-icon lucide-square-arrow-right-exit"><path d="M10 12h11"/><path d="m17 16 4-4-4-4"/><path d="M21 6.344V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-1.344"/></svg></a>
+                    <a href="#" id="logoutLink" class="btn-with-tooltip" data-tooltip="Sair da conta"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-square-arrow-right-exit-icon lucide-square-arrow-right-exit"><path d="M10 12h11"/><path d="m17 16 4-4-4-4"/><path d="M21 6.344V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-1.344"/></svg></a>
                 </nav>
 
                 <div class="menu-icon" id="menuIcon">
