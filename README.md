@@ -19,6 +19,7 @@
 ---
 
 ## 📋 Índice
+
 <details open>
   <summary><b>Sumário do Projeto</b></summary>
 
@@ -143,7 +144,6 @@ graph LR
 
 ---
 
-
 ### 🛠️ Ferramentas utilizadas
 
 <table align="center">
@@ -256,9 +256,9 @@ cd '.\ABP-1DSM\site Scrum do Zero\'
 npm install
 ```
 
-#### Configure o arquivo ``.env``
+#### Configure o arquivo `.env`
 
-preencha as seguintes configurações do seu banco de dados no arquivo ``ABP-1DSM/site Scrum do Zero/.env``
+preencha as seguintes configurações do seu banco de dados no arquivo `ABP-1DSM/site Scrum do Zero/.env`
 
 ```bash
 PORT= ****
@@ -803,12 +803,12 @@ graph TD
 | Implementar funcionalidade de logout do usuário                                                              | Jaqueline         | 3      | Média      |
 | Implementar reinicialização de progresso com dupla confirmação                                               | Igor              | 8      | Média      |
 | Refinar interface visual, responsividade e experiência de navegação do usuário                               | Vitor, Paulo      | 12     | Média      |
-| Refatorar estrutura geral do projeto                                                                         |                   | 15     | Alta       |
+| Refatorar estrutura geral do projeto                                                                         | Jaqueline         | 15     | Alta       |
 | Adicionar imagens e documentação visual no README                                                            | Henrique, Gabriel | 5      | Média      |
 | Revisar documentação técnica e estrutura do repositório                                                      | Henrique, Gabriel | 5      | Média      |
-| Executar testes finais de fluxo do sistema                                                                   |                   | 10     | Alta       |
+| Executar testes finais de fluxo do sistema                                                                   | Henrique, Vitor   | 10     | Alta       |
 | Corrigir bugs e inconsistências finais                                                                       | Jaqueline         | 12     | Alta       |
-| Implementar fluxo de recuperação e redefinição de senha para usuários                                        |                   | 8      | Baixa      |
+| Implementar fluxo de recuperação e redefinição de senha para usuários                                        | Paulo             | 8      | Baixa      |
 
 ### 🔥 Burndown Sprint 3
 
