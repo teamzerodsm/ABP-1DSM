@@ -22,6 +22,10 @@ async function fazerCadastro() {
         return mostrarFeedback("Nome, CPF e senha são obrigatórios.", "error")
     }
 
+    if (!validarCpf(cpf)) {
+        return mostrarFeedback("CPF inválido. Digite um CPF válido com 11 números.", "error")
+    }
+
     if (senha.length < 6) {
         return mostrarFeedback("A senha deve ter pelo menos 6 caracteres.", "error")
     }

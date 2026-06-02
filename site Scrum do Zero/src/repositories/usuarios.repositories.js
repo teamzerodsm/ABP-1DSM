@@ -1,10 +1,7 @@
 const pool = require("../database/db");
 const { randomBytes } = require("crypto")
 const { hashPassword, verifyPassword } = require("../utils/password")
-
-function sanitizeCpf(cpf) {
-    return cpf ? cpf.toString().replace(/\D/g, '') : cpf
-}
+const { sanitizeCpf } = require("../utils/cpf")
 
 //Função inserir usuário no banco de dados | é chamada pelo método createUsuario
 async function insertUsuario(client, nome, email, cpf, senha) {

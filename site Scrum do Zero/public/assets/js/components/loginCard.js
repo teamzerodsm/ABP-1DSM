@@ -48,6 +48,30 @@ class loginCard extends HTMLElement {
     this.formLogin = this.querySelector(".form-login");
     this.eyeBtn = this.querySelector(".lnr-eye");
 
+    const validarCpf = (cpf) => {
+      const cpfLimpo = cpf.replace(/\D/g, '');
+      if (cpfLimpo.length !== 11) return false;
+      if (/^(\d)\1{10}$/.test(cpfLimpo)) return false;
+
+      let soma = 0;
+      for (let i = 1; i <= 9; i++) {
+        soma += parseInt(cpfLimpo.substring(i - 1, i)) * (11 - i);
+      }
+      let resto = (soma * 10) % 11;
+      if (resto === 10 || resto === 11) resto = 0;
+      if (resto !== parseInt(cpfLimpo.substring(9, 10))) return false;
+
+      soma = 0;
+      for (let i = 1; i <= 10; i++) {
+        soma += parseInt(cpfLimpo.substring(i - 1, i)) * (12 - i);
+      }
+      resto = (soma * 10) % 11;
+      if (resto === 10 || resto === 11) resto = 0;
+      if (resto !== parseInt(cpfLimpo.substring(10, 11))) return false;
+
+      return true;
+    };
+
     function showError(element, message) {
       const formGroup = element.closest('.form-group') || element.parentElement;
       const error = formGroup ? formGroup.querySelector(".error-message") : null;
@@ -84,11 +108,6 @@ class loginCard extends HTMLElement {
 
       const cpfValue = this.inputCpf.value.replace(/\D/g, "").trim();
       const passwordValue = this.inputPassword.value.trim();
-
-      if (!hasError && cpfValue.length !== 11) {
-        showError(this.inputCpf, "Digite um CPF válido com 11 números.");
-        hasError = true;
-      }
 
       if (hasError) {
         return;
