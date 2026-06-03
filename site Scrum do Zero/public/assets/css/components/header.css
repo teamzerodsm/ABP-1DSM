@@ -123,13 +123,14 @@
 }
 
 .btn-with-tooltip::after {
+    display: none;
     content: attr(data-tooltip);
     position: absolute;
     bottom: -40px;
     left: 50%;
     transform: translateX(-50%);
     background: var(--black);
-    color: inherit;
+    color: var(--white);
     padding: 8px 12px;
     border-radius: 6px;
     font-size: 13px;
@@ -277,4 +278,10 @@
         max-width: none;
     }
 
+}
+
+@media screen and (min-width: 768px) {
+    .btn-with-tooltip::after {
+        display: block;
+    }
 }

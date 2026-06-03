@@ -1,0 +1,110 @@
+.audio-player {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 999;
+}
+
+.btn-audio {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(0, 255, 94, 0.15), rgba(0, 255, 94, 0.05));
+  border: 1.5px solid rgba(0, 255, 94, 0.3);
+  color: var(--mainGreen);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 255, 94, 0.1);
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  position: relative;
+}
+
+.btn-audio:hover {
+  background: linear-gradient(135deg, rgba(0, 255, 94, 0.25), rgba(0, 255, 94, 0.1));
+  border-color: rgba(0, 255, 94, 0.5);
+  box-shadow: 0 6px 20px rgba(0, 255, 94, 0.2);
+  transform: translateY(-2px);
+}
+
+.btn-audio:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(0, 255, 94, 0.15);
+}
+
+/* Ícones */
+.btn-audio svg {
+  width: 32px;
+  height: 32px;
+  transition: opacity 0.3s ease;
+  position: absolute;
+  stroke: var(--white);
+}
+
+.btn-audio .icon-speaker-on,
+.btn-audio .icon-speaker-muted {
+  opacity: 0;
+}
+
+/* Quando está tocando */
+.btn-audio.tocando .icon-speaker-on {
+  opacity: 1;
+}
+
+.btn-audio.tocando .icon-speaker-muted {
+  opacity: 0;
+}
+
+/* Quando está mutado (padrão) */
+.btn-audio.mutado .icon-speaker-muted {
+  opacity: 1;
+}
+
+.btn-audio.mutado .icon-speaker-on {
+  opacity: 0;
+}
+
+/* Tooltip posicionado para o player */
+.audio-player .btn-audio::after {
+  display: none;
+  bottom: auto;
+  top: -50px;
+  right: 0;
+  left: auto;
+  transform: none;
+  font-size: 13px;
+  max-width: calc(100vw - 4rem);
+  white-space: nowrap;
+  color: var(--white);
+  background: var(--black);
+  text-align: right;
+}
+
+@media screen and (min-width: 768px) {
+  .audio-player .btn-audio::after {
+    display: block;
+  }
+}
+
+/* Responsivo para telas menores */
+@media screen and (max-width: 640px) {
+  .audio-player {
+    bottom: 1.5rem;
+    right: 1.5rem;
+  }
+
+  .btn-audio {
+    width: 48px;
+    height: 48px;
+  }
+
+  .btn-audio .icon-speaker-on,
+  .btn-audio .icon-speaker-off {
+    width: 24px;
+    height: 24px;
+  }
+}
