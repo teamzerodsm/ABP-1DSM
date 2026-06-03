@@ -1,12 +1,12 @@
 const express = require("express");
-const dotenv = require("dotenv");
+//const dotenv = require("dotenv");
 const path = require("path");
 const router = require("./routes");
 
-dotenv.config({
+/*dotenv.config({
   quiet: true,
   path: path.resolve(__dirname, "..", ".env"),
-});
+});*/
 
 const app = express();
 app.use(express.json());
