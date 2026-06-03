@@ -69,6 +69,15 @@ async function carregarExame(exameId) {
   }
 
   questions = adaptarQuestoes(result.data.questions);
+
+  // Recuperar estado anterior se existir
+  const savedState = loadQuizState();
+  if (savedState && savedState.idExame === exameId) {
+    Object.assign(userAnswers, savedState.userAnswers);
+    currentQuestionIndex = savedState.currentQuestionIndex;
+    console.debug("[quiz-page] Estado anterior restaurado");
+  }
+
   renderQuestion();
 }
 
@@ -90,6 +99,15 @@ async function criarExame() {
 
   idExame = result.data.exame.id_exame;
   questions = adaptarQuestoes(result.data.questions);
+
+  // Recuperar estado anterior se existir
+  const savedState = loadQuizState();
+  if (savedState && savedState.idExame === idExame) {
+    Object.assign(userAnswers, savedState.userAnswers);
+    currentQuestionIndex = savedState.currentQuestionIndex;
+    console.debug("[quiz-page] Estado anterior restaurado");
+  }
+
   renderQuestion();
 }
 
@@ -122,6 +140,46 @@ async function iniciarRevisaoPorId(exameId) {
   document.body.classList.add("review-mode");
   document.querySelector(".module-title").innerText = idModulo ? `Módulo ${idModulo}` : "Revisão";
   renderQuestion();
+}
+
+/* =========================================
+   PERSISTÊNCIA
+========================================= */
+
+function getSessionKey() {
+  return `quiz_session_${idExame}`;
+}
+
+function saveQuizState() {
+  const state = {
+    currentQuestionIndex,
+    userAnswers,
+    idExame,
+    idModulo,
+    timestamp: Date.now(),
+  };
+  localStorage.setItem(getSessionKey(), JSON.stringify(state));
+  console.debug("[quiz-page] Estado salvo no localStorage", state);
+}
+
+function loadQuizState() {
+  if (!idExame) return null;
+  const saved = localStorage.getItem(getSessionKey());
+  if (saved) {
+    try {
+      const state = JSON.parse(saved);
+      console.debug("[quiz-page] Estado carregado do localStorage", state);
+      return state;
+    } catch (e) {
+      console.warn("[quiz-page] Erro ao parsear estado salvo", e);
+    }
+  }
+  return null;
+}
+
+function clearQuizState() {
+  localStorage.removeItem(getSessionKey());
+  console.debug("[quiz-page] Estado limpo do localStorage");
 }
 
 /* =========================================
@@ -178,6 +236,7 @@ function renderProgress() {
         progress.classList.add("clickable");
         progress.addEventListener("click", () => {
           currentQuestionIndex = index;
+          saveQuizState();
           renderQuestion();
         });
       }
@@ -244,6 +303,7 @@ function renderQuestion() {
         document.querySelectorAll(".option").forEach((opt) => opt.classList.remove("selected"));
         option.classList.add("selected");
         userAnswers[currentQuestionIndex] = letter;
+        saveQuizState();
         updateButtons();
       });
     }
@@ -303,6 +363,7 @@ nextBtn.addEventListener("click", async () => {
   }
 
   currentQuestionIndex++;
+  saveQuizState();
   renderQuestion();
 });
 
@@ -313,6 +374,7 @@ nextBtn.addEventListener("click", async () => {
 prevBtn.addEventListener("click", () => {
   if (currentQuestionIndex > 0) {
     currentQuestionIndex--;
+    saveQuizState();
     renderQuestion();
   }
 });
@@ -346,6 +408,9 @@ async function mostrarResultado() {
         if (!res.ok) {
           throw new Error(data.message || "Erro ao enviar as respostas.");
         }
+
+        // Limpar estado salvo após enviar com sucesso
+        clearQuizState();
 
         if (typeof dialogComponent.showCompleted === "function") {
           dialogComponent.showCompleted({ mensagem: `Quiz finalizado! Acertos: ${data.score} de ${data.total}`, nota: data.score });
