@@ -307,6 +307,7 @@ router.get("/:id/revisao", authmiddleware, async function (req, res) {
         resposta_usuario: row.resposta,
         nota: row.nota,
         respondido_em: row.respondido_em,
+        imagem: row.imagem || null,
       })),
     });
   } catch (e) {

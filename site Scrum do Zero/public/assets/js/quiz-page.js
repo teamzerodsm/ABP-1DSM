@@ -401,6 +401,7 @@ async function iniciarRevisao() {
         d: item.alternativa_d,
       },
       correct: item.alternativa_correta,
+      imagem: item.imagem && item.imagem !== "NULL" ? item.imagem : null,
     };
   });
 
