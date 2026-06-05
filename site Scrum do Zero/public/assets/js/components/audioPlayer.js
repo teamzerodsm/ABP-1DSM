@@ -1,12 +1,23 @@
+// Singleton global para o áudio
+if (!window.globalAudioPlayer) {
+  window.globalAudioPlayer = {
+    isPlaying: false,
+    buttons: []
+  };
+}
+
 class AudioPlayer extends HTMLElement {
   connectedCallback() {
     this.classList.add("audio-player");
+
+    // Verifica o estado inicial
+    const isPlaying = window.audioManager?.isPlaying?.() || false;
 
     this.innerHTML = `
       <button 
         type="button" 
         id="btnAudio" 
-        class="btn-audio btn-with-tooltip mutado" 
+        class="btn-audio btn-with-tooltip ${isPlaying ? 'tocando' : 'mutado'}" 
         data-tooltip="Tocar/Mutar Rádio Scrum"
         aria-label="Controle de áudio - Rádio Scrum"
       >
@@ -20,29 +31,41 @@ class AudioPlayer extends HTMLElement {
     `;
 
     const btnAudio = this.querySelector("#btnAudio");
-    const audio = new Audio("https://live.hunter.fm/lofi_stream?ag=mp3");
-    audio.preload = "none";
+    window.globalAudioPlayer.buttons.push(btnAudio);
 
-    btnAudio.addEventListener("click", async () => {
-      if (btnAudio.classList.contains("tocando")) {
-        audio.pause();
-        btnAudio.classList.remove("tocando");
-        btnAudio.classList.add("mutado");
-      } else {
-        try {
-          await audio.play();
-          btnAudio.classList.remove("mutado");
-          btnAudio.classList.add("tocando");
-        } catch (err) {
-          console.error("Erro ao tocar áudio:", err);
-        }
+    btnAudio.addEventListener("click", () => {
+      if (window.audioManager) {
+        window.audioManager.toggle();
       }
     });
 
-    audio.addEventListener("pause", () => {
-      btnAudio.classList.remove("tocando");
-      btnAudio.classList.add("mutado");
+    // Escuta mudanças no estado do áudio
+    window.addEventListener('audioStateChanged', (e) => {
+      this.updateAllButtons(e.detail.isPlaying);
     });
+  }
+
+  updateAllButtons(isPlaying) {
+    window.globalAudioPlayer.isPlaying = isPlaying;
+    window.globalAudioPlayer.buttons.forEach(btn => {
+      if (isPlaying) {
+        btn.classList.remove("mutado");
+        btn.classList.add("tocando");
+      } else {
+        btn.classList.remove("tocando");
+        btn.classList.add("mutado");
+      }
+    });
+  }
+
+  disconnectedCallback() {
+    const btn = this.querySelector("#btnAudio");
+    if (btn) {
+      const index = window.globalAudioPlayer.buttons.indexOf(btn);
+      if (index > -1) {
+        window.globalAudioPlayer.buttons.splice(index, 1);
+      }
+    }
   }
 }
 
