@@ -165,6 +165,7 @@ async function findExamReviewById(idExame) {
       q.alternativa_c,
       q.alternativa_d,
       q.alternativa_correta,
+      q.imagem,
       r.resposta,
       r.nota,
       r.respondido_em

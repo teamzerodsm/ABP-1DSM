@@ -412,13 +412,14 @@ async function mostrarResultado() {
         // Limpar estado salvo após enviar com sucesso
         clearQuizState();
 
+        const notaHTML = `Acertos: <span class="nota-score">${data.score}</span> de ${data.total}`;
         if (typeof dialogComponent.showCompleted === "function") {
-          dialogComponent.showCompleted({ mensagem: `Quiz finalizado! Acertos: ${data.score} de ${data.total}`, nota: data.score });
+          dialogComponent.showCompleted({ mensagem: `Quiz finalizado!`, nota: notaHTML });
         } else {
           const mensagemEl = dialogComponent.querySelector("#dialog-quiz-mensagem");
           const notaEl = dialogComponent.querySelector("#dialog-quiz-nota");
-          if (mensagemEl) mensagemEl.innerText = `Quiz finalizado! Acertos: ${data.score} de ${data.total}`;
-          if (notaEl) notaEl.innerText = data.score;
+          if (mensagemEl) mensagemEl.innerText = `Quiz finalizado!`;
+          if (notaEl) notaEl.innerHTML = notaHTML;
           const dialogEl = dialogComponent.querySelector && dialogComponent.querySelector("#dialog-quiz");
           if (dialogEl && dialogEl.showModal) dialogEl.showModal();
         }
@@ -466,6 +467,7 @@ async function iniciarRevisao() {
         d: item.alternativa_d,
       },
       correct: item.alternativa_correta,
+      imagem: item.imagem && item.imagem !== "NULL" ? item.imagem : null,
     };
   });
 
