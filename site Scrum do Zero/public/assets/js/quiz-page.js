@@ -113,7 +113,7 @@ async function iniciarRevisaoPorId(exameId) {
         d: item.alternativa_d
       },
       correct: item.alternativa_correta,
-      imagem: item.imagem || null,
+      imagem: item.imagem && item.imagem !== "NULL" ? item.imagem : null,
     };
   });
 
@@ -209,50 +209,51 @@ function renderQuestion() {
   questionText.innerText = currentQuestion.question;
 
   const questionImg = document.getElementById("questionImg");
-  console.log("imagem:", currentQuestion.imagem, "img el:", questionImg);
   if (currentQuestion.imagem) {
     questionImg.src = `/imagens/questoes/${currentQuestion.imagem}`;
     questionImg.style.display = "block";
+    questionImg.removeAttribute("hidden");
   } else {
-    questionImg.removeAttribute("src");
-    questionImg.style.display = "none";
+  questionImg.removeAttribute("src");
+  questionImg.setAttribute("hidden", "");
+  questionImg.style.display = "none";
+}
+optionsBox.innerHTML = "";
+
+Object.entries(currentQuestion.options).forEach(([letter, text]) => {
+  const option = document.createElement("div");
+  option.classList.add("option");
+
+  const selectedAnswer = userAnswers[currentQuestionIndex];
+
+  if (!reviewMode) {
+    if (selectedAnswer === letter) option.classList.add("selected");
+  } else {
+    option.classList.add("disabled");
+    if (letter === currentQuestion.correct) option.classList.add("correct");
+    if (selectedAnswer === letter && selectedAnswer !== currentQuestion.correct)
+      option.classList.add("wrong");
   }
-  optionsBox.innerHTML = "";
 
-  Object.entries(currentQuestion.options).forEach(([letter, text]) => {
-    const option = document.createElement("div");
-    option.classList.add("option");
-
-    const selectedAnswer = userAnswers[currentQuestionIndex];
-
-    if (!reviewMode) {
-      if (selectedAnswer === letter) option.classList.add("selected");
-    } else {
-      option.classList.add("disabled");
-      if (letter === currentQuestion.correct) option.classList.add("correct");
-      if (selectedAnswer === letter && selectedAnswer !== currentQuestion.correct)
-        option.classList.add("wrong");
-    }
-
-    option.innerHTML = `
+  option.innerHTML = `
       <div class="option-letter">${letter}</div>
       <p class="option-text">${text}</p>
     `;
 
-    if (!reviewMode) {
-      option.addEventListener("click", () => {
-        document.querySelectorAll(".option").forEach((opt) => opt.classList.remove("selected"));
-        option.classList.add("selected");
-        userAnswers[currentQuestionIndex] = letter;
-        updateButtons();
-      });
-    }
+  if (!reviewMode) {
+    option.addEventListener("click", () => {
+      document.querySelectorAll(".option").forEach((opt) => opt.classList.remove("selected"));
+      option.classList.add("selected");
+      userAnswers[currentQuestionIndex] = letter;
+      updateButtons();
+    });
+  }
 
-    optionsBox.appendChild(option);
-  });
+  optionsBox.appendChild(option);
+});
 
-  renderProgress();
-  updateButtons();
+renderProgress();
+updateButtons();
 }
 
 /* =========================================
