@@ -6,8 +6,9 @@ class LevelDialog extends HTMLElement {
       <dialog class='dialog' id="dialog-quiz">
 
         <div class="dialog-quiz-verify">
-          <h3 class="dialog-level-label">Você tem certeza que quer enviar o questionário?</h3>
+          <h3 class="dialog-title">Você tem certeza que quer enviar o questionário?</h3>
 
+          <div class="dialog-actions">
             <a class="btn-cancelar"
               id="btn-retornar-verify"
               href="#">
@@ -19,16 +20,18 @@ class LevelDialog extends HTMLElement {
               href="#">
               Enviar
             </a>
+          </div>
 
         </div>
 
         <div class="dialog-quiz-completed" style="display:none;">
+          <div class="success-icon">✓</div>
 
-          <p class="dialog-level-label"
+          <p class="dialog-title"
             id="dialog-quiz-mensagem">
           </p>
 
-          <p class="dialog-title"
+          <p class="dialog-description"
             id="dialog-quiz-nota">
           </p>
 
@@ -53,8 +56,7 @@ class LevelDialog extends HTMLElement {
       </dialog>
     `;
 
-    this.dialog =
-      this.querySelector("#dialog-quiz");
+    this.dialog = this.querySelector("#dialog-quiz");
 
     this.dialogMensagem = this.querySelector("#dialog-quiz-mensagem");
     this.dialogNota = this.querySelector("#dialog-quiz-nota");
@@ -104,8 +106,7 @@ class LevelDialog extends HTMLElement {
 
     this.dialog.addEventListener("click", (event) => {
 
-      const rect =
-        this.dialog.getBoundingClientRect();
+      const rect = this.dialog.getBoundingClientRect();
 
       const isInDialog =
         event.clientX >= rect.left &&
@@ -114,9 +115,11 @@ class LevelDialog extends HTMLElement {
         event.clientY <= rect.bottom;
 
       if (!isInDialog) {
-
-        this.dialog.close();
-
+        const verify = this.querySelector(".dialog-quiz-verify");
+        const verifyVisible = verify && getComputedStyle(verify).display !== "none";
+        if (verifyVisible) {
+          this.dialog.close();
+        }
       }
 
     });
@@ -132,7 +135,7 @@ class LevelDialog extends HTMLElement {
     this.dialogNota = this.querySelector("#dialog-quiz-nota");
 
     this.dialogMensagem.innerText = dados.mensagem;
-    this.dialogNota.innerText = dados.nota;
+    this.dialogNota.innerHTML = dados.nota || "";
   }
 
   showVerify() {

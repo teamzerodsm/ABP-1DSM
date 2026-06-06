@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Audio Host</title>
+    <style>
+        * { margin: 0; padding: 0; }
+        body { display: none; }
+    </style>
+</head>
+<body>
+    <audio id="audioElement" crossorigin="anonymous" preload="auto">
+        <source src="https://live.hunter.fm/lofi_stream?ag=mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        const audio = document.getElementById('audioElement');
+
+        // Escuta comandos via postMessage
+        window.addEventListener('message', (e) => {
+            if (!e.data || !e.data.type) return;
+
+            if (e.data.type === 'PLAY') {
+                audio.play().catch(err => console.error('Play error:', err));
+            } else if (e.data.type === 'PAUSE') {
+                audio.pause();
+            } else if (e.data.type === 'TOGGLE') {
+                if (audio.paused) {
+                    audio.play().catch(err => console.error('Play error:', err));
+                } else {
+                    audio.pause();
+                }
+            } else if (e.data.type === 'GET_STATE') {
+                e.source.postMessage({
+                    type: 'AUDIO_STATE',
+                    isPlaying: !audio.paused,
+                    currentTime: audio.currentTime
+                }, '*');
+            }
+        });
+
+        // Notifica estado do áudio
+        audio.addEventListener('play', () => {
+            window.parent.postMessage({ type: 'AUDIO_PLAYING' }, '*');
+        });
+
+        audio.addEventListener('pause', () => {
+            window.parent.postMessage({ type: 'AUDIO_PAUSED' }, '*');
+        });
+
+        audio.addEventListener('ended', () => {
+            window.parent.postMessage({ type: 'AUDIO_PAUSED' }, '*');
+        });
+    </script>
+</body>
+</html>

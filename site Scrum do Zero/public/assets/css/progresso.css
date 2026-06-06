@@ -245,16 +245,13 @@
     display: block;
   }
 
-  #col-left{
-    text-align: left;
+  .col-nivel{
+    text-align: center;
   }
   
-  /* ================================================
-     TABLET  ≥ 600px
-     ================================================ */
   @media (min-width: 768px) {
     .progress-hero {
-      text-align: left;
+      text-align: center;
     }
   
     .progress-hero h1 {
@@ -324,13 +321,14 @@
   /* ================================================
      DESKTOP  ≥ 960px
      ================================================ */
-  @media (min-width: 960px) {
+  @media (min-width: 1024px) {
     .progress-container {
       padding: 48px 40px 80px;
     }
   
     .progress-hero {
       margin-bottom: 40px;
+      text-align: start;
     }
   
     .progress-hero h1 {
@@ -379,14 +377,15 @@
     .progress-table {
       font-size: 0.92rem;
     }
-  
+
     .progress-table th,
     .progress-table td {
       padding: 14px 28px;
     }
   
-    .col-nivel {
+    #col-left {
       width: 40%;
+      text-align: left;
     }
   
     .link-date {

@@ -123,6 +123,22 @@ async function findCertificadoByHash(certificadoHash) {
     };
   }
 
+  // Verificar se o usuário atingiu média geral de pelo menos 6.0
+  let sumBest = 0;
+  for (const modulo of modulosConcluidos) {
+    const best = modulo.notasTentativas.length
+      ? Math.max(...modulo.notasTentativas.map((t) => Number(t.nota)))
+      : 0;
+    sumBest += best;
+  }
+  const media = modulos.length > 0 ? sumBest / modulos.length : 0;
+  if (media < 6.0) {
+    return {
+      indisponivel: true,
+      motivo: "certificado indisponível: média final igual ou superior a 6,0 obrigatória (sua média foi " + String(media.toFixed(1)).replace('.', ',') + ")",
+    };
+  }
+
   const periodo = getCertificatePeriod(modulosConcluidos);
 
   return {

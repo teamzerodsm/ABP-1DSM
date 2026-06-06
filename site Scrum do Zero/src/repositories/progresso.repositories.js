@@ -1,10 +1,7 @@
 const pool = require("../database/db");
 const MAX_TENTATIVAS = 2;
 
-/**
- * Retorna histórico detalhado de todos os exames de um usuário com cálculo de notas
- */
-async function findHistoricoExamesPorUsuario(idUsuario) {
+async function findExamHistoryByUsuario(idUsuario) {
   const result = await pool.query(
     `
     SELECT
@@ -152,8 +149,5 @@ async function findTentativasDisponiveisPorModulo(idUsuario, idModulo) {
 }
 
 module.exports = {
-  findHistoricoExamesPorUsuario,
-  findResumoProgressoPorModulo,
-  findProgressoGeral,
-  findTentativasDisponiveisPorModulo,
+  findExamHistoryByUsuario,
 };

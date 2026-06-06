@@ -1,18 +1,9 @@
 .login-card {
     background: var(--darkBlue);
-    /* border: 1px solid #e0e0e0; */
     border-radius: 12px;
     padding: 2rem clamp(14px, 6vw, 1.9rem);
     width: 100%;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-}
-
-.lnr-eye {
-    position: absolute;
-    top: 14px;
-    right: 10px;
-    cursor: pointer;
-    width: 20px;
 }
 
 .login-header {
@@ -62,7 +53,7 @@
 }
 
 .error-message {
-    color: hsl(0, 66%, 54%);
+    color: var(--errorColorLoginCard);
 }
 
 .error-message-2{
@@ -74,6 +65,10 @@
     color: var(--white);
     text-decoration: none;
     margin-top: 5px;
+}
+
+.forgot-password:hover {
+    text-decoration: underline;
 }
 
 .login-button {
@@ -131,10 +126,6 @@
 
     .form-label {
         font-size: 1.2rem;
-    }
-
-    .form-input {
-        font-size: 0.875rem;
     }
 
     .form-input::placeholder {

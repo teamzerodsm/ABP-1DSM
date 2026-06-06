@@ -69,6 +69,15 @@ async function carregarExame(exameId) {
   }
 
   questions = adaptarQuestoes(result.data.questions);
+
+  // Recuperar estado anterior se existir
+  const savedState = loadQuizState();
+  if (savedState && savedState.idExame === exameId) {
+    Object.assign(userAnswers, savedState.userAnswers);
+    currentQuestionIndex = savedState.currentQuestionIndex;
+    console.debug("[quiz-page] Estado anterior restaurado");
+  }
+
   renderQuestion();
 }
 
@@ -90,6 +99,15 @@ async function criarExame() {
 
   idExame = result.data.exame.id_exame;
   questions = adaptarQuestoes(result.data.questions);
+
+  // Recuperar estado anterior se existir
+  const savedState = loadQuizState();
+  if (savedState && savedState.idExame === idExame) {
+    Object.assign(userAnswers, savedState.userAnswers);
+    currentQuestionIndex = savedState.currentQuestionIndex;
+    console.debug("[quiz-page] Estado anterior restaurado");
+  }
+
   renderQuestion();
 }
 
@@ -125,6 +143,46 @@ async function iniciarRevisaoPorId(exameId) {
 }
 
 /* =========================================
+   PERSISTÊNCIA
+========================================= */
+
+function getSessionKey() {
+  return `quiz_session_${idExame}`;
+}
+
+function saveQuizState() {
+  const state = {
+    currentQuestionIndex,
+    userAnswers,
+    idExame,
+    idModulo,
+    timestamp: Date.now(),
+  };
+  localStorage.setItem(getSessionKey(), JSON.stringify(state));
+  console.debug("[quiz-page] Estado salvo no localStorage", state);
+}
+
+function loadQuizState() {
+  if (!idExame) return null;
+  const saved = localStorage.getItem(getSessionKey());
+  if (saved) {
+    try {
+      const state = JSON.parse(saved);
+      console.debug("[quiz-page] Estado carregado do localStorage", state);
+      return state;
+    } catch (e) {
+      console.warn("[quiz-page] Erro ao parsear estado salvo", e);
+    }
+  }
+  return null;
+}
+
+function clearQuizState() {
+  localStorage.removeItem(getSessionKey());
+  console.debug("[quiz-page] Estado limpo do localStorage");
+}
+
+/* =========================================
    ESTADOS
 ========================================= */
 
@@ -144,9 +202,6 @@ const prevBtn = document.getElementById("prevBtn");
 const nextBtn = document.getElementById("nextBtn");
 const dialogComponent = document.querySelector("dialog-quiz");
 
-/* =========================================
-   API
-========================================= */
 function adaptarQuestoes(raw) {
   return raw.map((q) => ({
     id: q.id_questao,
@@ -176,11 +231,15 @@ function renderProgress() {
       if (userAnswers[index]) progress.classList.add("answered");
       if (index === currentQuestionIndex) progress.classList.add("current");
 
-      progress.classList.add("clickable");
-      progress.addEventListener("click", () => {
-        currentQuestionIndex = index;
-        renderQuestion();
-      });
+      // Só permite clicar em perguntas já respondidas ou a atual
+      if (userAnswers[index] || index === currentQuestionIndex) {
+        progress.classList.add("clickable");
+        progress.addEventListener("click", () => {
+          currentQuestionIndex = index;
+          saveQuizState();
+          renderQuestion();
+        });
+      }
 
     } else {
       const acertou = userAnswers[index] === question.correct;
@@ -240,14 +299,15 @@ Object.entries(currentQuestion.options).forEach(([letter, text]) => {
       <p class="option-text">${text}</p>
     `;
 
-  if (!reviewMode) {
-    option.addEventListener("click", () => {
-      document.querySelectorAll(".option").forEach((opt) => opt.classList.remove("selected"));
-      option.classList.add("selected");
-      userAnswers[currentQuestionIndex] = letter;
-      updateButtons();
-    });
-  }
+    if (!reviewMode) {
+      option.addEventListener("click", () => {
+        document.querySelectorAll(".option").forEach((opt) => opt.classList.remove("selected"));
+        option.classList.add("selected");
+        userAnswers[currentQuestionIndex] = letter;
+        saveQuizState();
+        updateButtons();
+      });
+    }
 
   optionsBox.appendChild(option);
 });
@@ -304,6 +364,7 @@ nextBtn.addEventListener("click", async () => {
   }
 
   currentQuestionIndex++;
+  saveQuizState();
   renderQuestion();
 });
 
@@ -314,6 +375,7 @@ nextBtn.addEventListener("click", async () => {
 prevBtn.addEventListener("click", () => {
   if (currentQuestionIndex > 0) {
     currentQuestionIndex--;
+    saveQuizState();
     renderQuestion();
   }
 });
@@ -348,13 +410,17 @@ async function mostrarResultado() {
           throw new Error(data.message || "Erro ao enviar as respostas.");
         }
 
+        // Limpar estado salvo após enviar com sucesso
+        clearQuizState();
+
+        const notaHTML = `Acertos: <span class="nota-score">${data.score}</span> de ${data.total}`;
         if (typeof dialogComponent.showCompleted === "function") {
-          dialogComponent.showCompleted({ mensagem: `Quiz finalizado! Acertos: ${data.score} de ${data.total}`, nota: data.score });
+          dialogComponent.showCompleted({ mensagem: `Quiz finalizado!`, nota: notaHTML });
         } else {
           const mensagemEl = dialogComponent.querySelector("#dialog-quiz-mensagem");
           const notaEl = dialogComponent.querySelector("#dialog-quiz-nota");
-          if (mensagemEl) mensagemEl.innerText = `Quiz finalizado! Acertos: ${data.score} de ${data.total}`;
-          if (notaEl) notaEl.innerText = data.score;
+          if (mensagemEl) mensagemEl.innerText = `Quiz finalizado!`;
+          if (notaEl) notaEl.innerHTML = notaHTML;
           const dialogEl = dialogComponent.querySelector && dialogComponent.querySelector("#dialog-quiz");
           if (dialogEl && dialogEl.showModal) dialogEl.showModal();
         }
@@ -409,7 +475,10 @@ async function iniciarRevisao() {
   reviewMode = true;
   currentQuestionIndex = 0;
   document.body.classList.add("review-mode");
-  dialogComponent.querySelector("#dialog-quiz").close();
+  const dialogQuiz = dialogComponent?.querySelector("#dialog-quiz");
+  if (dialogQuiz && dialogQuiz.open) {
+    dialogQuiz.close();
+  }
   renderQuestion();
 }
 
