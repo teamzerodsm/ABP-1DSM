@@ -231,8 +231,15 @@
     }
 
     .link-section a {
-        color: var(--white);
-        text-decoration: underline;
+        color: var(--black);
+        text-decoration: none;
+        background: var(--green);
+        display: inline-block;
+        margin-top: 12px;
+    }
+
+    .link-section a:hover {
+        background: var(--dark-green);
     }
 
     .right-section {
