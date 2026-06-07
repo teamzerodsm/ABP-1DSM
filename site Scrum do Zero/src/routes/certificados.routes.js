@@ -1,7 +1,7 @@
 const { Router } = require("express");
 const {
   findCertificadoByHash,
-} = require("../repositories/certificados.repositories");
+} = require("../repositories/certificados.repository");
 
 const router = Router();
 

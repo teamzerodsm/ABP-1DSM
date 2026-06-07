@@ -1,5 +1,5 @@
 const {verifyToken} = require("../utils/jwt")
-const {findUsuarioById} = require("../repositories/usuarios.repositories")
+const {findUsuarioById} = require("../repositories/usuarios.repository")
 const {isBlacklisted} = require("../utils/tokenBlacklist")
 
 //Metodo que verifica se o token esta correto, é chamado sempre junto de api's para a verificação antes de realizar qualquer coisa

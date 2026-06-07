@@ -8,7 +8,7 @@ const {
     findUsuarioById,
     verifyUsuarioSenha
 }
-    = require("../repositories/usuarios.repositories");
+    = require("../repositories/usuarios.repository");
 
 const { validarCpf } = require("../utils/cpf");
 const authmiddleware = require("../middlewares/auth.middleware")

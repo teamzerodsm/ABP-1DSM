@@ -66,7 +66,7 @@ const {
   findExamReviewById,
   findExistingResponses,
   insertResponses,
-} = require("../repositories/exames.repositories");
+} = require("../repositories/exames.repository");
 
 const router = Router();
 const MAX_TENTATIVAS = 2;

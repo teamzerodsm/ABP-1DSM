@@ -1,5 +1,5 @@
 const { Router } = require("express")
-const { findUsuarioByCpfAndSenha } = require("../repositories/usuarios.repositories")
+const { findUsuarioByCpfAndSenha } = require("../repositories/usuarios.repository")
 const { createToken } = require("../utils/jwt")
 // Use project's password utils for consistent hashing
 const { hashPassword } = require("../utils/password");
@@ -9,7 +9,7 @@ const {
   verificarCodigo, 
   marcarComoUtilizado,
   atualizarSenha 
-} = require("../repositories/password-recovery.repositories")
+} = require("../repositories/password-recovery.repository")
 const { enviarCodigoRecuperacao } = require("../utils/email")
 const crypto = require("crypto")
 const { addToken } = require("../utils/tokenBlacklist")

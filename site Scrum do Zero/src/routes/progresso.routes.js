@@ -1,6 +1,6 @@
 const { Router } = require("express");
 const authmiddleware = require("../middlewares/auth.middleware");
-const { findExamHistoryByUsuario } = require("../repositories/progresso.repositories");
+const { findExamHistoryByUsuario } = require("../repositories/progresso.repository");
 
 const router = Router();
 const MAX_TENTATIVAS = 2;
