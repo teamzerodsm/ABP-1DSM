@@ -38,6 +38,7 @@ router.post("/", async function (req, res) {
 
         res.send(result);
     } catch (e) {
+
         if (e && e.code == "23505") {
             return res.status(409).json({
                 message: "já existe usuario com os dados informados"
