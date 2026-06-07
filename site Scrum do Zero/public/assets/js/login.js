@@ -17,6 +17,10 @@ async function fazerLogin() {
     if (!cpf || !senha) {
         return mostrarFeedback("Preencha o CPF e a senha.", "error")
     }
+
+    if (!validarCpf(cpf)) {
+        return mostrarFeedback("CPF inválido. Digite um CPF válido com 11 números.", "error")
+    }
  
     btnLogin.disabled    = true
     btnLogin.textContent = "Entrando..."

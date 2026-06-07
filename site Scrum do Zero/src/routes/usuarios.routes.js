@@ -10,6 +10,7 @@ const {
 }
     = require("../repositories/usuarios.repositories");
 
+const { validarCpf } = require("../utils/cpf");
 const authmiddleware = require("../middlewares/auth.middleware")
 
 const router = Router()
@@ -26,6 +27,11 @@ router.post("/", async function (req, res) {
     if (!cpf || !nome || !senha) {
         return res.status(400)
             .json({ message: "Informações invalidas" })
+    }
+
+    if (!validarCpf(cpf)) {
+        return res.status(400)
+            .json({ message: "CPF inválido. Digite um CPF válido com 11 números." })
     }
 
     if (senha.trim().length < 6) {
@@ -75,10 +81,11 @@ router.put("/me", authmiddleware, async function (req, res) {
         return res.status(400).json({ message: "Digite um e-mail válido." })
     }
 
-    const cpfLimpo = cpf.toString().replace(/\D/g, "")
-    if (cpfLimpo.length !== 11) {
-        return res.status(400).json({ message: "Digite um CPF válido com 11 números." })
+    if (!validarCpf(cpf)) {
+        return res.status(400).json({ message: "Digite um CPF válido. O CPF informado é inválido." })
     }
+
+    const cpfLimpo = cpf.replace(/\D/g, "")
 
     try {
         const usuarioAtual = req.usuario

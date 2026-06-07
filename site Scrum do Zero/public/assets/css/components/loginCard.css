@@ -1,6 +1,5 @@
 .login-card {
     background: var(--darkBlue);
-    /* border: 1px solid #e0e0e0; */
     border-radius: 12px;
     padding: 2rem clamp(14px, 6vw, 1.9rem);
     width: 100%;
@@ -54,7 +53,7 @@
 }
 
 .error-message {
-    color: hsl(0, 66%, 54%);
+    color: var(--errorColorLoginCard);
 }
 
 .error-message-2{
@@ -66,6 +65,10 @@
     color: var(--white);
     text-decoration: none;
     margin-top: 5px;
+}
+
+.forgot-password:hover {
+    text-decoration: underline;
 }
 
 .login-button {

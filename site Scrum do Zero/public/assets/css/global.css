@@ -29,6 +29,10 @@
     display: block;
     max-width: 100%;
   }
+
+  input[type="password"]::-ms-reveal {
+    display: none;
+  }
   
   input, button, textarea, select {
     font: inherit;
@@ -57,6 +61,9 @@
 
     --green: #00FF41;
     --dark-green: #14ca41;
+
+    --mainGreen: #55C447;
+
     --darkBlue: #001F3F;
     --blue: #003D5C;
 
@@ -72,6 +79,9 @@
     --grey: #9C9C9C;
 
     --inputTransparent: rgba(255, 255, 255, 0.10);
+
+    --errorColorLoginCard: hsl(0, 66%, 54%);
+    --borderColorLoginCard: #25527f75;
 
     --errorColorText: #8a1f1f;
     --errorColorCol: #cc6b6b;
