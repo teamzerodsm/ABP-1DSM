@@ -3,15 +3,19 @@ const express = require("express");
 const path = require("path");
 const router = require("./routes");
 
+const env = require("./config/env");
+
 /*dotenv.config({
   quiet: true,
   path: path.resolve(__dirname, "..", ".env"),
 });*/
 
+const PORT = env.ports;
+
 const app = express();
 app.use(express.json());
 
-const PORT = process.env.PORT || 3000;
+//const PORT = process.env.PORT || 3000;
 const publicPath = path.join(__dirname, "..", "public");
 const pagesPath = path.join(publicPath, "pages");
 const assetsPath = path.join(publicPath, "assets");
