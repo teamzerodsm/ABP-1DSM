@@ -63,9 +63,6 @@ app.use(function (_req, res) {
   res.redirect("not-found.html");
 });
 
-
-const PORT = env.ports;
-
 app.listen(PORT, function () {
   console.log(`Rodando em http://localhost:${PORT}`);
 });
