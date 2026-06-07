@@ -3,11 +3,6 @@ const express = require("express");
 const path = require("path");
 const router = require("./routes");
 
-const env = require("./config/env");
-
-
-const PORT = env.ports;
-
 const app = express();
 app.use(express.json());
 
@@ -63,6 +58,4 @@ app.use(function (_req, res) {
   res.redirect("not-found.html");
 });
 
-app.listen(PORT, function () {
-  console.log(`Rodando em http://localhost:${PORT}`);
-});
+module.exports = app;
