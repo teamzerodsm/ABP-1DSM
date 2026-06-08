@@ -25,12 +25,13 @@ class LevelDialog extends HTMLElement {
         </div>
 
         <div class="dialog-quiz-completed" style="display:none;">
+          <div class="success-icon">✓</div>
 
           <p class="dialog-title"
             id="dialog-quiz-mensagem">
           </p>
 
-          <p class="dialog-title"
+          <p class="dialog-description"
             id="dialog-quiz-nota">
           </p>
 
@@ -134,7 +135,7 @@ class LevelDialog extends HTMLElement {
     this.dialogNota = this.querySelector("#dialog-quiz-nota");
 
     this.dialogMensagem.innerText = dados.mensagem;
-    this.dialogNota.innerText = dados.nota;
+    this.dialogNota.innerHTML = dados.nota || "";
   }
 
   showVerify() {

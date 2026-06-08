@@ -1,3 +1,5 @@
+@import url(./components/dialogNota.css);
+@import url(./components/dialogForgotPassword.css);
 @import url(./components/dialogNivel.css);
 @import url(./components/dialogCertificado.css);
 @import url(./components/dialogResetar.css);

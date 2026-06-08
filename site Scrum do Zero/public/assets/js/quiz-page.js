@@ -131,7 +131,7 @@ async function iniciarRevisaoPorId(exameId) {
         d: item.alternativa_d
       },
       correct: item.alternativa_correta,
-      imagem: item.imagem || null,
+      imagem: item.imagem && item.imagem !== "NULL" ? item.imagem : null,
     };
   });
 
@@ -268,32 +268,33 @@ function renderQuestion() {
   questionText.innerText = currentQuestion.question;
 
   const questionImg = document.getElementById("questionImg");
-  console.log("imagem:", currentQuestion.imagem, "img el:", questionImg);
   if (currentQuestion.imagem) {
     questionImg.src = `/imagens/questoes/${currentQuestion.imagem}`;
     questionImg.style.display = "block";
+    questionImg.removeAttribute("hidden");
   } else {
-    questionImg.removeAttribute("src");
-    questionImg.style.display = "none";
+  questionImg.removeAttribute("src");
+  questionImg.setAttribute("hidden", "");
+  questionImg.style.display = "none";
+}
+optionsBox.innerHTML = "";
+
+Object.entries(currentQuestion.options).forEach(([letter, text]) => {
+  const option = document.createElement("div");
+  option.classList.add("option");
+
+  const selectedAnswer = userAnswers[currentQuestionIndex];
+
+  if (!reviewMode) {
+    if (selectedAnswer === letter) option.classList.add("selected");
+  } else {
+    option.classList.add("disabled");
+    if (letter === currentQuestion.correct) option.classList.add("correct");
+    if (selectedAnswer === letter && selectedAnswer !== currentQuestion.correct)
+      option.classList.add("wrong");
   }
-  optionsBox.innerHTML = "";
 
-  Object.entries(currentQuestion.options).forEach(([letter, text]) => {
-    const option = document.createElement("div");
-    option.classList.add("option");
-
-    const selectedAnswer = userAnswers[currentQuestionIndex];
-
-    if (!reviewMode) {
-      if (selectedAnswer === letter) option.classList.add("selected");
-    } else {
-      option.classList.add("disabled");
-      if (letter === currentQuestion.correct) option.classList.add("correct");
-      if (selectedAnswer === letter && selectedAnswer !== currentQuestion.correct)
-        option.classList.add("wrong");
-    }
-
-    option.innerHTML = `
+  option.innerHTML = `
       <div class="option-letter">${letter}</div>
       <p class="option-text">${text}</p>
     `;
@@ -308,11 +309,11 @@ function renderQuestion() {
       });
     }
 
-    optionsBox.appendChild(option);
-  });
+  optionsBox.appendChild(option);
+});
 
-  renderProgress();
-  updateButtons();
+renderProgress();
+updateButtons();
 }
 
 /* =========================================
@@ -412,13 +413,14 @@ async function mostrarResultado() {
         // Limpar estado salvo após enviar com sucesso
         clearQuizState();
 
+        const notaHTML = `Acertos: <span class="nota-score">${data.score}</span> de ${data.total}`;
         if (typeof dialogComponent.showCompleted === "function") {
-          dialogComponent.showCompleted({ mensagem: `Quiz finalizado! Acertos: ${data.score} de ${data.total}`, nota: data.score });
+          dialogComponent.showCompleted({ mensagem: `Quiz finalizado!`, nota: notaHTML });
         } else {
           const mensagemEl = dialogComponent.querySelector("#dialog-quiz-mensagem");
           const notaEl = dialogComponent.querySelector("#dialog-quiz-nota");
-          if (mensagemEl) mensagemEl.innerText = `Quiz finalizado! Acertos: ${data.score} de ${data.total}`;
-          if (notaEl) notaEl.innerText = data.score;
+          if (mensagemEl) mensagemEl.innerText = `Quiz finalizado!`;
+          if (notaEl) notaEl.innerHTML = notaHTML;
           const dialogEl = dialogComponent.querySelector && dialogComponent.querySelector("#dialog-quiz");
           if (dialogEl && dialogEl.showModal) dialogEl.showModal();
         }
@@ -466,6 +468,7 @@ async function iniciarRevisao() {
         d: item.alternativa_d,
       },
       correct: item.alternativa_correta,
+      imagem: item.imagem && item.imagem !== "NULL" ? item.imagem : null,
     };
   });
 

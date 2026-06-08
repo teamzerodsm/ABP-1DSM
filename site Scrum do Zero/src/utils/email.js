@@ -1,6 +1,8 @@
 const nodemailer = require('nodemailer');
 
 let transporter = null;
+let testAccount = null;
+let useTestAccount = false;
 
 async function initializeTransporter() {
   if (transporter) return transporter;
@@ -9,24 +11,27 @@ async function initializeTransporter() {
     transporter = nodemailer.createTransport({
       host: process.env.SMTP_HOST,
       port: Number(process.env.SMTP_PORT),
-      secure: true,
+      secure: process.env.SMTP_SECURE === 'true' || Number(process.env.SMTP_PORT) === 465,
       auth: {
         user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASS
-      }
+        pass: process.env.SMTP_PASS,
+      },
     });
+    useTestAccount = false;
+    console.log('📧 Usando SMTP real para envio de email');
   } else {
-    const testAccount = await nodemailer.createTestAccount();
+    testAccount = await nodemailer.createTestAccount();
     transporter = nodemailer.createTransport({
       host: 'smtp.ethereal.email',
       port: 587,
       secure: false,
       auth: {
         user: testAccount.user,
-        pass: testAccount.pass
-      }
+        pass: testAccount.pass,
+      },
     });
-    console.log('📧 Usando conta Ethereal (teste). Visualizar emails: https://ethereal.email');
+    useTestAccount = true;
+    console.log('📧 Usando conta Ethereal (teste) para envio de email');
   }
 
   return transporter;
@@ -35,9 +40,14 @@ async function initializeTransporter() {
 async function enviarCodigoRecuperacao(email, codigo) {
   try {
     const transport = await initializeTransporter();
+    const fromAddress = process.env.EMAIL_FROM || process.env.SMTP_USER || (testAccount && testAccount.user);
+
+    if (!fromAddress) {
+      throw new Error('Remetente de email não configurado. Defina EMAIL_FROM ou SMTP_USER.');
+    }
 
     const info = await transport.sendMail({
-      from: process.env.EMAIL_FROM || process.env.SMTP_USER,
+      from: fromAddress,
       to: email,
       subject: 'Recuperação de Senha - Scrum do Zero',
       html: `
@@ -56,10 +66,17 @@ async function enviarCodigoRecuperacao(email, codigo) {
           <hr style="border: none; border-top: 1px solid #ddd; margin-top: 30px;">
           <p style="color: #999; font-size: 12px;">Scrum do Zero - Plataforma de Certificação</p>
         </div>
-      `
+      `,
     });
 
     console.log('✅ Email enviado:', info.messageId);
+    if (useTestAccount) {
+      const previewUrl = nodemailer.getTestMessageUrl(info);
+      if (previewUrl) {
+        console.log('🔎 Preview de email:', previewUrl);
+      }
+    }
+
     return true;
   } catch (error) {
     console.error('❌ Erro ao enviar email:', error);
@@ -68,5 +85,5 @@ async function enviarCodigoRecuperacao(email, codigo) {
 }
 
 module.exports = {
-  enviarCodigoRecuperacao
+  enviarCodigoRecuperacao,
 };
