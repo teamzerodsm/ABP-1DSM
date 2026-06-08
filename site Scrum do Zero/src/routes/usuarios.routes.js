@@ -1,17 +1,10 @@
 const { Router } = require("express")
-const {
-    createUsuario,
-    updateUsuarioCpf,
-    updateUsuarioNome,
-    updateUsuarioEmail,
-    updateUsuarioSenha,
-    findUsuarioById,
-    verifyUsuarioSenha
-}
-    = require("../repositories/usuarios.repository");
+
+  
 
 const { validarCpf } = require("../utils/cpf");
-const authmiddleware = require("../middlewares/auth.middleware")
+const authmiddleware = require("../middlewares/auth.middleware");
+const { createUsuarioController } = require("../controllers/usuario.controller");
 
 const router = Router()
 
@@ -22,39 +15,7 @@ curl -X POST http://localhost:3000/api/usuarios \
 */
 
 // Rota API para o cadastro, recebe do formulario (req.body) as informações e utiliza do metodo createUsuario
-router.post("/", async function (req, res) {
-    const { nome, email, cpf, senha } = req.body;
-    if (!cpf || !nome || !senha) {
-        return res.status(400)
-            .json({ message: "Informações invalidas" })
-    }
-
-    if (!validarCpf(cpf)) {
-        return res.status(400)
-            .json({ message: "CPF inválido. Digite um CPF válido com 11 números." })
-    }
-
-    if (senha.trim().length < 6) {
-        return res
-            .status(400)
-            .json({ message: "A senha deve ter pelo menos 6 caracteres" })
-    }
-    try {
-        const result = await createUsuario(nome, email, cpf, senha)
-
-        res.send(result);
-    } catch (e) {
-
-        if (e && e.code == "23505") {
-            return res.status(409).json({
-                message: "já existe usuario com os dados informados"
-            })
-        }
-        return res.status(409).json({
-            message: "Problemas internos no servidor"
-        })
-    }
-})
+router.post("/", createUsuarioController);
 
 /* PATCH CPF USUÁRIO
 curl -X PATCH http://localhost:3000/api/usuarios/cpf \
