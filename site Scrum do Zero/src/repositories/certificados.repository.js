@@ -1,7 +1,7 @@
 const pool = require("../database/db");
 const {
   findModulosRespondidosByUsuario,
-} = require("./questoes.repositories");
+} = require("./questoes.repository");
 
 async function findUsuarioByCertificadoHash(certificadoHash) {
   const result = await pool.query(

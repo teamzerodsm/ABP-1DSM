@@ -1,15 +1,17 @@
-const path = require('path');
-const dotenv = require('dotenv');
+const env = require("../config/env");
+
+//const path = require('path');
+//const dotenv = require('dotenv');
 const jwt = require('jsonwebtoken');
 
-dotenv.config({ path: path.resolve(__dirname, "..", "..", ".env") });
+/*dotenv.config({ path: path.resolve(__dirname, "..", "..", ".env") });*/
 
 //Metodo para criação de token utilizando a JWT_SECRET presente no .env
 function createToken(payload) {
     return jwt.sign(
         payload,
-        process.env.JWT_SECRET,
-        { expiresIn: Number(process.env.DEFAULT_EXPIRES_IN_SECONDS) }
+        env.jwt.secret,
+        { expiresIn: env.jwt.expiresInSeconds }
     )
 };
 
