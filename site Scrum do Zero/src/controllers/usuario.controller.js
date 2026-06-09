@@ -1,47 +1,151 @@
 const {
-    createUsuario,
-    updateUsuarioCpf,
-    updateUsuarioNome,
-    updateUsuarioEmail,
-    updateUsuarioSenha,
-    findUsuarioById,
-    verifyUsuarioSenha
-}   = require("../repositories/usuarios.repository");
+  createUsuario,
+  updateUsuarioCpf,
+  updateUsuarioNome,
+  updateUsuarioEmail,
+  updateUsuarioSenha,
+  findUsuarioById,
+  verifyUsuarioSenha,
+} = require("../repositories/usuarios.repository");
 
 async function createUsuarioController(req, res) {
-    const { nome, email, cpf, senha } = req.body;
-    if (!cpf || !nome || !senha) {
-        return res.status(400)
-            .json({ message: "Informações invalidas" })
+  const { nome, email, cpf, senha } = req.body;
+  if (!cpf || !nome || !senha) {
+    return res.status(400).json({ message: "Informações invalidas" });
+  }
+
+  if (!validarCpf(cpf)) {
+    return res
+      .status(400)
+      .json({ message: "CPF inválido. Digite um CPF válido com 11 números." });
+  }
+
+  if (senha.trim().length < 6) {
+    return res
+      .status(400)
+      .json({ message: "A senha deve ter pelo menos 6 caracteres" });
+  }
+  try {
+    const result = await createUsuario(nome, email, cpf, senha);
+
+    res.send(result);
+  } catch (e) {
+    if (e && e.code == "23505") {
+      return res.status(409).json({
+        message: "já existe usuario com os dados informados",
+      });
+    }
+    return res.status(409).json({
+      message: "Problemas internos no servidor",
+    });
+  }
+}
+
+async function updateCpfController(req, res) {
+  const idUsuario = req.usuario.id_usuario;
+
+  const { cpf } = req.body;
+  if (!cpf) {
+    return res.status(400).json({ message: "cpf é obrigatório" });
+  }
+
+  try {
+    const result = await updateUsuarioCpf(idUsuario, cpf);
+    if (!result) {
+      return res.status(404).json({ message: "Usuário não encontrado" });
+    }
+    const usuario = await findUsuarioById(result.id_usuario);
+    return res.status(200).json(usuario);
+  } catch (e) {
+    if (e && e.code == "23505") {
+      return res.status(409).json({
+        message: "já existe usuario com o CPF informado",
+      });
+    }
+    return res.status(409).json({
+      message: "Problemas internos no servidor",
+    });
+  }
+}
+
+async function updateNomeController(req, res) {
+  const idUsuario = req.usuario.id_usuario;
+
+  const { nome } = req.body;
+  if (!nome) {
+    return res.status(400).json({ message: "nome é obrigatório" });
+  }
+
+  try {
+    const result = await updateUsuarioNome(idUsuario, nome);
+    if (!result) {
+      return res.status(404).json({ message: "Usuário não encontrado" });
+    }
+    const usuario = await findUsuarioById(result.id_usuario);
+    return res.status(200).json(usuario);
+  } catch (e) {
+    return res.status(409).json({
+      message: "Problemas internos no servidor",
+    });
+  }
+}
+
+async function updateEmailController(req, res) {
+    const idUsuario = req.usuario.id_usuario
+
+    const { email } = req.body
+    if (!email) {
+        return res.status(400).json({ message: "email é obrigatório" })
     }
 
-    if (!validarCpf(cpf)) {
-        return res.status(400)
-            .json({ message: "CPF inválido. Digite um CPF válido com 11 números." })
-    }
-
-    if (senha.trim().length < 6) {
-        return res
-            .status(400)
-            .json({ message: "A senha deve ter pelo menos 6 caracteres" })
-    }
     try {
-        const result = await createUsuario(nome, email, cpf, senha)
-
-        res.send(result);
+        const result = await updateUsuarioEmail(idUsuario, email)
+        if (!result) {
+            return res.status(404).json({ message: "Usuário não encontrado" })
+        }
+        const usuario = await findUsuarioById(result.id_usuario)
+        return res.status(200).json(usuario)
     } catch (e) {
-
         if (e && e.code == "23505") {
             return res.status(409).json({
-                message: "já existe usuario com os dados informados"
+                message: "já existe usuario com o email informado"
             })
         }
         return res.status(409).json({
             message: "Problemas internos no servidor"
         })
     }
-}   
+}
+
+async function updateSenhaController(req, res) {
+    const idUsuario = req.usuario.id_usuario
+
+    const { senha } = req.body
+    if (!senha) {
+        return res.status(400).json({ message: "senha é obrigatória" })
+    }
+    if (senha.trim().length < 6) {
+        return res.status(400).json({ message: "A senha deve ter pelo menos 6 caracteres" })
+    }
+
+    try {
+        const result = await updateUsuarioSenha(idUsuario, senha)
+        if (!result) {
+            return res.status(404).json({ message: "Usuário não encontrado" })
+        }
+        const usuario = await findUsuarioById(result.id_usuario)
+        return res.status(200).json(usuario)
+    } catch (e) {
+        return res.status(409).json({
+            message: "Problemas internos no servidor"
+        })
+    }
+}
 
 module.exports = {
-    createUsuarioController,
-}
+  createUsuarioController,
+  updateCpfController,
+  updateNomeController,
+  updateEmailController,
+    updateSenhaController,
+};
