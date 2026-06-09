@@ -381,7 +381,7 @@ graph TD
 | Igor Corrêa        | Desenvolvedor                | [igorcsouzaa](https://github.com/igorcsouzaa)                     |
 | Jaqueline Medeiros | Desenvolvedor                | [Jaqueline Medeiros](https://github.com/alves-medeiros)           |
 | Tiago Ferreira     | Desenvolvedor                | [tiagof6](https://github.com/tiagof6)                             |
-| Vitor Otavio       | Desenvolvedor                | [VirtusXD](https://github.com/vitorreis-dev)                      |
+| Vitor Otavio       | Desenvolvedor                | [vitorreis-dev](https://github.com/vitorreis-dev)                 |
 | Douglas Silva      | Scrum Master (anteriormente) | [Moraisdouglas](https://github.com/moraisdouglas)                 |
 
 ---
