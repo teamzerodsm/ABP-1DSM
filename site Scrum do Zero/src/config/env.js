@@ -10,15 +10,15 @@ module.exports = {
     ports: process.env.PORT,
 
     database: {
-        host: process.env.POSTGRES_HOST,
-        user: process.env.POSTGRES_USER,
-        password: process.env.POSTGRES_PASSWORD,
-        database: process.env.POSTGRES_DB,
-        port: process.env.POSTGRES_PORT,
+        host: process.env.POSTGRES_HOST || "localhost",
+        user: process.env.POSTGRES_USER || "postgres",
+        password: process.env.POSTGRES_PASSWORD || "postgres",
+        database: process.env.POSTGRES_DB || "scrum_do_zero",
+        port: process.env.POSTGRES_PORT || 5432,
     },
 
 jwt: {
-        secret: process.env.JWT_SECRET,
-        expiresInSeconds: Number(process.env.DEFAULT_EXPIRES_IN_SECONDS)
+        secret: process.env.JWT_SECRET || "seu_secret_key_aqui",
+        expiresInSeconds: Number(process.env.DEFAULT_EXPIRES_IN_SECONDS) || 3600
     }
 };

@@ -1,12 +1,10 @@
 const {
-  createUsuario,
-  updateUsuarioCpf,
-  updateUsuarioNome,
-  updateUsuarioEmail,
-  updateUsuarioSenha,
-  findUsuarioById,
-  verifyUsuarioSenha,
-} = require("../repositories/usuarios.repository");
+  cadastrarUsuario,
+  alterarCPF,
+  alterarNome,
+    alterarEmail,
+    alterarSenha,
+} = require("../services/usuario.service");
 
 async function createUsuarioController(req, res) {
   const { nome, email, cpf, senha } = req.body;
@@ -50,11 +48,11 @@ async function updateCpfController(req, res) {
   }
 
   try {
-    const result = await updateUsuarioCpf(idUsuario, cpf);
-    if (!result) {
+    const usuario = await alterarCPF(idUsuario, cpf);
+    if (!usuario) {
       return res.status(404).json({ message: "Usuário não encontrado" });
     }
-    const usuario = await findUsuarioById(result.id_usuario);
+
     return res.status(200).json(usuario);
   } catch (e) {
     if (e && e.code == "23505") {
@@ -77,11 +75,10 @@ async function updateNomeController(req, res) {
   }
 
   try {
-    const result = await updateUsuarioNome(idUsuario, nome);
-    if (!result) {
+    const usuario = await alterarNome(idUsuario, nome);
+    if (!usuario) {
       return res.status(404).json({ message: "Usuário não encontrado" });
     }
-    const usuario = await findUsuarioById(result.id_usuario);
     return res.status(200).json(usuario);
   } catch (e) {
     return res.status(409).json({
@@ -91,55 +88,55 @@ async function updateNomeController(req, res) {
 }
 
 async function updateEmailController(req, res) {
-    const idUsuario = req.usuario.id_usuario
+  const idUsuario = req.usuario.id_usuario;
 
-    const { email } = req.body
-    if (!email) {
-        return res.status(400).json({ message: "email é obrigatório" })
-    }
+  const { email } = req.body;
+  if (!email) {
+    return res.status(400).json({ message: "email é obrigatório" });
+  }
 
-    try {
-        const result = await updateUsuarioEmail(idUsuario, email)
-        if (!result) {
-            return res.status(404).json({ message: "Usuário não encontrado" })
-        }
-        const usuario = await findUsuarioById(result.id_usuario)
-        return res.status(200).json(usuario)
-    } catch (e) {
-        if (e && e.code == "23505") {
-            return res.status(409).json({
-                message: "já existe usuario com o email informado"
-            })
-        }
-        return res.status(409).json({
-            message: "Problemas internos no servidor"
-        })
+  try {
+    const usuario = await alterarEmail(idUsuario, email);
+    if (!usuario) {
+      return res.status(404).json({ message: "Usuário não encontrado" });
     }
+    return res.status(200).json(usuario);
+  } catch (e) {
+    if (e && e.code == "23505") {
+      return res.status(409).json({
+        message: "já existe usuario com o email informado",
+      });
+    }
+    return res.status(409).json({
+      message: "Problemas internos no servidor",
+    });
+  }
 }
 
 async function updateSenhaController(req, res) {
-    const idUsuario = req.usuario.id_usuario
+  const idUsuario = req.usuario.id_usuario;
 
-    const { senha } = req.body
-    if (!senha) {
-        return res.status(400).json({ message: "senha é obrigatória" })
-    }
-    if (senha.trim().length < 6) {
-        return res.status(400).json({ message: "A senha deve ter pelo menos 6 caracteres" })
-    }
+  const { senha } = req.body;
+  if (!senha) {
+    return res.status(400).json({ message: "senha é obrigatória" });
+  }
+  if (senha.trim().length < 6) {
+    return res
+      .status(400)
+      .json({ message: "A senha deve ter pelo menos 6 caracteres" });
+  }
 
-    try {
-        const result = await updateUsuarioSenha(idUsuario, senha)
-        if (!result) {
-            return res.status(404).json({ message: "Usuário não encontrado" })
-        }
-        const usuario = await findUsuarioById(result.id_usuario)
-        return res.status(200).json(usuario)
-    } catch (e) {
-        return res.status(409).json({
-            message: "Problemas internos no servidor"
-        })
+  try {
+    const usuario = await alterarSenha(idUsuario, senha);
+    if (!usuario) {
+      return res.status(404).json({ message: "Usuário não encontrado" });
     }
+    return res.status(200).json(usuario);
+  } catch (e) {
+    return res.status(409).json({
+      message: "Problemas internos no servidor",
+    });
+  }
 }
 
 module.exports = {
@@ -147,5 +144,5 @@ module.exports = {
   updateCpfController,
   updateNomeController,
   updateEmailController,
-    updateSenhaController,
+  updateSenhaController,
 };
