@@ -97,7 +97,7 @@
 .mobile-login-section {
     min-height: 100vh;
     min-width: clamp(300px, 80%, 450px);
-    padding: 2rem 0;
+    padding: 2rem 1rem;
     align-items: center;
     display: flex;
     justify-content: center;
@@ -231,8 +231,15 @@
     }
 
     .link-section a {
-        color: var(--white);
-        text-decoration: underline;
+        color: var(--black);
+        text-decoration: none;
+        background: var(--green);
+        display: inline-block;
+        margin-top: 12px;
+    }
+
+    .link-section a:hover {
+        background: var(--dark-green);
     }
 
     .right-section {

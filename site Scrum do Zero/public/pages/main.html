@@ -4,11 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="/assets/css/components/audioPlayer.css">
     <script src="/assets/js/token-expiration-manager.js"></script>
     <script src="/assets/js/auth-guard.js"></script>
     <script type="module" src="/assets/js/main.js"></script>
+    <script src="/assets/js/components/dialogCertificado.js"></script>
     <script src="/assets/js/components/header.js"></script>
+    <script src="/assets/js/audio-persistence.js"></script>
+    <script src="/assets/js/components/audioPlayer.js"></script>
     <meta name="description" content="Área principal do aluno — escolha níveis e acompanhe seu aprendizado.">
+    <link rel="icon" type="image/png" href="/assets/img/logo_scrumdozero.svg"/>
     <link rel="canonical" href="/pages/main.html">
     <title>Painel — Scrum do Zero</title>
 </head>
@@ -21,8 +26,8 @@
       <div class="hero">
         <h2>Seja bem vindo ao <span>Scrum do Zero</span></h2>
         <p>Escolha seu nível e avance no seu aprendizado em Scrum de forma prática e progressiva.</p>
-        <p>Cada módulo foi desenvolvido para reforçar seus conhecimentos e preparar você para os próximos desafios.</p>
-        <p>Selecione um nível para começar ou continue de onde parou.</p>
+        <p>Cada etapa foi desenvolvida para reforçar seus conhecimentos e preparar você para os próximos desafios.</p>
+        <p>Selecione uma opção para começar ou continue de onde parou.</p>
       </div>
     
       <div class="levels-card">
@@ -36,6 +41,8 @@
   </main>
 
   <dialog-modules></dialog-modules>
+
+  <audio-player></audio-player>
 
 </body>
 </html>

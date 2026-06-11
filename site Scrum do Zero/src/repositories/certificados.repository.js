@@ -1,7 +1,7 @@
 const pool = require("../database/db");
 const {
   findModulosRespondidosByUsuario,
-} = require("./questoes.repositories");
+} = require("./questoes.repository");
 
 async function findUsuarioByCertificadoHash(certificadoHash) {
   const result = await pool.query(
@@ -120,6 +120,22 @@ async function findCertificadoByHash(certificadoHash) {
     return {
       indisponivel: true,
       motivo: "certificado indisponível: conclusão de todos os módulos obrigatória",
+    };
+  }
+
+  // Verificar se o usuário atingiu média geral de pelo menos 6.0
+  let sumBest = 0;
+  for (const modulo of modulosConcluidos) {
+    const best = modulo.notasTentativas.length
+      ? Math.max(...modulo.notasTentativas.map((t) => Number(t.nota)))
+      : 0;
+    sumBest += best;
+  }
+  const media = modulos.length > 0 ? sumBest / modulos.length : 0;
+  if (media < 6.0) {
+    return {
+      indisponivel: true,
+      motivo: "certificado indisponível: média final igual ou superior a 6,0 obrigatória (sua média foi " + String(media.toFixed(1)).replace('.', ',') + ")",
     };
   }
 

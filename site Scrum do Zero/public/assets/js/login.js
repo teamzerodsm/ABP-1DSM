@@ -1,4 +1,4 @@
-const BASE_URL = "http://localhost:3000/api"
+const BASE_URL = "/api"
  
 // Pega os elementos do HTML
 const btnLogin    = document.getElementById("btn-login")
@@ -16,6 +16,10 @@ async function fazerLogin() {
     // Validação básica no front antes de chamar a API
     if (!cpf || !senha) {
         return mostrarFeedback("Preencha o CPF e a senha.", "error")
+    }
+
+    if (!validarCpf(cpf)) {
+        return mostrarFeedback("CPF inválido. Digite um CPF válido com 11 números.", "error")
     }
  
     btnLogin.disabled    = true

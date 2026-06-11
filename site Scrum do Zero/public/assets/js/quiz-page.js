@@ -1,17 +1,186 @@
-import "./components/dialogNota.js"; 
-const BASE_URL = "http://localhost:3000/api";
+import "./components/dialogNota.js";
+const BASE_URL = "/api";
 const token = localStorage.getItem("token");
 
+if (!token) {
+  window.location.href = "/index";
+}
+
+console.debug("[quiz-page] token present:", !!token);
+
 const headers = {
-  "Content-Type": "application/json",
   Authorization: `Bearer ${token}`,
 };
 
 const params = new URLSearchParams(window.location.search);
 const idModulo = Number(params.get("modulo"));
+const idExameFromUrl = Number(params.get("id_exame"));
+const reviewModeUrl = params.get("review") === "true";
 
 let idExame = null;
 let questions = [];
+
+async function fetchJson(path, options = {}) {
+  console.debug("[quiz-page] fetch", path, options.method || "GET", headers);
+  const response = await fetch(`${BASE_URL}${path}`, Object.assign({}, options, { headers: { ...headers, ...options.headers } }));
+  const data = await response.json().catch(() => ({}));
+  return { response, data };
+}
+
+function getErrorMessage(result, fallback = "Erro ao conectar com o servidor.") {
+  return result.data?.message || fallback;
+}
+
+async function iniciarOuRetomar() {
+  if (reviewModeUrl && idExameFromUrl > 0) {
+    document.querySelector(".module-title").innerText = idModulo ? `Módulo ${idModulo}` : "Revisão";
+    return iniciarRevisaoPorId(idExameFromUrl);
+  }
+
+  if (!idModulo || !Number.isInteger(idModulo)) {
+    alert("Módulo inválido. Retornando ao início.");
+    window.location.href = "/main";
+    return;
+  }
+
+  document.querySelector(".module-title").innerText = `Módulo ${idModulo}`;
+
+  const ativo = await fetchJson(`/exames/ativo/${idModulo}`);
+  if (ativo.response.ok) {
+    idExame = ativo.data.id_exame;
+    return carregarExame(idExame);
+  }
+
+  if (ativo.response.status !== 404) {
+    alert(getErrorMessage(ativo, "Erro ao verificar exame em andamento."));
+    window.location.href = "/main";
+    return;
+  }
+
+  return criarExame();
+}
+
+async function carregarExame(exameId) {
+  const result = await fetchJson(`/exames/${exameId}`);
+  if (!result.response.ok) {
+    alert(getErrorMessage(result, "Erro ao carregar o exame."));
+    window.location.href = "/main";
+    return;
+  }
+
+  questions = adaptarQuestoes(result.data.questions);
+
+  // Recuperar estado anterior se existir
+  const savedState = loadQuizState();
+  if (savedState && savedState.idExame === exameId) {
+    Object.assign(userAnswers, savedState.userAnswers);
+    currentQuestionIndex = savedState.currentQuestionIndex;
+    console.debug("[quiz-page] Estado anterior restaurado");
+  }
+
+  renderQuestion();
+}
+
+async function criarExame() {
+  const result = await fetchJson("/exames", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ id_modulo: idModulo }),
+  });
+
+  if (!result.response.ok) {
+    if (result.response.status === 409 && result.data.message?.includes("em andamento")) {
+      return iniciarOuRetomar();
+    }
+    alert(getErrorMessage(result, "Erro ao iniciar o exame."));
+    window.location.href = "/main";
+    return;
+  }
+
+  idExame = result.data.exame.id_exame;
+  questions = adaptarQuestoes(result.data.questions);
+
+  // Recuperar estado anterior se existir
+  const savedState = loadQuizState();
+  if (savedState && savedState.idExame === idExame) {
+    Object.assign(userAnswers, savedState.userAnswers);
+    currentQuestionIndex = savedState.currentQuestionIndex;
+    console.debug("[quiz-page] Estado anterior restaurado");
+  }
+
+  renderQuestion();
+}
+
+async function iniciarRevisaoPorId(exameId) {
+  const result = await fetchJson(`/exames/${exameId}/revisao`);
+  if (!result.response.ok) {
+    alert(getErrorMessage(result, "Erro ao abrir a revisão do exame."));
+    window.location.href = "/main";
+    return;
+  }
+
+  questions = result.data.items.map((item, i) => {
+    userAnswers[i] = item.resposta_usuario;
+    return {
+      id: item.id_questao,
+      question: item.enunciado,
+      options: {
+        a: item.alternativa_a,
+        b: item.alternativa_b,
+        c: item.alternativa_c,
+        d: item.alternativa_d
+      },
+      correct: item.alternativa_correta,
+      imagem: item.imagem && item.imagem !== "NULL" ? item.imagem : null,
+    };
+  });
+
+  reviewMode = true;
+  currentQuestionIndex = 0;
+  document.body.classList.add("review-mode");
+  document.querySelector(".module-title").innerText = idModulo ? `Módulo ${idModulo}` : "Revisão";
+  renderQuestion();
+}
+
+/* =========================================
+   PERSISTÊNCIA
+========================================= */
+
+function getSessionKey() {
+  return `quiz_session_${idExame}`;
+}
+
+function saveQuizState() {
+  const state = {
+    currentQuestionIndex,
+    userAnswers,
+    idExame,
+    idModulo,
+    timestamp: Date.now(),
+  };
+  localStorage.setItem(getSessionKey(), JSON.stringify(state));
+  console.debug("[quiz-page] Estado salvo no localStorage", state);
+}
+
+function loadQuizState() {
+  if (!idExame) return null;
+  const saved = localStorage.getItem(getSessionKey());
+  if (saved) {
+    try {
+      const state = JSON.parse(saved);
+      console.debug("[quiz-page] Estado carregado do localStorage", state);
+      return state;
+    } catch (e) {
+      console.warn("[quiz-page] Erro ao parsear estado salvo", e);
+    }
+  }
+  return null;
+}
+
+function clearQuizState() {
+  localStorage.removeItem(getSessionKey());
+  console.debug("[quiz-page] Estado limpo do localStorage");
+}
 
 /* =========================================
    ESTADOS
@@ -25,67 +194,15 @@ let reviewMode = false;
    ELEMENTOS
 ========================================= */
 
-const questionNumber  = document.getElementById("questionNumber");
-const questionText    = document.getElementById("questionText");
-const optionsBox      = document.getElementById("optionsBox");
+const questionNumber = document.getElementById("questionNumber");
+const questionText = document.getElementById("questionText");
+const optionsBox = document.getElementById("optionsBox");
 const progressWrapper = document.getElementById("progressWrapper");
-const prevBtn         = document.getElementById("prevBtn");
-const nextBtn         = document.getElementById("nextBtn");
+const prevBtn = document.getElementById("prevBtn");
+const nextBtn = document.getElementById("nextBtn");
 const dialogComponent = document.querySelector("dialog-quiz");
 
-/* =========================================
-   API
-========================================= */
-
-async function iniciarOuRetomar() {
-  const res = await fetch(`${BASE_URL}/exames`, {
-    method: "POST",
-    headers,
-    body: JSON.stringify({ id_modulo: idModulo }),
-  });
-  
-  const data = await res.json();
-
-  if (res.status === 409 && data.message.includes("em andamento")) {
-    await retomarExame();
-    return;
-  }
-
-  if (!res.ok) {
-    alert(data.message);
-    window.location.href = "/main";
-    return;
-  }
-
-  idExame = data.exame.id_exame;
-  questions = adaptarQuestoes(data.questions);
-  renderQuestion();
-}
-
-async function retomarExame() {
-  const res = await fetch(`${BASE_URL}/exames/historico`, { headers });
-  const data = await res.json();
-
-  const modulo = data.find((m) => m.id_modulo == idModulo);
-  const exameAtivo = modulo?.tentativas.find((t) => t.respostas_respondidas === 0);
-
-  if (!exameAtivo) {
-    alert("Erro ao retomar exame.");
-    window.location.href = "/main";
-    return;
-  }
-
-  idExame = exameAtivo.id_exame;
-
-  const res2 = await fetch(`${BASE_URL}/exames/${idExame}`, { headers });
-  const data2 = await res2.json();
-
-  questions = adaptarQuestoes(data2.questions);
-  renderQuestion();
-}
-
 function adaptarQuestoes(raw) {
-  console.log("raw[0]:", raw[0]);
   return raw.map((q) => ({
     id: q.id_questao,
     question: q.enunciado,
@@ -96,9 +213,9 @@ function adaptarQuestoes(raw) {
       d: q.alternativa_d,
     },
     correct: q.alternativa_correta,
+    imagem: q.imagem && q.imagem !== "NULL" ? q.imagem : null,  // ← fix
   }));
 }
-document.querySelector(".module-title").innerText = `Módulo ${idModulo}`;
 /* =========================================
    RENDER PROGRESS
 ========================================= */
@@ -111,14 +228,18 @@ function renderProgress() {
     progress.classList.add("progress");
 
     if (!reviewMode) {
-      if (userAnswers[index])          progress.classList.add("answered");
+      if (userAnswers[index]) progress.classList.add("answered");
       if (index === currentQuestionIndex) progress.classList.add("current");
 
-      progress.classList.add("clickable");
-      progress.addEventListener("click", () => {
-        currentQuestionIndex = index;
-        renderQuestion();
-      });
+      // Só permite clicar em perguntas já respondidas ou a atual
+      if (userAnswers[index] || index === currentQuestionIndex) {
+        progress.classList.add("clickable");
+        progress.addEventListener("click", () => {
+          currentQuestionIndex = index;
+          saveQuizState();
+          renderQuestion();
+        });
+      }
 
     } else {
       const acertou = userAnswers[index] === question.correct;
@@ -144,25 +265,36 @@ function renderQuestion() {
   const currentQuestion = questions[currentQuestionIndex];
 
   questionNumber.innerText = `${currentQuestionIndex + 1} -`;
-  questionText.innerText   = currentQuestion.question;
-  optionsBox.innerHTML     = "";
+  questionText.innerText = currentQuestion.question;
 
-  Object.entries(currentQuestion.options).forEach(([letter, text]) => {
-    const option = document.createElement("div");
-    option.classList.add("option");
+  const questionImg = document.getElementById("questionImg");
+  if (currentQuestion.imagem) {
+    questionImg.src = `/imagens/questoes/${currentQuestion.imagem}`;
+    questionImg.style.display = "block";
+    questionImg.removeAttribute("hidden");
+  } else {
+  questionImg.removeAttribute("src");
+  questionImg.setAttribute("hidden", "");
+  questionImg.style.display = "none";
+}
+optionsBox.innerHTML = "";
 
-    const selectedAnswer = userAnswers[currentQuestionIndex];
+Object.entries(currentQuestion.options).forEach(([letter, text]) => {
+  const option = document.createElement("div");
+  option.classList.add("option");
 
-    if (!reviewMode) {
-      if (selectedAnswer === letter) option.classList.add("selected");
-    } else {
-      option.classList.add("disabled");
-      if (letter === currentQuestion.correct) option.classList.add("correct");
-      if (selectedAnswer === letter && selectedAnswer !== currentQuestion.correct)
-        option.classList.add("wrong");
-    }
+  const selectedAnswer = userAnswers[currentQuestionIndex];
 
-    option.innerHTML = `
+  if (!reviewMode) {
+    if (selectedAnswer === letter) option.classList.add("selected");
+  } else {
+    option.classList.add("disabled");
+    if (letter === currentQuestion.correct) option.classList.add("correct");
+    if (selectedAnswer === letter && selectedAnswer !== currentQuestion.correct)
+      option.classList.add("wrong");
+  }
+
+  option.innerHTML = `
       <div class="option-letter">${letter}</div>
       <p class="option-text">${text}</p>
     `;
@@ -172,15 +304,16 @@ function renderQuestion() {
         document.querySelectorAll(".option").forEach((opt) => opt.classList.remove("selected"));
         option.classList.add("selected");
         userAnswers[currentQuestionIndex] = letter;
+        saveQuizState();
         updateButtons();
       });
     }
 
-    optionsBox.appendChild(option);
-  });
+  optionsBox.appendChild(option);
+});
 
-  renderProgress();
-  updateButtons();
+renderProgress();
+updateButtons();
 }
 
 /* =========================================
@@ -198,10 +331,10 @@ function updateButtons() {
 
   if (currentQuestionIndex === questions.length - 1) {
     nextBtn.innerText = "Finalizar";
-    nextBtn.disabled  = !userAnswers[currentQuestionIndex];
+    nextBtn.disabled = !userAnswers[currentQuestionIndex];
   } else {
     nextBtn.innerText = "Prosseguir";
-    nextBtn.disabled  = false;
+    nextBtn.disabled = false;
   }
 }
 
@@ -231,6 +364,7 @@ nextBtn.addEventListener("click", async () => {
   }
 
   currentQuestionIndex++;
+  saveQuizState();
   renderQuestion();
 });
 
@@ -241,6 +375,7 @@ nextBtn.addEventListener("click", async () => {
 prevBtn.addEventListener("click", () => {
   if (currentQuestionIndex > 0) {
     currentQuestionIndex--;
+    saveQuizState();
     renderQuestion();
   }
 });
@@ -250,48 +385,62 @@ prevBtn.addEventListener("click", () => {
 ========================================= */
 
 async function mostrarResultado() {
-  nextBtn.disabled = true;
+  // Preparar respostas e abrir diálogo de verificação
+  const answers = questions.map((q, index) => ({ id_questao: q.id, resposta: userAnswers[index] }));
 
-  const answers = questions.map((q, index) => ({
-    id_questao: q.id,
-    resposta: userAnswers[index],
-  }));
-  
-  console.log("answers enviados:", answers);
-  console.log("userAnswers:", userAnswers);
-  console.log("questions:", questions.map(q => ({ id: q.id, correct: q.correct })));
+  // Guarda as respostas pendentes no componente para o handler usar
+  dialogComponent._pendingAnswers = answers;
 
-  const res = await fetch(`${BASE_URL}/exames/${idExame}/respostas`, {
-    method: "POST",
-    headers,
-    body: JSON.stringify(answers),
-  });
+  // Anexa o listener de confirmação apenas uma vez
+  if (!dialogComponent._confirmListenerAdded) {
+    dialogComponent.addEventListener("confirm-submit", async () => {
+      if (dialogComponent._sending) return;
+      dialogComponent._sending = true;
+      nextBtn.disabled = true;
+      try {
+        const res = await fetch(`${BASE_URL}/exames/${idExame}/respostas`, {
+          method: "POST",
+          headers: { ...headers, "Content-Type": "application/json" },
+          body: JSON.stringify(dialogComponent._pendingAnswers || []),
+        });
 
-  const data = await res.json();
+        const data = await res.json().catch(() => ({}));
 
-  if (!res.ok) {
-    nextBtn.disabled = false;
-    alert(data.message);
-    return;
+        if (!res.ok) {
+          throw new Error(data.message || "Erro ao enviar as respostas.");
+        }
+
+        // Limpar estado salvo após enviar com sucesso
+        clearQuizState();
+
+        const notaHTML = `Acertos: <span class="nota-score">${data.score}</span> de ${data.total}`;
+        if (typeof dialogComponent.showCompleted === "function") {
+          dialogComponent.showCompleted({ mensagem: `Quiz finalizado!`, nota: notaHTML });
+        } else {
+          const mensagemEl = dialogComponent.querySelector("#dialog-quiz-mensagem");
+          const notaEl = dialogComponent.querySelector("#dialog-quiz-nota");
+          if (mensagemEl) mensagemEl.innerText = `Quiz finalizado!`;
+          if (notaEl) notaEl.innerHTML = notaHTML;
+          const dialogEl = dialogComponent.querySelector && dialogComponent.querySelector("#dialog-quiz");
+          if (dialogEl && dialogEl.showModal) dialogEl.showModal();
+        }
+      } catch (error) {
+        console.error(error);
+        alert(error.message || "Erro ao enviar as respostas.");
+        nextBtn.disabled = false;
+      } finally {
+        dialogComponent._sending = false;
+      }
+    });
+    dialogComponent._confirmListenerAdded = true;
   }
 
-  // verifica se o innerHTML já foi renderizado
-  const mensagemEl = dialogComponent.querySelector("#dialog-quiz-mensagem");
-  const notaEl     = dialogComponent.querySelector("#dialog-quiz-nota");
-  const dialogEl   = dialogComponent.querySelector("#dialog-quiz");
-
-  console.log("mensagemEl:", mensagemEl);
-  console.log("notaEl:", notaEl);
-  console.log("dialogEl:", dialogEl);
-
-  if (!mensagemEl || !notaEl || !dialogEl) {
-    console.error("Elementos do dialog não encontrados. innerHTML:", dialogComponent.innerHTML);
-    return;
+  if (typeof dialogComponent.showVerify === "function") {
+    dialogComponent.showVerify();
+  } else {
+    const dialogEl = dialogComponent.querySelector && dialogComponent.querySelector("#dialog-quiz");
+    if (dialogEl && dialogEl.showModal) dialogEl.showModal();
   }
-
-  mensagemEl.innerText = `Quiz finalizado! Acertos: ${data.score} de ${data.total}`;
-  notaEl.innerText     = data.score;
-  dialogEl.showModal();
 }
 
 /* =========================================
@@ -299,8 +448,13 @@ async function mostrarResultado() {
 ========================================= */
 
 async function iniciarRevisao() {
-  const res  = await fetch(`${BASE_URL}/exames/${idExame}/resultado`, { headers });
-  const data = await res.json();
+  const res = await fetch(`${BASE_URL}/exames/${idExame}/revisao`, { headers });
+  const data = await res.json().catch(() => ({}));
+
+  if (!res.ok) {
+    alert(data.message || "Erro ao carregar a revisão do exame.");
+    return;
+  }
 
   questions = data.items.map((item, i) => {
     userAnswers[i] = item.resposta_usuario;
@@ -314,13 +468,17 @@ async function iniciarRevisao() {
         d: item.alternativa_d,
       },
       correct: item.alternativa_correta,
+      imagem: item.imagem && item.imagem !== "NULL" ? item.imagem : null,
     };
   });
 
   reviewMode = true;
   currentQuestionIndex = 0;
   document.body.classList.add("review-mode");
-  dialogComponent.querySelector("#dialog-quiz").close();
+  const dialogQuiz = dialogComponent?.querySelector("#dialog-quiz");
+  if (dialogQuiz && dialogQuiz.open) {
+    dialogQuiz.close();
+  }
   renderQuestion();
 }
 

@@ -11,18 +11,23 @@ class loginCard extends HTMLElement {
           <form class="form-login">
             <div class="form-group">
               <label for="cpf-area" class="form-label">Seu CPF</label>
-
-              <input class="main-input form-input" name="cpf-area" data-required="Por favor, digite seu CPF" id="cpf-area" type="text" aria-describedby="cpf-error"/>
-
+              <div class="input-box">
+                <input class="main-input form-input" name="cpf-area" data-required="Por favor, digite seu CPF" id="cpf-area" type="text" aria-describedby="cpf-error"/>
+                <svg xmlns="http://www.w3.org/2000/svg" width="34" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-id-card-icon lucide-id-card"><path d="M16 10h2"/><path d="M16 14h2"/><path d="M6.17 15a3 3 0 0 1 5.66 0"/><circle cx="9" cy="11" r="2"/><rect x="2" y="5" width="20" height="14" rx="2"/></svg>
+              </div>
               <p id="cpf-error" class="error-message"></p>
             </div>
       
             <div class="form-group">
               <label for="password-area" class="form-label">Sua senha</label>
-
-              <input class="main-input form-input" name="password-area" id="password-area" type="password" data-required="Por favor, digite sua senha" aria-describedby="password-error">
-
-              <p id="password-error" class="error-message"></p>
+              <div class="input-box">
+                <div class="password-input-container">
+                  <input class="main-input form-input" name="password-area" id="password-area" type="password" data-required="Por favor, digite sua senha" aria-describedby="password-error">
+                  <img alt="Botão para exibir senha" src="assets/img/showPassword.png" class="lnr lnr-eye"/>
+                  <p id="password-error" class="error-message error-message-2"></p>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="34" height="31" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-lock-icon lucide-lock"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                </div>
+              </div>
               <a href="" class="forgot-password">Esqueci minha senha</a>
             </div>
       
@@ -31,8 +36,8 @@ class loginCard extends HTMLElement {
           </form>
       
           <div class="register-link"> 
-            <p>Não tem uma conta?</p> 
-            <a href="cadastro.html">Cadastrar-se</a>
+            <p>Ainda não tem uma conta?</p> 
+            <a href="cadastro.html">Cadastre-se</a>
           </div>
         `
 
@@ -41,19 +46,46 @@ class loginCard extends HTMLElement {
     this.loginError = this.querySelector("#login-error");
     this.allInputs = this.querySelectorAll(".form-input");
     this.formLogin = this.querySelector(".form-login");
+    this.eyeBtn = this.querySelector(".lnr-eye");
+    this.forgotPasswordLink = this.querySelector(".forgot-password");
+
+    const validarCpf = (cpf) => {
+      const cpfLimpo = cpf.replace(/\D/g, '');
+      if (cpfLimpo.length !== 11) return false;
+      if (/^(\d)\1{10}$/.test(cpfLimpo)) return false;
+
+      let soma = 0;
+      for (let i = 1; i <= 9; i++) {
+        soma += parseInt(cpfLimpo.substring(i - 1, i)) * (11 - i);
+      }
+      let resto = (soma * 10) % 11;
+      if (resto === 10 || resto === 11) resto = 0;
+      if (resto !== parseInt(cpfLimpo.substring(9, 10))) return false;
+
+      soma = 0;
+      for (let i = 1; i <= 10; i++) {
+        soma += parseInt(cpfLimpo.substring(i - 1, i)) * (12 - i);
+      }
+      resto = (soma * 10) % 11;
+      if (resto === 10 || resto === 11) resto = 0;
+      if (resto !== parseInt(cpfLimpo.substring(10, 11))) return false;
+
+      return true;
+    };
 
     function showError(element, message) {
-      const error = element.parentElement.querySelector(".error-message");
+      const formGroup = element.closest('.form-group') || element.parentElement;
+      const error = formGroup ? formGroup.querySelector(".error-message") : null;
+      if (!error) return;
 
-      error.classList.add("error-message");
       error.textContent = message;
     }
 
     const clearError = (element) => {
-      const error = element.parentElement.querySelector(".error-message");
+      const formGroup = element.closest('.form-group') || element.parentElement;
+      const error = formGroup ? formGroup.querySelector(".error-message") : null;
 
-      element.classList.remove("error-message");
-      error.textContent = "";
+      if (error) error.textContent = "";
       if (element === this.inputCpf || element === this.inputPassword) {
         this.loginError.textContent = "";
       }
@@ -77,11 +109,6 @@ class loginCard extends HTMLElement {
 
       const cpfValue = this.inputCpf.value.replace(/\D/g, "").trim();
       const passwordValue = this.inputPassword.value.trim();
-
-      if (!hasError && cpfValue.length !== 11) {
-        showError(this.inputCpf, "Digite um CPF válido com 11 números.");
-        hasError = true;
-      }
 
       if (hasError) {
         return;
@@ -117,6 +144,27 @@ class loginCard extends HTMLElement {
         }
       });
     });
+
+    this.eyeBtn.addEventListener("click", () => {
+      if (this.inputPassword.getAttribute("type") == "password") {
+        this.inputPassword.setAttribute("type", "text");
+        this.eyeBtn.setAttribute("src","assets/img/hidePassword.png")
+      } else {
+        this.inputPassword.setAttribute("type", "password");
+        this.eyeBtn.setAttribute("src","assets/img/showPassword.png")
+      }
+    });
+
+    // Integrar com dialog de recuperação de senha
+    if (this.forgotPasswordLink) {
+      this.forgotPasswordLink.addEventListener("click", (e) => {
+        e.preventDefault();
+        const dialogForgotPassword = document.querySelector("dialog-forgot-password");
+        if (dialogForgotPassword && dialogForgotPassword.openDialog) {
+          dialogForgotPassword.openDialog();
+        }
+      });
+    }
   }
 }
 

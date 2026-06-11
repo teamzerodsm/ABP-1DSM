@@ -12,6 +12,10 @@
     margin-bottom: 20px;
 }
 
+.dialog-quiz-completed .nota-score {
+    color: var(--mainGreen);
+}
+
 @media (min-width: 600px) {
 
     .dialog-quiz-mensagem  {
@@ -19,6 +23,15 @@
     }
 
     .dialog-quiz-nota {
+        font-size: 1.25rem;
+    }
+
+    .dialog-quiz-completed .dialog-title{
+        font-size: 1.4rem;
+        font-weight: 600;
+    }
+
+    .dialog-quiz-completed .dialog-description{
         font-size: 1.25rem;
     }
 }

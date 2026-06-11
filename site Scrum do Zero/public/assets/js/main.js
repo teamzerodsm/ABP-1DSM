@@ -13,25 +13,87 @@ const dadosDoBanco = [
 
 async function fetchDadosModulo(idModulo) {
   const token = localStorage.getItem("token");
+  console.debug("[main] fetchDadosModulo token present:", !!token, "idModulo:", idModulo);
   const res = await fetch("/api/progresso/tentativas", {
     headers: { Authorization: `Bearer ${token}` },
   });
+  if (!res.ok) {
+    return { tentativas: 2, pontos: 0 };
+  }
   const historico = await res.json();
-  console.log("historico completo:", historico);  // <-- adiciona isso
+  console.log("historico completo:", historico);
 
   const modulo = historico.find((m) => m.id_modulo == idModulo);
-  console.log("modulo encontrado:", modulo);  // <-- e isso
+  console.log("modulo encontrado:", modulo);
 
   const tentativas = modulo?.tentativas_restantes ?? 2;
-  const pontos = modulo
-    ? Math.max(...modulo.tentativas.map((t) => t.nota), 0)
-    : 0;
+  const completedAttempts = modulo
+    ? modulo.tentativas.filter((t) => (Number(t.respostas_respondidas) || 0) > 0)
+    : [];
+  const pontos = completedAttempts.length
+    ? Math.max(...completedAttempts.map((t) => Number(t.nota) || 0))
+    : "-";
 
   return { tentativas, pontos };
 }
 
+async function atualizarBloqueioNiveis() {
+  const token = localStorage.getItem("token");
+  if (!token) return;
+
+  try {
+    const res = await fetch("/api/progresso/tentativas", {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    if (!res.ok) return;
+
+    const historico = await res.json();
+
+    const completedLevels = historico.filter(m => 
+      m.tentativas.some(t => Number(t.respostas_respondidas) > 0)
+    ).length;
+
+    let sumBest = 0;
+    historico.forEach(m => {
+      const completedAttempts = m.tentativas.filter(t => Number(t.respostas_respondidas) > 0);
+      const best = completedAttempts.length 
+        ? Math.max(...completedAttempts.map(t => Number(t.nota))) 
+        : 0;
+      sumBest += best;
+    });
+    const average = (sumBest / 5).toFixed(1);
+
+    localStorage.setItem("niveisConcluidos", completedLevels);
+    localStorage.setItem("mediaFinal", average);
+    window.dispatchEvent(new Event('progressUpdated'));
+
+    levelBtns.forEach((btn) => {
+      const levelID = Number(btn.dataset.idlevel);
+      if (levelID > 1) {
+        const moduloAnterior = historico.find((m) => Number(m.id_modulo) === levelID - 1);
+        const concluidoAnterior = moduloAnterior && Array.isArray(moduloAnterior.tentativas)
+          ? moduloAnterior.tentativas.some((t) => Number(t.respostas_respondidas) > 0)
+          : false;
+
+        if (!concluidoAnterior) {
+          btn.classList.add("locked");
+          btn.setAttribute("disabled", "true");
+        } else {
+          btn.classList.remove("locked");
+          btn.removeAttribute("disabled");
+        }
+      }
+    });
+  } catch (error) {
+    console.error("Erro ao verificar bloqueio de níveis:", error);
+  }
+}
+
 levelBtns.forEach((btn) => {
   btn.addEventListener("click", async () => {
+    if (btn.classList.contains("locked") || btn.disabled) {
+      return;
+    }
     const levelID = btn.dataset.idlevel;
     const info = dadosDoBanco.find((dado) => dado.id == levelID);
 
@@ -41,3 +103,6 @@ levelBtns.forEach((btn) => {
     dialogComponent.dialog.showModal();
   });
 });
+
+// Executa a verificação ao carregar a página
+atualizarBloqueioNiveis();

@@ -1,4 +1,4 @@
-const BASE_URL = "http://localhost:3000/api"
+const BASE_URL = "/api"
 
 // Pega os elementos do HTML
 const btnCadastro   = document.getElementById("btn-cadastro")
@@ -20,6 +20,10 @@ async function fazerCadastro() {
     // Validações básicas no front antes de chamar a API
     if (!nome || !cpf || !senha) {
         return mostrarFeedback("Nome, CPF e senha são obrigatórios.", "error")
+    }
+
+    if (!validarCpf(cpf)) {
+        return mostrarFeedback("CPF inválido. Digite um CPF válido com 11 números.", "error")
     }
 
     if (senha.length < 6) {
