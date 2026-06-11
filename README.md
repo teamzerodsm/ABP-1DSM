@@ -19,6 +19,7 @@
 ---
 
 ## 📋 Índice
+
 <details open>
   <summary><b>Sumário do Projeto</b></summary>
 
@@ -88,10 +89,6 @@ Este projeto consiste no desenvolvimento de um **portal web para certificação 
 
 A aplicação permite que usuários se cadastrem, realizem avaliações organizadas por níveis de dificuldade e acompanhem sua evolução, culminando na emissão de um certificado com base no desempenho.
 
-<p align="center">
-🚧 Projeto em andamento - Sprint 3 focada em correção de bugs e polimento das funcionalidades da aplicação.
-</p>
-
 ### 🎯 Objetivo Educacional
 
 Integrar, em um único projeto prático, os principais conteúdos do semestre:
@@ -142,7 +139,6 @@ graph LR
 ```
 
 ---
-
 
 ### 🛠️ Ferramentas utilizadas
 
@@ -256,9 +252,9 @@ cd '.\ABP-1DSM\site Scrum do Zero\'
 npm install
 ```
 
-#### Configure o arquivo ``.env``
+#### Configure o arquivo `.env`
 
-preencha as seguintes configurações do seu banco de dados no arquivo ``ABP-1DSM/site Scrum do Zero/.env``
+preencha as seguintes configurações do seu banco de dados no arquivo `ABP-1DSM/site Scrum do Zero/.env`
 
 ```bash
 PORT= ****
@@ -300,7 +296,7 @@ npm run dev
 | ------ | ------------------------------- | ---------- | ---------- | ------ |
 | 01     | <a href="#sprint1">Sprint 1</a> | 13/04/2026 | 30/04/2026 | ✅     |
 | 02     | <a href="#sprint2">Sprint 2</a> | 04/05/2026 | 21/05/2026 | ✅     |
-| 03     | <a href="#sprint3">Sprint 3</a> | 25/05/2026 | 11/06/2026 | 🔄     |
+| 03     | <a href="#sprint3">Sprint 3</a> | 25/05/2026 | 11/06/2026 | ✅     |
 
 #### Legenda
 
@@ -779,7 +775,7 @@ graph TD
 ### ▶️ Vídeo da Sprint 3
 
 <p align="center">
-  <a href="" target="_blank">
+  <a href="https://youtu.be/1rS8T16brNQ?si=OgKwvAnVowPWku1U" target="_blank">
     <img 
       src="./.github/Thumb_video-Sprint03.png" 
       alt="Scrum do Zero - Sprint 3"
@@ -803,12 +799,12 @@ graph TD
 | Implementar funcionalidade de logout do usuário                                                              | Jaqueline         | 3      | Média      |
 | Implementar reinicialização de progresso com dupla confirmação                                               | Igor              | 8      | Média      |
 | Refinar interface visual, responsividade e experiência de navegação do usuário                               | Vitor, Paulo      | 12     | Média      |
-| Refatorar estrutura geral do projeto                                                                         |                   | 15     | Alta       |
+| Refatorar estrutura geral do projeto                                                                         | Jaqueline         | 15     | Alta       |
 | Adicionar imagens e documentação visual no README                                                            | Henrique, Gabriel | 5      | Média      |
 | Revisar documentação técnica e estrutura do repositório                                                      | Henrique, Gabriel | 5      | Média      |
-| Executar testes finais de fluxo do sistema                                                                   |                   | 10     | Alta       |
+| Executar testes finais de fluxo do sistema                                                                   | Henrique, Vitor   | 10     | Alta       |
 | Corrigir bugs e inconsistências finais                                                                       | Jaqueline         | 12     | Alta       |
-| Implementar fluxo de recuperação e redefinição de senha para usuários                                        |                   | 8      | Baixa      |
+| Implementar fluxo de recuperação e redefinição de senha para usuários                                        | Paulo             | 8      | Baixa      |
 
 ### 🔥 Burndown Sprint 3
 
@@ -817,3 +813,41 @@ graph TD
 </p>
 
 ### Sprint Retrospective 3
+
+<details open>
+  <summary><b>🔄 Sprint 2 Retrospective</b></summary>
+  <br>
+
+  <!-- PERGUNTA 1 -->
+  <details>
+    <summary>🟢 1. O que funcionou bem durante o sprint?</summary>
+    <br>
+    <p>
+      A entrega das tarefas ocorreu de forma eficiente durante toda a Sprint. Os integrantes da equipe se dedicaram para cumprir os prazos estabelecidos, permitindo que as atividades fossem concluídas sem grandes atrasos. O acompanhamento do progresso também funcionou bem, mantendo um ritmo constante de desenvolvimento e evitando acúmulo excessivo de tarefas próximo ao encerramento da Sprint.
+    </p>
+  </details>
+
+  <br>
+
+  <!-- PERGUNTA 2 -->
+  <details>
+    <summary>🔴 2. O que não funcionou tão bem durante o sprint?</summary>
+    <br>
+    <p>
+      A equipe ainda estava se adaptando à forma de trabalho e às responsabilidades de cada integrante. Alguns membros possuíam mais experiência em determinadas áreas e conseguiam executar tarefas com maior rapidez, enquanto outros ainda estavam em processo de aprendizado. Isso gerou diferenças no ritmo de desenvolvimento e mostrou oportunidades para uma distribuição ainda mais eficiente das atividades.
+    </p>
+  </details>
+
+  <br>
+
+  <!-- PERGUNTA 3 -->
+  <details>
+    <summary>🔵 3. Quais ações podemos tomar para melhorar no próximo sprint?</summary>
+    <br>
+    <p>
+      A equipe pretende aproveitar melhor os conhecimentos e pontos fortes de cada integrante durante a Poker Planning e a distribuição das tarefas. Além disso, cada membro buscará desenvolver suas habilidades técnicas e compreender melhor suas áreas de maior afinidade. Dessa forma, será possível aumentar a produtividade, reduzir dificuldades durante o desenvolvimento e melhorar ainda mais a colaboração entre os integrantes.
+    </p>
+  </details>
+</details>
+
+---
